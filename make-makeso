@@ -1,0 +1,15 @@
+#!/bin/sh
+echo 'main="$1"; shift';
+sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
+
+case "$sys" in
+  sunos)
+    echo 'rm -f "$main.so"'
+    echo 'ld -G -z text -o "$main.so" ${1+"$@"}';;
+  darwin)
+    echo 'rm -f "$main.dylib"'
+    echo 'libtool -dynamic -o "$main.dylib" ${1+"$@"} -lc';;
+  *)
+    echo 'rm -f "$main.so"'
+    echo 'gcc -shared -Wl,-soname,"$main.so" -o "$main.so" ${1+"$@"} -lc';;
+esac

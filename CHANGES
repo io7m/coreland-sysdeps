@@ -1,0 +1,7 @@
+20060426 version: sysdeps-0.1
+20060426 code: base sysdeps in place (enough for corelib)
+20060426 code: sdl sysdeps added
+20060426 code: png sysdeps added
+20060426 code: ch_flags added with source
+20060426 code: ch_flags unit tests added
+20060429 note: moved to svn

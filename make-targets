@@ -1,0 +1,32 @@
+#!/bin/sh
+
+sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
+
+for i in `ls *.c 2>/dev/null`
+do
+  echo $i | awk -F. '{printf "%s.o ",$1}'
+done
+for i in `ls *.cxx 2>/dev/null`
+do
+  echo $i | awk -F. '{printf "%s.o ",$1}'
+done
+for i in `ls *.sld 2>/dev/null`
+do
+  echo $i | awk -F. '{printf "%s.a ",$1}'
+done
+
+case "$sys" in
+  darwin)
+    for i in `ls *.dld 2>/dev/null`
+    do
+      echo $i | awk -F. '{printf "lib%s.dylib ",$1}'
+    done
+  ;;
+  *)
+    for i in `ls *.dld 2>/dev/null`
+    do
+      echo $i | awk -F. '{printf "%s.so ",$1}'
+    done
+  ;;
+esac
+echo

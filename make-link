@@ -1,0 +1,4 @@
+#!/bin/sh
+LD="`head -n 1 config-ld`"
+echo 'out="$1"; shift'
+echo exec "${LD}" '-o "$out" "$out".o ${1+"$@"} -lm'

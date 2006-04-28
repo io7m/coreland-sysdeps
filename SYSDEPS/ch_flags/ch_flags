@@ -1,0 +1,53 @@
+#!/bin/sh
+
+fout="$1"
+sysdep="$2"
+
+cc -o trychflags trychflags.c >/dev/null 2>&1
+if [ $? -eq 0 ]
+then
+  # have chflags
+  cat > "${fout}" <<EOF
+#ifndef _CH_FLAGS_H
+#define _CH_FLAGS_H
+
+#define HAS_CHFLAGS
+#define FLAGS_WORKING
+
+#endif
+EOF
+  echo "ch_flags:chflags" >> "${sysdep}"
+  exit 0
+fi
+
+# linux does not automatically mean ext2fs, but ext3fs is compatible
+# and seems to be the most commonplace
+# please let me know if there's a more portable alternative
+
+cc -o tryext2 tryext2.c >/dev/null 2>&1
+if [ $? -eq 0 ]
+then
+  # attempt ext2fs ioctl
+  cat > "${fout}" <<EOF
+#ifndef _CH_FLAGS_H
+#define _CH_FLAGS_H
+
+#define HAS_EXT2FS_IOCTL
+#define FLAGS_WORKING
+
+#endif
+EOF
+  echo "ch_flags:ext2fs_ioctl" >> "${sysdep}"
+  exit 0
+fi
+
+# doesn't have filesystem flags (or documented means to set them)
+
+cat > "${fout}" <<EOF
+#ifndef _CH_FLAGS_H
+#define _CH_FLAGS_H
+
+#endif
+EOF
+echo "ch_flags:none" >> "${sysdep}"
+exit 0

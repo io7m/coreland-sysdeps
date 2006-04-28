@@ -1,0 +1,10 @@
+local_pre:
+local:
+local_post:
+local_clean: tests_clean
+
+tests_clean:
+	(cd UNIT_TESTS; make clean)
+
+tests:
+	(cd UNIT_TESTS; make)

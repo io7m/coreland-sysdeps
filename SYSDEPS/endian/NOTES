@@ -1,0 +1,11 @@
+endian
+
+This module creates the appropriate typedef for the endian
+header file.
+
+It does a simple pointer check to see if memory is in little
+endian or big endian format. There are no plans to support
+middle endian byte ordering. The module writes a header file
+on standard out.
+
+It writes an 'endian:' line in sysdeps.out.

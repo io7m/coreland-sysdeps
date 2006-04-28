@@ -1,0 +1,3 @@
+#!/bin/sh
+CC="`head -n 1 config-cc`"
+echo exec "$CC" -c '${1+"$@"}'

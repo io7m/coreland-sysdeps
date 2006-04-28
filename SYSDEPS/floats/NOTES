@@ -1,0 +1,10 @@
+floats
+
+This module creates the appropriate typedef for the floats
+header files.
+
+It does some checks with sizeof() to see which C float
+declarations are 32 and 64 bits in size on this platform.
+The modules writes a header file on standard out.
+
+It writes a 'float32:' and 'float64:' line in sysdeps.out.

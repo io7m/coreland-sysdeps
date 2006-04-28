@@ -1,0 +1,81 @@
+#!/bin/sh
+
+echo="/bin/echo -n"
+
+fatal()
+{
+  echo "fatal: $1" 1>&2
+  exit 111
+}
+
+darwin_libs()
+{
+  lib="libSDLmain.a"
+  str="-framework SDL -framework SDL_image -framework SDL_Mixer -framework Cocoa -framework OpenGL"
+
+  if [ -f "/usr/local/lib/${lib}" ]
+  then
+    alib="/usr/local/lib/${lib}"
+    ${echo} " ${alib} ${str} "
+    return 0
+  fi
+
+  if [ -f "/sw/lib/${lib}" ]
+  then
+    alib="/sw/lib/${lib}"
+    ${echo} " ${alib} ${str} "
+    return 0
+  fi
+  
+  # could not locate libSDLmain.a
+  return 1
+}
+
+sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
+if [ x"$sys" != x ]
+then
+  case "$sys" in
+  darwin)
+    # XXX: darwin doesn't necessarily mean OS X, but there doesn't
+    #      seem to be a reliable way to test for OS X specifically
+    darwin_libs
+    if [ $? -ne 0 ]
+    then
+      fatal "could not locate libSDLmain.a"
+    fi
+
+    exit 0
+  ;;
+  *) ;;
+  esac
+fi
+
+# fall-through generic platform
+# works on FreeBSD 6 at least
+
+# sdl-config supplies libs but not SDL_image
+str="`sdl-config --libs`"
+if [ $? -ne 0 ]
+then
+  fatal "error running sdl-config"
+fi
+
+au="-lSDL_mixer"
+img="-lSDL_image"
+gflag=" -lGL -lGLU"
+
+if [ -f "/usr/X11R7/lib/libGL.so" ]
+then
+  gl="-L/usr/X11R7/lib"
+  ${echo} " ${str} ${img} ${au} ${gl} ${gflag} "
+  return 0
+fi
+
+if [ -f "/usr/X11R6/lib/libGL.so" ]
+then
+  gl="-L/usr/X11R6/lib"
+  ${echo} " ${str} ${img} ${au} ${gl} ${gflag} "
+  return 0
+fi
+    
+fatal "could not locate OpenGL libraries"

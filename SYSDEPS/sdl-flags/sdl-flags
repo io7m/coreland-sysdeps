@@ -1,0 +1,80 @@
+#!/bin/sh
+
+echo="/bin/echo -n"
+
+fatal()
+{
+  echo "fatal: $1" 1>&2
+  exit 111
+}
+
+darwin_flags()
+{
+  flg="-D_THREAD_SAFE"
+
+  # sdl-config gives wrong answers, like /sw/include/SDL instead of the
+  # correct /sw/include.
+
+  if [ -f "/Library/Frameworks/SDL.framework/Headers/SDL.h" ]
+  then
+    ${echo} " -I/Library/Frameworks/SDL.framework/Headers "
+    ${echo} " -I/Library/Frameworks/SDL_image.framework/Headers "
+    ${echo} " -I/Library/Frameworks/SDL_mixer.framework/Headers "
+    return 0
+  fi
+
+  if [ -f "/usr/local/include/SDL/SDL.h" ]
+  then
+    ${echo} " -I/usr/local/include ${flg} "
+    return 0
+  fi
+
+  if [ -f "/sw/include/SDL/SDL.h" ]
+  then
+    ${echo} " -I/sw/include ${flg} "
+    return 0
+  fi
+}
+
+sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
+if [ x"$sys" != x ]
+then
+  case "$sys" in
+  darwin)
+    # XXX: darwin doesn't necessarily mean OS X, but there doesn't
+    #      seem to be a reliable way to test for OS X specifically
+    darwin_flags
+    if [ $? -ne 0 ]
+    then
+      fatal "could not locate SDL includes"
+    fi
+
+    exit 0
+  ;;
+  *) ;;
+  esac
+fi
+
+# fall-through system
+
+cf="`sdl-config --cflags`"
+if [ $? -ne 0 ]
+then
+  fatal "error executing sdl-config"
+fi
+
+if [ -f "/usr/X11R7/include/GL/gl.h" ]
+then
+  gl="-I/usr/X11R7/include"
+  ${echo} " ${cf} ${gl} "
+  exit 0
+fi
+
+if [ -f "/usr/X11R6/include/GL/gl.h" ]
+then
+  gl="-I/usr/X11R6/include"
+  ${echo} " ${cf} ${gl} "
+  exit 0
+fi
+
+fatal "could not locate OpenGL includes"
