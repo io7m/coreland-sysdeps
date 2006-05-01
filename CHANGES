@@ -5,3 +5,4 @@
 20060426 code: ch_flags added with source
 20060426 code: ch_flags unit tests added
 20060429 note: moved to svn
+20060501 code: do not generate sysdeps for .svn directories!
