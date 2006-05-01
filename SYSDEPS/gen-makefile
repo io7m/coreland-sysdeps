@@ -11,6 +11,10 @@ do
 	then 
 		continue
 	fi
+	if [ "${g}" = ".svn" ]
+	then 
+		continue
+	fi
 	if [ ${#g} -eq 0 ]
 	then
 		continue
