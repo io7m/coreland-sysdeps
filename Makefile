@@ -1,20 +1,15 @@
 # auto generated - do not edit
-# cpj-genmk-0.2
+# cpj-genmk-0.3
 
 SHELL=/bin/sh
 default: all
-all: phase_sysdeps_local phase_sysdeps phase_tools_local phase_tools \
-	phase_compile_local phase_compile phase_library_local phase_library \
-	phase_link_local phase_link 
+all: phase_sysdeps phase_tools phase_compile phase_library \
+	phase_link 
 
-tests: phase_test_local phase_test 
+tests: phase_test 
 
-install: phase_install_local phase_install 
-
-install-check: phase_install_check_local phase_install_check 
-
-clean: phase_local_clean phase_sysdeps_clean phase_tools_clean \
-	phase_compile_clean phase_library_clean phase_link_clean 
+clean: phase_sysdeps_clean phase_tools_clean phase_compile_clean \
+	phase_library_clean phase_link_clean phase_test_clean 
 
 
 #--PHASE-SYSDEPS--------------------------------------------------------------
@@ -56,35 +51,11 @@ phase_link_clean:
 
 #--PHASE-TEST-----------------------------------------------------------------
 
-phase_test: 
-phase_test_clean: 
-
-#--PHASE-INSTALL--------------------------------------------------------------
-
-phase_install: 
-phase_install_clean: 
-
-#--PHASE-INSTALL-CHECK--------------------------------------------------------
-
-phase_install_check: 
-phase_install_check_clean: 
-
-#--LOCAL----------------------------------------------------------------------
-
-phase_sysdeps_local:
-phase_tools_local:
-phase_compile_local:
-phase_library_local:
-phase_link_local:
-phase_test_local:
-phase_install_check_local:
-phase_local_clean: tests_clean
-
-tests_clean:
+phase_test_clean:
 	(cd UNIT_TESTS; make clean)
 
-tests:
-	(cd UNIT_TESTS; make)
+phase_test:
+	(cd UNIT_TESTS; make && make tests)
 
 #--SYSDEPS--------------------------------------------------------------------
 

@@ -8,3 +8,4 @@
 20060501 code: do not generate sysdeps for .svn directories!
 20060502 code: renamed makefile-local to Mkfile-local and restructured
                slightly due to cpj-genmk updates.
+20060502 code: further restructuring for cpj-genmk.

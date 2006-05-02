@@ -1,50 +1,75 @@
-# $Id: Makefile,v 1.1 2006/04/26 18:34:31 mzero Exp $
 # auto generated - do not edit
+# cpj-genmk-0.3
 
 SHELL=/bin/sh
 default: all
-all:\
-  local_pre\
-  compile link makelib makeso local \
-  targets objects dlibs slibs execs local_post 
+all: phase_tools_local phase_tools phase_compile_local phase_compile \
+	phase_library_local phase_library phase_link_local phase_link 
 
-dlibs:\
-	
+tests: phase_test_local phase_test 
 
-slibs:\
-	
+clean: phase_local_clean phase_tools_clean phase_compile_clean \
+	phase_library_clean phase_link_clean phase_test_clean 
 
-execs:\
-	t_ch_flags 
 
-t_ch_flags:\
-	link t_ch_flags.o\
-	../ch_flags.a ../open.a 
-	./link t_ch_flags\
-	../ch_flags.a ../open.a 
+#--PHASE-TOOLS----------------------------------------------------------------
 
-objects:\
-	t_ch_flags.o 
+phase_tools: 
+phase_tools_clean: 
 
-#------------------------------------------------------------------
-proj_clean:
+#--PHASE-COMPILE--------------------------------------------------------------
+
+t_ch_flags.o: compile t_ch_flags.c ../ch_flags.h ../uint32.h 
+	./compile t_ch_flags.c 
+phase_compile: t_ch_flags.o 
+phase_compile_clean: 
+	rm -f t_ch_flags.o 
+
+#--PHASE-LIBRARY--------------------------------------------------------------
+
+phase_library: 
+phase_library_clean: 
+
+#--PHASE-LINK-----------------------------------------------------------------
+
+t_ch_flags: link t_ch_flags.ld t_ch_flags.o ../ch_flags.a ../open.a 
+	./link t_ch_flags t_ch_flags.o ../ch_flags.a ../open.a 
+phase_link: t_ch_flags 
+phase_link_clean: 
 	rm -f t_ch_flags 
 
-#------------------------------------------------------------------
-local_pre: tools
-local:
-local_clean: tests_clean toollink_clean
-local_post: list_tests run_tests
+#--PHASE-TEST-----------------------------------------------------------------
+
+phase_test: list_tests run_tests
+phase_test_clean: tests_clean
 
 tests_clean:
 	rm -f testlist
 
+list_tests:
+	./list-tests > testlist
+
+run_tests:
+	./run-tests -v
+
+#--LOCAL----------------------------------------------------------------------
+
+phase_sysdeps_local:
+phase_tools_local: tools
+phase_compile_local:
+phase_library_local:
+phase_link_local:
+phase_test_local:
+phase_install_check_local:
+phase_local_clean: toollink_clean
+
 toollink_clean:
 	rm -f compile link makelib config-cc config-ld shebang make-compile \
-	make-link make-makelib make-targets make-makeso make-targets targets
+	make-link make-makelib make-targets make-makeso make-targets targets \
+	makeso
 
 tools: compile link makeso makelib targets
- 
+
 compile:
 	ln -s ../compile compile
 link:
@@ -58,26 +83,8 @@ make-targets:
 targets: make-targets
 	./make-targets > targets
 
-list_tests:
-	./list-tests > testlist
+#--TOOLS----------------------------------------------------------------------
 
-run_tests:
-	./run-tests -v
-
-#------------------------------------------------------------------
-t_ch_flags.o:\
-	compile t_ch_flags.c\
-	
-	./compile t_ch_flags.c
-
-#------------------------------------------------------------------
-clean: main_clean proj_clean local_clean
-main_clean:
-	cat targets | xargs rm -f
-	rm -f compile link makelib targets makeso\
-	      
 regen:
-	cpj-genmk -s -t > Makefile.tmp
+	cpj-genmk -t -s > Makefile.tmp
 	mv Makefile.tmp Makefile
-#------------------------------------------------------------------
-

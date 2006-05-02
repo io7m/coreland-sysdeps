@@ -1,17 +1,19 @@
-local_pre: tools
-local:
-local_clean: tests_clean toollink_clean
-local_post: list_tests run_tests
-
-tests_clean:
-	rm -f testlist
+phase_sysdeps_local:
+phase_tools_local: tools
+phase_compile_local:
+phase_library_local:
+phase_link_local:
+phase_test_local:
+phase_install_check_local:
+phase_local_clean: toollink_clean
 
 toollink_clean:
 	rm -f compile link makelib config-cc config-ld shebang make-compile \
-	make-link make-makelib make-targets make-makeso make-targets targets
+	make-link make-makelib make-targets make-makeso make-targets targets \
+	makeso
 
 tools: compile link makeso makelib targets
- 
+
 compile:
 	ln -s ../compile compile
 link:
@@ -24,9 +26,3 @@ make-targets:
 	ln -s ../make-targets make-targets
 targets: make-targets
 	./make-targets > targets
-
-list_tests:
-	./list-tests > testlist
-
-run_tests:
-	./run-tests -v

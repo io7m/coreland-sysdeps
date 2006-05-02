@@ -1,0 +1,5 @@
+phase_test_clean:
+	(cd UNIT_TESTS; make clean)
+
+phase_test:
+	(cd UNIT_TESTS; make && make tests)
