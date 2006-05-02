@@ -1,0 +1,14 @@
+phase_sysdeps_local:
+phase_tools_local:
+phase_compile_local:
+phase_library_local:
+phase_link_local:
+phase_test_local:
+phase_install_check_local:
+phase_local_clean: tests_clean
+
+tests_clean:
+	(cd UNIT_TESTS; make clean)
+
+tests:
+	(cd UNIT_TESTS; make)

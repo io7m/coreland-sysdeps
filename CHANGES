@@ -6,3 +6,5 @@
 20060426 code: ch_flags unit tests added
 20060429 note: moved to svn
 20060501 code: do not generate sysdeps for .svn directories!
+20060502 code: renamed makefile-local to Mkfile-local and restructured
+               slightly due to cpj-genmk updates.
