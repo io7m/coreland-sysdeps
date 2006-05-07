@@ -1,18 +1,13 @@
-phase_sysdeps_local:
 phase_tools_local: tools
 phase_compile_local:
 phase_library_local:
 phase_link_local:
-phase_test_local:
-phase_install_check_local:
 phase_local_clean: toollink_clean
 
 toollink_clean:
-	rm -f compile link makelib config-cc config-ld shebang make-compile \
-	make-link make-makelib make-targets make-makeso make-targets targets \
-	makeso
+	rm -f compile link makeso makelib
 
-tools: compile link makeso makelib targets
+tools: compile link makeso makelib
 
 compile:
 	ln -s ../compile compile
@@ -22,7 +17,3 @@ makeso:
 	ln -s ../makeso makeso
 makelib:
 	ln -s ../makelib makelib
-make-targets:
-	ln -s ../make-targets make-targets
-targets: make-targets
-	./make-targets > targets

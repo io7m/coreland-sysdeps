@@ -3,6 +3,8 @@
 #include "open.h"
 #include "uint32.h"
 
+extern int close();
+
 int get_flags(const char *file, uint32 *rflags)
 {
   int fd;

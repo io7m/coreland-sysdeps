@@ -1,1 +1,0 @@
-gcc -Os -fPIC -W -Wall -Wno-long-long -pedantic -ansi

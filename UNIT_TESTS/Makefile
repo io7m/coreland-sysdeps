@@ -1,44 +1,46 @@
 # auto generated - do not edit
-# cpj-genmk-0.3
+# cpj-genmk-0.60
 
 SHELL=/bin/sh
 default: all
-all: phase_tools_local phase_tools phase_compile_local phase_compile \
+all: phase_tools_local phase_compile_local phase_compile \
 	phase_library_local phase_library phase_link_local phase_link 
 
-tests: phase_test_local phase_test 
+tests: phase_test 
 
-clean: phase_local_clean phase_tools_clean phase_compile_clean \
-	phase_library_clean phase_link_clean phase_test_clean 
+clean: phase_local_clean phase_compile_clean phase_library_clean \
+	phase_link_clean phase_test_clean 
 
 
-#--PHASE-TOOLS----------------------------------------------------------------
+#--COMPILE--------------------------------------------------------------------
 
-phase_tools: 
-phase_tools_clean: 
+t_ch_flags.o:\
+	compile t_ch_flags.c ../ch_flags.h ../open.h ../uint32.h 
+	./compile t_ch_flags t_ch_flags.c 
 
-#--PHASE-COMPILE--------------------------------------------------------------
-
-t_ch_flags.o: compile t_ch_flags.c ../ch_flags.h ../uint32.h 
-	./compile t_ch_flags.c 
-phase_compile: t_ch_flags.o 
-phase_compile_clean: 
+phase_compile:\
+	t_ch_flags.o 
+phase_compile_clean:
 	rm -f t_ch_flags.o 
 
-#--PHASE-LIBRARY--------------------------------------------------------------
+#--LIBRARY--------------------------------------------------------------------
 
-phase_library: 
-phase_library_clean: 
 
-#--PHASE-LINK-----------------------------------------------------------------
+phase_library:
+phase_library_clean:
 
-t_ch_flags: link t_ch_flags.ld t_ch_flags.o ../ch_flags.a ../open.a 
+#--LINK-----------------------------------------------------------------------
+
+t_ch_flags:\
+	link t_ch_flags.ld t_ch_flags.o ../ch_flags.a ../open.a 
 	./link t_ch_flags t_ch_flags.o ../ch_flags.a ../open.a 
-phase_link: t_ch_flags 
-phase_link_clean: 
+
+phase_link:\
+	t_ch_flags 
+phase_link_clean:
 	rm -f t_ch_flags 
 
-#--PHASE-TEST-----------------------------------------------------------------
+#--TEST-----------------------------------------------------------------------
 
 phase_test: list_tests run_tests
 phase_test_clean: tests_clean
@@ -54,21 +56,16 @@ run_tests:
 
 #--LOCAL----------------------------------------------------------------------
 
-phase_sysdeps_local:
 phase_tools_local: tools
 phase_compile_local:
 phase_library_local:
 phase_link_local:
-phase_test_local:
-phase_install_check_local:
 phase_local_clean: toollink_clean
 
 toollink_clean:
-	rm -f compile link makelib config-cc config-ld shebang make-compile \
-	make-link make-makelib make-targets make-makeso make-targets targets \
-	makeso
+	rm -f compile link makeso makelib
 
-tools: compile link makeso makelib targets
+tools: compile link makeso makelib
 
 compile:
 	ln -s ../compile compile
@@ -78,13 +75,9 @@ makeso:
 	ln -s ../makeso makeso
 makelib:
 	ln -s ../makelib makelib
-make-targets:
-	ln -s ../make-targets make-targets
-targets: make-targets
-	./make-targets > targets
 
 #--TOOLS----------------------------------------------------------------------
 
 regen:
-	cpj-genmk -t -s > Makefile.tmp
+	cpj-genmk > Makefile.tmp
 	mv Makefile.tmp Makefile

@@ -1,4 +1,17 @@
 #!/bin/sh
-LD="`head -n 1 config-ld`"
+LD="`head -n 1 conf-ld`"
+if [ -f 'conf-ldfflist' ]
+then
+  for f in `cat conf-ldfflist`
+  do
+    name=`echo $f | tr [a-z] [A-Z] | tr '\-\.\,\;\:' '_'`
+    echo ${name}=\"`cat $f`\"
+    ALL_LIBS="${ALL_LIBS} ${name}"
+  done
+fi
 echo 'out="$1"; shift'
-echo exec "${LD}" '-o "$out" ${1+"$@"} -lm'
+echo exec "${LD}" '-o "$out" ${1+"$@"} \'
+for f in ${ALL_LIBS}
+do
+  echo '  "${'$f'}" \'
+done

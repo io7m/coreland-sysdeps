@@ -1,5 +1,10 @@
+#include <stdio.h>
+
 #include "../ch_flags.h"
+#include "../open.h"
 #include "../uint32.h"
+
+extern int close();
 
 int main()
 {
