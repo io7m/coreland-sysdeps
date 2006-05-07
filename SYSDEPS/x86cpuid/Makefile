@@ -7,7 +7,7 @@ tempsys="sysdeps_line.out"
 
 x86cpuid:
 	./x86cpuid.sh ${tempsys}
-	cat ${tempsys} >> ${sd_out}
+	./cat.sh ${tempsys} ${sd_out}
 
 x86cpuid_clean:
 	rm -f x86cpuid ${tempsys}

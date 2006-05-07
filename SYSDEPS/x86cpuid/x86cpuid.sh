@@ -6,6 +6,9 @@ then
 fi
 
 cc -o x86cpuid x86cpuid.c >/dev/null 2>&1
-if [ $? -ne 0 ]; then exit 0; fi
+if [ $? -ne 0 ]
+then
+  exit 0
+fi
 
 echo "x86cpuid:`./x86cpuid`" >> $1
