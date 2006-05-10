@@ -34,12 +34,13 @@ echo
 for f in ${dlist}
 do
   echo "sd_${f}:"
-  echo -e "\t( cd ${f} && make )"
+  printf "\t(cd ${f} && make)\n"
   echo "sd_${f}_clean:"
-  echo -e "\t( cd ${f} && make clean)"
+  printf "\t(cd ${f} && make clean)\n"
   echo
 done
 
 echo "regen:"
-echo -e "\t./gen-makefile > Makefile.tmp"
-echo -e "\tmv Makefile.tmp Makefile"
+printf "\t./gen-makefile > Makefile.tmp\n"
+printf "\tmv Makefile.tmp Makefile"
+echo

@@ -12,3 +12,5 @@
 20060507 code: updated to cpj-genmk-0.6
 20060507 code: fixed x86cpuid so failure no longer means death.
 20060507 version: sysdeps-0.11
+20060510 code: added DESCRIPTION files for inspection by coreproject
+               cpj-sysdeps tools.
