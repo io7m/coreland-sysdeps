@@ -14,3 +14,6 @@
 20060507 version: sysdeps-0.11
 20060510 code: added DESCRIPTION files for inspection by coreproject
                cpj-sysdeps tools.
+20060513 code: seperated SDL into SDL_image, SDL_mixer, SDL and OpenGL.
+               SDL_mixer and OpenGL are currently non-functioning place
+               holders and none of it has been tested on Darwin.
