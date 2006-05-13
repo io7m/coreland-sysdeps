@@ -8,26 +8,21 @@ fatal()
 
 darwin_flags()
 {
-  flg="-D_THREAD_SAFE"
-
-  # sdl-config gives wrong answers, like /sw/include/SDL instead of the
-  # correct /sw/include.
-
-  if [ -f "/Library/Frameworks/SDL.framework/Headers/SDL.h" ]
+  if [ -d "/Library/Frameworks/SDL_image.framework/Headers" ]
   then
-    echo " -I/Library/Frameworks/SDL.framework/Headers "
+    echo " -I/Library/Frameworks/SDL_image.framework/Headers "
     return 0
   fi
 
-  if [ -f "/usr/local/include/SDL/SDL.h" ]
+  if [ -f "/usr/local/include/SDL/SDL_image.h" ]
   then
-    echo " -I/usr/local/include ${flg} "
+    echo " -I/usr/local/include/SDL "
     return 0
   fi
 
-  if [ -f "/sw/include/SDL/SDL.h" ]
+  if [ -f "/sw/include/SDL/SDL_image.h" ]
   then
-    echo " -I/sw/include ${flg} "
+    echo " -I/sw/include/SDL "
     return 0
   fi
 }
@@ -53,10 +48,4 @@ fi
 
 # fall-through system
 
-cf="`sdl-config --cflags`"
-if [ $? -ne 0 ]
-then
-  fatal "error executing sdl-config"
-fi
-
-echo ${cf}
+echo "-I/usr/local/include/SDL " 

@@ -8,25 +8,8 @@ fatal()
 
 darwin_libs()
 {
-  lib="libSDLmain.a"
-  str="-framework SDL -framework Cocoa -framework OpenGL" # XXX: OpenGL?
-
-  if [ -f "/usr/local/lib/${lib}" ]
-  then
-    alib="/usr/local/lib/${lib}"
-    echo " ${alib} ${str} "
-    return 0
-  fi
-
-  if [ -f "/sw/lib/${lib}" ]
-  then
-    alib="/sw/lib/${lib}"
-    echo " ${alib} ${str} "
-    return 0
-  fi
-  
-  # could not locate libSDLmain.a
-  return 1
+  echo "-framework SDL_image"
+  return 0
 }
 
 sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
@@ -51,10 +34,4 @@ fi
 # fall-through generic platform
 # works on FreeBSD 6 at least
 
-str="`sdl-config --libs`"
-if [ $? -ne 0 ]
-then
-  fatal "error running sdl-config"
-fi
-
-echo ${str}
+echo "-lSDL_image "
