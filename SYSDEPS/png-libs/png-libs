@@ -1,5 +1,7 @@
 #!/bin/sh
 
+#!/bin/sh
+
 echo="/bin/echo -n"
 
 fatal()
@@ -8,47 +10,28 @@ fatal()
   exit 111
 }
 
-search_libs()
-{
-  lib="$1"
-  path="$2"
-  args="$3"
-
-  for d in ${path}
-  do
-    if [ -f "${d}/${lib}" ]
-    then
-      ${echo} " -L${d} ${args}"
-      return 0
-    fi
-  done
-
-  # could not locate lib
-  return 1
-}
-
-lib="libpng.so"
-path="/usr/X11R6/lib /usr/X11R7/lib /usr/local/lib"
-args="-lpng"
 sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
 if [ x"$sys" != x ]
 then
   case "$sys" in
-  darwin)
-    path="/usr/local/lib /sw/lib ${path}"
-    lib="libpng.dylib"
-  ;;
-  sunos)
-    path="/usr/local/lib /usr/sfw/lib ${path}"
-  ;;
-  *)
-  ;;
+  *) ;;
   esac
 fi
 
-search_libs "${lib}" "${path}" "${args}"
-if [ $? -ne 0 ]
+# default libpng-config system
+
+flist=`libpng-config --ldflags`
+err=$?
+flags=""
+
+if [ ${err} -ne 0 ]
 then
-  fatal "could not locate ${lib}"
+  fatal "could not locate PNG libs"
 fi
-exit 0
+
+for f in ${flist}
+do
+  flags="${flags} $f"
+done
+
+echo ${flags}

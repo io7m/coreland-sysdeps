@@ -8,60 +8,28 @@ fatal()
   exit 111
 }
 
-darwin_flags()
-{
-  if [ -f "/sw/include/png.h" ]
-  then
-    ${echo} " -I/sw/include "
-    return 0
-  fi
-
-  if [ -f "/sw/include/libpng12/png.h" ]
-  then
-    ${echo} " -I/sw/include/libpng12 "
-    return 0
-  fi
-
-  if [ -f "/usr/local/include/png.h" ]
-  then
-    ${echo} " -I/usr/local/include "
-    return 0
-  fi
-}
-
 sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
 if [ x"$sys" != x ]
 then
   case "$sys" in
-  darwin)
-    # XXX: darwin doesn't necessarily mean OS X, but there doesn't
-    #      seem to be a reliable way to test for OS X specifically
-    darwin_flags
-    if [ $? -ne 0 ]
-    then
-      fatal "could not locate SDL includes"
-    fi
-
-    exit 0
-  ;;
   *) ;;
   esac
 fi
 
-# fall-through system
+# default libpng-config system
 
-if [ -f "/usr/local/include/png.h" ]
+flist=`libpng-config --I_opts --cppflags`
+err=$?
+flags=""
+
+if [ ${err} -ne 0 ]
 then
-  png="-I/usr/local/include"
-  ${echo} " ${cf} ${png} "
-  exit 0
+  fatal "could not locate libPNG includes"
 fi
 
-if [ -f "/usr/local/include/libpng/png.h" ]
-then
-  gl="-I/usr/local/include"
-  ${echo} " ${cf} ${png} "
-  exit 0
-fi
+for f in ${flist}
+do
+  flags="${flags} $f"
+done
 
-fatal "could not locate libPNG includes"
+echo ${flags}
