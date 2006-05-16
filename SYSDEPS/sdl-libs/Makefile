@@ -1,5 +1,5 @@
 sd_out="../../sysdeps.out"
-fileout="../../sdl-libs"
+fileout="../../libs-sdl"
 
 sysdep: do_sdl-libs
 clean: sdl-libs_clean

@@ -1,5 +1,5 @@
 sd_out="../../sysdeps.out"
-fileout="../../sdl-image-libs"
+fileout="../../libs-sdl-image"
 
 sysdep: do_sdl-image-libs
 clean: sdl-image-libs_clean

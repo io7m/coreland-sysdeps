@@ -1,5 +1,5 @@
 sd_out="../../sysdeps.out"
-fileout="../../png-libs"
+fileout="../../libs-png"
 
 sysdep: do_png-libs
 clean: png-libs_clean

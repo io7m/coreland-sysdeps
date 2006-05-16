@@ -1,5 +1,5 @@
 sd_out="../../sysdeps.out"
-fileout="../../sdl-image-flags"
+fileout="../../flags-sdl-image"
 
 sysdep: do_sdl-image-flags
 clean: sdl-image-flags_clean

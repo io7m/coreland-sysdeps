@@ -1,5 +1,5 @@
 sd_out="../../sysdeps.out"
-fileout="../../png-flags"
+fileout="../../flags-png"
 
 sysdep: do_png-flags
 clean: png-flags_clean

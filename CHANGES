@@ -30,3 +30,7 @@
                sysdeps source 'sysdep-subs' for generic search
                functions. coreproject will need to be updated to reflect
                the changes.
+20060516 code: to help predictability and uniformity of filenames
+               produced by SYSDEPS, current hyphenated names have been
+               reversed: sdl-flags becomes flags-sdl, png-libs becomes
+               libs-png. This will prevent possible filename collisions.

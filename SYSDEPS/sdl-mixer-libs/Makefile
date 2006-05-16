@@ -1,5 +1,5 @@
 sd_out="../../sysdeps.out"
-fileout="../../sdl-mixer-libs"
+fileout="../../libs-sdl-mixer"
 
 sysdep: do_sdl-mixer-libs
 clean: sdl-mixer-libs_clean
