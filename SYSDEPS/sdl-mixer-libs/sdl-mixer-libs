@@ -1,0 +1,20 @@
+#!/bin/sh
+
+. ../sysdep-subs
+if [ $? -ne 0 ]
+then
+  exit 111
+fi
+
+sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
+if [ x"$sys" != x ]
+then
+  case "$sys" in
+  darwin)
+    echo "-framework SDL_mixer"
+    ;;
+  *)
+    echo "-lSDL_mixer"
+    ;;
+  esac
+fi
