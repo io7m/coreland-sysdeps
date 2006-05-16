@@ -10,16 +10,53 @@ fatal()
   exit 111
 }
 
+search_libs()
+{
+  lib="$1"
+  path="$2"
+  args="$3"
+
+  for d in ${path}
+  do
+    if [ -f "${d}/${lib}" ]
+    then
+      ${echo} " -L${d} ${args}"
+      return 0
+    fi
+  done
+
+  # could not locate lib
+  return 1
+}
+
+search="NO"
+
 sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
 if [ x"$sys" != x ]
 then
   case "$sys" in
+  sunos)
+    path="/usr/local/lib /usr/sfw/lib"
+    lib="libpng.so"
+    args="-lpng"
+    search="YES"
+    ;;
   *) ;;
   esac
 fi
 
-# default libpng-config system
+# for systems that don't have libpng-config
+if [ "${search}" = "YES" ]
+then
+  search_libs "${lib}" "${path}" "${args}"
+  if [ $? -ne 0 ]
+  then
+    fatal "could not locate ${lib}"
+  fi
+  exit 0
+fi
 
+# default libpng-config system
 flist=`libpng-config --ldflags`
 err=$?
 flags=""
