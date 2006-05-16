@@ -21,21 +21,21 @@ int fget_flags(int fd, uint32 *rflags)
 {
   uint32 flags;
 
-#ifdef HAS_CHFLAGS
+#ifdef CH_FLAGS_HAVE_CHFLAGS
 
   struct stat sb;
   if (fstat(fd, &sb) == -1) return -1;
   flags = sb.st_flags;
 
-#endif /* HAS_CHFLAGS */
+#endif /* CH_FLAGS_HAVE_CHFLAGS */
 
-#ifdef HAS_EXT2FS_IOCTL
+#ifdef CH_FLAGS_HAVE_EXT2FS_IOCTL
 
   if (ioctl(fd, EXT2_IOC_GETFLAGS, &flags) != 0) { return -1; }
 
-#endif /* HAS_EXT2FS_IOCTL */
+#endif /* CH_FLAGS_HAVE_EXT2FS_IOCTL */
 
-#ifdef FLAGS_WORKING
+#ifdef CH_FLAGS_WORKING
 
   *rflags = 0;
   if (flags & CF_SAPPND) *rflags |= CF_SAPPND;
@@ -48,7 +48,7 @@ int fget_flags(int fd, uint32 *rflags)
 
   return 0;
 
-#endif /* FLAGS_WORKING */
+#endif /* CH_FLAGS_WORKING */
 
   /* pretend to be successful? */
   return 0;

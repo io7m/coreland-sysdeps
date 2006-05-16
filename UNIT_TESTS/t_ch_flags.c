@@ -18,6 +18,7 @@ int main()
     return 2;
   }
 
+#ifdef CH_FLAGS_WORKING
   f = 0;
   f |= CF_UIMMUT;
   f |= CF_NODUMP;
@@ -40,7 +41,7 @@ int main()
     perror("fch_flags");
     return 1;
   }
-
   close(fd);
+#endif
   return 0;
 }

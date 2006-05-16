@@ -4,7 +4,7 @@
 #include "_ch_flags.h"
 #include "uint32.h"
 
-#ifdef HAS_CHFLAGS
+#ifdef CH_FLAGS_HAVE_CHFLAGS
 
 #include <sys/stat.h>
 
@@ -52,7 +52,7 @@
 
 #endif /* HAS_CHFLAGS */
 
-#ifdef HAS_EXT2FS_IOCTL
+#ifdef CH_FLAGS_HAVE_EXT2FS_IOCTL
 
 #include <linux/ext2_fs.h>
 #include <sys/ioctl.h>

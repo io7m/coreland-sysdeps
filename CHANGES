@@ -20,3 +20,9 @@
 20060516 code: tested png-flags/libs on sunos and adjusted for
                portability.
 20060516 code: updated to cpj-genmk-0.7
+20060516 code: ch_flags #define statements have had their names changed
+               FLAGS_WORKING -> CH_FLAGS_WORKING
+               HAS_CHFLAGS -> CH_FLAGS_HAVE_CHFLAGS
+               HAS_EXT2FS_IOCTL -> CH_FLAGS_HAVE_EXT2FS_IOCTL
+               policyengine will need updating in the future to take
+               care of these changes.

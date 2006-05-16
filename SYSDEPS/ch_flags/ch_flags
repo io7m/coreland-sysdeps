@@ -11,8 +11,8 @@ then
 #ifndef _CH_FLAGS_H
 #define _CH_FLAGS_H
 
-#define HAS_CHFLAGS
-#define FLAGS_WORKING
+#define CH_FLAGS_HAVE_CHFLAGS
+#define CH_FLAGS_WORKING
 
 #endif
 EOF
@@ -32,8 +32,8 @@ then
 #ifndef _CH_FLAGS_H
 #define _CH_FLAGS_H
 
-#define HAS_EXT2FS_IOCTL
-#define FLAGS_WORKING
+#define CH_FLAGS_HAVE_EXT2FS_IOCTL
+#define CH_FLAGS_WORKING
 
 #endif
 EOF
