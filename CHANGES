@@ -26,3 +26,7 @@
                HAS_EXT2FS_IOCTL -> CH_FLAGS_HAVE_EXT2FS_IOCTL
                policyengine will need updating in the future to take
                care of these changes.
+20060516 code: major refactor of SYSDEPS. now all libs and flags style
+               sysdeps source 'sysdep-subs' for generic search
+               functions. coreproject will need to be updated to reflect
+               the changes.

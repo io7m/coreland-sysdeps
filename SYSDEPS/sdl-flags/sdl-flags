@@ -1,58 +1,41 @@
 #!/bin/sh
 
-fatal()
-{
-  echo "fatal: $1" 1>&2
+. ../sysdep-subs
+if [ $? -ne 0 ]
+then
   exit 111
-}
+fi
 
-darwin_flags()
-{
-  flg="-D_THREAD_SAFE"
-
-  # sdl-config gives wrong answers, like /sw/include/SDL instead of the
-  # correct /sw/include.
-
-  if [ -f "/Library/Frameworks/SDL.framework/Headers/SDL.h" ]
-  then
-    echo " -I/Library/Frameworks/SDL.framework/Headers "
-    return 0
-  fi
-
-  if [ -f "/usr/local/include/SDL/SDL.h" ]
-  then
-    echo " -I/usr/local/include ${flg} "
-    return 0
-  fi
-
-  if [ -f "/sw/include/SDL/SDL.h" ]
-  then
-    echo " -I/sw/include ${flg} "
-    return 0
-  fi
-}
+search="NO"
+header="SDL.h"
+path="/usr/local/include/SDL"
 
 sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
 if [ x"$sys" != x ]
 then
   case "$sys" in
   darwin)
-    # XXX: darwin doesn't necessarily mean OS X, but there doesn't
-    #      seem to be a reliable way to test for OS X specifically
-    darwin_flags
-    if [ $? -ne 0 ]
-    then
-      fatal "could not locate SDL includes"
-    fi
-
-    exit 0
-  ;;
-  *) ;;
+    path="/Library/Frameworks/SDL.framework/Headers \
+          /sw/include/SDL ${path}"
+    args="-D_THREAD_SAFE"
+    search="YES"
+    ;;
+  *)
+    ;;
   esac
 fi
 
-# fall-through system
+if [ "${search}" = "YES" ]
+then
+  search_for "${header}" "${path}" "${args}"
+  if [ $? -ne 0 ]
+  then
+    fatal "could not locate ${header}"
+  fi
+  exit 0
+fi
 
+# default sdl-config system
 cf="`sdl-config --cflags`"
 if [ $? -ne 0 ]
 then

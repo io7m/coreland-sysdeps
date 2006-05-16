@@ -1,37 +1,20 @@
 #!/bin/sh
 
-fatal()
-{
-  echo "fatal: $1" 1>&2
+. ../sysdep-subs
+if [ $? -ne 0 ]
+then
   exit 111
-}
-
-darwin_libs()
-{
-  echo "-framework SDL_image"
-  return 0
-}
+fi
 
 sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
 if [ x"$sys" != x ]
 then
   case "$sys" in
   darwin)
-    # XXX: darwin doesn't necessarily mean OS X, but there doesn't
-    #      seem to be a reliable way to test for OS X specifically
-    darwin_libs
-    if [ $? -ne 0 ]
-    then
-      fatal "could not locate libSDLmain.a"
-    fi
-
-    exit 0
-  ;;
-  *) ;;
+    echo "-framework SDL_image"
+    ;;
+  *)
+    echo "-lSDL_image"
+    ;;
   esac
 fi
-
-# fall-through generic platform
-# works on FreeBSD 6 at least
-
-echo "-lSDL_image "

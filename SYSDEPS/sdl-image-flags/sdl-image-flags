@@ -1,51 +1,42 @@
 #!/bin/sh
 
-fatal()
-{
-  echo "fatal: $1" 1>&2
+. ../sysdep-subs
+if [ $? -ne 0 ]
+then
   exit 111
-}
+fi
 
-darwin_flags()
-{
-  if [ -d "/Library/Frameworks/SDL_image.framework/Headers" ]
-  then
-    echo " -I/Library/Frameworks/SDL_image.framework/Headers "
-    return 0
-  fi
-
-  if [ -f "/usr/local/include/SDL/SDL_image.h" ]
-  then
-    echo " -I/usr/local/include/SDL "
-    return 0
-  fi
-
-  if [ -f "/sw/include/SDL/SDL_image.h" ]
-  then
-    echo " -I/sw/include/SDL "
-    return 0
-  fi
-}
+search="NO"
+header="SDL_image.h"
+path="/usr/local/include/SDL"
 
 sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
 if [ x"$sys" != x ]
 then
   case "$sys" in
   darwin)
-    # XXX: darwin doesn't necessarily mean OS X, but there doesn't
-    #      seem to be a reliable way to test for OS X specifically
-    darwin_flags
-    if [ $? -ne 0 ]
-    then
-      fatal "could not locate SDL includes"
-    fi
-
-    exit 0
-  ;;
-  *) ;;
+    path="/Library/Frameworks/SDL_image.framework/Headers \
+          /sw/include/SDL ${path}"
+    search="YES"
+    ;;
+  sunos)
+    path="/opt/csw/include/SDL ${path}"
+    search="YES"
+    ;;
+  *)
+    search="YES"
+    ;;
   esac
 fi
 
-# fall-through system
+if [ "${search}" = "YES" ]
+then
+  search_for "${header}" "${path}" "${args}"
+  if [ $? -ne 0 ]
+  then
+    fatal "could not locate ${header}"
+  fi
+  exit 0
+fi
 
-echo "-I/usr/local/include/SDL " 
+# can't get here

@@ -1,29 +1,10 @@
 #!/bin/sh
 
-fatal()
-{
-  echo "fatal: $1" 1>&2
+. ../sysdep-subs
+if [ $? -ne 0 ]
+then
   exit 111
-}
-
-search_libs()
-{
-  lib="$1"
-  path="$2"
-  args="$3"
-
-  for d in ${path}
-  do
-    if [ -f "${d}/${lib}" ]
-    then
-      echo " -L${d} ${args}"
-      return 0
-    fi
-  done
-
-  # could not locate lib
-  return 1
-}
+fi
 
 search="NO"
 
@@ -44,7 +25,7 @@ fi
 # for systems that don't have libpng-config
 if [ "${search}" = "YES" ]
 then
-  search_libs "${lib}" "${path}" "${args}"
+  search_for "${lib}" "${path}" "${args}"
   if [ $? -ne 0 ]
   then
     fatal "could not locate ${lib}"
