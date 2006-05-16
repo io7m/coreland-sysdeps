@@ -1,7 +1,5 @@
 #!/bin/sh
 
-echo="/bin/echo -n"
-
 fatal()
 {
   echo "fatal: $1" 1>&2
@@ -17,7 +15,7 @@ search_headers()
   do
     if [ -f "${d}/${header}" ]
     then
-      ${echo} " -I${d} "
+      echo " -I${d} "
       return 0
     fi
   done

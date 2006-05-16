@@ -12,5 +12,6 @@ fi
 echo exec "$CC" '-o $1.o -c $2 \'
 for f in ${ALLFLAGS}
 do
-  echo '  "${'$f'}" \'
+  echo '  ${'$f'} \'
 done
+

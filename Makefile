@@ -1,5 +1,5 @@
 # auto generated - do not edit
-# cpj-genmk-0.60
+# cpj-genmk-0.70
 
 SHELL=/bin/sh
 default: all
@@ -80,17 +80,19 @@ sysdep_clean:
 
 #--TOOLS----------------------------------------------------------------------
 
-mkftools: compile makelib makeso link 
+mkftools: compile makelib sosuffix makeso link 
 compile: conf-shebang conf-cc make-compile 
 	(cat conf-shebang; ./make-compile) > compile; chmod u+x compile;
 link: conf-shebang conf-ld make-link 
 	(cat conf-shebang; ./make-link) > link; chmod u+x link;
 makelib: conf-shebang make-makelib 
 	(cat conf-shebang; ./make-makelib) > makelib; chmod u+x makelib;
-makeso: conf-shebang make-makeso 
+makeso: conf-shebang sosuffix make-makeso 
 	(cat conf-shebang; ./make-makeso) > makeso; chmod u+x makeso;
+sosuffix: conf-shebang make-sosuffix 
+	(cat conf-shebang; ./make-sosuffix) > sosuffix; chmod u+x sosuffix;
 mkftools_clean: 
-	 rm -f compile makelib makeso link 
+	 rm -f compile makelib makeso sosuffix link 
 regen:
 	cpj-genmk > Makefile.tmp
 	mv Makefile.tmp Makefile

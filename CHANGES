@@ -17,3 +17,6 @@
 20060513 code: seperated SDL into SDL_image, SDL_mixer, SDL and OpenGL.
                SDL_mixer and OpenGL are currently non-functioning place
                holders and none of it has been tested on Darwin.
+20060516 code: tested png-flags/libs on sunos and adjusted for
+               portability.
+20060516 code: updated to cpj-genmk-0.7

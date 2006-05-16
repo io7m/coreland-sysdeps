@@ -9,9 +9,30 @@ then
     ALL_LIBS="${ALL_LIBS} ${name}"
   done
 fi
+
+# libfile detection
 echo 'out="$1"; shift'
-echo exec "${LD}" '-o "$out" ${1+"$@"} \'
+echo 'objs=""'
+echo 'for arg in ${1+"$@"}'
+echo 'do'
+echo '  suffix=`echo ${arg} | awk -F\.' "'{print \$NF}'"'`'
+echo '  if [ "${suffix}" = "lib" ]'
+echo '  then'
+echo '    file=`cat ${arg}`'
+echo '    if [ $? -ne 0 ]'
+echo '    then'
+echo '      exit 1'
+echo '    fi'
+echo '    objs="${objs} ${file}"'
+echo '  else'
+echo '    objs="${objs} ${arg}"'
+echo '  fi'
+echo 'done'
+
+# main exec
+echo exec "${LD}" '-o "$out" ${objs} \'
+
 for f in ${ALL_LIBS}
 do
-  echo '  "${'$f'}" \'
+  echo '  ${'$f'} \'
 done

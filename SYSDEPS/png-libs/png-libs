@@ -1,9 +1,5 @@
 #!/bin/sh
 
-#!/bin/sh
-
-echo="/bin/echo -n"
-
 fatal()
 {
   echo "fatal: $1" 1>&2
@@ -20,7 +16,7 @@ search_libs()
   do
     if [ -f "${d}/${lib}" ]
     then
-      ${echo} " -L${d} ${args}"
+      echo " -L${d} ${args}"
       return 0
     fi
   done
