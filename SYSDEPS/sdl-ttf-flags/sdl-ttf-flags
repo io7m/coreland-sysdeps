@@ -1,0 +1,42 @@
+#!/bin/sh
+
+. ../sysdep-subs
+if [ $? -ne 0 ]
+then
+  exit 111
+fi
+
+search="NO"
+header="SDL_ttf.h"
+path="/usr/local/include/SDL"
+
+sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
+if [ x"$sys" != x ]
+then
+  case "$sys" in
+  darwin)
+    path="/Library/Frameworks/SDL_ttf.framework/Headers \
+          /sw/include/SDL ${path}"
+    search="YES"
+    ;;
+  sunos)
+    path="/opt/csw/include/SDL ${path}"
+    search="YES"
+    ;;
+  *)
+    search="YES"
+    ;;
+  esac
+fi
+
+if [ "${search}" = "YES" ]
+then
+  search_for "${header}" "${path}" "${args}"
+  if [ $? -ne 0 ]
+  then
+    fatal "could not locate ${header}"
+  fi
+  exit 0
+fi
+
+# can't get here

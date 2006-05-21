@@ -34,3 +34,4 @@
                produced by SYSDEPS, current hyphenated names have been
                reversed: sdl-flags becomes flags-sdl, png-libs becomes
                libs-png. This will prevent possible filename collisions.
+20060521 code: added SDL_ttf
