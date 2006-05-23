@@ -4,13 +4,13 @@ header="../../endian.h"
 sysdep: endian
 clean: endian_clean
 
-tempend="endian.h"
+tempf="endian.h"
 tempsys="sysdeps_line.out"
 
 endian: endian.c
-	./make-endian ${tempend} ${tempsys}
-	cp ${tempend} ${header}
+	./make-endian ${tempf} ${tempsys}
+	cp ${tempf} ${header}
 
 endian_clean:
-	rm -f ${tempend} ${tempsys} endian
+	rm -f ${tempf} ${tempsys} endian
 	rm -f ${header}
