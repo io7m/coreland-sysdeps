@@ -1,6 +1,8 @@
 Darwin testing.
 
-SDL_mixer, OpenGL.
+OpenGL.
+
+dlfunc() from dcentmusic001 (for freeBSD 4 compat).
 
 The sysdeps run output is quite ugly and not parseable at all. It might
 be a good idea to edit the Makefiles and make some cosmetic changes.

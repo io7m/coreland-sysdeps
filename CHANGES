@@ -35,3 +35,6 @@
                reversed: sdl-flags becomes flags-sdl, png-libs becomes
                libs-png. This will prevent possible filename collisions.
 20060521 code: added SDL_ttf
+20060523 code: added dlopen
+20060523 code: changed direntry to use temporary files, for better
+               behaviour on hard error (no trampling on sysdeps.out)

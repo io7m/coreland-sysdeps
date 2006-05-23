@@ -1,0 +1,34 @@
+#!/bin/sh
+
+fout="$1"
+sysdeps="$2"
+
+cat >> "${fout}" <<EOF
+#ifndef DLOPEN_H
+#define DLOPEN_H
+
+EOF
+
+sd_done=0
+cc -c trydlopen.c >/dev/null 2>&1
+if [ $? -eq 0 ]
+then
+  echo '#define HAVE_DLOPEN' >> "${fout}"
+  cc -c trydlfunc.c >/dev/null 2>&1
+  if [ $? -eq 0 ]
+  then
+    echo '#define HAVE_DLFUNC' >> "${fout}"
+    echo 'dlopen:dlfunc' >> "${sysdeps}"
+    sd_done=1
+  else
+    echo 'dlopen:dlsym' >> "${sysdeps}"
+    sd_done=1
+  fi
+fi
+
+echo >> "${fout}"
+echo '#endif' >> "${fout}"
+if [ ${sd_done} -eq 0 ]
+then
+  echo 'dlopen:none' >> "${sysdeps}"
+fi
