@@ -38,3 +38,4 @@
 20060523 code: added dlopen
 20060523 code: changed direntry to use temporary files, for better
                behaviour on hard error (no trampling on sysdeps.out)
+20060524 code: added signal

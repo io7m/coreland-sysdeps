@@ -13,4 +13,4 @@ do_dlopen:
 	cat ${tempsys} >> ${sd_out}
 
 dlopen_clean:
-	rm -f ${fileout} ${tempf} ${tempsys} trydlopen.o trydlfunc.o
+	rm -f ${fileout} ${tempf} ${tempsys} trydlopen trydlfunc

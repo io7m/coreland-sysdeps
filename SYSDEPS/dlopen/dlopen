@@ -10,11 +10,11 @@ cat >> "${fout}" <<EOF
 EOF
 
 sd_done=0
-cc -c trydlopen.c >/dev/null 2>&1
+cc -o trydlopen trydlopen.c >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '#define HAVE_DLOPEN' >> "${fout}"
-  cc -c trydlfunc.c >/dev/null 2>&1
+  cc -o trydlfunc trydlfunc.c >/dev/null 2>&1
   if [ $? -eq 0 ]
   then
     echo '#define HAVE_DLFUNC' >> "${fout}"

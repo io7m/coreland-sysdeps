@@ -1,0 +1,37 @@
+#!/bin/sh
+
+sigact_out="$1"
+sigpm_out="$2"
+sysdeps="$3"
+
+cat >> "${sigact_out}" <<EOF
+#ifndef SIG_ACTION_H
+#define SIG_ACTION_H
+EOF
+
+cc -o trysigact trysigact.c >/dev/null 2>&1
+if [ $? -eq 0 ]
+then
+  echo '#define HAVE_SIGACTION' >> "${sigact_out}"
+  echo 'sigaction:sigaction' >> "${sysdeps}"
+else
+  echo 'sigaction:none' >> "${sysdeps}"
+fi
+
+echo '#endif' >> "${sigact_out}"
+
+cat >> "${sigpm_out}" <<EOF
+#ifndef SIG_PMASK_H
+#define SIG_PMASK_H
+EOF
+
+cc -o trysigpm trysigpm.c >/dev/null 2>&1
+if [ $? -eq 0 ]
+then
+  echo '#define HAVE_SIGPROCMASK' >> "${sigpm_out}"
+  echo 'sigprocmask:sigprocmask' >> "${sysdeps}"
+else
+  echo 'sigprocmask:none' >> "${sysdeps}"
+fi
+
+echo '#endif' >> "${sigpm_out}"
