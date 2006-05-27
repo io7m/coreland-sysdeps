@@ -8,7 +8,7 @@ fi
 
 search="NO"
 path="/usr/local/lib"
-lib="libSDLmain.a"
+lib="libSDLmain.dylib"
 
 sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
 if [ x"$sys" != x ]
@@ -16,7 +16,9 @@ then
   case "$sys" in
   darwin)
     path="/sw/lib ${path}"
-    args="-framework SDL -framework Cocoa -framework OpenGL"
+    bug="-bind_at_load"   # this is apparently now necessary to prevent
+                          # cataclysmic internal linker errors.
+    args="${bug} -lSDLmain -framework SDL -framework Cocoa -framework OpenGL"
     search="YES"
     ;;
   *)
