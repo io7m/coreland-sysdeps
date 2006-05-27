@@ -18,7 +18,6 @@ then
     path="/sw/lib ${path}"
     args="-framework SDL -framework Cocoa -framework OpenGL"
     search="YES"
-    exit 0
     ;;
   *)
     ;;
@@ -27,7 +26,7 @@ fi
 
 if [ "${search}" = "YES" ]
 then
-  search_for "${lib}" "${path}" "${args}"
+  search_lib "${lib}" "${path}" "${args}"
   if [ $? -ne 0 ]
   then
     fatal "could not locate ${lib}"

@@ -31,7 +31,7 @@ fi
 
 if [ "${search}" = "YES" ]
 then
-  search_for "${header}" "${path}" "${args}"
+  search_header "${header}" "${path}" "${args}"
   if [ $? -ne 0 ]
   then
     fatal "could not locate ${header}"

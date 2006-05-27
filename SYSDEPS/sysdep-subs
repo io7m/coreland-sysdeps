@@ -6,7 +6,7 @@ fatal()
   exit 111
 }
 
-search_for()
+search_header()
 {
   header="$1"
   path="$2"
@@ -16,7 +16,26 @@ search_for()
   do
     if [ -f "${d}/${header}" ]
     then
-      echo " -I${d} "
+      echo "-I${d} "
+      return 0
+    fi
+  done
+
+  # could not locate header
+  return 1
+}
+
+search_lib()
+{
+  lib="$1"
+  path="$2"
+  args="$3"
+
+  for d in ${path}
+  do
+    if [ -f "${d}/${lib}" ]
+    then
+      echo "-L${d} "
       return 0
     fi
   done
