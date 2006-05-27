@@ -16,7 +16,7 @@ search_header()
   do
     if [ -f "${d}/${header}" ]
     then
-      echo "-I${d} "
+      echo "-I${d} ${args}"
       return 0
     fi
   done
@@ -35,7 +35,7 @@ search_lib()
   do
     if [ -f "${d}/${lib}" ]
     then
-      echo "-L${d} "
+      echo "-L${d} ${args}"
       return 0
     fi
   done

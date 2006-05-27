@@ -8,7 +8,7 @@ fi
 
 search="NO"
 path="/usr/local/lib"
-lib="libSDLmain.dylib"
+lib="libSDLmain.a"
 
 sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
 if [ x"$sys" != x ]
