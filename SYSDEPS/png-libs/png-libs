@@ -25,7 +25,7 @@ fi
 # for systems that don't have libpng-config
 if [ "${search}" = "YES" ]
 then
-  search_for "${lib}" "${path}" "${args}"
+  search_header "${lib}" "${path}" "${args}"
   if [ $? -ne 0 ]
   then
     fatal "could not locate ${lib}"

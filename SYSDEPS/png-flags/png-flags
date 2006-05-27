@@ -16,7 +16,7 @@ then
   sunos)
     path="/usr/local/include /usr/sfw/include "
     search="YES"
-     ;;
+    ;;
   *) ;;
   esac
 fi
@@ -24,7 +24,7 @@ fi
 # for systems that don't have libpng-config
 if [ "${search}" = "YES" ]
 then
-  search_for "${header}" "${path}"
+  search_header "${header}" "${path}"
   if [ $? -ne 0 ]
   then
     fatal "could not locate ${header}"
