@@ -1,7 +1,4 @@
-#include <sys/errno.h>
 #include <stdio.h>
-
-extern int errno;
 
 int main()
 {
