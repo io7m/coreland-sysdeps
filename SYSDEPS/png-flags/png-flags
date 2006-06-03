@@ -8,13 +8,15 @@ fi
 
 search="NO"
 header="png.h"
+define="-DSYSD_HAVE_LIBPNG"
+path="/usr/include /usr/local/include"
 
 sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
 if [ x"${sys}" != x ]
 then
   case "${sys}" in
   sunos)
-    path="/usr/local/include /usr/sfw/include "
+    path="${path} /usr/sfw/include "
     search="YES"
     ;;
   *) ;;
@@ -27,7 +29,9 @@ then
   search_header "${header}" "${path}"
   if [ $? -ne 0 ]
   then
-    fatal "could not locate ${header}"
+    error "could not locate ${header}"
+  else
+    echo "${define}"
   fi
   exit 0
 fi
@@ -39,12 +43,11 @@ flags=""
 
 if [ ${err} -ne 0 ]
 then
-  fatal "could not locate libPNG includes"
+  error "could not locate libPNG includes"
+else
+  for f in ${flist}
+  do
+    flags="${flags} $f"
+  done
+  echo ${flags} ${define}
 fi
-
-for f in ${flist}
-do
-  flags="${flags} $f"
-done
-
-echo ${flags}

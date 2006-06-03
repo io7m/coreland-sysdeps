@@ -8,7 +8,8 @@ fi
 
 search="NO"
 header="SDL_image.h"
-path="/usr/local/include/SDL"
+path="/usr/include/SDL /usr/local/include/SDL"
+define="-DSYSD_HAVE_SDL_IMAGE"
 
 sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
 if [ x"$sys" != x ]
@@ -29,12 +30,13 @@ then
   esac
 fi
 
+args="${define}"
 if [ "${search}" = "YES" ]
 then
   search_header "${header}" "${path}" "${args}"
   if [ $? -ne 0 ]
   then
-    fatal "could not locate ${header}"
+    error "could not locate ${header}"
   fi
   exit 0
 fi

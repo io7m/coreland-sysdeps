@@ -8,7 +8,8 @@ fi
 
 search="NO"
 header="SDL_mixer.h"
-path="/usr/local/include/SDL"
+path="/usr/include/SDL /usr/local/include/SDL"
+define="-DSYSD_HAVE_SDL_MIXER"
 
 sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
 if [ x"$sys" != x ]
@@ -29,6 +30,7 @@ then
   esac
 fi
 
+args="${define}"
 if [ "${search}" = "YES" ]
 then
   search_header "${header}" "${path}" "${args}"

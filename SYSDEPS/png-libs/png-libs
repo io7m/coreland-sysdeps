@@ -28,7 +28,7 @@ then
   search_header "${lib}" "${path}" "${args}"
   if [ $? -ne 0 ]
   then
-    fatal "could not locate ${lib}"
+    error "could not locate ${lib}"
   fi
   exit 0
 fi
@@ -40,12 +40,12 @@ flags=""
 
 if [ ${err} -ne 0 ]
 then
-  fatal "could not locate PNG libs"
+  error "could not locate PNG libs"
+  exit 0
+else
+  for f in ${flist}
+  do
+    flags="${flags} $f"
+  done
+  echo ${flags}
 fi
-
-for f in ${flist}
-do
-  flags="${flags} $f"
-done
-
-echo ${flags}

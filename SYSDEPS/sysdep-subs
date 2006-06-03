@@ -1,9 +1,8 @@
 #!/bin/sh
 
-fatal()
+error()
 {
-  echo "fatal: $1" 1>&2
-  exit 111
+  echo "error: $1" 1>&2
 }
 
 search_header()
