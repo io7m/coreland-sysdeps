@@ -45,3 +45,4 @@
                successfully or not. png-flags, for example, defines
                HAVE_LIBPNG. this should aid conditional and optional
                compilation.
+20060603 version: sysdeps-0.20
