@@ -8,9 +8,11 @@ tempf="dlopen.h"
 tempsys="sysdeps.out"
 
 do_dlopen:
-	./dlopen ${tempf} ${tempsys}
-	cp ${tempf} ${fileout}
-	cat ${tempsys} >> ${sd_out}
+	@echo dlopen run
+	@./dlopen ${tempf} ${tempsys}
+	@cp ${tempf} ${fileout}
+	@cat ${tempsys} >> ${sd_out}
 
 dlopen_clean:
-	rm -f ${fileout} ${tempf} ${tempsys} trydlopen trydlfunc
+	@echo dlopen clean
+	@rm -f ${fileout} ${tempf} ${tempsys} trydlopen trydlfunc

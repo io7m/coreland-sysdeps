@@ -7,8 +7,10 @@ clean: sdl-mixer-libs_clean
 tempf="sdl-mixer-libs.out"
 
 do_sdl-mixer-libs:
-	./sdl-mixer-libs 1>>${tempf}
-	cp ${tempf} ${fileout}
+	@echo sdl-mixer-libs run
+	@./sdl-mixer-libs 1>>${tempf}
+	@cp ${tempf} ${fileout}
 
 sdl-mixer-libs_clean:
-	rm -f ${fileout} ${tempf}
+	@echo sdl-mixer-libs clean
+	@rm -f ${fileout} ${tempf}

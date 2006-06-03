@@ -8,9 +8,11 @@ tempf="endian.h"
 tempsys="sysdeps_line.out"
 
 endian: endian.c
-	./make-endian ${tempf} ${tempsys}
-	cp ${tempf} ${header}
+	@echo endian run
+	@./make-endian ${tempf} ${tempsys}
+	@cp ${tempf} ${header}
 
 endian_clean:
-	rm -f ${tempf} ${tempsys} endian
-	rm -f ${header}
+	@echo endian clean
+	@rm -f ${tempf} ${tempsys} endian
+	@rm -f ${header}

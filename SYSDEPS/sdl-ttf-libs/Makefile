@@ -7,8 +7,10 @@ clean: sdl-ttf-libs_clean
 tempf="sdl-ttf-libs.out"
 
 do_sdl-ttf-libs:
-	./sdl-ttf-libs 1>>${tempf}
-	cp ${tempf} ${fileout}
+	@echo sdl-ttf-libs run
+	@./sdl-ttf-libs 1>>${tempf}
+	@cp ${tempf} ${fileout}
 
 sdl-ttf-libs_clean:
-	rm -f ${fileout} ${tempf}
+	@echo sdl-ttf-libs clean
+	@rm -f ${fileout} ${tempf}

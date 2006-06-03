@@ -7,8 +7,10 @@ clean: png-libs_clean
 tempf="png-libs.out"
 
 do_png-libs:
-	./png-libs 1>>${tempf}
-	cp ${tempf} ${fileout}
+	@echo png-libs run
+	@./png-libs 1>>${tempf}
+	@cp ${tempf} ${fileout}
 
 png-libs_clean:
-	rm -f ${fileout} ${tempf}
+	@echo png-libs clean
+	@rm -f ${fileout} ${tempf}

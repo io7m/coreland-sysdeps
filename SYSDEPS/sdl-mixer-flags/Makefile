@@ -7,8 +7,10 @@ clean: sdl-mixer-flags_clean
 tempf="sdl-mixer-flags.out"
 
 do_sdl-mixer-flags:
-	./sdl-mixer-flags 1>>${tempf}
-	cp ${tempf} ${fileout}
+	@echo sdl-mixer-flags run
+	@./sdl-mixer-flags 1>>${tempf}
+	@cp ${tempf} ${fileout}
 
 sdl-mixer-flags_clean:
-	rm -f ${fileout} ${tempf}
+	@echo sdl-mixer-flags clean
+	@rm -f ${fileout} ${tempf}

@@ -7,8 +7,10 @@ clean: sdl-image-flags_clean
 tempf="sdl-image-flags.out"
 
 do_sdl-image-flags:
-	./sdl-image-flags 1>>${tempf}
-	cp ${tempf} ${fileout}
+	@echo sdl-image-flags run
+	@./sdl-image-flags 1>>${tempf}
+	@cp ${tempf} ${fileout}
 
 sdl-image-flags_clean:
-	rm -f ${fileout} ${tempf}
+	@echo sdl-image-flags clean
+	@rm -f ${fileout} ${tempf}

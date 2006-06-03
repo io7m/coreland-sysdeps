@@ -34,9 +34,9 @@ echo
 for f in ${dlist}
 do
   echo "sd_${f}:"
-  printf "\t(cd ${f} && make)\n"
+  printf "\t@(cd ${f} && make)\n"
   echo "sd_${f}_clean:"
-  printf "\t(cd ${f} && make clean)\n"
+  printf "\t@(cd ${f} && make clean)\n"
   echo
 done
 

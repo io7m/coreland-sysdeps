@@ -6,8 +6,10 @@ clean: systype_clean
 tempsys="sysdeps_line.out"
 
 systype:
-	./systype.sh ${tempsys}
-	cat ${tempsys} >> ${sd_out}
+	@echo systype run
+	@./systype.sh ${tempsys}
+	@cat ${tempsys} >> ${sd_out}
 
 systype_clean:
-	rm -f ${tempsys}
+	@echo systype clean
+	@rm -f ${tempsys}

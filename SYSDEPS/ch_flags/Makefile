@@ -8,10 +8,12 @@ tempf="_ch_flags.h"
 tempsys="sysdeps_line.out"
 
 do_ch_flags:
-	./ch_flags ${tempf} ${tempsys}
-	cp ${tempf} ${header}
-	cat ${tempsys} >> ${sd_out}
+	@./ch_flags ${tempf} ${tempsys}
+	@echo ch_flags run
+	@cp ${tempf} ${header}
+	@cat ${tempsys} >> ${sd_out}
 
 ch_flags_clean:
-	rm -f tryext2 trychflags
-	rm -f ${header} ${tempf} ${tempsys}
+	@echo ch_flags clean
+	@rm -f tryext2 trychflags
+	@rm -f ${header} ${tempf} ${tempsys}

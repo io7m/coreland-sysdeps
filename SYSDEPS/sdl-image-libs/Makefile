@@ -7,8 +7,10 @@ clean: sdl-image-libs_clean
 tempf="sdl-image-libs.out"
 
 do_sdl-image-libs:
-	./sdl-image-libs 1>>${tempf}
-	cp ${tempf} ${fileout}
+	@echo sdl-image-libs run
+	@./sdl-image-libs 1>>${tempf}
+	@cp ${tempf} ${fileout}
 
 sdl-image-libs_clean:
-	rm -f ${fileout} ${tempf}
+	@echo sdl-image-libs clean
+	@rm -f ${fileout} ${tempf}
