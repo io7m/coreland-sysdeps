@@ -9,7 +9,7 @@ fi
 search="NO"
 header="SDL_image.h"
 path="/usr/include/SDL /usr/local/include/SDL"
-define="-DSYSD_HAVE_SDL_IMAGE"
+define="-DHAVE_SDL_IMAGE"
 
 sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
 if [ x"$sys" != x ]

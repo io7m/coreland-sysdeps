@@ -9,7 +9,7 @@ fi
 search="NO"
 header="SDL_mixer.h"
 path="/usr/include/SDL /usr/local/include/SDL"
-define="-DSYSD_HAVE_SDL_MIXER"
+define="-DHAVE_SDL_MIXER"
 
 sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
 if [ x"$sys" != x ]

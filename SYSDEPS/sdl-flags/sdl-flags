@@ -9,7 +9,7 @@ fi
 search="NO"
 header="SDL.h"
 path="/usr/include/SDL /usr/local/include/SDL"
-define="-DSYSD_HAVE_SDL"
+define="-DHAVE_SDL"
 
 sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
 if [ x"$sys" != x ]

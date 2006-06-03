@@ -8,7 +8,7 @@ fi
 
 search="NO"
 header="png.h"
-define="-DSYSD_HAVE_LIBPNG"
+define="-DHAVE_LIBPNG"
 path="/usr/include /usr/local/include"
 
 sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"

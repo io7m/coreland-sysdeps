@@ -9,7 +9,7 @@ fi
 search="NO"
 header="SDL_ttf.h"
 path="/usr/local/include/SDL"
-define="-DSYSD_HAVE_SDL_TTF"
+define="-DHAVE_SDL_TTF"
 
 sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
 if [ x"$sys" != x ]
