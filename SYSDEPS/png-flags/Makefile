@@ -7,10 +7,10 @@ clean: png-flags_clean
 tempf="png-flags.out"
 
 do_png-flags:
-	@echo png-flags run
+	@echo SYSDEPS png-flags run create flags-png
 	@./png-flags 1>>${tempf}
 	@cp ${tempf} ${fileout}
 
 png-flags_clean:
-	@echo png-flags clean
+	@echo SYSDEPS png-flags clean
 	@rm -f ${fileout} ${tempf}

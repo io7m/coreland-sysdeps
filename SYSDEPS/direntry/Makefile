@@ -8,12 +8,12 @@ tempf="direntry.h"
 tempsys="sysdeps.out"
 
 do_direntry:
-	@echo direntry run
+	@echo SYSDEPS direntry run create ${tempf}
 	@./direntry ${tempf} ${tempsys}
 	@cp ${tempf} ${header}
 	@cat ${tempsys} >> ${sd_out}
 
 direntry_clean:
-	@echo direntry clean
+	@echo SYSDEPS direntry clean
 	@rm -f trydirent.o
 	@rm -f ${header} ${tempf} ${tempsys}

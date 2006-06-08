@@ -7,10 +7,10 @@ clean: sdl-flags_clean
 tempf="sdl-flags.out"
 
 do_sdl-flags:
-	@echo sdl-flags run
+	@echo SYSDEPS sdl-flags run create flags-sdl
 	@./sdl-flags 1>>${tempf}
 	@cp ${tempf} ${fileout}
 
 sdl-flags_clean:
-	@echo sdl-flags clean
+	@echo SYSDEPS sdl-flags clean
 	@rm -f ${fileout} ${tempf}

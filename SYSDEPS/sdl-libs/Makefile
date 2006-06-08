@@ -7,10 +7,10 @@ clean: sdl-libs_clean
 tempf="sdl-libs.out"
 
 do_sdl-libs:
-	@echo sdl-libs run
+	@echo SYSDEPS sdl-libs run create libs-sdl
 	@./sdl-libs 1>>${tempf}
 	@cp ${tempf} ${fileout}
 
 sdl-libs_clean:
-	@echo sdl-libs clean
+	@echo SYSDEPS sdl-libs clean
 	@rm -f ${fileout} ${tempf}

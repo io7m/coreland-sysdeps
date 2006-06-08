@@ -7,10 +7,10 @@ clean: sdl-ttf-flags_clean
 tempf="sdl-ttf-flags.out"
 
 do_sdl-ttf-flags:
-	@echo sdl-ttf-flags run
+	@echo SYSDEPS sdl-ttf-flags run create flags-sdl-ttf
 	@./sdl-ttf-flags 1>>${tempf}
 	@cp ${tempf} ${fileout}
 
 sdl-ttf-flags_clean:
-	@echo sdl-ttf-flags clean
+	@echo SYSDEPS sdl-ttf-flags clean
 	@rm -f ${fileout} ${tempf}
