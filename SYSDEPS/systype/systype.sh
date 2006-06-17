@@ -100,6 +100,20 @@ then
     chip="$unamem"
     kern=""
     ;;
+  hp-ux)
+    tmp="`file /stand/vmunix`"
+    if [ $? -eq 0 ]
+    then
+      tmp="`echo $tmp | tr '/:[A-Z]' '..[a-z]'`"
+    else
+      tmp="standvmunix elf-64 executable object file - unknown unknown (lp64)"
+    fi
+    oper="$sys-$unamer-$unamev"
+    arch="`echo $tmp | awk '{print $7}'`"
+    syst=""
+    chip="`model | tr '/:[A-Z]' '..[a-z]'`"
+    kern=""
+    ;;
   *)
     oper="$sys-$unamer-$unamev"
     arch="`arch | tr /: ..`"
