@@ -35,3 +35,5 @@ else
 fi
 
 echo '#endif' >> "${sigpm_out}"
+
+rm -f trysigpm trysigact

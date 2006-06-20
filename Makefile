@@ -1,5 +1,5 @@
 # auto generated - do not edit
-# cpj-genmk-0.70
+# cpj-genmk-0.76
 
 SHELL=/bin/sh
 default: all
@@ -27,6 +27,9 @@ phase_tools_clean:  mkftools_clean
 ch_flags.o:\
 	compile ch_flags.c ch_flags.h uint32.h 
 	./compile ch_flags ch_flags.c 
+depchklist.o:\
+	compile depchklist.c ch_flags.h 
+	./compile depchklist depchklist.c 
 get_flags.o:\
 	compile get_flags.c ch_flags.h open.h uint32.h 
 	./compile get_flags get_flags.c 
@@ -35,9 +38,9 @@ open_ro.o:\
 	./compile open_ro open_ro.c 
 
 phase_compile:\
-	ch_flags.o get_flags.o open_ro.o 
+	ch_flags.o depchklist.o get_flags.o open_ro.o 
 phase_compile_clean:
-	rm -f ch_flags.o get_flags.o open_ro.o 
+	rm -f ch_flags.o depchklist.o get_flags.o open_ro.o 
 
 #--LIBRARY--------------------------------------------------------------------
 
@@ -55,9 +58,14 @@ phase_library_clean:
 
 #--LINK-----------------------------------------------------------------------
 
+depchklist:\
+	link depchklist.ld depchklist.o 
+	./link depchklist depchklist.o 
 
-phase_link:
+phase_link:\
+	depchklist 
 phase_link_clean:
+	rm -f depchklist 
 
 #--TEST-----------------------------------------------------------------------
 
@@ -80,19 +88,20 @@ sysdep_clean:
 
 #--TOOLS----------------------------------------------------------------------
 
-mkftools: compile makelib sosuffix makeso link 
-compile: conf-shebang conf-cc make-compile 
+mkftools: compile makelib libname makeso link 
+compile: sysdeps.out conf-shebang conf-cc make-compile conf-ccfflist \
+	flags-png flags-sdl flags-sdl-image flags-sdl-mixer flags-sdl-ttf 
 	(cat conf-shebang; ./make-compile) > compile; chmod u+x compile;
-link: conf-shebang conf-ld make-link 
+link: sysdeps.out conf-shebang conf-ld make-link 
 	(cat conf-shebang; ./make-link) > link; chmod u+x link;
-makelib: conf-shebang make-makelib 
+makelib: sysdeps.out conf-shebang make-makelib 
 	(cat conf-shebang; ./make-makelib) > makelib; chmod u+x makelib;
-makeso: conf-shebang sosuffix make-makeso 
+makeso: sysdeps.out conf-shebang libname make-makeso 
 	(cat conf-shebang; ./make-makeso) > makeso; chmod u+x makeso;
-sosuffix: conf-shebang make-sosuffix 
-	(cat conf-shebang; ./make-sosuffix) > sosuffix; chmod u+x sosuffix;
+libname: sysdeps.out conf-shebang make-libname 
+	(cat conf-shebang; ./make-libname) > libname; chmod u+x libname;
 mkftools_clean: 
-	 rm -f compile makelib makeso sosuffix link 
+	 rm -f compile makelib makeso libname link 
 regen:
 	cpj-genmk > Makefile.tmp
 	mv Makefile.tmp Makefile

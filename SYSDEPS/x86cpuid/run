@@ -1,0 +1,20 @@
+#!/bin/sh
+
+sd_tmp="sysdeps.out"
+echo "SYSDEPS x86cpuid run"
+
+outdir="`head -n 1 ../conf-outdir`"
+if [ -z "${outdir}" ]
+then
+  echo "fatal: outdir not defined" 2>&1
+  exit 1
+fi
+outdir="../${outdir}"
+sd_out="${outdir}/${sd_tmp}"
+
+./x86cpuid ${sd_tmp}
+if [ $? -eq 0 ]
+then
+  cat ${sd_tmp} >> ${sd_out}
+fi
+

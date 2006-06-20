@@ -6,48 +6,46 @@ then
   exit 111
 fi
 
-search="NO"
+exec 1> "$1"
+
 header="png.h"
 define="-DHAVE_LIBPNG"
-path="/usr/include /usr/local/include"
+path="${SYSDEP_STDINC}"
+pkg="libpng12"
 
-sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
-if [ x"${sys}" != x ]
-then
-  case "${sys}" in
+case "${SYSDEP_SYSTYPE}" in
   sunos)
     path="${path} /usr/sfw/include "
     search="YES"
     ;;
   *) ;;
-  esac
-fi
+esac
 
-# for systems that don't have libpng-config
-if [ "${search}" = "YES" ]
+FLAGS=`try_config_bin "libpng-config" "--I_opts --cppflags" 2>&-`
+if [ "x${FLAGS}" != "x" ]
 then
-  search_header "${header}" "${path}"
-  if [ $? -ne 0 ]
-  then
-    error "could not locate ${header}"
-  else
-    echo "${define}"
-  fi
+  echo ${FLAGS} ${define}
   exit 0
-fi
-
-# default libpng-config system
-flist=`libpng-config --I_opts --cppflags`
-err=$?
-flags=""
-
-if [ ${err} -ne 0 ]
-then
-  error "could not locate libPNG includes"
 else
-  for f in ${flist}
-  do
-    flags="${flags} $f"
-  done
-  echo ${flags} ${define}
+  error "try_config_bin failed"
 fi
+
+FLAGS=`try_pkg_config "${pkg}" "--cflags" 2>&-`
+if [ "x${FLAGS}" != "x" ]
+then
+  echo ${FLAGS} ${define}
+  exit 0
+else
+  error "try_pkg_config failed"
+fi
+
+FLAGS=`try_manual_search "${header}" "${path}" "-I" 2>&-`
+if [ "x${FLAGS}" != "x" ]
+then
+  echo ${FLAGS} ${define}
+  exit 0
+else
+  error "try_manual_search failed"
+fi
+
+exit 0

@@ -6,43 +6,49 @@ then
   exit 111
 fi
 
-search="NO"
-header="SDL.h"
-path="/usr/include/SDL /usr/local/include/SDL"
-define="-DHAVE_SDL"
+exec 1> "$1"
 
-sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
-if [ x"$sys" != x ]
-then
-  case "$sys" in
+header="SDL.h"
+define="-DHAVE_SDL"
+path="${SYSDEP_STDINC} /usr/local/include/SDL /usr/include/SDL"
+pkg="sdl"
+
+case "${SYSDEP_SYSTYPE}" in
+  sunos)
+    path="${path} /usr/sfw/include/SDL"
+    ;;
   darwin)
-    path="/Library/Frameworks/SDL.framework/Headers \
-          /sw/include/SDL ${path}"
-    args="-D_THREAD_SAFE"
-    search="YES"
+    path="/Library/Frameworks/SDL.framework/Headers ${path} /sw/include/SDL"
     ;;
   *)
     ;;
-  esac
-fi
+esac
 
-if [ "${search}" = "YES" ]
+FLAGS=`try_config_bin "sdl-config" "--cflags" 2>&-`
+if [ "x${FLAGS}" != "x" ]
 then
-  search_header "${header}" "${path}" "${args}"
-  if [ $? -ne 0 ]
-  then
-    error "could not locate ${header}"
-  else
-    echo "${define}"
-  fi
+  echo ${FLAGS} ${define}
   exit 0
+else
+  error "try_config_bin failed"
 fi
 
-# default sdl-config system
-cf="`sdl-config --cflags`"
-if [ $? -ne 0 ]
+FLAGS=`try_pkg_config "${pkg}" "--cflags" 2>&-`
+if [ "x${FLAGS}" != "x" ]
 then
-  error "error executing sdl-config"
+  echo ${FLAGS} ${define}
+  exit 0
+else
+  error "try_pkg_config failed"
 fi
 
-echo ${cf} ${define}
+FLAGS=`try_manual_search "${header}" "${path}" "-I" 2>&-`
+if [ "x${FLAGS}" != "x" ]
+then
+  echo ${FLAGS} ${define}
+  exit 0
+else
+  error "try_manual_search failed"
+fi
+
+exit 0

@@ -6,46 +6,49 @@ then
   exit 111
 fi
 
-search="NO"
+exec 1> "$1"
 
-sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
-if [ x"$sys" != x ]
-then
-  case "$sys" in
+path="${SYSDEP_STDLIB}"
+lib="libpng"
+
+case ${SYSDEP_SYSTYPE} in
   sunos)
-    path="/usr/local/lib /usr/sfw/lib"
-    lib="libpng.so"
-    args="-lpng"
-    search="YES"
+    path="${path} /usr/sfw/lib"
     ;;
-  *) ;;
-  esac
-fi
+  darwin)
+    path="${path} /sw/lib"
+    lib="${lib}.dylib"
+    ;;
+  *)
+    lib="${lib}.so"
+    ;;
+esac
 
-# for systems that don't have libpng-config
-if [ "${search}" = "YES" ]
+FLAGS=`try_config_bin "libpng-config" "--ldflags" 2>&-`
+if [ "x${FLAGS}" != "x" ]
 then
-  search_header "${lib}" "${path}" "${args}"
-  if [ $? -ne 0 ]
-  then
-    error "could not locate ${lib}"
-  fi
-  exit 0
-fi
-
-# default libpng-config system
-flist=`libpng-config --ldflags`
-err=$?
-flags=""
-
-if [ ${err} -ne 0 ]
-then
-  error "could not locate PNG libs"
+  echo ${FLAGS}
   exit 0
 else
-  for f in ${flist}
-  do
-    flags="${flags} $f"
-  done
-  echo ${flags}
+  error "try_config_bin failed"
 fi
+
+FLAGS=`try_pkg_config "${pkg}" "--libs" 2>&-`
+if [ "x${FLAGS}" != "x" ]
+then
+  echo ${FLAGS}
+  exit 0
+else
+  error "try_pkg_config failed"
+fi
+
+FLAGS=`try_manual_search "${lib}" "${path}" "-L" 2>&-`
+if [ "x${FLAGS}" != "x" ]
+then
+  echo ${FLAGS}
+  exit 0
+else
+  error "try_manual_search failed"
+fi
+
+exit 0

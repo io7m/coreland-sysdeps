@@ -1,8 +1,0 @@
-#!/bin/sh
-sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
-case "$sys" in
-  darwin)
-    echo 'exec echo dylib';;
-  *)
-    echo 'exec echo so';;
-esac

@@ -1,0 +1,39 @@
+#!/bin/sh
+
+sd_tmp="sysdeps.out"
+f1_tmp="_int16.h"
+f2_tmp="_int32.h"
+f3_tmp="_int64.h"
+f4_tmp="_uint16.h"
+f5_tmp="_uint32.h"
+f6_tmp="_uint64.h"
+echo "SYSDEPS integers run create ${f1_tmp} ${f2_tmp} ${f3_tmp} ${f4_tmp} ${f5_tmp} ${f6_tmp}"
+
+outdir="`head -n 1 ../conf-outdir`"
+if [ -z "${outdir}" ]
+then
+  echo "fatal: outdir not defined" 2>&1
+  exit 1
+fi
+outdir="../${outdir}"
+sd_out="${outdir}/${sd_tmp}"
+f1_out="${outdir}/${f1_tmp}"
+f2_out="${outdir}/${f2_tmp}"
+f3_out="${outdir}/${f3_tmp}"
+f4_out="${outdir}/${f4_tmp}"
+f5_out="${outdir}/${f5_tmp}"
+f6_out="${outdir}/${f6_tmp}"
+
+./integers ${f1_tmp} ${f2_tmp} ${f3_tmp} ${f4_tmp} ${f5_tmp} ${f6_tmp} ${sd_tmp}
+if [ $? -eq 0 ]
+then
+  cp ${f1_tmp} ${f1_out}
+  cp ${f2_tmp} ${f2_out}
+  cp ${f3_tmp} ${f3_out}
+  cp ${f4_tmp} ${f4_out}
+  cp ${f5_tmp} ${f5_out}
+  cp ${f6_tmp} ${f6_out}
+  cat ${sd_tmp} >> ${sd_out}
+else
+  exit 1
+fi

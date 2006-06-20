@@ -36,3 +36,4 @@ for f in ${ALL_LIBS}
 do
   echo '  ${'$f'} \'
 done
+

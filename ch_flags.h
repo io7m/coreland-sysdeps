@@ -47,7 +47,7 @@
 #ifdef UF_NODUMP
   #define CF_NODUMP UF_NODUMP
 #else
-  #define UF_NODUMP 0x0
+  #define CF_NODUMP 0x0
 #endif /* UF_NODUMP */
 
 #endif /* HAS_CHFLAGS */

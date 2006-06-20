@@ -6,39 +6,31 @@ then
   exit 111
 fi
 
-search="NO"
+exec 1> "$1"
+
 header="SDL_ttf.h"
-path="/usr/local/include/SDL"
+path="${SYSDEP_STDINC} /usr/include/SDL /usr/local/include/SDL"
 define="-DHAVE_SDL_TTF"
 
-sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
-if [ x"$sys" != x ]
-then
-  case "$sys" in
+case "$SYSDEP_SYSTYPE" in
   darwin)
     path="/Library/Frameworks/SDL_ttf.framework/Headers \
           /sw/include/SDL ${path}"
-    search="YES"
     ;;
   sunos)
     path="/opt/csw/include/SDL ${path}"
-    search="YES"
     ;;
   *)
-    search="YES"
     ;;
-  esac
-fi
+esac
 
-args="${define}"
-if [ "${search}" = "YES" ]
+FLAGS="`try_manual_search "${header}" "${path}" "-I"`"
+if [ "x${FLAGS}" != "x" ]
 then
-  search_header "${header}" "${path}" "${args}"
-  if [ $? -ne 0 ]
-  then
-    error "could not locate ${header}"
-  fi
+  echo ${FLAGS} ${define}
   exit 0
+else
+  error "try_manual_search failed"
 fi
 
-# can't get here
+exit 0

@@ -3,6 +3,11 @@
 fout="$1"
 sysdep="$2"
 
+do_clean()
+{
+  rm -f tryext2 trychflags
+}
+
 cc -o trychflags trychflags.c >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
@@ -13,10 +18,12 @@ then
 
 #define CH_FLAGS_HAVE_CHFLAGS
 #define CH_FLAGS_WORKING
+#define HAVE_CHFLAGS
 
 #endif
 EOF
   echo "ch_flags:chflags" >> "${sysdep}"
+  do_clean
   exit 0
 fi
 
@@ -34,10 +41,12 @@ then
 
 #define CH_FLAGS_HAVE_EXT2FS_IOCTL
 #define CH_FLAGS_WORKING
+#define HAVE_CHFLAGS
 
 #endif
 EOF
   echo "ch_flags:ext2fs_ioctl" >> "${sysdep}"
+  do_clean
   exit 0
 fi
 
@@ -50,4 +59,5 @@ cat > "${fout}" <<EOF
 #endif
 EOF
 echo "ch_flags:none" >> "${sysdep}"
+do_clean
 exit 0

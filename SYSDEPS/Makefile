@@ -5,109 +5,109 @@ sysdeps:  sd_ch_flags sd_direntry sd_endian sd_floats sd_integers sd_png-flags s
 sysdeps_clean:  sd_ch_flags_clean sd_direntry_clean sd_endian_clean sd_floats_clean sd_integers_clean sd_png-flags_clean sd_png-libs_clean sd_sdl-flags_clean sd_sdl-libs_clean sd_systype_clean sd_x86cpuid_clean sd_sdl-mixer-flags_clean sd_sdl-mixer-libs_clean sd_sdl-image-flags_clean sd_sdl-image-libs_clean sd_opengl-flags_clean sd_opengl-libs_clean sd_sdl-ttf-flags_clean sd_sdl-ttf-libs_clean sd_dlopen_clean sd_signal_clean
 
 sd_ch_flags:
-	@(cd ch_flags && make)
+	@(cd ch_flags && ./run)
 sd_ch_flags_clean:
-	@(cd ch_flags && make clean)
+	@(cd ch_flags && ./clean)
 
 sd_direntry:
-	@(cd direntry && make)
+	@(cd direntry && ./run)
 sd_direntry_clean:
-	@(cd direntry && make clean)
+	@(cd direntry && ./clean)
 
 sd_endian:
-	@(cd endian && make)
+	@(cd endian && ./run)
 sd_endian_clean:
-	@(cd endian && make clean)
+	@(cd endian && ./clean)
 
 sd_floats:
-	@(cd floats && make)
+	@(cd floats && ./run)
 sd_floats_clean:
-	@(cd floats && make clean)
+	@(cd floats && ./clean)
 
 sd_integers:
-	@(cd integers && make)
+	@(cd integers && ./run)
 sd_integers_clean:
-	@(cd integers && make clean)
+	@(cd integers && ./clean)
 
 sd_png-flags:
-	@(cd png-flags && make)
+	@(cd png-flags && ./run)
 sd_png-flags_clean:
-	@(cd png-flags && make clean)
+	@(cd png-flags && ./clean)
 
 sd_png-libs:
-	@(cd png-libs && make)
+	@(cd png-libs && ./run)
 sd_png-libs_clean:
-	@(cd png-libs && make clean)
+	@(cd png-libs && ./clean)
 
 sd_sdl-flags:
-	@(cd sdl-flags && make)
+	@(cd sdl-flags && ./run)
 sd_sdl-flags_clean:
-	@(cd sdl-flags && make clean)
+	@(cd sdl-flags && ./clean)
 
 sd_sdl-libs:
-	@(cd sdl-libs && make)
+	@(cd sdl-libs && ./run)
 sd_sdl-libs_clean:
-	@(cd sdl-libs && make clean)
+	@(cd sdl-libs && ./clean)
 
 sd_systype:
-	@(cd systype && make)
+	@(cd systype && ./run)
 sd_systype_clean:
-	@(cd systype && make clean)
+	@(cd systype && ./clean)
 
 sd_x86cpuid:
-	@(cd x86cpuid && make)
+	@(cd x86cpuid && ./run)
 sd_x86cpuid_clean:
-	@(cd x86cpuid && make clean)
+	@(cd x86cpuid && ./clean)
 
 sd_sdl-mixer-flags:
-	@(cd sdl-mixer-flags && make)
+	@(cd sdl-mixer-flags && ./run)
 sd_sdl-mixer-flags_clean:
-	@(cd sdl-mixer-flags && make clean)
+	@(cd sdl-mixer-flags && ./clean)
 
 sd_sdl-mixer-libs:
-	@(cd sdl-mixer-libs && make)
+	@(cd sdl-mixer-libs && ./run)
 sd_sdl-mixer-libs_clean:
-	@(cd sdl-mixer-libs && make clean)
+	@(cd sdl-mixer-libs && ./clean)
 
 sd_sdl-image-flags:
-	@(cd sdl-image-flags && make)
+	@(cd sdl-image-flags && ./run)
 sd_sdl-image-flags_clean:
-	@(cd sdl-image-flags && make clean)
+	@(cd sdl-image-flags && ./clean)
 
 sd_sdl-image-libs:
-	@(cd sdl-image-libs && make)
+	@(cd sdl-image-libs && ./run)
 sd_sdl-image-libs_clean:
-	@(cd sdl-image-libs && make clean)
+	@(cd sdl-image-libs && ./clean)
 
 sd_opengl-flags:
-	@(cd opengl-flags && make)
+	@(cd opengl-flags && ./run)
 sd_opengl-flags_clean:
-	@(cd opengl-flags && make clean)
+	@(cd opengl-flags && ./clean)
 
 sd_opengl-libs:
-	@(cd opengl-libs && make)
+	@(cd opengl-libs && ./run)
 sd_opengl-libs_clean:
-	@(cd opengl-libs && make clean)
+	@(cd opengl-libs && ./clean)
 
 sd_sdl-ttf-flags:
-	@(cd sdl-ttf-flags && make)
+	@(cd sdl-ttf-flags && ./run)
 sd_sdl-ttf-flags_clean:
-	@(cd sdl-ttf-flags && make clean)
+	@(cd sdl-ttf-flags && ./clean)
 
 sd_sdl-ttf-libs:
-	@(cd sdl-ttf-libs && make)
+	@(cd sdl-ttf-libs && ./run)
 sd_sdl-ttf-libs_clean:
-	@(cd sdl-ttf-libs && make clean)
+	@(cd sdl-ttf-libs && ./clean)
 
 sd_dlopen:
-	@(cd dlopen && make)
+	@(cd dlopen && ./run)
 sd_dlopen_clean:
-	@(cd dlopen && make clean)
+	@(cd dlopen && ./clean)
 
 sd_signal:
-	@(cd signal && make)
+	@(cd signal && ./run)
 sd_signal_clean:
-	@(cd signal && make clean)
+	@(cd signal && ./clean)
 
 regen:
 	./gen-makefile > Makefile.tmp

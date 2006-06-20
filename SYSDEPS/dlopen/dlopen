@@ -32,3 +32,5 @@ if [ ${sd_done} -eq 0 ]
 then
   echo 'dlopen:none' >> "${sysdeps}"
 fi
+
+rm -f trydlopen trydlfunc

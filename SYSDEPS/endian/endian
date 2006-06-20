@@ -1,0 +1,25 @@
+#!/bin/sh
+
+do_clean()
+{
+  rm -f make-endian
+}
+
+fatal()
+{
+  echo "fatal: $1" 1>&2
+  do_clean
+  exit 1
+}
+
+temph="$1"
+tempsys="$2"
+
+cc -o make-endian make-endian.c
+if [ $? -ne 0 ]; then fatal "error compiling make-endian"; fi
+
+./make-endian 1>${temph} 2>>${tempsys}
+if [ $? -ne 0 ]; then fatal "could not create make-endian header"; fi
+
+do_clean
+exit 0

@@ -1,23 +1,23 @@
 #!/bin/sh
 echo 'main="$1"; shift';
 sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
-suf="`./sosuffix`"
 
-echo 'suf='"${suf}"
+echo 'lib="`./libname ${main}`"'
 case "$sys" in
   sunos)
-    echo 'rm -f "${main}.${suf}"'
-    echo 'ld -G -z text -o "${main}.${suf}" ${1+"$@"}';;
+    echo 'rm -f "${lib}"'
+    echo 'ld -G -z text -o "${lib}" ${1+"$@"}';;
   darwin)
-    echo 'rm -f "${main}.${suf}"'
-    echo 'libtool -dynamic -o "${main}.${suf}" ${1+"$@"} -lc';;
+    echo 'rm -f "${lib}"'
+    echo 'libtool -dynamic -o "${lib}" ${1+"$@"} -lc';;
   *)
-    echo 'rm -f "${main}.${suf}"'
-    echo 'cc -shared -Wl,-soname,"${main}.${suf}" -o "${main}.${suf}" ${1+"$@"} -lc';;
+    echo 'rm -f "${lib}"'
+    echo 'cc -shared -Wl,-soname,"${lib}" -o "${lib}" ${1+"$@"} -lc';;
 esac
 
 echo 'if [ $? -ne 0 ]'
 echo 'then'
 echo '  exit 1'
 echo 'fi'
-echo 'echo ${main}.${suf} >> ${main}.lib'
+echo 'echo ${lib} >> ${main}.lib'
+

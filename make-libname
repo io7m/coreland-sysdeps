@@ -1,0 +1,27 @@
+#!/bin/sh
+
+echo 'main="$1"; shift;'
+echo 'vmj="`cat ${main}.vmj 2>&-`"'
+echo 'vmn="`cat ${main}.vmn 2>&-`"'
+
+sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
+case "$sys" in
+  darwin)
+    echo 'suf=dylib';;
+  *)
+    echo 'suf=so';;
+esac
+
+echo
+echo 'if [ "x${vmj}" != "x" ]'
+echo 'then'
+echo ' if [ "x${vmn}" != "x" ]'
+echo ' then'
+echo '   exec echo ${main}.${suf}.${vmj}.${vmn}'
+echo ' else'
+echo '   exec echo ${main}.${suf}.${vmj}'
+echo ' fi'
+echo 'else'
+echo ' exec echo ${main}.${suf}'
+echo 'fi'
+

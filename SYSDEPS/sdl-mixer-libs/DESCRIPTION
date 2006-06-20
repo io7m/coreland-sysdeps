@@ -1,0 +1,1 @@
+linker flags to link against SDL_mixer (requires SDL module to be useful)

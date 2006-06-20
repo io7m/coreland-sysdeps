@@ -6,15 +6,13 @@ then
   exit 111
 fi
 
-sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
-if [ x"$sys" != x ]
-then
-  case "$sys" in
+exec 1> "$1"
+
+case "$SYSDEP_SYSTYPE" in
   darwin)
     echo "-framework SDL_mixer"
     ;;
   *)
     echo "-lSDL_mixer"
     ;;
-  esac
-fi
+esac

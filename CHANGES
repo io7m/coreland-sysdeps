@@ -46,3 +46,6 @@
                HAVE_LIBPNG. this should aid conditional and optional
                compilation.
 20060603 version: sysdeps-0.20
+20060620 code: restructure to run scripts instead of makefile.
+               terminal and non-terminal modules.
+               depchklist for the curious.

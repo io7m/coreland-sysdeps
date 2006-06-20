@@ -2,43 +2,58 @@
 
 error()
 {
-  echo "error: $1" 1>&2
+  echo "$1" 1>&2
 }
 
-search_header()
-{
-  header="$1"
-  path="$2"
-  args="$3"
+# standard prelude
 
-  for d in ${path}
+SYSDEP_STDINC="/usr/include /usr/local/include"
+SYSDEP_STDLIB="/usr/lib /usr/local/lib"
+
+export SYSDEP_STDINC
+export SYSDEP_STDLIB
+
+SYSDEP_SYSTYPE="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
+if [ $? -ne 0 ]
+then
+  error "fatal: could not get system type"
+  exit 1
+fi
+export SYSDEP_SYSTYPE
+
+# interface functions
+
+try_config_bin()
+{
+  config="$1"
+  flags="$2"
+  ${config} ${flags} 2>/dev/null
+  return $?
+}
+
+try_pkg_config()
+{
+  pkgname="$1"
+  flags="$2"
+  pkg-config ${flags} ${pkgname} 2>/dev/null
+  return $?
+}
+
+try_manual_search()
+{
+  file="$1"
+  path="$2"
+  prefix="$3"
+
+  for f in ${path}
   do
-    if [ -f "${d}/${header}" ]
+    if [ -f "${f}/${file}" ]
     then
-      echo "-I${d} ${args}"
+      echo "${prefix}${f} "
       return 0
     fi
   done
-
-  # could not locate header
   return 1
 }
 
-search_lib()
-{
-  lib="$1"
-  path="$2"
-  args="$3"
 
-  for d in ${path}
-  do
-    if [ -f "${d}/${lib}" ]
-    then
-      echo "-L${d} ${args}"
-      return 0
-    fi
-  done
-
-  # could not locate header
-  return 1
-}

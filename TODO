@@ -1,11 +1,3 @@
 Darwin testing.
 
 OpenGL.
-
-The sysdeps run output is quite ugly and not parseable at all. It might
-be a good idea to edit the Makefiles and make some cosmetic changes.
-
-  sysdeps sdl-flags
-  sysdeps sdl-libs
-  sysdeps opengl-flags
-  ...

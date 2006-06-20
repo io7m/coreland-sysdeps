@@ -1,0 +1,22 @@
+#!/bin/sh
+
+do_clean()
+{
+  rm -f getx86cpuid
+}
+
+if [ x"$1" = x ]
+then
+  exit 1
+fi
+
+cc -o getx86cpuid getx86cpuid.c >/dev/null 2>&1
+if [ $? -ne 0 ]
+then
+  do_clean
+  exit 1
+fi
+
+echo "x86cpuid:`./getx86cpuid`" >> $1
+do_clean
+exit 0
