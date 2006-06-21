@@ -5,14 +5,7 @@ error()
   echo "$1" 1>&2
 }
 
-# standard prelude
-
-SYSDEP_STDINC="/usr/include /usr/local/include"
-SYSDEP_STDLIB="/usr/lib /usr/local/lib"
-
-export SYSDEP_STDINC
-export SYSDEP_STDLIB
-
+# find system type
 SYSDEP_SYSTYPE="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
 if [ $? -ne 0 ]
 then
@@ -21,7 +14,36 @@ then
 fi
 export SYSDEP_SYSTYPE
 
+# standard include path
+SYSDEP_STDINC="/usr/include /usr/local/include"
+case ${SYSDEP_SYSTYPE} in
+  darwin) SYSDEP_STDINC="/sw/include ${SYSDEP_STDINC}";;
+  sunos) SYSDEP_STDINC="/usr/sfw/include ${SYSDEP_STDINC}";;
+  *)
+esac
+export SYSDEP_STDINC
+
+# standard library path
+SYSDEP_STDLIB="/usr/lib /usr/local/lib"
+case ${SYSDEP_SYSTYPE} in
+  darwin) SYSDEP_STDLIB="/sw/lib ${SYSDEP_STDLIB}";;
+  sunos) SYSDEP_STDLIB="/usr/sfw/lib ${SYSDEP_STDLIB}";;
+  *)
+esac
+export SYSDEP_STDLIB
+
+# find system dynamic library suffix
+SYSDEP_LIBSUFFIX="so"
+case ${SYSDEP_SYSTYPE} in
+  darwin) SYSDEP_LIBSUFFIX="dylib" ;;
+  hpux) SYSDEP_LIBSUFFIX="sl";;
+  *) ;;
+esac
+export SYSDEP_LIBSUFFIX
+
+#
 # interface functions
+#
 
 try_config_bin()
 {
@@ -55,5 +77,4 @@ try_manual_search()
   done
   return 1
 }
-
 

@@ -13,12 +13,8 @@ path="${SYSDEP_STDLIB}"
 lib="libSDLmain.a"
 
 case ${SYSDEP_SYSTYPE} in
-  sunos)
-    path="${path} /usr/sfw/lib"
-    ;;
   darwin)
     args="-bind_at_load"    # darwin linker bug
-    path="/sw/lib ${path}"
     ;;
   *)
     ;;
