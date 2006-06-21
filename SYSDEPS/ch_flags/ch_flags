@@ -5,7 +5,7 @@ sysdep="$2"
 
 do_clean()
 {
-  rm -f tryext2 trychflags
+  rm -f trychflags
 }
 
 cc -o trychflags trychflags.c >/dev/null 2>&1
@@ -26,31 +26,6 @@ EOF
   do_clean
   exit 0
 fi
-
-# linux does not automatically mean ext2fs, but ext3fs is compatible
-# and seems to be the most commonplace
-# please let me know if there's a more portable alternative
-
-cc -o tryext2 tryext2.c >/dev/null 2>&1
-if [ $? -eq 0 ]
-then
-  # attempt ext2fs ioctl
-  cat > "${fout}" <<EOF
-#ifndef _CH_FLAGS_H
-#define _CH_FLAGS_H
-
-#define CH_FLAGS_HAVE_EXT2FS_IOCTL
-#define CH_FLAGS_WORKING
-#define HAVE_CHFLAGS
-
-#endif
-EOF
-  echo "ch_flags:ext2fs_ioctl" >> "${sysdep}"
-  do_clean
-  exit 0
-fi
-
-# doesn't have filesystem flags (or documented means to set them)
 
 cat > "${fout}" <<EOF
 #ifndef _CH_FLAGS_H
