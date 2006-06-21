@@ -9,12 +9,18 @@ cat >> "${fout}" <<EOF
 
 EOF
 
+lflag=""
+case "`uname -s | tr '/:[A-Z]' '..[a-z]'`" in
+  linux) lflag="-ldl";;
+  *) ;;
+esac
+
 sd_done=0
-cc -o trydlopen trydlopen.c >/dev/null 2>&1
+cc -o trydlopen trydlopen.c ${lflag} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '#define HAVE_DLOPEN' >> "${fout}"
-  cc -o trydlfunc trydlfunc.c >/dev/null 2>&1
+  cc -o trydlfunc trydlfunc.c ${lflag} >/dev/null 2>&1
   if [ $? -eq 0 ]
   then
     echo '#define HAVE_DLFUNC' >> "${fout}"

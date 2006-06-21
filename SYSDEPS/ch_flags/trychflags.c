@@ -3,5 +3,5 @@
 
 int main()
 {
-  chflags("XXXX", 0);
+  chflags("XXXX", UF_NODUMP);
 }

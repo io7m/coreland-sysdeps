@@ -8,13 +8,10 @@ int fch_flags(int fd, uint32 in_flags)
   return fchflags(fd, in_flags);
 #endif
 
-#ifdef CH_FLAGS_HAVE_EXT2FS_IOCTL
-  /* device specific linux shit */
-  if (ioctl(fd, EXT2_IOC_FLAGS, in_flags) != 0) return -1;
-  return 0;
-#endif
-
   /* XXX: how should one set flags on solaris? */
-  /* default */
+
+  /* XXX: how should one set flags on linux without filesystem
+          specific calls? */
+
   return 0;
 }

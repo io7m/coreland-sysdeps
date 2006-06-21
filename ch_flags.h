@@ -52,21 +52,6 @@
 
 #endif /* HAS_CHFLAGS */
 
-#ifdef CH_FLAGS_HAVE_EXT2FS_IOCTL
-
-#include <linux/ext2_fs.h>
-#include <sys/ioctl.h>
-
-#define CF_SAPPND EXT2_APPEND_FL
-#define CF_SIMMUT EXT2_IMMUTABLE_FL
-#define CF_SUNLNK 0x0                /* ext2 doesn't support unlink */
-#define CF_UAPPND EXT2_APPEND_FL     /* no difference between user and suser */
-#define CF_UIMMUT EXT2_IMMUTABLE_FL  /* as append */
-#define CF_UUNLNK 0x0                /* as above */
-#define CF_NODUMP EXT2_NODUMP_FL
-
-#endif /* HAS_EXT2FS_IOCTL */
-
 int ch_flags(const char *, uint32);
 int get_flags(const char *, uint32 *);
 

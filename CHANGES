@@ -49,3 +49,5 @@
 20060620 code: restructure to run scripts instead of makefile.
                terminal and non-terminal modules.
                depchklist for the curious.
+20060621 code: more general scheme. check sysdep-subs for new vars.
+20060621 code: dlopen fix on linux

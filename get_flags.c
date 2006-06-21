@@ -29,12 +29,6 @@ int fget_flags(int fd, uint32 *rflags)
 
 #endif /* CH_FLAGS_HAVE_CHFLAGS */
 
-#ifdef CH_FLAGS_HAVE_EXT2FS_IOCTL
-
-  if (ioctl(fd, EXT2_IOC_GETFLAGS, &flags) != 0) { return -1; }
-
-#endif /* CH_FLAGS_HAVE_EXT2FS_IOCTL */
-
 #ifdef CH_FLAGS_WORKING
 
   *rflags = 0;
