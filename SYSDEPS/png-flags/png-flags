@@ -15,10 +15,13 @@ pkg="libpng12"
 
 case "${SYSDEP_SYSTYPE}" in
   sunos)
-    path="${path} /usr/sfw/include "
-    search="YES"
+    path="${path} /usr/sfw/include"
     ;;
-  *) ;;
+  darwin)
+    path="${path} /sw/include"
+    ;;
+  *)
+    ;;
 esac
 
 FLAGS=`try_config_bin "libpng-config" "--I_opts --cppflags" 2>&-`
