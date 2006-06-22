@@ -52,3 +52,4 @@
 20060621 code: more general scheme. check sysdep-subs for new vars.
 20060621 code: dlopen fix on linux
 20060621 code: remove ext2fs code from ch_flags.
+20060622 code: added jack
