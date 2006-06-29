@@ -1,6 +1,6 @@
 #!/bin/sh
 
 sd_tmp="sysdeps.out"
-echo "SYSDEPS systype ${f1_tmp}"
+echo "SYSDEPS systype clean ${f1_tmp}"
 
 rm -f ${sd_tmp}
