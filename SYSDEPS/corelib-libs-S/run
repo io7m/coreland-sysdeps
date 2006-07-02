@@ -1,0 +1,16 @@
+#!/bin/sh
+
+f1_tmp="libs-corelib"
+echo "SYSDEPS corelib-libs-S run create ${f1_tmp}"
+
+outdir="`head -n 1 ../conf-outdir`"
+if [ -z "${outdir}" ]
+then
+  echo "fatal: outdir not defined" 2>&1
+  exit 1
+fi
+outdir="../${outdir}"
+f1_out="${outdir}/${f1_tmp}"
+
+./corelib-libs ${f1_tmp}
+cp ${f1_tmp} ${f1_out}

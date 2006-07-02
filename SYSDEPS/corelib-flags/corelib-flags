@@ -1,0 +1,22 @@
+#!/bin/sh
+
+. ../sysdep-subs
+if [ $? -ne 0 ]
+then
+  exit 111
+fi
+
+exec 1> "$1"
+
+define="-DHAVE_CORELIB"
+
+FLAGS=`try_config_bin "corelib-conf" "-cI" 2>&-`
+if [ "x${FLAGS}" != "x" ]
+then
+  echo ${FLAGS} ${define}
+  exit 0
+else
+  error "try_config_bin failed"
+fi
+
+exit 0
