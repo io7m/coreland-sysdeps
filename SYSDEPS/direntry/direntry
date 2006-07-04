@@ -7,8 +7,8 @@ cc -c trydirent.c >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   cat > "${fout}" <<EOF
-#ifndef DIRENTRY_H
-#define DIRENTRY_H
+#ifndef _DIRENTRY_H
+#define _DIRENTRY_H
 
 #include <sys/types.h>
 #include <dirent.h>
@@ -19,8 +19,8 @@ EOF
   echo "direntry:struct dirent" >> "${sysdeps}"
 else
   cat > "${fout}" <<EOF
-#ifndef DIRENTRY_H
-#define DIRENTRY_H
+#ifndef _DIRENTRY_H
+#define _DIRENTRY_H
 
 #include <sys/types.h>
 #include <sys/dir.h>
