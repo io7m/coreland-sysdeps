@@ -1,7 +1,7 @@
 #!/bin/sh
 
 sd_tmp="sysdeps.out"
-f1_tmp="direntry.h"
+f1_tmp="_direntry.h"
 echo "SYSDEPS direntry run create ${f1_tmp}"
 
 outdir="`head -n 1 ../conf-outdir`"

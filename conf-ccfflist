@@ -1,7 +1,8 @@
+flags-corelib
 flags-jack
 flags-png
-flags-sndfile
 flags-sdl
 flags-sdl-image
 flags-sdl-mixer
 flags-sdl-ttf
+flags-sndfile

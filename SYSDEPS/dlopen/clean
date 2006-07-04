@@ -1,7 +1,7 @@
 #!/bin/sh
 
 sd_tmp="sysdeps.out"
-f1_tmp="dlopen.h"
+f1_tmp="_dlopen.h"
 echo "SYSDEPS dlopen clean ${f1_tmp}"
 
 outdir="`head -n 1 ../conf-outdir`"

@@ -1,9 +1,9 @@
 #!/bin/sh
 
 sd_tmp="sysdeps.out"
-f1_tmp="_sig_action.h"
-f2_tmp="_sig_pmask.h"
-echo "SYSDEPS signal run create ${f1_tmp} ${f2_tmp}"
+f1_tmp="_floatcast.h"
+f2_tmp="libs-floatcast"
+echo "SYSDEPS floatcast run create ${f1_tmp} ${f2_tmp}"
 
 outdir="`head -n 1 ../conf-outdir`"
 if [ -z "${outdir}" ]
@@ -16,7 +16,7 @@ f1_out="${outdir}/${f1_tmp}"
 f2_out="${outdir}/${f2_tmp}"
 sd_out="${outdir}/${sd_tmp}"
 
-./signal ${f1_tmp} ${f2_tmp} ${sd_tmp}
+./floatcast ${f1_tmp} ${f2_tmp} ${sd_tmp}
 cp ${f1_tmp} ${f1_out}
 cp ${f2_tmp} ${f2_out}
 cat ${sd_tmp} >> ${sd_out}

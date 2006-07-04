@@ -1,0 +1,16 @@
+floatcast
+
+This module creates the floatcast header file.
+
+Casting a floating point value to an integer is very slow due to
+the FPU having to use the 'fldcw' instruction (or equivalent for
+other architectures) to meet the C standard. The lrint() family
+of functions cause the FPU to use rounding instead of truncation
+and avoid the 'fldcw' instruction. This results in significantly
+faster code.
+
+The header files defined macros for 'floatcast', 'doublecast',
+'llfloatcast' and 'lldoublecast' which correspond to either a
+C cast or one of the relevant 'lrint' functions.
+
+It writes a 'floatcast:' line in sysdeps.out.

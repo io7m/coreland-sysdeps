@@ -1,7 +1,7 @@
 #!/bin/sh
 
 sd_tmp="sysdeps.out"
-f1_tmp="endian.h"
+f1_tmp="_endian.h"
 echo "SYSDEPS endian clean ${f1_tmp}"
 
 outdir="`head -n 1 ../conf-outdir`"

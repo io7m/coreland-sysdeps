@@ -4,8 +4,8 @@ fout="$1"
 sysdeps="$2"
 
 cat >> "${fout}" <<EOF
-#ifndef DLOPEN_H
-#define DLOPEN_H
+#ifndef _DLOPEN_H
+#define _DLOPEN_H
 
 EOF
 

@@ -54,3 +54,9 @@
 20060621 code: remove ext2fs code from ch_flags.
 20060622 code: added jack
 20060702 code: added corelib
+20060705 code: all generated headers now exist before compilation and
+               include an underscore prefixed version of themselves.
+               this is intended to make the code more understandable as
+               there will no longer be any code importing header files
+               that don't exist before compilation.
+               

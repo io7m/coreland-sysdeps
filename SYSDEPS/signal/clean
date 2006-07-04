@@ -1,8 +1,8 @@
 #!/bin/sh
 
 sd_tmp="sysdeps.out"
-f1_tmp="sig_action.h"
-f2_tmp="sig_pmask.h"
+f1_tmp="_sig_action.h"
+f2_tmp="_sig_pmask.h"
 echo "SYSDEPS signal clean ${f1_tmp} ${f2_tmp}"
 
 outdir="`head -n 1 ../conf-outdir`"

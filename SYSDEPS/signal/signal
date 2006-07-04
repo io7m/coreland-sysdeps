@@ -5,8 +5,8 @@ sigpm_out="$2"
 sysdeps="$3"
 
 cat >> "${sigact_out}" <<EOF
-#ifndef SIG_ACTION_H
-#define SIG_ACTION_H
+#ifndef _SIG_ACTION_H
+#define _SIG_ACTION_H
 EOF
 
 cc -o trysigact trysigact.c >/dev/null 2>&1
@@ -21,8 +21,8 @@ fi
 echo '#endif' >> "${sigact_out}"
 
 cat >> "${sigpm_out}" <<EOF
-#ifndef SIG_PMASK_H
-#define SIG_PMASK_H
+#ifndef _SIG_PMASK_H
+#define _SIG_PMASK_H
 EOF
 
 cc -o trysigpm trysigpm.c >/dev/null 2>&1

@@ -8,8 +8,8 @@ int main()
   i = 127; 
   b = *(char*)&i;
   
-  printf("#ifndef ENDIANNESS_H\n");
-  printf("#define ENDIANNESS_H\n");
+  printf("#ifndef _ENDIANNESS_H\n");
+  printf("#define _ENDIANNESS_H\n");
   printf("\n");
 
   printf("#define E_LITTLE_ENDIAN 1\n");

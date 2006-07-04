@@ -28,7 +28,8 @@ ch_flags.o:\
 	compile ch_flags.c ch_flags.h uint32.h 
 	./compile ch_flags ch_flags.c 
 depchklist.o:\
-	compile depchklist.c ch_flags.h 
+	compile depchklist.c ch_flags.h dlopen.h floatcast.h sig_action.h \
+	sig_pmask.h 
 	./compile depchklist depchklist.c 
 get_flags.o:\
 	compile get_flags.c ch_flags.h open.h uint32.h 
@@ -90,8 +91,8 @@ sysdep_clean:
 
 mkftools: compile makelib libname makeso link 
 compile: sysdeps.out conf-shebang conf-cc make-compile conf-ccfflist \
-	flags-jack flags-png flags-sndfile flags-sdl flags-sdl-image \
-	flags-sdl-mixer flags-sdl-ttf 
+	flags-corelib flags-jack flags-png flags-sdl flags-sdl-image \
+	flags-sdl-mixer flags-sdl-ttf flags-sndfile 
 	(cat conf-shebang; ./make-compile) > compile; chmod u+x compile;
 link: sysdeps.out conf-shebang conf-ld make-link 
 	(cat conf-shebang; ./make-link) > link; chmod u+x link;
