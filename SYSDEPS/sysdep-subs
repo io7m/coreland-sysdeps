@@ -36,7 +36,7 @@ export SYSDEP_STDLIB
 SYSDEP_LIBSUFFIX="so"
 case ${SYSDEP_SYSTYPE} in
   darwin) SYSDEP_LIBSUFFIX="dylib" ;;
-  hpux) SYSDEP_LIBSUFFIX="sl";;
+  hp-ux) SYSDEP_LIBSUFFIX="sl";;
   *) ;;
 esac
 export SYSDEP_LIBSUFFIX
