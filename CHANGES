@@ -59,4 +59,4 @@
                this is intended to make the code more understandable as
                there will no longer be any code importing header files
                that don't exist before compilation.
-               
+20060706 code: hpux -> hp-ux in sysdep-subs.
