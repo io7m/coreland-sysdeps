@@ -1,8 +1,8 @@
 default: sysdeps
 clean: sysdeps_clean
 
-sysdeps:  sd_ch_flags sd_direntry sd_endian sd_floats sd_integers sd_png-flags sd_png-libs sd_sdl-flags sd_sdl-libs sd_systype sd_x86cpuid sd_sdl-mixer-flags sd_sdl-mixer-libs sd_sdl-image-flags sd_sdl-image-libs sd_opengl-flags sd_opengl-libs sd_sdl-ttf-flags sd_sdl-ttf-libs sd_dlopen sd_signal sd_sndfile-flags sd_sndfile-libs sd_jack-flags sd_jack-libs sd_corelib-flags sd_corelib-libs sd_corelib-libs-S sd_floatcast
-sysdeps_clean:  sd_ch_flags_clean sd_direntry_clean sd_endian_clean sd_floats_clean sd_integers_clean sd_png-flags_clean sd_png-libs_clean sd_sdl-flags_clean sd_sdl-libs_clean sd_systype_clean sd_x86cpuid_clean sd_sdl-mixer-flags_clean sd_sdl-mixer-libs_clean sd_sdl-image-flags_clean sd_sdl-image-libs_clean sd_opengl-flags_clean sd_opengl-libs_clean sd_sdl-ttf-flags_clean sd_sdl-ttf-libs_clean sd_dlopen_clean sd_signal_clean sd_sndfile-flags_clean sd_sndfile-libs_clean sd_jack-flags_clean sd_jack-libs_clean sd_corelib-flags_clean sd_corelib-libs_clean sd_corelib-libs-S_clean sd_floatcast_clean
+sysdeps:  sd_ch_flags sd_direntry sd_endian sd_floats sd_integers sd_png-flags sd_png-libs sd_sdl-flags sd_sdl-libs sd_systype sd_x86cpuid sd_sdl-mixer-flags sd_sdl-mixer-libs sd_sdl-image-flags sd_sdl-image-libs sd_opengl-flags sd_opengl-libs sd_sdl-ttf-flags sd_fd sd_sdl-ttf-libs sd_dlopen sd_signal sd_sndfile-flags sd_sndfile-libs sd_jack-flags sd_jack-libs sd_corelib-flags sd_corelib-libs sd_corelib-libs-S sd_floatcast
+sysdeps_clean:  sd_ch_flags_clean sd_direntry_clean sd_endian_clean sd_floats_clean sd_integers_clean sd_png-flags_clean sd_png-libs_clean sd_sdl-flags_clean sd_sdl-libs_clean sd_systype_clean sd_x86cpuid_clean sd_sdl-mixer-flags_clean sd_sdl-mixer-libs_clean sd_sdl-image-flags_clean sd_sdl-image-libs_clean sd_opengl-flags_clean sd_opengl-libs_clean sd_sdl-ttf-flags_clean sd_fd_clean sd_sdl-ttf-libs_clean sd_dlopen_clean sd_signal_clean sd_sndfile-flags_clean sd_sndfile-libs_clean sd_jack-flags_clean sd_jack-libs_clean sd_corelib-flags_clean sd_corelib-libs_clean sd_corelib-libs-S_clean sd_floatcast_clean
 
 sd_ch_flags:
 	@(cd ch_flags && ./run)
@@ -93,6 +93,11 @@ sd_sdl-ttf-flags:
 	@(cd sdl-ttf-flags && ./run)
 sd_sdl-ttf-flags_clean:
 	@(cd sdl-ttf-flags && ./clean)
+
+sd_fd:
+	@(cd fd && ./run)
+sd_fd_clean:
+	@(cd fd && ./clean)
 
 sd_sdl-ttf-libs:
 	@(cd sdl-ttf-libs && ./run)
