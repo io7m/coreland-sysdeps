@@ -60,3 +60,4 @@
                there will no longer be any code importing header files
                that don't exist before compilation.
 20060706 code: hpux -> hp-ux in sysdep-subs.
+20060718 code: stupid FreeBSD port workarounds for SDL.
