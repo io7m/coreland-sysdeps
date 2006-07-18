@@ -21,13 +21,13 @@ case ${SYSDEP_SYSTYPE} in
 esac
 
 # freebsd workaround for versioned sdl-config
-FLAGS=`try_config_bin "sdl-config12" "--libs" 2>&-`
+FLAGS=`try_config_bin "sdl12-config" "--libs" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS} ${args}
   exit 0
 fi
-FLAGS=`try_config_bin "sdl-config11" "--libs" 2>&-`
+FLAGS=`try_config_bin "sdl11-config" "--libs" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS} ${args}
@@ -39,7 +39,6 @@ then
   echo ${FLAGS} ${args}
   exit 0
 fi
-
 error "try_config_bin failed"
 
 FLAGS=`try_pkg_config "${pkg}" "--libs" 2>&-`
