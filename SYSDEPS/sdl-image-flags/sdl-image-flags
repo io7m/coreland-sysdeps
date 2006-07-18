@@ -20,6 +20,9 @@ case "$SYSDEP_SYSTYPE" in
   sunos)
     path="/opt/csw/include/SDL ${path}"
     ;;
+  freebsd)
+    path="/usr/local/include/SDL12 /usr/local/include/SDL11 ${path}"
+    ;;
   *)
     ;;
 esac
