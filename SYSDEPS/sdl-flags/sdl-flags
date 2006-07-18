@@ -25,33 +25,26 @@ case "${SYSDEP_SYSTYPE}" in
 esac
 
 # stupid versioned 'sdl-config' freebsd workaround
-FLAGS=`try_config_bin "sdl-config12" "--cflags" 2>&-`
+FLAGS=`try_config_bin "sdl12-config" "--cflags" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS} ${define}
   exit 0
-else
-  error "try_config_bin failed"
 fi
-
 # stupid versioned 'sdl-config' freebsd workaround
-FLAGS=`try_config_bin "sdl-config11" "--cflags" 2>&-`
+FLAGS=`try_config_bin "sdl11-config" "--cflags" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS} ${define}
   exit 0
-else
-  error "try_config_bin failed"
 fi
-
 FLAGS=`try_config_bin "sdl-config" "--cflags" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS} ${define}
   exit 0
-else
-  error "try_config_bin failed"
 fi
+error "try_config_bin failed"
 
 FLAGS=`try_pkg_config "${pkg}" "--cflags" 2>&-`
 if [ "x${FLAGS}" != "x" ]

@@ -26,28 +26,21 @@ if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS} ${args}
   exit 0
-else
-  error "try_config_bin failed"
 fi
-
-# freebsd workaround for versioned sdl-config
 FLAGS=`try_config_bin "sdl-config11" "--libs" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS} ${args}
   exit 0
-else
-  error "try_config_bin failed"
 fi
-
 FLAGS=`try_config_bin "sdl-config" "--libs" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS} ${args}
   exit 0
-else
-  error "try_config_bin failed"
 fi
+
+error "try_config_bin failed"
 
 FLAGS=`try_pkg_config "${pkg}" "--libs" 2>&-`
 if [ "x${FLAGS}" != "x" ]
