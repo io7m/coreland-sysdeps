@@ -1,0 +1,41 @@
+#!/bin/sh
+
+. ../sysdep-subs
+if [ $? -ne 0 ]
+then
+  exit 111
+fi
+
+exec 1> "$1"
+
+path="${SYSDEP_STDLIB}"
+lib="libfltk.${SYSDEP_LIBSUFFIX}"
+
+FLAGS=`try_config_bin "fltk-config" "--ldflags" 2>&-`
+if [ "x${FLAGS}" != "x" ]
+then
+  echo ${FLAGS}
+  exit 0
+else
+  error "try_config_bin failed"
+fi
+
+FLAGS=`try_pkg_config "${pkg}" "--libs" 2>&-`
+if [ "x${FLAGS}" != "x" ]
+then
+  echo ${FLAGS}
+  exit 0
+else
+  error "try_pkg_config failed"
+fi
+
+FLAGS=`try_manual_search "${lib}" "${path}" "-L" 2>&-`
+if [ "x${FLAGS}" != "x" ]
+then
+  echo ${FLAGS}
+  exit 0
+else
+  error "try_manual_search failed"
+fi
+
+exit 0

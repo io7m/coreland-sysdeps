@@ -1,0 +1,50 @@
+#!/bin/sh
+
+. ../sysdep-subs
+if [ $? -ne 0 ]
+then
+  exit 111
+fi
+
+exec 1> "$1"
+
+header="Fl.h"
+define="-DHAVE_FLTK"
+path="${SYSDEP_STDINC} /usr/X11R6/include/FL"
+pkg="fltk"
+
+case "${SYSDEP_SYSTYPE}" in
+  darwin)
+    path="${path} /sw/include/FL"
+    ;;
+  *)
+    ;;
+esac
+
+FLAGS=`try_config_bin "fltk-config" "--cxxflags" 2>&-`
+if [ "x${FLAGS}" != "x" ]
+then
+  echo ${FLAGS} ${define}
+  exit 0
+fi
+error "try_config_bin failed"
+
+FLAGS=`try_pkg_config "${pkg}" "--cxxflags" 2>&-`
+if [ "x${FLAGS}" != "x" ]
+then
+  echo ${FLAGS} ${define}
+  exit 0
+else
+  error "try_pkg_config failed"
+fi
+
+FLAGS=`try_manual_search "${header}" "${path}" "-I" 2>&-`
+if [ "x${FLAGS}" != "x" ]
+then
+  echo ${FLAGS} ${define}
+  exit 0
+else
+  error "try_manual_search failed"
+fi
+
+exit 0

@@ -1,5 +1,5 @@
 # auto generated - do not edit
-# cpj-genmk-0.77
+# cpj-genmk-0.78
 
 SHELL=/bin/sh
 default: all
@@ -91,8 +91,8 @@ sysdep_clean:
 
 mkftools: compile makelib libname makeso link 
 compile: sysdeps.out conf-shebang conf-cc make-compile conf-ccfflist \
-	flags-corelib flags-jack flags-png flags-sdl flags-sdl-image \
-	flags-sdl-mixer flags-sdl-ttf flags-sndfile 
+	flags-corelib flags-fltk flags-jack flags-png flags-sdl \
+	flags-sdl-image flags-sdl-mixer flags-sdl-ttf flags-sndfile 
 	(cat conf-shebang; ./make-compile) > compile; chmod u+x compile;
 link: sysdeps.out conf-shebang conf-ld make-link 
 	(cat conf-shebang; ./make-link) > link; chmod u+x link;
