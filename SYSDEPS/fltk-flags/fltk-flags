@@ -21,7 +21,7 @@ case "${SYSDEP_SYSTYPE}" in
     ;;
 esac
 
-FLAGS=`try_config_bin "fltk-config" "--cxxflags" 2>&-`
+FLAGS=`try_config_bin "fltk-config" "--cxxflags --use-images" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS} ${define}
