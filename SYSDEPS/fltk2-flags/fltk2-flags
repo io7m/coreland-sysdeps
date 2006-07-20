@@ -9,9 +9,9 @@ fi
 exec 1> "$1"
 
 header="Fl.h"
-define="-DHAVE_FLTK -DHAVE_FLTK11"
+define="-DHAVE_FLTK -DHAVE_FLTK2"
 path="${SYSDEP_STDINC} /usr/X11R6/include/FL"
-pkg="fltk11"
+pkg="fltk2"
 
 case "${SYSDEP_SYSTYPE}" in
   darwin)
@@ -21,7 +21,7 @@ case "${SYSDEP_SYSTYPE}" in
     ;;
 esac
 
-FLAGS=`try_config_bin "fltk-config" "--cxxflags --use-images" 2>&-`
+FLAGS=`try_config_bin "fltk2-config" "--cxxflags --use-images" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS} ${define}

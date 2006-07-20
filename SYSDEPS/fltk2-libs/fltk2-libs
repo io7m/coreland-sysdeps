@@ -9,9 +9,9 @@ fi
 exec 1> "$1"
 
 path="${SYSDEP_STDLIB}"
-lib="libfltk.${SYSDEP_LIBSUFFIX}"
+lib="libfltk2.${SYSDEP_LIBSUFFIX}"
 
-FLAGS=`try_config_bin "fltk-config" "--ldflags --use-images" 2>&-`
+FLAGS=`try_config_bin "fltk2-config" "--ldflags --use-images" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS}

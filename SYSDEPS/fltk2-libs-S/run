@@ -1,7 +1,7 @@
 #!/bin/sh
 
-f1_tmp="libs-fltk11"
-echo "SYSDEPS fltk11-libs run create ${f1_tmp}"
+f1_tmp="libs-fltk2"
+echo "SYSDEPS fltk2-libs run create ${f1_tmp}"
 
 outdir="`head -n 1 ../conf-outdir`"
 if [ -z "${outdir}" ]
@@ -12,5 +12,5 @@ fi
 outdir="../${outdir}"
 f1_out="${outdir}/${f1_tmp}"
 
-./fltk11-libs ${f1_tmp}
+./fltk2-libs ${f1_tmp}
 cp ${f1_tmp} ${f1_out}
