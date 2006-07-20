@@ -9,9 +9,9 @@ fi
 exec 1> "$1"
 
 header="Fl.h"
-define="-DHAVE_FLTK"
+define="-DHAVE_FLTK -DHAVE_FLTK11"
 path="${SYSDEP_STDINC} /usr/X11R6/include/FL"
-pkg="fltk"
+pkg="fltk11"
 
 case "${SYSDEP_SYSTYPE}" in
   darwin)
