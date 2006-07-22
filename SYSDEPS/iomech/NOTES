@@ -1,0 +1,7 @@
+iomech
+
+This module defines some constants to show what IO mechanisms
+are available on the current platform.
+
+It writes an 'iomech:' line in sysdeps.out listing all available
+mechanisms.
