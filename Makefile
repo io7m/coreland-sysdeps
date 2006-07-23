@@ -29,7 +29,7 @@ ch_flags.o:\
 	./compile ch_flags ch_flags.c 
 depchklist.o:\
 	compile depchklist.c ch_flags.h dlopen.h fd.h floatcast.h \
-	sig_action.h sig_pmask.h 
+	aio-mech.h sig_action.h sig_pmask.h 
 	./compile depchklist depchklist.c 
 get_flags.o:\
 	compile get_flags.c ch_flags.h open.h uint32.h 
