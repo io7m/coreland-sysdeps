@@ -1,1 +1,1 @@
-test for system-specific IO mechanisms such as kqueue or epoll
+test for asynchronous IO mechanisms such as kqueue or epoll

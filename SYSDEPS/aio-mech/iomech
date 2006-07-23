@@ -40,6 +40,6 @@ cat >> "${fout}" <<EOF
 #endif
 EOF
 
-echo "iomech:${mechs}" >> "${sysdeps}"
+echo "aio-mech:${mechs}" >> "${sysdeps}"
 
 rm -f trykqueue tryepoll trypoll tryselect

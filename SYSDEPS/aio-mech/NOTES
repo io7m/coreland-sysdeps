@@ -1,7 +1,7 @@
-iomech
+aio-mech
 
-This module defines some constants to show what IO mechanisms
-are available on the current platform.
+This module defines some constants to show what asynchronous
+IO mechanisms are available on the current platform.
 
-It writes an 'iomech:' line in sysdeps.out listing all available
+It writes an 'aio-mech:' line in sysdeps.out listing all available
 mechanisms.

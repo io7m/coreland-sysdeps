@@ -1,4 +1,4 @@
-#include <sys/select.h>
+#include "select.h"
 
 void snooze()
 {
