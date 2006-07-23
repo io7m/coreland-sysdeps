@@ -3,69 +3,105 @@
 hout="$1"
 lfout="$2"
 sysdeps="$3"
+isoc99=0
+linkflag="-lm"
+
+lrint=0
+llrint=0
+lrintf=0
+llrintf=0
 
 finish()
 {
-  rm -f trylrint tryllrint
-  echo "-lm" >> "${lfout}"
+  rm -f trylrint trylrintf tryllrint tryllrintf
+  echo "${linkflag}" >> "${lfout}"
 }
 
-cc -o trylrint trylrint.c -lm >/dev/null 2>&1
-if [ $? -eq 0 ]
-then
-  cat >> "${hout}" <<EOF
-#ifndef _FLOATCAST_H
-#define _FLOATCAST_H
-
+putc99()
+{
+  if [ ${isoc99} -eq 0 ]
+  then
+    cat >> "${hout}" <<EOF
 #define _ISOC9X_SOURCE  1
 #define _ISOC99_SOURCE  1
 #define __USE_ISOC9X  1
 #define __USE_ISOC99  1
 #include  <math.h>
-
-#define HAVE_LRINTF
-#define HAVE_LRINT
-#define floatcast lrintf
-#define doublecast lrint
 EOF
-  cc -o tryllrint tryllrint.c -lm >/dev/null 2>&1
-  if [ $? -eq 0 ]
-  then
-    cat >> "${hout}" <<EOF
-#define HAVE_LLRINTF
-#define HAVE_LLRINT
-#define llfloatcast llrintf
-#define lldoublecast llrint
-
-#endif
-EOF
-    echo "floatcast:lrint+llrint" >> "${sysdeps}"
-    finish
-    exit 0
-  else
- cat >> "${hout}" <<EOF
-#define llfloatcast(f) ((long long)(f))
-#define lldoublecast(d) ((long long)(d))
-
-#endif
-EOF
-    echo "floatcast:lrint+cast" >> "${sysdeps}"
-    finish
-    exit 0
+    isoc99=1
   fi
-else
-  cat >> "${hout}" <<EOF
+}
+
+cat >> "${hout}" <<EOF
 #ifndef _FLOATCAST_H
 #define _FLOATCAST_H
-
-#define floatcast(f) ((long)(f))
-#define doublecast(d) ((long)(d))
-#define llfloatcast(f) ((long long)(f))
-#define lldoublecast(d) ((long long)(d))
-
-#endif
 EOF
-  echo "floatcast:cast" >> "${sysdeps}"
-  finish
-  exit 0
+
+cc -o trylrint trylrint.c "${linkflag}" >/dev/null 2>&1
+if [ $? -eq 0 ]
+then
+  putc99
+  echo '#define HAVE_LRINT' >> "${hout}"
+  echo '#define doublecast lrint' >> "${hout}"
+  lrint=1
 fi
+
+cc -o trylrintf trylrintf.c "${linkflag}" >/dev/null 2>&1
+if [ $? -eq 0 ]
+then
+  putc99
+  echo '#define HAVE_LRINTF' >> "${hout}"
+  echo '#define floatcast lrintf' >> "${hout}"
+  lrintf=1
+fi
+
+cc -o tryllrint tryllrint.c "${linkflag}" >/dev/null 2>&1
+if [ $? -eq 0 ]
+then
+  putc99
+  echo '#define HAVE_LLRINT' >> "${hout}"
+  echo '#define lldoublecast llrint' >> "${hout}"
+  llrint=1
+fi
+
+cc -o tryllrintf tryllrintf.c "${linkflag}" >/dev/null 2>&1
+if [ $? -eq 0 ]
+then
+  putc99
+  echo '#define HAVE_LLRINTF' >> "${hout}"
+  echo '#define llfloatcast llrintf' >> "${hout}"
+  llrintf=1
+fi
+
+echo '#endif' >> "${hout}"
+
+if [ ${lrint} -eq 1 ]
+then
+  echo 'doublecast: lrint' >> "${sysdeps}"
+else
+  echo 'doublecast: cast' >> "${sysdeps}"
+fi
+
+if [ ${lrintf} -eq 1 ]
+then
+  echo 'floatcast: lrintf' >> "${sysdeps}"
+else
+  echo 'floatcast: cast' >> "${sysdeps}"
+fi
+
+if [ ${llrint} -eq 1 ]
+then
+  echo 'lldoublecast: llrint' >> "${sysdeps}"
+else
+  echo 'lldoublecast: cast' >> "${sysdeps}"
+fi
+
+if [ ${llrintf} -eq 1 ]
+then
+  echo 'llfloatcast: llrintf' >> "${sysdeps}"
+else
+  echo 'llfloatcast: cast' >> "${sysdeps}"
+fi
+
+finish
+exit 0

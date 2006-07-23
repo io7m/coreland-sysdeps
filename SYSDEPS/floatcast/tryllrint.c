@@ -6,11 +6,8 @@
 
 int main()
 {
-  float f;
   double d;
   long long llo;
-  f = 0.1f;
   d = 0.1f;
   llo = llrint(d);
-  llo = llrintf(f);
 }

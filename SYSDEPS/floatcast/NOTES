@@ -13,4 +13,9 @@ The header files defined macros for 'floatcast', 'doublecast',
 'llfloatcast' and 'lldoublecast' which correspond to either a
 C cast or one of the relevant 'lrint' functions.
 
-It writes a 'floatcast:' line in sysdeps.out.
+It writes four lines in sysdeps.out:
+
+  doublecast: either 'lrint' or 'cast' depending on what's supported.
+  floatcast: either 'lrintf' or 'cast' depending on what's supported.
+  lldoublecast: either 'llrint' or 'cast' depending on what's supported.
+  llfloatcast: either 'llrintf' or 'cast' depending on what's supported.

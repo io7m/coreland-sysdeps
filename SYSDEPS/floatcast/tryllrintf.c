@@ -6,8 +6,8 @@
 
 int main()
 {
-  double d;
-  long lo;
-  d = 0.1f;
-  lo = lrint(d);
+  float f;
+  long long llo;
+  f = 0.1f;
+  llo = llrintf(f);
 }
