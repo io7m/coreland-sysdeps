@@ -1,0 +1,16 @@
+#!/bin/sh
+
+sd_tmp="sysdeps.out"
+f1_tmp="_select.h"
+echo "SYSDEPS select clean ${f1_tmp}"
+
+outdir="`head -n 1 ../conf-outdir`"
+if [ -z "${outdir}" ]
+then
+  echo "fatal: outdir not defined" 2>&1
+  exit 1
+fi
+outdir="../${outdir}"
+f1_out="${outdir}/${f1_tmp}"
+
+rm -f ${f1_tmp} ${f1_out} ${sd_tmp}

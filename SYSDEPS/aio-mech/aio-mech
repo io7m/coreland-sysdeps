@@ -11,36 +11,42 @@ EOF
 cc -o trykqueue trykqueue.c >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  echo '#define HAVE_KQUEUE 1' >> "${fout}" 
+  echo '#define HAVE_KQUEUE' >> "${fout}" 
   mechs="${mechs} kqueue"
 fi
 
 cc -o tryepoll tryepoll.c >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  echo '#define HAVE_EPOLL 1' >> "${fout}"
+  echo '#define HAVE_EPOLL' >> "${fout}"
   mechs="${mechs} epoll"
 fi
 
 cc -o trypoll trypoll.c >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  echo '#define HAVE_POLL 1' >> "${fout}"
+  echo '#define HAVE_POLL' >> "${fout}"
   mechs="${mechs} poll"
 fi
 
 cc -o tryselect1 tryselect1.c >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  echo '#define HAVE_SELECT 1' >> "${fout}"
+  echo '#define HAVE_SELECT' >> "${fout}"
   mechs="${mechs} select"
 else
   cc -o tryselect2 tryselect2.c >/dev/null 2>&1
   if [ $? -eq 0 ]
   then
-    echo '#define HAVE_SELECT 1' >> "${fout}"
-    echo '#define SELECT_NEEDS_TIME_H' >> "${fout}" # hp-ux
+    echo '#define HAVE_SELECT' >> "${fout}"
     mechs="${mechs} select"
+  else
+    cc -o tryselect3 tryselect3.c >/dev/null 2>&1
+    if [ $? -eq 0 ]
+    then
+      echo '#define HAVE_SELECT' >> "${fout}"
+      mechs="${mechs} select"
+    fi
   fi
 fi
 
@@ -50,4 +56,4 @@ EOF
 
 echo "aio-mech:${mechs}" >> "${sysdeps}"
 
-rm -f trykqueue tryepoll trypoll tryselect1
+rm -f trykqueue tryepoll trypoll tryselect1 tryselect2 tryselect3

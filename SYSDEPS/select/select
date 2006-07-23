@@ -1,0 +1,48 @@
+#!/bin/sh
+
+fout="$1"
+sysdeps="$2"
+
+cleanup()
+{
+  rm -f tryselect1 tryselect2 tryselect3
+}
+
+cat >> "${fout}" << EOF
+#ifndef _SELECT_H
+#define _SELECT_H
+EOF
+
+cc -o tryselect1 tryselect1.c
+if [ $? -eq 0 ]
+then
+  echo '#include <sys/select.h>' >> "${fout}"
+  echo '#endif' >> "${fout}"
+  echo 'select: select.h' >> "${sysdeps}"
+  cleanup
+  exit 0
+fi
+
+cc -o tryselect2 tryselect2.c
+if [ $? -eq 0 ]
+then
+  echo '#include <sys/time.h>' >> "${fout}"
+  echo '#endif' >> "${fout}"
+  echo 'select: time.h' >> "${sysdeps}"
+  cleanup
+  exit 0
+fi
+
+cc -o tryselect1 tryselect1.c
+if [ $? -eq 0 ]
+then
+  echo '#include <sys/time.h>' >> "${fout}"
+  echo '#include <sys/types.h>' >> "${fout}"
+  echo '#include <sys/unistd.h>' >> "${fout}"
+  echo '#endif' >> "${fout}"
+  echo 'select: time.h types.h unistd.h' >> "${sysdeps}"
+  cleanup
+  exit 0
+fi
+
+echo '#endif' >> "${fout}"

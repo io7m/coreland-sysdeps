@@ -1,0 +1,9 @@
+select
+
+This module tries to work out where select() is declared and
+write the correct #include directives into a header file.
+
+If select() is not present on the system (a rarity) nothing
+is written into the header file.
+
+It writes a 'select:' line in sysdeps.out.
