@@ -13,7 +13,7 @@ cat >> "${fout}" << EOF
 #define _SELECT_H
 EOF
 
-cc -o tryselect1 tryselect1.c
+cc -o tryselect1 tryselect1.c >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '#include <sys/select.h>' >> "${fout}"
@@ -23,7 +23,7 @@ then
   exit 0
 fi
 
-cc -o tryselect2 tryselect2.c
+cc -o tryselect2 tryselect2.c >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '#include <sys/time.h>' >> "${fout}"
@@ -33,7 +33,7 @@ then
   exit 0
 fi
 
-cc -o tryselect1 tryselect1.c
+cc -o tryselect1 tryselect1.c >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '#include <sys/time.h>' >> "${fout}"
