@@ -18,8 +18,13 @@ fi
 cc -o tryepoll tryepoll.c >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  echo '#define HAVE_EPOLL' >> "${fout}"
-  mechs="${mechs} epoll"
+  ./tryepoll
+  ret=$?
+  if [ ${ret} -eq 0 ]
+  then
+    echo '#define HAVE_EPOLL' >> "${fout}"
+    mechs="${mechs} epoll"
+  fi
 fi
 
 cc -o trypoll trypoll.c >/dev/null 2>&1
