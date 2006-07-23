@@ -29,11 +29,19 @@ then
   mechs="${mechs} poll"
 fi
 
-cc -o tryselect tryselect.c >/dev/null 2>&1
+cc -o tryselect1 tryselect1.c >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '#define HAVE_SELECT 1' >> "${fout}"
   mechs="${mechs} select"
+else
+  cc -o tryselect2 tryselect2.c >/dev/null 2>&1
+  if [ $? -eq 0 ]
+  then
+    echo '#define HAVE_SELECT 1' >> "${fout}"
+    echo '#define SELECT_NEEDS_TIME_H' >> "${fout}" # hp-ux
+    mechs="${mechs} select"
+  fi
 fi
 
 cat >> "${fout}" <<EOF
@@ -42,4 +50,4 @@ EOF
 
 echo "aio-mech:${mechs}" >> "${sysdeps}"
 
-rm -f trykqueue tryepoll trypoll tryselect
+rm -f trykqueue tryepoll trypoll tryselect1
