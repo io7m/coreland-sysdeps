@@ -14,7 +14,7 @@ int main()
   int fd;
   int ret;
   struct epoll_event ev;
-  struct epoll_event *evs;
+  struct epoll_event evs;
   char buf[128];
 
   epfd = epoll_create(1);
@@ -26,14 +26,14 @@ int main()
   if (ret == -1) { perror("epoll_ctl"); return 112; }
 
   for (;;) {
-    ret = epoll_wait(epfd, evs, 1, 0);
+    ret = epoll_wait(epfd, &evs, 1, 0);
     if (ret == -1) { perror("epoll_wait"); return 113; }
     if (ret == 0) {
       printf("no data\n");
       snooze();
       continue;
     }
-    fd = evs[0].data.fd;
+    fd = evs.data.fd;
     ret = read(fd, buf, 128);
     if (ret == -1) { perror("read"); return 114; }
     if (ret == 0) {
@@ -41,7 +41,7 @@ int main()
       return 0;
     }
     printf("got data\n");
-    buf[ret - 1];
+    buf[ret - 1] = 0;
     printf("%s\n", buf);
   }
 }

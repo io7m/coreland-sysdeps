@@ -15,10 +15,11 @@ then
   mechs="${mechs} kqueue"
 fi
 
-cc -o tryepoll tryepoll.c >/dev/null 2>&1
+cc -o tryepoll1 tryepoll1.c >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  ./tryepoll >/dev/null 2>&1
+  cc -o tryepoll2 tryepoll2.c >/dev/null 2>&1
+  ./tryepoll2 >/dev/null 2>&1
   ret=$?
   if [ ${ret} -eq 0 ]
   then
@@ -61,4 +62,4 @@ EOF
 
 echo "aio-mech:${mechs}" >> "${sysdeps}"
 
-rm -f trykqueue tryepoll trypoll tryselect1 tryselect2 tryselect3
+rm -f trykqueue tryepoll1 tryepoll2 trypoll tryselect1 tryselect2 tryselect3
