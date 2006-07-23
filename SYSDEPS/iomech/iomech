@@ -15,6 +15,13 @@ then
   mechs="${mechs} kqueue"
 fi
 
+cc -o tryepoll tryepoll.c >/dev/null 2>&1
+if [ $? -eq 0 ]
+then
+  echo '#define HAVE_EPOLL 1' >> "${fout}"
+  mechs="${mechs} epoll"
+fi
+
 cc -o trypoll trypoll.c >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
@@ -35,4 +42,4 @@ EOF
 
 echo "iomech:${mechs}" >> "${sysdeps}"
 
-rm -f trykqueue trypoll tryselect
+rm -f trykqueue tryepoll trypoll tryselect
