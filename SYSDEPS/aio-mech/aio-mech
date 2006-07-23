@@ -18,7 +18,7 @@ fi
 cc -o tryepoll tryepoll.c >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  ./tryepoll
+  ./tryepoll >/dev/null 2>&1
   ret=$?
   if [ ${ret} -eq 0 ]
   then
