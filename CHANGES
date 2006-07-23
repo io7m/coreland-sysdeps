@@ -62,3 +62,5 @@
 20060706 code: hpux -> hp-ux in sysdep-subs.
 20060718 code: stupid FreeBSD port workarounds for SDL.
 20060719 code: FLTK added.
+20060720 code: moved FLTK to FLTK11 as there are two incompatible
+               versions in use.

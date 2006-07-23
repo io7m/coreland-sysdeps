@@ -1,5 +1,6 @@
 flags-corelib
-flags-fltk
+flags-fltk11
+flags-fltk2
 flags-jack
 flags-png
 flags-sdl
