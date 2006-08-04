@@ -1,5 +1,11 @@
 #!/bin/sh
 
+. ../sysdep-subs
+if [ $? -ne 0 ]
+then
+  exit 111
+fi
+
 fout="$1"
 sysdeps="$2"
 
@@ -16,11 +22,11 @@ case "`uname -s | tr '/:[A-Z]' '..[a-z]'`" in
 esac
 
 sd_done=0
-cc -o trydlopen trydlopen.c ${lflag} >/dev/null 2>&1
+${SYSDEP_CC} -o trydlopen trydlopen.c ${lflag} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '#define HAVE_DLOPEN' >> "${fout}"
-  cc -o trydlfunc trydlfunc.c ${lflag} >/dev/null 2>&1
+  ${SYSDEP_CC} -o trydlfunc trydlfunc.c ${lflag} >/dev/null 2>&1
   if [ $? -eq 0 ]
   then
     echo '#define HAVE_DLFUNC' >> "${fout}"

@@ -1,5 +1,11 @@
 #!/bin/sh
 
+. ../sysdep-subs
+if [ $? -ne 0 ]
+then
+  exit 111
+fi
+
 do_clean()
 {
   rm -f make-endian
@@ -15,7 +21,7 @@ fatal()
 temph="$1"
 tempsys="$2"
 
-cc -o make-endian make-endian.c
+${SYSDEP_CC} -o make-endian make-endian.c
 if [ $? -ne 0 ]; then fatal "error compiling make-endian"; fi
 
 ./make-endian 1>${temph} 2>>${tempsys}

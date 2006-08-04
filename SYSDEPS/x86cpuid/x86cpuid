@@ -1,5 +1,11 @@
 #!/bin/sh
 
+. ../sysdep-subs
+if [ $? -ne 0 ]
+then
+  exit 111
+fi
+
 do_clean()
 {
   rm -f getx86cpuid
@@ -10,7 +16,7 @@ then
   exit 1
 fi
 
-cc -o getx86cpuid getx86cpuid.c >/dev/null 2>&1
+${SYSDEP_CC} -o getx86cpuid getx86cpuid.c >/dev/null 2>&1
 if [ $? -ne 0 ]
 then
   do_clean

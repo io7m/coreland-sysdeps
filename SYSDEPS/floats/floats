@@ -1,5 +1,11 @@
 #!/bin/sh
 
+. ../sysdep-subs
+if [ $? -ne 0 ]
+then
+  exit 111
+fi
+
 do_clean()
 {
   rm -f float32_make float64_make
@@ -16,9 +22,9 @@ temp32="$1"
 temp64="$2"
 tempsys="$3"
 
-cc -o float32_make float32_make.c
+${SYSDEP_CC} -o float32_make float32_make.c
 if [ $? -ne 0 ]; then fatal "error compiling float32_make"; fi
-cc -o float64_make float64_make.c
+${SYSDEP_CC} -o float64_make float64_make.c
 if [ $? -ne 0 ]; then fatal "error compiling float64_make"; fi
 
 ./float32_make 1>${temp32} 2>>${tempsys}

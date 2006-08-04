@@ -1,5 +1,11 @@
 #!/bin/sh
 
+. ../sysdep-subs
+if [ $? -ne 0 ]
+then
+  exit 111
+fi
+
 fout="$1"
 sysdeps="$2"
 
@@ -9,7 +15,7 @@ cat >> "${fout}" <<EOF
 
 EOF
 
-cc -o trydup2 trydup2.c
+${SYSDEP_CC} -o trydup2 trydup2.c
 if [ $? -eq 0 ]
 then
   echo '#define HAVE_DUP2' >> "${fout}"

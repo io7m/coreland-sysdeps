@@ -1,5 +1,11 @@
 #!/bin/sh
 
+. ../sysdep-subs
+if [ $? -ne 0 ]
+then
+  exit 111
+fi
+
 sigact_out="$1"
 sigpm_out="$2"
 sysdeps="$3"
@@ -9,7 +15,7 @@ cat >> "${sigact_out}" <<EOF
 #define _SIG_ACTION_H
 EOF
 
-cc -o trysigact trysigact.c >/dev/null 2>&1
+${SYSDEP_CC} -o trysigact trysigact.c >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '#define HAVE_SIGACTION' >> "${sigact_out}"
@@ -25,7 +31,7 @@ cat >> "${sigpm_out}" <<EOF
 #define _SIG_PMASK_H
 EOF
 
-cc -o trysigpm trysigpm.c >/dev/null 2>&1
+${SYSDEP_CC} -o trysigpm trysigpm.c >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '#define HAVE_SIGPROCMASK' >> "${sigpm_out}"

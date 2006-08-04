@@ -1,5 +1,11 @@
 #!/bin/sh
 
+. ../sysdep-subs
+if [ $? -ne 0 ]
+then
+  exit 111
+fi
+
 do_clean()
 {
   rm -f int16_make int32_make int64_make uint16_make uint32_make uint64_make
@@ -20,18 +26,18 @@ tempu32="$5"
 tempu64="$6"
 tempsys="$7"
 
-cc -o int16_make int16_make.c
+${SYSDEP_CC} -o int16_make int16_make.c
 if [ $? -ne 0 ]; then fatal "error compiling int16_make"; fi
-cc -o int32_make int32_make.c
+${SYSDEP_CC} -o int32_make int32_make.c
 if [ $? -ne 0 ]; then fatal "error compiling int32_make"; fi
-cc -o int64_make int64_make.c
+${SYSDEP_CC} -o int64_make int64_make.c
 if [ $? -ne 0 ]; then fatal "error compiling int64_make"; fi
 
-cc -o uint16_make uint16_make.c
+${SYSDEP_CC} -o uint16_make uint16_make.c
 if [ $? -ne 0 ]; then fatal "error compiling uint16_make"; fi
-cc -o uint32_make uint32_make.c
+${SYSDEP_CC} -o uint32_make uint32_make.c
 if [ $? -ne 0 ]; then fatal "error compiling uint32_make"; fi
-cc -o uint64_make uint64_make.c
+${SYSDEP_CC} -o uint64_make uint64_make.c
 if [ $? -ne 0 ]; then fatal "error compiling uint64_make"; fi
 
 ./int16_make 1>${tempi16} 2>>${tempsys}

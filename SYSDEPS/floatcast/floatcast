@@ -1,5 +1,11 @@
 #!/bin/sh
 
+. ../sysdep-subs
+if [ $? -ne 0 ]
+then
+  exit 111
+fi
+
 hout="$1"
 lfout="$2"
 sysdeps="$3"
@@ -37,7 +43,7 @@ cat >> "${hout}" <<EOF
 #define _FLOATCAST_H
 EOF
 
-cc -o trylrint trylrint.c "${linkflag}" >/dev/null 2>&1
+${SYSDEP_CC} -o trylrint trylrint.c "${linkflag}" >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   putc99
@@ -46,7 +52,7 @@ then
   lrint=1
 fi
 
-cc -o trylrintf trylrintf.c "${linkflag}" >/dev/null 2>&1
+${SYSDEP_CC} -o trylrintf trylrintf.c "${linkflag}" >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   putc99
@@ -55,7 +61,7 @@ then
   lrintf=1
 fi
 
-cc -o tryllrint tryllrint.c "${linkflag}" >/dev/null 2>&1
+${SYSDEP_CC} -o tryllrint tryllrint.c "${linkflag}" >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   putc99
@@ -64,7 +70,7 @@ then
   llrint=1
 fi
 
-cc -o tryllrintf tryllrintf.c "${linkflag}" >/dev/null 2>&1
+${SYSDEP_CC} -o tryllrintf tryllrintf.c "${linkflag}" >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   putc99

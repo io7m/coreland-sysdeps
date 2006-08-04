@@ -41,6 +41,18 @@ case ${SYSDEP_SYSTYPE} in
 esac
 export SYSDEP_LIBSUFFIX
 
+# compiler
+SYSDEP_CC="cc"
+if [ -f "../conf-cc" ]
+then
+  tmp=`head -n 1 "../conf-cc"`
+  if [ ! -z "$tmp" ]
+  then
+    SYSDEP_CC="$tmp"
+  fi
+fi
+export SYSDEP_CC
+
 #
 # interface functions
 #

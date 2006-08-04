@@ -1,5 +1,11 @@
 #!/bin/sh
 
+. ../sysdep-subs
+if [ $? -ne 0 ]
+then
+  exit 111
+fi
+
 fout="$1"
 sysdep="$2"
 
@@ -8,7 +14,7 @@ do_clean()
   rm -f trychflags
 }
 
-cc -o trychflags trychflags.c >/dev/null 2>&1
+${SYSDEP_CC} -o trychflags trychflags.c >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   # have chflags

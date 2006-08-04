@@ -1,5 +1,11 @@
 #!/bin/sh
 
+. ../sysdep-subs
+if [ $? -ne 0 ]
+then
+  exit 111
+fi
+
 # systype-oper: operating system eq openbsd-3.7
 # systype-arch: machine lang, eg sparc
 # systype-syst: binaries, eg sun4
@@ -123,8 +129,8 @@ then
     ;;
   esac
 else
-  cc -c trycpp.c
-  cc -o trycpp trycpp.o
+  ${SYSDEP_CC} -c trycpp.c
+  ${SYSDEP_CC} -o trycpp trycpp.o
   case `./trycpp` in
   nextstep)
     oper="nextstep-`hostinfo | sed -n 's/^[     ]*NeXT Mach \([^:]*\):.*$/\1/p'`"
