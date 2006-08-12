@@ -14,18 +14,24 @@ cat >> "${fout}" <<EOF
 #define _IOMECH_H
 EOF
 
-${SYSDEP_CC} -o trykqueue trykqueue.c >/dev/null 2>&1
+${SYSDEP_CC} -o trykqueue1 trykqueue1.c >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  echo '#define HAVE_KQUEUE' >> "${fout}" 
-  mechs="${mechs} kqueue"
+  ${SYSDEP_CC} -o trykqueue2 trykqueue2.c >/dev/null 2>&1
+  echo "test" | ./trykqueue2 >/dev/null 2>&1
+  ret=$?
+  if [ ${ret} -eq 0 ]
+  then
+    echo '#define HAVE_KQUEUE' >> "${fout}" 
+    mechs="${mechs} kqueue"
+  fi
 fi
 
 ${SYSDEP_CC} -o tryepoll1 tryepoll1.c >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   ${SYSDEP_CC} -o tryepoll2 tryepoll2.c >/dev/null 2>&1
-  ./tryepoll2 >/dev/null 2>&1
+  echo "test" | ./tryepoll2 >/dev/null 2>&1
   ret=$?
   if [ ${ret} -eq 0 ]
   then
