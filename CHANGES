@@ -65,3 +65,4 @@
 20060720 code: moved FLTK to FLTK11 as there are two incompatible
                versions in use.
 20060723 code: added iomech.
+20060812 code: broken darwin kqueue detection
