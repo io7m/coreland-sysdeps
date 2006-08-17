@@ -14,7 +14,11 @@ lib="libSDLmain.a"
 
 case ${SYSDEP_SYSTYPE} in
   darwin)
+    lib="SDL"               # searching for framework
     args="-bind_at_load"    # darwin linker bug
+    args="${args} -framework SDL -framework Cocoa -framework OpenGL
+-lobjc"
+    path="${path} /Library/Frameworks/SDL.framework"
     ;;
   *)
     ;;
@@ -53,8 +57,16 @@ fi
 FLAGS=`try_manual_search "${lib}" "${path}" "-L" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
-  echo ${FLAGS} ${args}
-  exit 0
+  case ${SYSDEP_SYSTYPE} in
+    darwin)
+      echo ${args}
+      exit 0
+      ;;
+    *)
+      echo ${FLAGS} ${args}
+      exit 0
+      ;;
+    esac
 else
   error "try_manual_search failed"
 fi

@@ -18,7 +18,9 @@ case "${SYSDEP_SYSTYPE}" in
     path="${path} /usr/sfw/include/SDL"
     ;;
   darwin)
-    path="${path} /Library/Frameworks/SDL.framework/Headers /sw/include/SDL"
+    define="${define} -D_REENTRANT"
+    path="${path} /Library/Frameworks/SDL.framework/Headers
+/sw/include/SDL"
     ;;
   *)
     ;;
