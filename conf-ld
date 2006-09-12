@@ -1,1 +1,3 @@
-cc -g
+cc
+
+This will be used to link object files into executables.

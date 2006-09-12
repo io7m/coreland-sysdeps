@@ -1,0 +1,100 @@
+#!/bin/sh 
+
+SYS_CC=`head -n 1 conf-cc`
+if [ $? -ne 0 ]
+then
+  echo "fatal: could not read conf-cc" 1>&2
+  exit 1
+fi
+SYS_TYPE=`head -n 1 conf-systype`
+if [ $? -ne 0 ]
+then
+  echo "fatal: could not read conf-systype" 1>&2
+  exit 1
+fi
+
+SYS_CCTYPE=""
+
+guess_compiler()
+{
+  cc_string="$1"
+
+  # try common targets
+  echo "${cc_string}" | grep 'gcc' 1>/dev/null 2>&1
+  if [ $? -eq 0 ]
+  then
+    echo 'gcc'
+    exit 0
+  fi
+  echo "${cc_string}" | grep 'compaq c' 1>/dev/null 2>&1
+  if [ $? -eq 0 ]
+  then
+    echo 'compaq-c'
+    exit 0
+  fi
+  echo "${cc_string}" | grep 'intel(r) c compiler' 1>/dev/null 2>&1
+  if [ $? -eq 0 ]
+  then
+    echo 'intel-c'
+    exit 0
+  fi
+
+  # make likely guesses based on system type
+  case "${SYS_TYPE}" in
+    hp-ux)
+      # the HP-UX C compiler utterly refuses to give any version
+      # information
+      # unless compiling. the C++ gives a version string, however.
+      echo "${cc_string}" | grep 'hp ac++/ansi c' 1>/dev/null 2>&1
+      if [ $? -eq 0 ]
+      then
+        echo 'hp-c'
+        exit 0
+      fi
+      touch .__hpuxcc__tmp.c
+      cc_string=`${SYS_CC} -V -c -o .__hpuxcc__tmp.o .__hpuxcc__tmp.c 2>&1`
+      cc_string=`echo ${cc_string} | tr [A-Z] [a-z] 2>&-`
+      echo "$cc_string" | grep 'hp c compiler' 1>/dev/null 2>&1
+      if [ $? -eq 0 ]
+      then
+        rm -f .__hpuxcc__tmp.c .__hpuxcc__tmp.o
+        echo 'hp-c'
+        exit 0
+      fi
+      rm -f .__hpuxcc__tmp.c .__hpuxcc__tmp.o
+      ;;
+    sunos)
+      # sun C considers using the -V flag an error...
+      cc_string=`${SYS_CC} -V 2>&1`
+      cc_string=`echo ${cc_string} | tr [A-Z] [a-z] 2>&-`
+      echo "${cc_string}" | grep 'sun c' 1>/dev/null 2>&1
+      if [ $? -eq 0 ]
+      then
+        echo 'sun-c'
+        exit 0
+      fi
+      ;;
+    *)
+      ;;
+  esac
+}
+
+# try -v flag first
+CC_OUTPUT=`${SYS_CC} -v 2>&1`
+if [ x"${CC_OUTPUT}" != "x" ]
+then
+  CC_OUTPUT=`echo ${CC_OUTPUT} | tr [A-Z] [a-z] 2>&-`
+  guess_compiler "${CC_OUTPUT}"
+fi
+
+# try -V flag
+CC_OUTPUT=`${SYS_CC} -V 2>&1`
+if [ x"${CC_OUTPUT}" != "x" ]
+then
+  CC_OUTPUT=`echo ${CC_OUTPUT} | tr [A-Z] [a-z] 2>&-`
+  guess_compiler "${CC_OUTPUT}"
+fi
+
+# give up
+echo "unknown"
+

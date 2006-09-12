@@ -1,0 +1,10 @@
+#!/bin/sh
+
+SYSTYPE=`uname -s | tr '/:[A-Z]' '..[a-z]' 2>&-`
+if [ $? -ne 0 ]
+then
+  echo "fatal: unknown systype" 1>&2
+  exit 1
+fi
+
+echo $SYSTYPE
