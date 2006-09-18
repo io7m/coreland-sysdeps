@@ -3,6 +3,7 @@ flags-fltk11
 flags-fltk2
 flags-io_poll
 flags-jack
+flags-pdcgi
 flags-png
 flags-sdl
 flags-sdl-image
