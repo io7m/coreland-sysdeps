@@ -8,10 +8,12 @@ fi
 
 exec 1> "$1"
 
-FLAGS=`try_config_bin "io_poll-conf" "-cLs" 2>&-`
+define="-DHAVE_PDCGI"
+
+FLAGS=`try_config_bin "pdcgi-conf" "-cI" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
-  echo ${FLAGS}
+  echo ${FLAGS} ${define}
   exit 0
 else
   error "try_config_bin failed"

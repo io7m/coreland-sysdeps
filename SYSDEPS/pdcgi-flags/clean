@@ -1,7 +1,7 @@
 #!/bin/sh
 
-f1_tmp="flags-io_poll"
-echo "SYSDEPS io_poll-flags clean ${f1_tmp}"
+f1_tmp="flags-pdcgi"
+echo "SYSDEPS pdcgi-flags clean ${f1_tmp}"
 
 outdir="`head -n 1 ../conf-outdir`"
 if [ -z "${outdir}" ]

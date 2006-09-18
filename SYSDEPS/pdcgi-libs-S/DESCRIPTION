@@ -1,1 +1,1 @@
-linker flags to link against io_poll
+linker flags to link against pdcgi
