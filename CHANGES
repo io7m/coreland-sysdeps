@@ -68,3 +68,4 @@
 20060812 code: broken darwin kqueue detection
 20060912 code: added io_poll and new coreproject tools.
 20061013 code: moved endian to byteorder (linux conflict)
+20061019 code: integers split, new coreproject tools
