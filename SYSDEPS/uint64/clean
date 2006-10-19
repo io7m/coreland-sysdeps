@@ -1,8 +1,8 @@
 #!/bin/sh
 
 sd_tmp="sysdeps.out"
-f1_tmp="_int64.h"
-echo "SYSDEPS int64 clean ${f1_tmp}"
+f1_tmp="_uint64.h"
+echo "SYSDEPS uint64 clean ${f1_tmp}"
 
 outdir="`head -n 1 ../conf-outdir`"
 if [ -z "${outdir}" ]
