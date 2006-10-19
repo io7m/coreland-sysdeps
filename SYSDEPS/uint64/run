@@ -1,0 +1,24 @@
+#!/bin/sh
+
+sd_tmp="sysdeps.out"
+f1_tmp="_int64.h"
+echo "SYSDEPS int64 run create ${f1_tmp}"
+
+outdir="`head -n 1 ../conf-outdir`"
+if [ -z "${outdir}" ]
+then
+  echo "fatal: outdir not defined" 2>&1
+  exit 1
+fi
+outdir="../${outdir}"
+sd_out="${outdir}/${sd_tmp}"
+f1_out="${outdir}/${f1_tmp}"
+
+./int64 ${f1_tmp} ${sd_tmp}
+if [ $? -eq 0 ]
+then
+  cp ${f1_tmp} ${f1_out}
+  cat ${sd_tmp} >> ${sd_out}
+else
+  exit 1
+fi
