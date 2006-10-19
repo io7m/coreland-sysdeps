@@ -1,8 +1,8 @@
 #!/bin/sh
 
 sd_tmp="sysdeps.out"
-f1_tmp="_float32.h"
-echo "SYSDEPS float32 run create ${f1_tmp}"
+f1_tmp="_float64.h"
+echo "SYSDEPS float64 run create ${f1_tmp}"
 
 outdir="`head -n 1 ../conf-outdir`"
 if [ -z "${outdir}" ]
@@ -14,7 +14,7 @@ outdir="../${outdir}"
 sd_out="${outdir}/${sd_tmp}"
 f1_out="${outdir}/${f1_tmp}"
 
-./float32 ${f1_tmp} ${sd_tmp}
+./float64 ${f1_tmp} ${sd_tmp}
 if [ $? -eq 0 ]
 then
   cp ${f1_tmp} ${f1_out}
