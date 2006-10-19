@@ -1,8 +1,8 @@
 default: sysdeps
 clean: sysdeps_clean
 
-sysdeps:  sd_aio-mech sd_ch_flags sd_corelib-flags sd_corelib-libs-S sd_corelib-libs sd_direntry sd_dlopen sd_int32 sd_fd sd_floatcast sd_floats sd_fltk11-flags sd_fltk11-libs-S sd_fltk11-libs sd_fltk2-flags sd_fltk2-libs-S sd_fltk2-libs sd_integers sd_jack-flags sd_jack-libs sd_opengl-flags sd_opengl-libs sd_png-flags sd_png-libs sd_sdl-flags sd_sdl-image-flags sd_sdl-image-libs sd_sdl-libs sd_sdl-mixer-flags sd_sdl-mixer-libs sd_sdl-ttf-flags sd_sdl-ttf-libs sd_select sd_signal sd_sndfile-flags sd_sndfile-libs sd_systype sd_x86cpuid sd_io_poll-flags sd_io_poll-libs-S sd_pdcgi-flags sd_pdcgi-libs-S sd_byteorder sd_int64 sd_uint16 sd_int16 sd_uint32 sd_uint64
-sysdeps_clean:  sd_aio-mech_clean sd_ch_flags_clean sd_corelib-flags_clean sd_corelib-libs-S_clean sd_corelib-libs_clean sd_direntry_clean sd_dlopen_clean sd_int32_clean sd_fd_clean sd_floatcast_clean sd_floats_clean sd_fltk11-flags_clean sd_fltk11-libs-S_clean sd_fltk11-libs_clean sd_fltk2-flags_clean sd_fltk2-libs-S_clean sd_fltk2-libs_clean sd_integers_clean sd_jack-flags_clean sd_jack-libs_clean sd_opengl-flags_clean sd_opengl-libs_clean sd_png-flags_clean sd_png-libs_clean sd_sdl-flags_clean sd_sdl-image-flags_clean sd_sdl-image-libs_clean sd_sdl-libs_clean sd_sdl-mixer-flags_clean sd_sdl-mixer-libs_clean sd_sdl-ttf-flags_clean sd_sdl-ttf-libs_clean sd_select_clean sd_signal_clean sd_sndfile-flags_clean sd_sndfile-libs_clean sd_systype_clean sd_x86cpuid_clean sd_io_poll-flags_clean sd_io_poll-libs-S_clean sd_pdcgi-flags_clean sd_pdcgi-libs-S_clean sd_byteorder_clean sd_int64_clean sd_uint16_clean sd_int16_clean sd_uint32_clean sd_uint64_clean
+sysdeps:  sd_aio-mech sd_ch_flags sd_corelib-flags sd_corelib-libs-S sd_corelib-libs sd_direntry sd_dlopen sd_int32 sd_fd sd_floatcast sd_floats sd_fltk11-flags sd_fltk11-libs-S sd_fltk11-libs sd_fltk2-flags sd_fltk2-libs-S sd_fltk2-libs sd_jack-flags sd_jack-libs sd_opengl-flags sd_opengl-libs sd_png-flags sd_png-libs sd_sdl-flags sd_sdl-image-flags sd_sdl-image-libs sd_sdl-libs sd_sdl-mixer-flags sd_sdl-mixer-libs sd_sdl-ttf-flags sd_sdl-ttf-libs sd_select sd_signal sd_sndfile-flags sd_sndfile-libs sd_systype sd_x86cpuid sd_io_poll-flags sd_io_poll-libs-S sd_pdcgi-flags sd_pdcgi-libs-S sd_byteorder sd_int64 sd_uint16 sd_int16 sd_uint32 sd_uint64
+sysdeps_clean:  sd_aio-mech_clean sd_ch_flags_clean sd_corelib-flags_clean sd_corelib-libs-S_clean sd_corelib-libs_clean sd_direntry_clean sd_dlopen_clean sd_int32_clean sd_fd_clean sd_floatcast_clean sd_floats_clean sd_fltk11-flags_clean sd_fltk11-libs-S_clean sd_fltk11-libs_clean sd_fltk2-flags_clean sd_fltk2-libs-S_clean sd_fltk2-libs_clean sd_jack-flags_clean sd_jack-libs_clean sd_opengl-flags_clean sd_opengl-libs_clean sd_png-flags_clean sd_png-libs_clean sd_sdl-flags_clean sd_sdl-image-flags_clean sd_sdl-image-libs_clean sd_sdl-libs_clean sd_sdl-mixer-flags_clean sd_sdl-mixer-libs_clean sd_sdl-ttf-flags_clean sd_sdl-ttf-libs_clean sd_select_clean sd_signal_clean sd_sndfile-flags_clean sd_sndfile-libs_clean sd_systype_clean sd_x86cpuid_clean sd_io_poll-flags_clean sd_io_poll-libs-S_clean sd_pdcgi-flags_clean sd_pdcgi-libs-S_clean sd_byteorder_clean sd_int64_clean sd_uint16_clean sd_int16_clean sd_uint32_clean sd_uint64_clean
 
 sd_aio-mech:
 	@(cd aio-mech && ./run)
@@ -88,11 +88,6 @@ sd_fltk2-libs:
 	@(cd fltk2-libs && ./run)
 sd_fltk2-libs_clean:
 	@(cd fltk2-libs && ./clean)
-
-sd_integers:
-	@(cd integers && ./run)
-sd_integers_clean:
-	@(cd integers && ./clean)
 
 sd_jack-flags:
 	@(cd jack-flags && ./run)

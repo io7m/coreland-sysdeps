@@ -14,4 +14,5 @@ outdir="../${outdir}"
 sd_out="${outdir}/${sd_tmp}"
 f1_out="${outdir}/${f1_tmp}"
 
-rm -f ${f1_tmp} ${sd_tmp}
+rm -f ${f1_tmp} ${sd_tmp} \
+      ${f1_out} ${sd_out}

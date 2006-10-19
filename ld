@@ -12,11 +12,11 @@ then
   echo "fatal: could not read conf-ld" 1>&2
   exit 1
 fi
-LDFLAGS=`head -n 1 conf-ldflags 2>/dev/null`
+LDFLAGS="${LDFLAGS} `head -n 1 conf-ldflags 2>/dev/null`"
 
-if [ -f 'conf-ldfflist' ]
+if [ -f "conf-ldfflist" ]
 then
-  for f in `cat conf-ldfflist`
+  for f in `cat "conf-ldfflist"`
   do
     FLAGS=`cat $f 2>/dev/null`
     LDFLAGS="${LDFLAGS} ${FLAGS}"
@@ -26,4 +26,15 @@ fi
 out="$1"
 shift
 
-${LD} -o ${out} ${1+"$@"} ${LDFLAGS}
+# read in optional flag file
+if [ -f "${out}.lff" ]
+then
+  for f in `cat "${out}.lff"`
+  do
+    targ="`dirname $out`/`dirname $f`/`basename $f`"
+    FLAGS="`cat $targ 2>/dev/null`"
+    LDFLAGS="${LDFLAGS} ${FLAGS}"
+  done
+fi
+
+exec ${LD} -o ${out} ${1+"$@"} ${LDFLAGS}

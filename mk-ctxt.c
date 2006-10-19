@@ -14,7 +14,6 @@ void putnum(unsigned int n)
 int main(int argc, char **argv)
 {
   char *name;
-  char *head;
   unsigned char ch;
   unsigned int b;
   unsigned int line;
@@ -24,13 +23,11 @@ int main(int argc, char **argv)
   int done;
   char hex[3];
 
-  if (argc != 3) return 100;
+  if (argc != 2) return 100;
   name = argv[1];
-  head = argv[2];
   done = 0;
   b = 0;
 
-  put("#include \""); put(head); put(".h\"\n");
   put("char "); put(name); put("[] = {\n");
 
   line = 0;

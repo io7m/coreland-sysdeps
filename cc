@@ -12,11 +12,12 @@ then
   echo "fatal: could not read conf-cc" 1>&2
   exit 1
 fi
-CFLAGS=`head -n 1 conf-cflags 2>/dev/null`
+CFLAGS="${CFLAGS} `head -n 1 conf-cflags 2>/dev/null`"
 
-if [ -f 'conf-ccfflist' ]
+# read in optional flag file
+if [ -f "conf-ccfflist" ]
 then
-  for f in `cat conf-ccfflist`
+  for f in `cat "conf-ccfflist"`
   do
     FLAGS=`cat $f 2>/dev/null`
     CFLAGS="${CFLAGS} ${FLAGS}"
@@ -27,4 +28,15 @@ out=`echo "$1" | awk -F. '{print $1}'`
 src="$1"
 shift
 
-exec ${CC} -o ${out}.o -c ${src} ${CFLAGS} ${1+"$@"}
+# read in optional flag file
+if [ -f "${out}.iff" ]
+then
+  for f in `cat "${out}.iff"`
+  do
+    targ="`dirname $out`/`dirname $f`/`basename $f`"
+    FLAGS="`cat $targ 2>/dev/null`"
+    CFLAGS="${CFLAGS} ${FLAGS}"
+  done
+fi
+
+exec ${CC} -o ${out}.o -c ${src} ${1+"$@"} ${CFLAGS}

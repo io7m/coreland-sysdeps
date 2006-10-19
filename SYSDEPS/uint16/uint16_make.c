@@ -5,8 +5,8 @@ int go(const char* s)
   puts("#ifndef _UINT16_H");
   puts("#define _UINT16_H");
   puts("/* automatically generated - do not edit */");
-  printf("typedef %s int16;\n", s);
-  fprintf(stderr, "int16:%s\n", s);
+  printf("typedef %s uint16;\n", s);
+  fprintf(stderr, "uint16:%s\n", s);
   puts("#endif");
   return 0;
 }
