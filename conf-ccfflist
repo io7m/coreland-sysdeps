@@ -5,6 +5,7 @@ flags-io_poll
 flags-jack
 flags-pdcgi
 flags-png
+flags-portaudio
 flags-sdl
 flags-sdl-image
 flags-sdl-mixer

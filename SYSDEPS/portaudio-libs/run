@@ -1,7 +1,7 @@
 #!/bin/sh
 
-f1_tmp="libs-sndfile"
-echo "SYSDEPS sndfile-libs run create ${f1_tmp}"
+f1_tmp="libs-portaudio"
+echo "SYSDEPS portaudio-libs run create ${f1_tmp}"
 
 outdir="`head -n 1 ../conf-outdir`"
 if [ -z "${outdir}" ]
@@ -12,5 +12,5 @@ fi
 outdir="../${outdir}"
 f1_out="${outdir}/${f1_tmp}"
 
-./sndfile-libs ${f1_tmp}
+./portaudio-libs ${f1_tmp}
 cp ${f1_tmp} ${f1_out}

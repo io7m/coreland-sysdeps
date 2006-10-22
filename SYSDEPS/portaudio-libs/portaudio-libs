@@ -9,22 +9,24 @@ fi
 exec 1> "$1"
 
 path="${SYSDEP_STDLIB}"
-pkg="sndfile"
+pkg="portaudio"
 lib="lib${pkg}.${SYSDEP_LIBSUFFIX}"
+EXTRA_FLAGS="-lportaudio"
 
-FLAGS=`try_pkg_config "${pkg}" "--libs" 2>&-`
-if [ "x${FLAGS}" != "x" ]
-then
-  echo ${FLAGS}
-  exit 0
-else
-  error "try_pkg_config failed"
-fi
+case "${SYSDEP_SYSTYPE}" in
+  darwin)
+    path="${path} /sw/lib"
+    EXTRA_FLAGS="${EXTRA_FLAGS} -framework AudioToolbox -framework CoreAudio"
+    ;;
+  *)
+    EXTRA_FLAGS="${EXTRA_FLAGS} -lpthread"
+    ;; 
+esac
 
 FLAGS=`try_manual_search "${lib}" "${path}" "-L" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
-  echo ${FLAGS}
+  echo ${FLAGS} ${EXTRA_FLAGS}
   exit 0
 else
   error "try_manual_search failed"

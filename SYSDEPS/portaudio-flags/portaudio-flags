@@ -8,19 +8,18 @@ fi
 
 exec 1> "$1"
 
-header="sndfile.h"
-define="-DHAVE_LIBSNDFILE"
+header="portaudio.h"
+define="-DHAVE_PORTAUDIO"
 path="${SYSDEP_STDINC}"
-pkg="sndfile"
+pkg="portaudio"
 
-FLAGS=`try_pkg_config "${pkg}" "--cflags" 2>&-`
-if [ "x${FLAGS}" != "x" ]
-then
-  echo ${FLAGS} ${define}
-  exit 0
-else
-  error "try_pkg_config failed"
-fi
+case "${SYSDEP_SYSTYPE}" in
+  darwin)
+    path="${path} /sw/include"
+    ;;
+  *)
+    ;;
+esac
 
 FLAGS=`try_manual_search "${header}" "${path}" "-I" 2>&-`
 if [ "x${FLAGS}" != "x" ]
