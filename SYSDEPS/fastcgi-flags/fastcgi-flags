@@ -1,0 +1,25 @@
+#!/bin/sh
+
+. ../sysdep-subs
+if [ $? -ne 0 ]
+then
+  exit 111
+fi
+
+exec 1> "$1"
+
+header="fastcgi.h"
+define="-DHAVE_FASTCGI"
+path="${SYSDEP_STDINC}"
+pkg="fastcgi"
+
+FLAGS=`try_manual_search "${header}" "${path}" "-I" 2>&-`
+if [ "x${FLAGS}" != "x" ]
+then
+  echo ${FLAGS} ${define}
+  exit 0
+else
+  error "try_manual_search failed"
+fi
+
+exit 0

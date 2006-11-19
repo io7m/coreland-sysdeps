@@ -1,4 +1,5 @@
 flags-corelib
+flags-fastcgi
 flags-fltk11
 flags-fltk2
 flags-io_poll

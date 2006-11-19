@@ -13,9 +13,9 @@ sysdeps_clean:
 	(cd SYSDEPS && make clean)
 	rm -f sysdeps.out
 
-cc: conf-cc conf-cctype sysdeps.out flags-corelib flags-fltk11 \
-	flags-fltk2 flags-io_poll flags-jack flags-pdcgi flags-png \
-	flags-portaudio flags-sdl flags-sdl-image flags-sdl-mixer \
+cc: conf-cc conf-cctype sysdeps.out flags-corelib flags-fastcgi \
+	flags-fltk11 flags-fltk2 flags-io_poll flags-jack flags-pdcgi \
+	flags-png flags-portaudio flags-sdl flags-sdl-image flags-sdl-mixer \
 	flags-sdl-ttf flags-sndfile 
 ch_flags.a:\
 	mk-slib ch_flags.sld ch_flags.o get_flags.o 
@@ -55,8 +55,8 @@ open_ro.o:\
 	cc open_ro.c open.h 
 	./cc open_ro.c
 clean: sysdeps_clean 
-	rm -f ch_flags.a ch_flags.o depchklist depchklist.o get_flags.o \
-	open.a open_ro.o 
+	rm -f ch_flags.a ch_flags.o conf-cctype conf-systype depchklist \
+	depchklist.o get_flags.o open.a open_ro.o 
 
 regen:
 	cpj-genmk > Makefile.tmp
