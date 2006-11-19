@@ -15,7 +15,7 @@ lib="lib${pkg}.${SYSDEP_LIBSUFFIX}"
 FLAGS=`try_manual_search "${lib}" "${path}" "-L" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
-  echo ${FLAGS} "-l${fcgi}"
+  echo ${FLAGS} "-l${pkg}"
   exit 0
 else
   error "try_manual_search failed"
