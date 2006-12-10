@@ -1,1 +1,1 @@
-header file for file descriptor ops portability
+header file for dup2 detection
