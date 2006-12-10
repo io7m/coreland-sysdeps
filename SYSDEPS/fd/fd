@@ -10,8 +10,8 @@ fout="$1"
 sysdeps="$2"
 
 cat >> "${fout}" <<EOF
-#ifndef _FD_DUP2_H
-#define _FD_DUP2_H
+#ifndef _FD_H
+#define _FD_H
 
 EOF
 

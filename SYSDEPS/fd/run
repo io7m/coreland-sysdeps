@@ -1,8 +1,8 @@
 #!/bin/sh
 
 sd_tmp="sysdeps.out"
-f1_tmp="_dup2.h"
-echo "SYSDEPS dup2 run create ${f1_tmp}"
+f1_tmp="_fd.h"
+echo "SYSDEPS fd run create ${f1_tmp}"
 
 outdir="`head -n 1 ../conf-outdir`"
 if [ -z "${outdir}" ]
@@ -14,6 +14,6 @@ outdir="../${outdir}"
 f1_out="${outdir}/${f1_tmp}"
 sd_out="${outdir}/${sd_tmp}"
 
-./dup2 ${f1_tmp} ${sd_tmp}
+./fd ${f1_tmp} ${sd_tmp}
 cp ${f1_tmp} ${f1_out}
 cat ${sd_tmp} >> ${sd_out}
