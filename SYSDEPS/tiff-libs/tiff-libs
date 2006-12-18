@@ -9,17 +9,7 @@ fi
 exec 1> "$1"
 
 path="${SYSDEP_STDLIB}"
-pkg="sndfile"
-lib="lib${pkg}.${SYSDEP_LIBSUFFIX}"
-
-FLAGS=`try_pkg_config "${pkg}" "--libs" 2>&-`
-if [ "x${FLAGS}" != "x" ]
-then
-  echo ${FLAGS}
-  exit 0
-else
-  error "try_pkg_config failed"
-fi
+lib="libtiff.${SYSDEP_LIBSUFFIX}"
 
 FLAGS=`try_manual_search "${lib}" "${path}" "-L" 2>&-`
 if [ "x${FLAGS}" != "x" ]

@@ -1,7 +1,7 @@
 #!/bin/sh
 
-f1_tmp="flags-sndfile"
-echo "SYSDEPS sndfile-flags clean ${f1_tmp}"
+f1_tmp="flags-tiff"
+echo "SYSDEPS tiff-flags clean ${f1_tmp}"
 
 outdir="`head -n 1 ../conf-outdir`"
 if [ -z "${outdir}" ]

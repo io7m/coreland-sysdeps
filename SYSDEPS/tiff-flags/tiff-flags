@@ -8,19 +8,9 @@ fi
 
 exec 1> "$1"
 
-header="sndfile.h"
-define="-DHAVE_LIBSNDFILE"
+header="tiff.h"
+define="-DHAVE_LIBTIFF"
 path="${SYSDEP_STDINC}"
-pkg="sndfile"
-
-FLAGS=`try_pkg_config "${pkg}" "--cflags" 2>&-`
-if [ "x${FLAGS}" != "x" ]
-then
-  echo ${FLAGS} ${define}
-  exit 0
-else
-  error "try_pkg_config failed"
-fi
 
 FLAGS=`try_manual_search "${header}" "${path}" "-I" 2>&-`
 if [ "x${FLAGS}" != "x" ]
