@@ -159,6 +159,10 @@ int main()
 #else
   printf("system does not have fastcgi\n");
 #endif
-
+#ifdef HAVE_LIBTIFF
+  printf("system has libtiff\n");
+#else
+  printf("system does not have libtiff\n");
+#endif
   return 0;
 }
