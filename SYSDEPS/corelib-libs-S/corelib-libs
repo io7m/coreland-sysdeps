@@ -8,7 +8,7 @@ fi
 
 exec 1> "$1"
 
-FLAGS=`try_config_bin "corelib-conf" "-cLs" 2>&-`
+FLAGS=`try_config_bin "corelib-conf" "compile slibdir" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS}

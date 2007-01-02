@@ -10,7 +10,7 @@ exec 1> "$1"
 
 define="-DHAVE_IO_POLL"
 
-FLAGS=`try_config_bin "io_poll-conf" "-cI" 2>&-`
+FLAGS=`try_config_bin "io_poll-conf" "compile incdir" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS} ${define}
