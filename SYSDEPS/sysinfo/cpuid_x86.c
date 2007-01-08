@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 int cpuid_sup()
 {
   long eax;
@@ -29,7 +31,7 @@ void cpuid(unsigned long eax, unsigned long *px)
 }
 
 struct cachedesc {
-  unsigned int val;
+  unsigned char val;
   unsigned int size;
 };
 
@@ -87,8 +89,8 @@ int main(int argc, char *argv[])
 {
   const struct cachedesc *ctab = 0;
   const struct cachedesc *cp;
-  char *ptr;
   char *arg;
+  unsigned char *ptr;
   unsigned long tmp;
   unsigned int ind;
   unsigned int jnd;
@@ -146,12 +148,14 @@ int main(int argc, char *argv[])
         for (jnd = 0; jnd < 3; ++jnd)
           regs2[jnd] = (regs2[jnd] & 0xfffffffe) ? 0 : regs2[jnd];  
         for (jnd = 1; jnd < 16; ++jnd) {
-          cp = ctab;
-          if (ptr[jnd])
+          if (ptr[jnd]) {
+            cp = ctab;
             while (cp->val) {
               if (cp->val == ptr[jnd])
                 printf("%u\n", cp->size << 10);
+              ++cp;
             }
+          }
         }
       }
     }
