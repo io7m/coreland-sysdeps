@@ -23,7 +23,7 @@ arch="`./cpu-arch.sh ${oper}`"
 ncpu="`./cpu-num.sh ${oper}`"
 mdel="`./cpu-model.sh ${oper}`"
 feat="`./cpu-feat.sh ${oper}`"
-
+freq="`./cpu-freq.sh ${oper}`"
 l1ic="`./cpu-l1icache.sh ${oper}`"
 l1dc="`./cpu-l1dcache.sh ${oper}`"
 l2c="`./cpu-l2cache.sh ${oper}`"
@@ -43,6 +43,7 @@ cat >> "${fout}" <<EOF
 #define SYSINFO_CPU_L1_DATA_CACHE_SIZE ${l1dc}
 #define SYSINFO_CPU_L2_CACHE_SIZE ${l2c}
 #define SYSINFO_CPU_L3_CACHE_SIZE ${l3c}
+#define SYSINFO_CPU_FREQ ${freq}
 
 EOF
 
