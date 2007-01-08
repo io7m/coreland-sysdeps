@@ -18,8 +18,11 @@ freq=0
 case "$sys" in
   SYSINFO_OS_DARWIN)
     freq="`sysctl hw.cpufrequency | awk '{print $2}'`"
+    let freq=freq/1000000
+    ;;
+  SYSINFO_OS_FREEBSD)
+    freq="`sysctl dev.cpu.0.freq | awk '{print $2}'`"
     ;; 
 esac
 
-let freq=freq/1000000
 echo "$freq"
