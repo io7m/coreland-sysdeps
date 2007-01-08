@@ -16,6 +16,9 @@ sys="$1"
 ncpu=0
 
 case "$sys" in
+  SYSINFO_OS_LINUX)
+    ncpu=`grep -i '^processor' /proc/cpuinfo | wc -l`
+    ;;
   *)
     ncpu="`sysctl hw.ncpu | awk '{print $2}'`"
     ;;
