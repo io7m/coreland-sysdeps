@@ -23,7 +23,7 @@ case "$sys" in
     ${SYSDEP_CC} -o cpuid_x86 cpuid_x86.c
     if [ $? -eq 0 ]
     then
-      cline=`./cpuid_x86 l3cachesize`
+      cache=`./cpuid_x86 l3cachesize`
       rm -f cpuid_x86
     fi
     ;;
