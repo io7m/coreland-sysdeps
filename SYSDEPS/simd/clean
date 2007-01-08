@@ -1,8 +1,8 @@
 #!/bin/sh
 
 sd_tmp="sysdeps.out"
-f1_tmp="_simd.h"
-echo "SYSDEPS simd clean ${f1_tmp}"
+f1_tmp="_cpuinfo.h"
+echo "SYSDEPS cpuinfo clean ${f1_tmp}"
 
 outdir="`head -n 1 ../conf-outdir`"
 if [ -z "${outdir}" ]

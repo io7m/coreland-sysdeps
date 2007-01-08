@@ -1,1 +1,1 @@
-header file describing the SIMD mechanisms available on the host platform.
+header file giving complete details of host CPU architecture.

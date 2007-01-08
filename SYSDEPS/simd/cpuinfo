@@ -11,17 +11,17 @@ finish()
   cat >> "${fout}" <<EOF
 #finishif
 EOF
-  echo "simd: ${simd}" >> ${sysdeps}
+  echo "cpuinfo: ${cpuinfo}" >> ${sysdeps}
   exit 0
 }
 
 fout="$1"
 sysdeps="$2"
-simd="none"
+cpuinfo="none"
 
 cat >> "${fout}" <<EOF
-#ifndef _SIMD_H
-#define _SIMD_H
+#ifndef _CPUINFO_H
+#define _CPUINFO_H
 EOF
 
 finish
