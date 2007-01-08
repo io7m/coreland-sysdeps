@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "_sysctl.h"
 #include "_uname.h"
 
