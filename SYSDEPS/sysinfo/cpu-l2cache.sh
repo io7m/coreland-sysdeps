@@ -17,7 +17,7 @@ cache=0
 
 case "$sys" in
   SYSINFO_OS_DARWIN)
-    cache="`sysctl hw.l2icachesize | awk '{print $2}'`"
+    cache="`sysctl hw.l2cachesize | awk '{print $2}'`"
     ;; 
 esac
 
