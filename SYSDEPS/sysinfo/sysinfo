@@ -28,6 +28,7 @@ l1ic="`./cpu-l1icache.sh ${oper}`"
 l1dc="`./cpu-l1dcache.sh ${oper}`"
 l2c="`./cpu-l2cache.sh ${oper}`"
 l3c="`./cpu-l3cache.sh ${oper}`"
+lsz="`./cpu-linesz.sh ${oper}`"
 
 cat >> "${fout}" <<EOF
 #ifndef _SYSINFO_H
@@ -43,6 +44,7 @@ cat >> "${fout}" <<EOF
 #define SYSINFO_CPU_L1_DATA_CACHE_SIZE ${l1dc}
 #define SYSINFO_CPU_L2_CACHE_SIZE ${l2c}
 #define SYSINFO_CPU_L3_CACHE_SIZE ${l3c}
+#define SYSINFO_CPU_CACHE_LINE_SIZE ${lsz}
 #define SYSINFO_CPU_FREQ ${freq}
 
 EOF
