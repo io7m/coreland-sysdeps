@@ -1,0 +1,34 @@
+#!/bin/sh
+
+. ../sysdep-subs
+if [ $? -ne 0 ]
+then
+  exit 111
+fi
+
+if [ x"$1" = x ]
+then
+  exit 1
+fi
+
+exec 2>/dev/null
+sys="$1"
+feat="( "
+
+case "$sys" in
+  darwin)
+    alti="`sysctl hw.optional.altivec | awk '{print $2}'`"
+    if [ "${alti}" = "1" ]
+    then
+      feat="${feat} | SYSINFO_CPU_PPC_EXT_ALTIVEC";
+    fi
+    ;; 
+esac
+
+feat="${feat} )"
+if [ "${feat}" != "(  )" ]
+then
+  echo "${feat}"
+else
+  echo "0"
+fi

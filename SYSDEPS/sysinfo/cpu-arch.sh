@@ -17,10 +17,13 @@ arch=""
 
 unamem="`uname -m | tr /: ..`"
 case "$sys" in
-  darwin)
+  SYSINFO_OS_DARWIN)
     arch="`arch | tr /: ..`"
     ;;
-  linux)
+  SYSINFO_OS_AIX)
+    arch="`arch | tr /: ..`"
+    ;;
+  SYSINFO_OS_LINUX)
     case "$unamem" in
     i386|i486|i586|i686)
       arch="i386"
@@ -30,13 +33,10 @@ case "$sys" in
       ;;
     esac
     ;;
-  aix)
-    arch="`arch | tr /: ..`"
-    ;;
-  sunos)
+  SYSINFO_OS_SUNOS)
     arch="`(uname -p || mach) | tr /: ..`"
     ;;
-  hp-ux)
+  SYSINFO_OS_HPUX)
     tmp="`file /stand/vmunix`"
     if [ $? -eq 0 ]
     then
@@ -46,7 +46,7 @@ case "$sys" in
     fi
     arch="`echo $tmp | awk '{print $7}'`"
     ;;
-  nextstep)
+  SYSINFO_OS_NEXTSTEP)
     arch="`hostinfo | sed -n 's/^Processor type: \(.*\) (.*)$/\1/p' | tr /: ..`"
     ;;
   *)
@@ -56,5 +56,6 @@ esac
 
 case "$arch" in
   i386) echo 'SYSINFO_ARCH_X86' ;; 
-   ppc) echo 'SYSINFO_ARCH_PPC' ;;
+  ppc) echo 'SYSINFO_ARCH_PPC' ;;
+  *) echo 'SYSINFO_ARCH_UNKNOWN' ;;
 esac

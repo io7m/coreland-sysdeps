@@ -1,8 +1,8 @@
 #!/bin/sh
 
 sd_tmp="sysdeps.out"
-f1_tmp="_cpuinfo.h"
-echo "SYSDEPS cpuinfo clean ${f1_tmp}"
+f1_tmp="_sysinfo.h"
+echo "SYSDEPS sysinfo clean ${f1_tmp}"
 
 outdir="`head -n 1 ../conf-outdir`"
 if [ -z "${outdir}" ]
@@ -13,5 +13,4 @@ fi
 outdir="../${outdir}"
 f1_out="${outdir}/${f1_tmp}"
 
-make clean_files >/dev/null 2>&1
 rm -f ${f1_tmp} ${f1_out} ${sd_tmp}
