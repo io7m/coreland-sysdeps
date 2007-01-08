@@ -13,7 +13,7 @@ fi
 
 exec 2>/dev/null
 sys="$1"
-ncpu=""
+ncpu=0
 
 case "$sys" in
   *)
