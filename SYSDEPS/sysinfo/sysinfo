@@ -24,7 +24,8 @@ ncpu="`./cpu-num.sh ${oper}`"
 mdel="`./cpu-model.sh ${oper}`"
 feat="`./cpu-feat.sh ${oper}`"
 
-l1c="`./cpu-l1cache.sh ${oper}`"
+l1ic="`./cpu-l1icache.sh ${oper}`"
+l1dc="`./cpu-l1dcache.sh ${oper}`"
 l2c="`./cpu-l2cache.sh ${oper}`"
 l3c="`./cpu-l3cache.sh ${oper}`"
 
@@ -38,7 +39,8 @@ cat >> "${fout}" <<EOF
 #define SYSINFO_NCPUS ${ncpu}
 #define SYSINFO_CPU_MODEL ${mdel}
 #define SYSINFO_CPU_EXT ${feat}
-#define SYSINFO_CPU_L1_CACHE_SIZE ${l1c}
+#define SYSINFO_CPU_L1_INST_CACHE_SIZE ${l1ic}
+#define SYSINFO_CPU_L1_DATA_CACHE_SIZE ${l1dc}
 #define SYSINFO_CPU_L2_CACHE_SIZE ${l2c}
 #define SYSINFO_CPU_L3_CACHE_SIZE ${l3c}
 
