@@ -18,9 +18,7 @@ static struct arch arch_table[] = {
 
 int main()
 {
-  char buf[256];
-  unsigned long sz = sizeof(buf);
-  unsigned int ind;
+ unsigned int ind;
   unsigned int arch = 0;
 
 #ifdef HAVE_UNAME
@@ -33,12 +31,16 @@ int main()
   }  
 #endif
 #ifdef HAVE_SYSCTL
-  if (sysctlbyname("hw.machine", buf, &sz, 0, 0) != -1) {
-    for (ind = 0; ind < sizeof(arch_table) / sizeof(const char *); ++ind) {
-      if (strcmp(buf, arch_table[ind].name) == 0)
-        arch = arch_table[ind].val;
-    }
-  }  
+  {
+    char buf[256];
+    size_t sz = sizeof(buf);
+    if (sysctlbyname("hw.machine", buf, &sz, 0, 0) != -1) {
+      for (ind = 0; ind < sizeof(arch_table) / sizeof(const char *); ++ind) {
+        if (strcmp(buf, arch_table[ind].name) == 0)
+          arch = arch_table[ind].val;
+      }
+    }  
+  }
 #endif
 
   switch (arch) {
