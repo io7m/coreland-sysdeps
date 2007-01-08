@@ -8,15 +8,27 @@ fi
 
 fout="$1"
 sysdeps="$2"
+simd="none"
 
 cat >> "${fout}" <<EOF
 #ifndef _SIMD_H
 #define _SIMD_H
 EOF
 
-echo 'simd: ' >> ${sysdeps}
+# try altivec
+${SYSDEP_CC} -faltivec -o try_altivec try_altivec.c
+if [ $? -eq 0 ]
+then
+simd="altivec"
+cat >> "${fout}" <<EOF
+#define HAVE_SIMD
+#define HAVE_SIMD_ALTIVEC
+EOF
+fi
 
 cat >> "${fout}" <<EOF
 #endif
 EOF
 
+echo "simd: ${simd}" >> ${sysdeps}
+rm -f try_altivec
