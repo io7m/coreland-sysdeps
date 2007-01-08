@@ -16,7 +16,7 @@ sys="$1"
 model=""
 
 case "$sys" in
-  darwin)
+  SYSINFO_OS_DARWIN)
     model=`machine`
     ;;
   *)

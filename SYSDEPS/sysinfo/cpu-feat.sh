@@ -16,7 +16,7 @@ sys="$1"
 feat="( "
 
 case "$sys" in
-  darwin)
+  SYSINFO_OS_DARWIN)
     alti="`sysctl hw.optional.altivec | awk '{print $2}'`"
     if [ "${alti}" = "1" ]
     then

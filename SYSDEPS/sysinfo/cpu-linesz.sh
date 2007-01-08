@@ -16,7 +16,7 @@ sys="$1"
 cline=0
 
 case "$sys" in
-  darwin)
+  SYSINFO_OS_DARWIN)
     cline="`sysctl hw.cachelinesize | awk '{print $2}'`"
     ;; 
 esac
