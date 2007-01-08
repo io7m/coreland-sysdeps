@@ -6,6 +6,15 @@ then
   exit 111
 fi
 
+finish()
+{
+  cat >> "${fout}" <<EOF
+#finishif
+EOF
+  echo "simd: ${simd}" >> ${sysdeps}
+  exit 0
+}
+
 fout="$1"
 sysdeps="$2"
 simd="none"
@@ -15,20 +24,4 @@ cat >> "${fout}" <<EOF
 #define _SIMD_H
 EOF
 
-# try altivec
-${SYSDEP_CC} -faltivec -o try_altivec try_altivec.c
-if [ $? -eq 0 ]
-then
-simd="altivec"
-cat >> "${fout}" <<EOF
-#define HAVE_SIMD
-#define HAVE_SIMD_ALTIVEC
-EOF
-fi
-
-cat >> "${fout}" <<EOF
-#endif
-EOF
-
-echo "simd: ${simd}" >> ${sysdeps}
-rm -f try_altivec
+finish
