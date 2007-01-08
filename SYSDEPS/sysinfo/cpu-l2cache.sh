@@ -24,6 +24,10 @@ case "$sys" in
     if [ $? -eq 0 ]
     then
       cache=`./cpuid_x86 l2cachesize`
+      if [ -z ${cache} ]
+      then
+        cache=0
+      fi
       rm -f cpuid_x86
     fi
     ;;

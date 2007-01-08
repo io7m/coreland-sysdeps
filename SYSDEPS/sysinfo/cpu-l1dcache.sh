@@ -25,6 +25,10 @@ case "$sys" in
     then
       cache=`./cpuid_x86 l1dcachesize`
       rm -f cpuid_x86
+      if [ -z ${cache} ]
+      then
+        cache=0
+      fi
     fi
     ;;
 esac
