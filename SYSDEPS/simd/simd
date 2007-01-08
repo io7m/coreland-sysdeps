@@ -12,8 +12,9 @@ sysdeps="$2"
 cat >> "${fout}" <<EOF
 #ifndef _SIMD_H
 #define _SIMD_H
-
 EOF
+
+echo 'simd: ' >> ${sysdeps}
 
 cat >> "${fout}" <<EOF
 #endif

@@ -5,6 +5,7 @@
 #include "aio-mech.h"
 #include "sig_action.h"
 #include "sig_pmask.h"
+#include "simd.h"
 
 int main()
 {
@@ -73,6 +74,26 @@ int main()
   printf("system has lrintf\n");
 #else
   printf("system does not have lrintf\n");
+#endif
+#ifdef HAVE_SIMD
+  printf("system has simd\n");
+#else
+  printf("system does not have simd\n");
+#endif
+#ifdef HAVE_SIMD_SSE
+  printf("system has simd_sse\n");
+#else
+  printf("system does not have simd_sse\n");
+#endif
+#ifdef HAVE_SIMD_SSE2
+  printf("system has simd_sse2\n");
+#else
+  printf("system does not have simd_sse2\n");
+#endif
+#ifdef HAVE_SIMD_ALTIVEC
+  printf("system has simd_altivec\n");
+#else
+  printf("system does not have simd_altivec\n");
 #endif
 #ifdef HAVE_FLTK
   printf("system has fltk\n");
