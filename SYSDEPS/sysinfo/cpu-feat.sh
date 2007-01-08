@@ -24,6 +24,7 @@ case "$sys" in
     fi
     ;; 
   *)
+    # assume x86
     ${SYSDEP_CC} -o cpuid_x86 cpuid_x86.c
     if [ $? -eq 0 ]
     then
