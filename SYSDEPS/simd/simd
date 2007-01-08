@@ -1,0 +1,21 @@
+#!/bin/sh
+
+. ../sysdep-subs
+if [ $? -ne 0 ]
+then
+  exit 111
+fi
+
+fout="$1"
+sysdeps="$2"
+
+cat >> "${fout}" <<EOF
+#ifndef _SIMD_H
+#define _SIMD_H
+
+EOF
+
+cat >> "${fout}" <<EOF
+#endif
+EOF
+
