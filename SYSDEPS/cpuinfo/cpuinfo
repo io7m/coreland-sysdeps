@@ -9,7 +9,7 @@ fi
 finish()
 {
   cat >> "${fout}" <<EOF
-#finishif
+#endif
 EOF
   echo "cpuinfo: ${cpuinfo}" >> ${sysdeps}
   exit 0
@@ -17,11 +17,17 @@ EOF
 
 fout="$1"
 sysdeps="$2"
-cpuinfo="none"
+cpuinfo=""
 
 cat >> "${fout}" <<EOF
 #ifndef _CPUINFO_H
 #define _CPUINFO_H
 EOF
+
+make 1>/dev/null
+if [ $? -ne 0 ]
+then
+  finish
+fi
 
 finish

@@ -13,4 +13,5 @@ fi
 outdir="../${outdir}"
 f1_out="${outdir}/${f1_tmp}"
 
+make clean_files >/dev/null 2>&1
 rm -f ${f1_tmp} ${f1_out} ${sd_tmp}

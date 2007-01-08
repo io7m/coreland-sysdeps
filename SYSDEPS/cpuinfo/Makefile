@@ -2,17 +2,17 @@ SYSDEP_CC?=cc
 
 all: cpu-arch
 
-cpu-arch: cpu-arch.o cpu_info.h cpu_info.o cpu_arch.o
-	${SYSDEP_CC} -o cpu-arch cpu-arch.o cpu_info.o cpu_arch.o
+cpu-arch: cpu-arch.o _sysctl.h _uname.h
+	${SYSDEP_CC} -o cpu-arch cpu-arch.o
 
-cpu-arch.o: cpu-arch.c cpu_info.h
+cpu-arch.o: cpu-arch.c _sysctl.h _uname.h
 	${SYSDEP_CC} -c -o cpu-arch.o cpu-arch.c
 
-cpu_arch.o: cpu_arch.c cpu_info.h
-	${SYSDEP_CC} -c -o cpu_arch.o cpu_arch.c
+_sysctl.h: _sysctl.sh
+	./_sysctl.sh > _sysctl.h
 
-cpu_info.o: cpu_info.c cpu_info.h
-	${SYSDEP_CC} -c -o cpu_info.o cpu_info.c
+_uname.h: _uname.sh
+	./_uname.sh > _uname.h
 
 clean_files:
-	rm -f cpu_info.o cpu_arch.o cpu-arch
+	rm -f cpu-arch.o cpu-arch _sysctl.h _uname.h

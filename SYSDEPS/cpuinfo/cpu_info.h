@@ -1,6 +1,8 @@
 #ifndef CPU_INFO_H
 #define CPU_INFO_H
 
+#include "_cpu_info.h"
+
 #define CPU_INFO_ARCH_X86   0x01
 #define CPU_INFO_ARCH_PPC   0x02
 #define CPU_INFO_ARCH_SPARC 0x03
@@ -25,8 +27,11 @@ struct cpu_info {
   unsigned int model;
   unsigned int step;
   unsigned long features;
-  unsigned int cache;
+  unsigned int cache_l1;
+  unsigned int cache_l2;
   unsigned int cache_line;
+  unsigned int cpus;
+  unsigned int cpu_speed;
 };
 
 void cpu_info_arch(struct cpu_info *);
