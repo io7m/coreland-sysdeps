@@ -18,7 +18,7 @@ arch=""
 unamem="`uname -m | tr /: ..`"
 case "$sys" in
   darwin)
-    arch="`arch | tr /: ..`.$unamem"
+    arch="`arch | tr /: ..`"
     ;;
   linux)
     case "$unamem" in
@@ -56,4 +56,5 @@ esac
 
 case "$arch" in
   i386) echo 'SYSINFO_ARCH_X86' ;; 
+   ppc) echo 'SYSINFO_ARCH_PPC' ;;
 esac
