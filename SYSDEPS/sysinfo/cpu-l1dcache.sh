@@ -16,8 +16,6 @@ sys="$1"
 cache=0
 
 case "$sys" in
-  SYSINFO_OS_LINUX)
-    ;;
   SYSINFO_OS_DARWIN)
     cache="`sysctl hw.l1dcachesize | awk '{print $2}'`"
     ;; 
