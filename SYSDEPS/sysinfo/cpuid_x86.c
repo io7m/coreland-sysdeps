@@ -86,6 +86,7 @@ unsigned long regs2[4];
 int main(int argc, char *argv[])
 {
   const struct cachedesc *ctab = 0;
+  const struct cachedesc *cp;
   char *ptr;
   char *arg;
   unsigned long tmp;
@@ -144,13 +145,14 @@ int main(int argc, char *argv[])
         cpuid(0x00000002, regs2);
         for (jnd = 0; jnd < 3; ++jnd)
           regs2[jnd] = (regs2[jnd] & 0xfffffffe) ? 0 : regs2[jnd];  
-        for (jnd = 1; jnd < 16; ++jnd)
+        for (jnd = 1; jnd < 16; ++jnd) {
+          cp = ctab;
           if (ptr[jnd])
-            while (ctab->val) {
-              if (ctab->val == ptr[jnd])
-                printf("%u\n", ctab->size << 10);
-              ++ctab;
+            while (cp->val) {
+              if (cp->val == ptr[jnd])
+                printf("%u\n", cp->size << 10);
             }
+        }
       }
     }
   }
