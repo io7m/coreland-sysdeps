@@ -21,4 +21,5 @@ case "$sys" in
     ;; 
 esac
 
+let freq=freq/1000000
 echo "$freq"
