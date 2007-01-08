@@ -24,7 +24,7 @@ int main()
 #ifdef HAVE_UNAME
   struct utsname un;
   if (uname(&un) != -1) {
-    for (ind = 0; ind < sizeof(arch_table) / sizeof(const char *); ++ind) {
+    for (ind = 0; ind < sizeof(arch_table) / sizeof(struct arch); ++ind) {
       if (strcmp(un.machine, arch_table[ind].name) == 0)
         arch = arch_table[ind].val;
     }
@@ -35,7 +35,7 @@ int main()
     char buf[256];
     size_t sz = sizeof(buf);
     if (sysctlbyname("hw.machine", buf, &sz, 0, 0) != -1) {
-      for (ind = 0; ind < sizeof(arch_table) / sizeof(const char *); ++ind) {
+      for (ind = 0; ind < sizeof(arch_table) / sizeof(struct arch); ++ind) {
         if (strcmp(buf, arch_table[ind].name) == 0)
           arch = arch_table[ind].val;
       }
