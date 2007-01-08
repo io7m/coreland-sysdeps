@@ -13,7 +13,7 @@ fi
 
 exec 2>/dev/null
 sys="$1"
-feat="( "
+feat="(0"
 
 case "$sys" in
   SYSINFO_OS_DARWIN)
@@ -25,10 +25,4 @@ case "$sys" in
     ;; 
 esac
 
-feat="${feat} )"
-if [ "${feat}" != "(  )" ]
-then
-  echo "${feat}"
-else
-  echo "0"
-fi
+echo "${feat})"
