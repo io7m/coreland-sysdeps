@@ -19,6 +19,14 @@ case "$sys" in
   SYSINFO_OS_DARWIN)
     cline="`sysctl hw.cachelinesize | awk '{print $2}'`"
     ;; 
+  *)
+    ${SYSDEP_CC} -o cpuid_x86 cpuid_x86.c
+    if [ $? -eq 0 ]
+    then
+      cline=`./cpuid_x86 cacheline`
+      rm -f cpuid_x86
+    fi
+    ;;
 esac
 
 echo "$cline"
