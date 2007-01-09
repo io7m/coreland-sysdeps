@@ -1,11 +1,5 @@
 #!/bin/sh
 
-. ../sysdep-subs
-if [ $? -ne 0 ]
-then
-  exit 111
-fi
-
 exec 1> "$1"
 
 header="SDL_mixer.h"
@@ -13,27 +7,24 @@ path="${SYSDEP_STDINC} /usr/include/SDL /usr/local/include/SDL"
 define="-DHAVE_SDL_MIXER"
 
 case "$SYSDEP_SYSTYPE" in
-  darwin)
+  SYSDEP_OS_DARWIN)
     path="/Library/Frameworks/SDL_mixer.framework/Headers \
           /sw/include/SDL ${path}"
     ;;
-  sunos)
+  SYSDEP_OS_FREEBSD)
     path="/opt/csw/include/SDL ${path}"
-    ;;
-  freebsd)
-    path="/usr/local/include/SDL12 /usr/local/include/SDL11 ${path}"
     ;;
   *)
     ;;
 esac
 
-FLAGS="`try_manual_search "${header}" "${path}" "-I"`"
+FLAGS="`${SYSDEP_TRY_MANUAL} "${header}" "${path}" "-I"`"
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS} ${define}
   exit 0
 else
-  error "try_manual_search failed"
+  ${SYSDEP_ERROR} "manual search failed"
 fi
 
 exit 0

@@ -1,15 +1,9 @@
 #!/bin/sh
 
-. ../sysdep-subs
-if [ $? -ne 0 ]
-then
-  exit 111
-fi
-
 exec 1> "$1"
 
 case "$SYSDEP_SYSTYPE" in
-  darwin)
+  SYSDEP_OS_DARWIN)
     echo "-framework SDL_image"
     ;;
   *)
