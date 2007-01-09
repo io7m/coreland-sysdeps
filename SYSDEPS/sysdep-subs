@@ -41,61 +41,36 @@ case ${SYSDEP_SYSTYPE} in
 esac
 export SYSDEP_LIBSUFFIX
 
+# outdir is relative to each entry in modules directory
+SYSDEP_OUTDIR="../../../"
+export SYSDEP_OUTDIR
+
 # compiler
 # sysdeps conf-cc preferred over project conf-cc preferred over 'cc'
 SYSDEP_CC="cc"
 if [ -f "../../conf-cc" ]
 then
   tmp=`head -n 1 "../../conf-cc"`
-  if [ ! -z "$tmp" ]
+  if [ ! -z "${tmp}" ]
   then
-    SYSDEP_CC="$tmp"
+    SYSDEP_CC="${tmp}"
   fi
 fi
 if [ -f "../conf-cc" ]
 then
   tmp=`head -n 1 "../conf-cc"`
-  if [ ! -z "$tmp" ]
+  if [ ! -z "${tmp}" ]
   then
-    SYSDEP_CC="$tmp"
+    SYSDEP_CC="${tmp}"
   fi
 fi
 export SYSDEP_CC
 
-#
-# interface functions
-#
+# scripts are relative to each entry in modules directory
+SYSDEP_TRY_CONFIG_BIN=../../sd-configbin
+SYSDEP_TRY_PKG_CONFIG=../../sd-pkgconfig
+SYSDEP_TRY_MANUAL=../../sd-manual
 
-try_config_bin()
-{
-  config="$1"
-  flags="$2"
-  ${config} ${flags} 2>/dev/null
-  return $?
-}
-
-try_pkg_config()
-{
-  pkgname="$1"
-  flags="$2"
-  pkg-config ${flags} ${pkgname} 2>/dev/null
-  return $?
-}
-
-try_manual_search()
-{
-  file="$1"
-  path="$2"
-  prefix="$3"
-
-  for f in ${path}
-  do
-    if [ -f "${f}/${file}" ]
-    then
-      echo "${prefix}${f} "
-      return 0
-    fi
-  done
-  return 1
-}
-
+export SYSDEP_TRY_CONFIG_BIN
+export SYSDEP_TRY_PKG_CONFIG
+export SYSDEP_TRY_MANUAL
