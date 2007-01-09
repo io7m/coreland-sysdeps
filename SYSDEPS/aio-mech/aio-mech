@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. ../sysdep-subs
+. ../../sysdep-main
 if [ $? -ne 0 ]
 then
   exit 111
