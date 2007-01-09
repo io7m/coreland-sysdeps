@@ -42,8 +42,30 @@ SYSDEP_CPU_FREQ="`${MODULE_RELATIVE}/sd-cpufreq ${SYSDEP_OS}`"
 if [ $? -ne 0 ]; then SYSDEP_CPU_FREQ="0"; fi
 export SYSDEP_CPU_FREQ
 
+# find CPU L1 instruction cache size
+SYSDEP_CPU_L1_INST_CACHE_SIZE="`${MODULE_RELATIVE}/sd-cpul1icache ${SYSDEP_OS}`"
+if [ $? -ne 0 ]; then SYSDEP_CPU_L1_INST_CACHE_SIZE="0"; fi
+export SYSDEP_CPU_L1_INST_CACHE_SIZE
 
+# find CPU L1 data cache size
+SYSDEP_CPU_L1_DATA_CACHE_SIZE="`${MODULE_RELATIVE}/sd-cpul1dcache ${SYSDEP_OS}`"
+if [ $? -ne 0 ]; then SYSDEP_CPU_L1_DATA_CACHE_SIZE="0"; fi
+export SYSDEP_CPU_L1_DATA_CACHE_SIZE
 
+# find CPU L2 cache size
+SYSDEP_CPU_L2_CACHE_SIZE="`${MODULE_RELATIVE}/sd-cpul2cache ${SYSDEP_OS}`"
+if [ $? -ne 0 ]; then SYSDEP_CPU_L2_CACHE_SIZE="0"; fi
+export SYSDEP_CPU_L2_CACHE_SIZE
+
+# find CPU L3 cache size
+SYSDEP_CPU_L3_CACHE_SIZE="`${MODULE_RELATIVE}/sd-cpul3cache ${SYSDEP_OS}`"
+if [ $? -ne 0 ]; then SYSDEP_CPU_L3_CACHE_SIZE="0"; fi
+export SYSDEP_CPU_L3_CACHE_SIZE
+
+# find CPU cache line size
+SYSDEP_CPU_CACHE_LINE_SIZE="`${MODULE_RELATIVE}/sd-cpuclinesz ${SYSDEP_OS}`"
+if [ $? -ne 0 ]; then SYSDEP_CPU_CACHE_LINE_SIZE="0"; fi
+export SYSDEP_CPU_CACHE_LINE_SIZE
 
 # standard include path
 SYSDEP_STDINC="/usr/include /usr/local/include"
