@@ -9,7 +9,7 @@ then
   echo ${FLAGS} ${define}
   exit 0
 else
-  error "config binary failed"
+  ${SYSDEP_ERROR} "config binary failed"
 fi
 
 exit 0

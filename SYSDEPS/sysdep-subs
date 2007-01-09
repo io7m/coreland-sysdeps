@@ -70,6 +70,7 @@ export SYSDEP_CC
 SYSDEP_TRY_CONFIG_BIN=../../sd-configbin
 SYSDEP_TRY_PKG_CONFIG=../../sd-pkgconfig
 SYSDEP_TRY_MANUAL=../../sd-manual
+SYSDEP_ERROR=../../sd-error
 
 export SYSDEP_TRY_CONFIG_BIN
 export SYSDEP_TRY_PKG_CONFIG
