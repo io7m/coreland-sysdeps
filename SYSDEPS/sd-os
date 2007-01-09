@@ -8,21 +8,6 @@ fi
 exec 2>/dev/null
 
 sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
-if [ x"$sys" == x ]
-then
-  ${SYSDEP_CC} -c trycpp.c
-  ${SYSDEP_CC} -o trycpp trycpp.o
-  case `./trycpp` in
-  nextstep)
-    oper="nextstep"
-    ;;
-  *)
-    oper="unknown"
-    ;;
-  esac
-  rm -f trycpp.o trycpp
-fi
-
 case "$sys" in
   bsd.os) echo 'SYSDEP_OS_BSDOS' ;;
   freebsd) echo 'SYSDEP_OS_FREEBSD' ;;
@@ -34,6 +19,5 @@ case "$sys" in
   sunos) echo 'SYSDEP_OS_SUNOS';;
   unix_sv) echo 'SYSDEP_OS_UNIX_SV';;
   hp-ux) echo 'SYSDEP_OS_HPUX';;
-  nextstep) echo 'SYSDEP_OS_NEXTSTEP';;
   *) echo 'SYSDEP_OS_UNKNOWN';;
 esac
