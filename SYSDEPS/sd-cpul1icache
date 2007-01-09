@@ -1,0 +1,31 @@
+#!/bin/sh
+
+if [ -z ${SYSDEP_CC} ]
+then
+  SYSDEP_CC="cc"
+fi
+
+if [ x"$1" = x ]
+then
+  exit 1
+fi
+
+exec 2>/dev/null
+sys="$1"
+cache=0
+
+case "$sys" in
+  SYSDEP_OS_DARWIN)
+    cache="`sysctl hw.l1icachesize | awk '{print $2}'`"
+    ;; 
+esac
+
+${SYSDEP_CC} -o sd-cpuidx86 sd-cpuidx86.c
+if [ $? -eq 0 ]
+then
+  cache=`./sd-cpuidx86 l1icachesize`
+  rm -f sd-cpuidx86
+  if [ -z ${cache} ]; then cache=0; fi
+fi
+
+echo "$cache"
