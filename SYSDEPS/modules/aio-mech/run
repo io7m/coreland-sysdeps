@@ -6,10 +6,14 @@ then
   exit 111
 fi
 
-f1_tmp="flags-corelib"
+sd_tmp="sysdeps.out"
+f1_tmp="_aio-mech.h"
 echo "SYSDEPS aio-mech run create ${f1_tmp}"
 
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
+sd_out="${SYSDEP_OUTDIR}/${sd_tmp}"
 
-./aio-mech ${f1_tmp}
+./aio-mech ${f1_tmp} ${sd_tmp}
 cp ${f1_tmp} ${f1_out}
+cat ${sd_tmp} >> ${sd_out}
+
