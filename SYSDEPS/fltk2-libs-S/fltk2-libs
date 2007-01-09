@@ -1,41 +1,36 @@
 #!/bin/sh
 
-. ../sysdep-subs
-if [ $? -ne 0 ]
-then
-  exit 111
-fi
-
 exec 1> "$1"
 
 path="${SYSDEP_STDLIB}"
-lib="libfltk2.a"
+lib="libfltk2.${SYSDEP_LIBSUFFIX}"
 
-FLAGS=`try_config_bin "fltk2-config" "--ldstaticflags --use-images" 2>&-`
+FLAGS=`${SYSDEP_TRY_CONFIG_BIN} "fltk2-config" "--ldstaticflags --use-images" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS}
   exit 0
 else
-  error "try_config_bin failed"
+  ${SYSDEP_ERROR} "config binary failed"
 fi
 
-FLAGS=`try_pkg_config "${pkg}" "--libs" 2>&-`
+FLAGS=`${SYSDEP_TRY_PKG_CONFIG} "${pkg}" "--libs" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS}
   exit 0
 else
-  error "try_pkg_config failed"
+  ${SYSDEP_ERROR} "pkg-config failed"
 fi
 
-FLAGS=`try_manual_search "${lib}" "${path}" "-L" 2>&-`
+FLAGS=`${SYSDEP_TRY_MANUAL} "${lib}" "${path}" "-L" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS}
   exit 0
 else
-  error "try_manual_search failed"
+  ${SYSDEP_ERROR} "manual search failed"
 fi
 
 exit 0
+

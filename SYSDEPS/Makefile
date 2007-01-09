@@ -1,8 +1,8 @@
 default: sysdeps
 clean: sysdeps_clean
 
-sysdeps:  sd_corelib-flags sd_corelib-libs sd_corelib-libs-S sd_io_poll-flags sd_io_poll-libs-S sd_pdcgi-flags sd_pdcgi-libs-S sd_aio-mech sd_ch_flags sd_byteorder sd_direntry sd_dlopen sd_fastcgi-flags sd_fastcgi-libs sd_float32 sd_float64 sd_uint16 sd_uint32 sd_uint64 sd_int16 sd_int32 sd_int64
-sysdeps_clean:  sd_corelib-flags_clean sd_corelib-libs_clean sd_corelib-libs-S_clean sd_io_poll-flags_clean sd_io_poll-libs-S_clean sd_pdcgi-flags_clean sd_pdcgi-libs-S_clean sd_aio-mech_clean sd_ch_flags_clean sd_byteorder_clean sd_direntry_clean sd_dlopen_clean sd_fastcgi-flags_clean sd_fastcgi-libs_clean sd_float32_clean sd_float64_clean sd_uint16_clean sd_uint32_clean sd_uint64_clean sd_int16_clean sd_int32_clean sd_int64_clean
+sysdeps:  sd_corelib-flags sd_corelib-libs sd_corelib-libs-S sd_io_poll-flags sd_io_poll-libs-S sd_pdcgi-flags sd_pdcgi-libs-S sd_aio-mech sd_ch_flags sd_byteorder sd_direntry sd_dlopen sd_fastcgi-flags sd_fastcgi-libs sd_float32 sd_float64 sd_uint16 sd_uint32 sd_uint64 sd_int16 sd_int32 sd_int64 sd_fd sd_floatcast sd_select sd_signal
+sysdeps_clean:  sd_corelib-flags_clean sd_corelib-libs_clean sd_corelib-libs-S_clean sd_io_poll-flags_clean sd_io_poll-libs-S_clean sd_pdcgi-flags_clean sd_pdcgi-libs-S_clean sd_aio-mech_clean sd_ch_flags_clean sd_byteorder_clean sd_direntry_clean sd_dlopen_clean sd_fastcgi-flags_clean sd_fastcgi-libs_clean sd_float32_clean sd_float64_clean sd_uint16_clean sd_uint32_clean sd_uint64_clean sd_int16_clean sd_int32_clean sd_int64_clean sd_fd_clean sd_floatcast_clean sd_select_clean sd_signal_clean
 
 sd_corelib-flags:
 	@(cd modules/corelib-flags && ./run)
@@ -113,6 +113,26 @@ sd_int64:
 	@(cd modules/int64 && ./run)
 sd_int64_clean:
 	@(cd modules/int64 && ./clean)
+
+sd_fd:
+	@(cd modules/fd && ./run)
+sd_fd_clean:
+	@(cd modules/fd && ./clean)
+
+sd_floatcast:
+	@(cd modules/floatcast && ./run)
+sd_floatcast_clean:
+	@(cd modules/floatcast && ./clean)
+
+sd_select:
+	@(cd modules/select && ./run)
+sd_select_clean:
+	@(cd modules/select && ./clean)
+
+sd_signal:
+	@(cd modules/signal && ./run)
+sd_signal_clean:
+	@(cd modules/signal && ./clean)
 
 regen:
 	./gen-makefile > Makefile.tmp

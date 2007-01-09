@@ -1,11 +1,5 @@
 #!/bin/sh
 
-. ../sysdep-subs
-if [ $? -ne 0 ]
-then
-  exit 111
-fi
-
 exec 1> "$1"
 
 header="Fl.h"
@@ -14,37 +8,37 @@ path="${SYSDEP_STDINC} /usr/X11R6/include/FL"
 pkg="fltk11"
 
 case "${SYSDEP_SYSTYPE}" in
-  darwin)
+  SYSDEP_OS_DARWIN)
     path="${path} /sw/include/FL"
     ;;
   *)
     ;;
 esac
 
-FLAGS=`try_config_bin "fltk-config" "--cxxflags --use-images" 2>&-`
+FLAGS=`${SYSDEP_TRY_CONFIG_BIN} "fltk-config" "--cxxflags --use-images" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS} ${define}
   exit 0
 fi
-error "try_config_bin failed"
+${SYSDEP_ERROR} "config binary failed"
 
-FLAGS=`try_pkg_config "${pkg}" "--cxxflags" 2>&-`
+FLAGS=`${SYSDEP_TRY_PKG_CONFIG} "${pkg}" "--cxxflags" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS} ${define}
   exit 0
 else
-  error "try_pkg_config failed"
+  ${SYSDEP_ERROR} "pkg-config failed"
 fi
 
-FLAGS=`try_manual_search "${header}" "${path}" "-I" 2>&-`
+FLAGS=`${SYSDEP_TRY_MANUAL} "${header}" "${path}" "-I" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS} ${define}
   exit 0
 else
-  error "try_manual_search failed"
+  ${SYSDEP_ERROR} "manual search failed"
 fi
 
 exit 0

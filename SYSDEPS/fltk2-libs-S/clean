@@ -1,15 +1,14 @@
 #!/bin/sh
 
-f1_tmp="libs-fltk2"
-echo "SYSDEPS fltk2-libs clean ${f1_tmp}"
-
-outdir="`head -n 1 ../conf-outdir`"
-if [ -z "${outdir}" ]
+. ../../sysdep-main
+if [ $? -ne 0 ]
 then
-  echo "fatal: outdir not defined" 2>&1
-  exit 1
+  exit 111
 fi
-outdir="../${outdir}"
-f1_out="${outdir}/${f1_tmp}"
+
+f1_tmp="libs-fltk2"
+echo "SYSDEPS fltk2-libs-S clean ${f1_tmp}"
+
+f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
 
 rm -f ${f1_tmp} ${f1_out}
