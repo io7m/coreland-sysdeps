@@ -1,10 +1,5 @@
 #!/bin/sh
 
-if [ -z ${SYSDEP_CC} ]
-then
-  SYSDEP_CC="cc"
-fi
-
 exec 2>/dev/null
 
 sys="`uname -s | tr '/:[A-Z]' '..[a-z]'`"

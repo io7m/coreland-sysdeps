@@ -20,12 +20,14 @@ case "$sys" in
     ;; 
 esac
 
-${SYSDEP_CC} -o sd-cpuidx86 sd-cpuidx86.c
-if [ $? -eq 0 ]
+if [ -f ./sd-cpuidx86 ]
 then
   cache=`./sd-cpuidx86 l2cachesize`
-  rm -f sd-cpuidx86
-  if [ -z ${cache} ]; then cache=0; fi
 fi
 
-echo "$cache"
+if [ -z "${cache}" ]
+then
+  echo 0
+else
+  echo "${cache}"
+fi

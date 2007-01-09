@@ -5,65 +5,95 @@
 # relative to the module ("../../")
 #
 
-MODULE_RELATIVE="../../"
+DIR_RELATIVE="../../"
 
 error()
 {
   echo "$1" 1>&2
 }
 
+# compiler
+# sysdeps conf-cc preferred over project conf-cc preferred over 'cc'
+SYSDEP_CC="cc"
+if [ -f "${DIR_RELATIVE}/conf-cc" ]
+then
+  tmp=`head -n 1 "${DIR_RELATIVE}/conf-cc"`
+  if [ ! -z "${tmp}" ]
+  then
+    SYSDEP_CC="${tmp}"
+  fi
+fi
+if [ -f "../conf-cc" ]
+then
+  tmp=`head -n 1 "../conf-cc"`
+  if [ ! -z "${tmp}" ]
+  then
+    SYSDEP_CC="${tmp}"
+  fi
+fi
+export SYSDEP_CC
+
+#
+# compile support programs
+#
+
+if [ ! -f ${DIR_RELATIVE}/sd-cpuidx86 ]
+then
+  ${SYSDEP_CC} -o ${DIR_RELATIVE}/sd-cpuidx86 ${DIR_RELATIVE}/sd-cpuidx86.c
+fi
+
 # find system type
-SYSDEP_OS="`${MODULE_RELATIVE}/sd-os`"
+SYSDEP_OS="`${DIR_RELATIVE}/sd-os`"
 if [ $? -ne 0 ]; then SYSDEP_OS="SYSDEP_OS_UNKNOWN"; fi
 export SYSDEP_OS
 
 # find system architecture
-SYSDEP_ARCH="`${MODULE_RELATIVE}/sd-arch ${SYSDEP_OS}`"
+SYSDEP_ARCH="`${DIR_RELATIVE}/sd-arch ${SYSDEP_OS}`"
 if [ $? -ne 0 ]; then SYSDEP_OS="SYSDEP_ARCH_UNKNOWN"; fi
 export SYSDEP_ARCH
 
 # find cpu features
-SYSDEP_CPU_EXT="`${MODULE_RELATIVE}/sd-cpufeat ${SYSDEP_OS}`"
+SYSDEP_CPU_EXT="`${DIR_RELATIVE}/sd-cpufeat ${SYSDEP_OS}`"
 if [ $? -ne 0 ]; then SYSDEP_CPU_EXT=""; fi
 export SYSDEP_CPU_EXT
 
 # find number of CPUs
-SYSDEP_NCPUS="`${MODULE_RELATIVE}/sd-cpunum ${SYSDEP_OS}`"
+SYSDEP_NCPUS="`${DIR_RELATIVE}/sd-cpunum ${SYSDEP_OS}`"
 if [ $? -ne 0 ]; then SYSDEP_CPU_NUM="0"; fi
 export SYSDEP_CPU_NUM
 
 # find CPU model
-SYSDEP_CPU_MODEL="`${MODULE_RELATIVE}/sd-cpunum ${SYSDEP_OS}`"
+SYSDEP_CPU_MODEL="`${DIR_RELATIVE}/sd-cpunum ${SYSDEP_OS}`"
 if [ $? -ne 0 ]; then SYSDEP_CPU_MODEL="SYSDEP_CPU_MODEL_UNKNOWN"; fi
 export SYSDEP_CPU_MODEL
 
 # find CPU frequency
-SYSDEP_CPU_FREQ="`${MODULE_RELATIVE}/sd-cpufreq ${SYSDEP_OS}`"
+SYSDEP_CPU_FREQ="`${DIR_RELATIVE}/sd-cpufreq ${SYSDEP_OS}`"
 if [ $? -ne 0 ]; then SYSDEP_CPU_FREQ="0"; fi
 export SYSDEP_CPU_FREQ
 
 # find CPU L1 instruction cache size
-SYSDEP_CPU_L1_INST_CACHE_SIZE="`${MODULE_RELATIVE}/sd-cpul1icache ${SYSDEP_OS}`"
+SYSDEP_CPU_L1_INST_CACHE_SIZE="`${DIR_RELATIVE}/sd-cpul1icache ${SYSDEP_OS}`"
 if [ $? -ne 0 ]; then SYSDEP_CPU_L1_INST_CACHE_SIZE="0"; fi
 export SYSDEP_CPU_L1_INST_CACHE_SIZE
 
 # find CPU L1 data cache size
-SYSDEP_CPU_L1_DATA_CACHE_SIZE="`${MODULE_RELATIVE}/sd-cpul1dcache ${SYSDEP_OS}`"
+SYSDEP_CPU_L1_DATA_CACHE_SIZE="`${DIR_RELATIVE}/sd-cpul1dcache ${SYSDEP_OS}`"
 if [ $? -ne 0 ]; then SYSDEP_CPU_L1_DATA_CACHE_SIZE="0"; fi
 export SYSDEP_CPU_L1_DATA_CACHE_SIZE
 
 # find CPU L2 cache size
-SYSDEP_CPU_L2_CACHE_SIZE="`${MODULE_RELATIVE}/sd-cpul2cache ${SYSDEP_OS}`"
+SYSDEP_CPU_L2_CACHE_SIZE="`${DIR_RELATIVE}/sd-cpul2cache ${SYSDEP_OS}`"
 if [ $? -ne 0 ]; then SYSDEP_CPU_L2_CACHE_SIZE="0"; fi
 export SYSDEP_CPU_L2_CACHE_SIZE
 
 # find CPU L3 cache size
-SYSDEP_CPU_L3_CACHE_SIZE="`${MODULE_RELATIVE}/sd-cpul3cache ${SYSDEP_OS}`"
+SYSDEP_CPU_L3_CACHE_SIZE="`${DIR_RELATIVE}/sd-cpul3cache ${SYSDEP_OS}`"
 if [ $? -ne 0 ]; then SYSDEP_CPU_L3_CACHE_SIZE="0"; fi
 export SYSDEP_CPU_L3_CACHE_SIZE
 
 # find CPU cache line size
-SYSDEP_CPU_CACHE_LINE_SIZE="`${MODULE_RELATIVE}/sd-cpuclinesz ${SYSDEP_OS}`"
+SYSDEP_CPU_CACHE_LINE_SIZE="`${DIR_RELATIVE}/sd-cpuclinesz ${SYSDEP_OS}`"
 if [ $? -ne 0 ]; then SYSDEP_CPU_CACHE_LINE_SIZE="0"; fi
 export SYSDEP_CPU_CACHE_LINE_SIZE
 
@@ -95,34 +125,13 @@ esac
 export SYSDEP_LIBSUFFIX
 
 # outdir is relative to each entry in modules directory
-SYSDEP_OUTDIR="${MODULE_RELATIVE}/../"
+SYSDEP_OUTDIR="${DIR_RELATIVE}/../"
 export SYSDEP_OUTDIR
 
-# compiler
-# sysdeps conf-cc preferred over project conf-cc preferred over 'cc'
-SYSDEP_CC="cc"
-if [ -f "${MODULE_RELATIVE}/conf-cc" ]
-then
-  tmp=`head -n 1 "${MODULE_RELATIVE}/conf-cc"`
-  if [ ! -z "${tmp}" ]
-  then
-    SYSDEP_CC="${tmp}"
-  fi
-fi
-if [ -f "../conf-cc" ]
-then
-  tmp=`head -n 1 "../conf-cc"`
-  if [ ! -z "${tmp}" ]
-  then
-    SYSDEP_CC="${tmp}"
-  fi
-fi
-export SYSDEP_CC
-
-SYSDEP_TRY_CONFIG_BIN=${MODULE_RELATIVE}/sd-configbin
-SYSDEP_TRY_PKG_CONFIG=${MODULE_RELATIVE}/sd-configpkg
-SYSDEP_TRY_MANUAL=${MODULE_RELATIVE}/sd-configman
-SYSDEP_ERROR=${MODULE_RELATIVE}/sd-error
+SYSDEP_TRY_CONFIG_BIN=${DIR_RELATIVE}/sd-configbin
+SYSDEP_TRY_PKG_CONFIG=${DIR_RELATIVE}/sd-configpkg
+SYSDEP_TRY_MANUAL=${DIR_RELATIVE}/sd-configman
+SYSDEP_ERROR=${DIR_RELATIVE}/sd-error
 
 export SYSDEP_TRY_CONFIG_BIN
 export SYSDEP_TRY_PKG_CONFIG

@@ -24,8 +24,7 @@ case "$sys" in
   ;;
 esac
 
-${SYSDEP_CC} -o sd-cpuidx86 sd-cpuidx86.c
-if [ $? -eq 0 ]
+if [ -f ./sd-cpuidx86 ]
 then
   f=`./sd-cpuidx86 mmx`
   if [ $f -eq 1 ]; then feat="${feat} SYSDEP_CPU_EXT_MMX"; fi
@@ -43,7 +42,6 @@ then
   if [ $f -eq 1 ]; then feat="${feat} SYSDEP_CPU_EXT_SSE3"; fi
   f=`./sd-cpuidx86 sse4`
   if [ $f -eq 1 ]; then feat="${feat} SYSDEP_CPU_EXT_SSE4"; fi
-  rm -f sd-cpuidx86
 fi
  
 echo "${feat}"

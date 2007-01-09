@@ -1,10 +1,5 @@
 #!/bin/sh
 
-if [ -z ${SYSDEP_CC} ]
-then
-  SYSDEP_CC="cc"
-fi
-
 if [ x"$1" = x ]
 then
   exit 1
@@ -23,9 +18,7 @@ case "$sys" in
     ;; 
 esac
 
-# try x86
-${SYSDEP_CC} -o sd-cpuidx86 sd-cpuidx86.c
-if [ $? -eq 0 ]
+if [ -f ./sd-cpuidx86 ]
 then
   f=`./sd-cpuidx86 mmx`
   if [ $f -eq 1 ]; then echo "#define SYSDEP_HAVE_CPU_EXT_MMX"; fi
@@ -43,5 +36,4 @@ then
   if [ $f -eq 1 ]; then echo "#define SYSDEP_HAVE_CPU_EXT_SSE3"; fi
   f=`./sd-cpuidx86 sse4`
   if [ $f -eq 1 ]; then echo "#define SYSDEP_HAVE_CPU_EXT_SSE4"; fi
-  rm -f sd-cpuidx86
 fi
