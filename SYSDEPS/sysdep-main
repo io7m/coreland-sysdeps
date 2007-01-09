@@ -1,12 +1,19 @@
 #!/bin/sh
 
+#
+# this file is only ever called by modules, so all paths must be
+# relative to the module ("../../")
+#
+
+MODULE_RELATIVE="../../"
+
 error()
 {
   echo "$1" 1>&2
 }
 
 # find system type
-SYSDEP_OS="`./sd-os`"
+SYSDEP_OS="`${MODULE_RELATIVE}/sd-os`"
 if [ $? -ne 0 ]
 then
   SYSDEP_OS="SYSDEP_OS_UNKNOWN"
@@ -14,7 +21,7 @@ fi
 export SYSDEP_OS
 
 # find system architecture
-SYSDEP_ARCH="`./sd-arch`"
+SYSDEP_ARCH="`${MODULE_RELATIVE}/sd-arch`"
 if [ $? -ne 0 ]
 then
   SYSDEP_OS="SYSDEP_ARCH_UNKNOWN"
@@ -49,15 +56,15 @@ esac
 export SYSDEP_LIBSUFFIX
 
 # outdir is relative to each entry in modules directory
-SYSDEP_OUTDIR="../../../"
+SYSDEP_OUTDIR="${MODULE_RELATIVE}/../"
 export SYSDEP_OUTDIR
 
 # compiler
 # sysdeps conf-cc preferred over project conf-cc preferred over 'cc'
 SYSDEP_CC="cc"
-if [ -f "../../conf-cc" ]
+if [ -f "${MODULE_RELATIVE}/conf-cc" ]
 then
-  tmp=`head -n 1 "../../conf-cc"`
+  tmp=`head -n 1 "${MODULE_RELATIVE}/conf-cc"`
   if [ ! -z "${tmp}" ]
   then
     SYSDEP_CC="${tmp}"
@@ -73,11 +80,10 @@ then
 fi
 export SYSDEP_CC
 
-# scripts are relative to each entry in modules directory
-SYSDEP_TRY_CONFIG_BIN=../../sd-configman
-SYSDEP_TRY_PKG_CONFIG=../../sd-configpkg
-SYSDEP_TRY_MANUAL=../../sd-configman
-SYSDEP_ERROR=../../sd-error
+SYSDEP_TRY_CONFIG_BIN=${MODULE_RELATIVE}/sd-configbin
+SYSDEP_TRY_PKG_CONFIG=${MODULE_RELATIVE}/sd-configpkg
+SYSDEP_TRY_MANUAL=${MODULE_RELATIVE}/sd-configman
+SYSDEP_ERROR=${MODULE_RELATIVE}/sd-error
 
 export SYSDEP_TRY_CONFIG_BIN
 export SYSDEP_TRY_PKG_CONFIG
