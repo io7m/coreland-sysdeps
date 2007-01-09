@@ -47,6 +47,8 @@ cat >> "${fout}" <<EOF
 #define SYSINFO_CPU_CACHE_LINE_SIZE ${lsz}
 #define SYSINFO_CPU_FREQ ${freq}
 
+`./cpu-hasfeat.sh ${oper}`
+
 EOF
 
 finish
