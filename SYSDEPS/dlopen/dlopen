@@ -1,11 +1,5 @@
 #!/bin/sh
 
-. ../sysdep-subs
-if [ $? -ne 0 ]
-then
-  exit 111
-fi
-
 fout="$1"
 sysdeps="$2"
 
