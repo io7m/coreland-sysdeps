@@ -1,5 +1,6 @@
 #!/bin/sh
 
+SYSDEP_CLEAN=1
 sd_tmp="sysdeps.out"
 f1_tmp="_ch_flags.h"
 echo "SYSDEPS ch_flags clean ${f1_tmp}"
