@@ -6,37 +6,44 @@ error()
 }
 
 # find system type
-SYSDEP_SYSTYPE="`uname -s | tr '/:[A-Z]' '..[a-z]'`"
+SYSDEP_OS="`./sd-os`"
 if [ $? -ne 0 ]
 then
-  error "fatal: could not get system type"
-  exit 1
+  SYSDEP_OS="SYSDEP_OS_UNKNOWN"
 fi
-export SYSDEP_SYSTYPE
+export SYSDEP_OS
+
+# find system architecture
+SYSDEP_ARCH="`./sd-arch`"
+if [ $? -ne 0 ]
+then
+  SYSDEP_OS="SYSDEP_ARCH_UNKNOWN"
+fi
+export SYSDEP_ARCH
 
 # standard include path
 SYSDEP_STDINC="/usr/include /usr/local/include"
-case ${SYSDEP_SYSTYPE} in
-  darwin) SYSDEP_STDINC="/sw/include ${SYSDEP_STDINC}";;
-  sunos) SYSDEP_STDINC="/usr/sfw/include ${SYSDEP_STDINC}";;
+case ${SYSDEP_OS} in
+  SYSDEP_OS_DARWIN) SYSDEP_STDINC="/sw/include ${SYSDEP_STDINC}";;
+  SYSDEP_OS_SUNOS) SYSDEP_STDINC="/usr/sfw/include ${SYSDEP_STDINC}";;
   *)
 esac
 export SYSDEP_STDINC
 
 # standard library path
 SYSDEP_STDLIB="/usr/lib /usr/local/lib"
-case ${SYSDEP_SYSTYPE} in
-  darwin) SYSDEP_STDLIB="/sw/lib ${SYSDEP_STDLIB}";;
-  sunos) SYSDEP_STDLIB="/usr/sfw/lib ${SYSDEP_STDLIB}";;
+case ${SYSDEP_OS} in
+  SYSDEP_OS_DARWIN) SYSDEP_STDLIB="/sw/lib ${SYSDEP_STDLIB}";;
+  SYSDEP_OS_SUNOS) SYSDEP_STDLIB="/usr/sfw/lib ${SYSDEP_STDLIB}";;
   *)
 esac
 export SYSDEP_STDLIB
 
 # find system dynamic library suffix
 SYSDEP_LIBSUFFIX="so"
-case ${SYSDEP_SYSTYPE} in
-  darwin) SYSDEP_LIBSUFFIX="dylib" ;;
-  hp-ux) SYSDEP_LIBSUFFIX="sl";;
+case ${SYSDEP_OS} in
+  SYSDEP_OS_DARWIN) SYSDEP_LIBSUFFIX="dylib" ;;
+  SYSDEP_OS_HPUX) SYSDEP_LIBSUFFIX="sl";;
   *) ;;
 esac
 export SYSDEP_LIBSUFFIX
