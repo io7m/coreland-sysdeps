@@ -74,9 +74,9 @@ fi
 export SYSDEP_CC
 
 # scripts are relative to each entry in modules directory
-SYSDEP_TRY_CONFIG_BIN=../../sd-configbin
-SYSDEP_TRY_PKG_CONFIG=../../sd-pkgconfig
-SYSDEP_TRY_MANUAL=../../sd-manual
+SYSDEP_TRY_CONFIG_BIN=../../sd-configman
+SYSDEP_TRY_PKG_CONFIG=../../sd-configpkg
+SYSDEP_TRY_MANUAL=../../sd-configman
 SYSDEP_ERROR=../../sd-error
 
 export SYSDEP_TRY_CONFIG_BIN
