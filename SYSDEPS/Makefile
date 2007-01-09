@@ -1,8 +1,8 @@
 default: sysdeps
 clean: sysdeps_clean
 
-sysdeps:  sd_corelib-flags sd_corelib-libs sd_corelib-libs-S sd_io_poll-flags sd_io_poll-libs-S sd_pdcgi-flags sd_pdcgi-libs-S
-sysdeps_clean:  sd_corelib-flags_clean sd_corelib-libs_clean sd_corelib-libs-S_clean sd_io_poll-flags_clean sd_io_poll-libs-S_clean sd_pdcgi-flags_clean sd_pdcgi-libs-S_clean
+sysdeps:  sd_corelib-flags sd_corelib-libs sd_corelib-libs-S sd_io_poll-flags sd_io_poll-libs-S sd_pdcgi-flags sd_pdcgi-libs-S sd_aio-mech
+sysdeps_clean:  sd_corelib-flags_clean sd_corelib-libs_clean sd_corelib-libs-S_clean sd_io_poll-flags_clean sd_io_poll-libs-S_clean sd_pdcgi-flags_clean sd_pdcgi-libs-S_clean sd_aio-mech_clean
 
 sd_corelib-flags:
 	@(cd modules/corelib-flags && ./run)
@@ -38,6 +38,11 @@ sd_pdcgi-libs-S:
 	@(cd modules/pdcgi-libs-S && ./run)
 sd_pdcgi-libs-S_clean:
 	@(cd modules/pdcgi-libs-S && ./clean)
+
+sd_aio-mech:
+	@(cd modules/aio-mech && ./run)
+sd_aio-mech_clean:
+	@(cd modules/aio-mech && ./clean)
 
 regen:
 	./gen-makefile > Makefile.tmp
