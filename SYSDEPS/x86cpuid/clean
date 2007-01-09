@@ -1,6 +1,0 @@
-#!/bin/sh
-
-sd_tmp="sysdeps.out"
-echo "SYSDEPS x86cpuid clean ${f1_tmp}"
-
-rm -f ${sd_tmp}

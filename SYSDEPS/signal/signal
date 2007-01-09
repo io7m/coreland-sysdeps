@@ -1,11 +1,5 @@
 #!/bin/sh
 
-. ../sysdep-subs
-if [ $? -ne 0 ]
-then
-  exit 111
-fi
-
 sigact_out="$1"
 sigpm_out="$2"
 sysdeps="$3"
