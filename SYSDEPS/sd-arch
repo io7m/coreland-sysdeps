@@ -1,23 +1,18 @@
 #!/bin/sh
 
-if [ x"$1" = x ]
-then
-  exit 1
-fi
-
 exec 2>/dev/null
 sys="$1"
 arch=""
 
 unamem="`uname -m | tr /: ..`"
 case "$sys" in
-  SYSINFO_OS_DARWIN)
+  SYSDEP_OS_DARWIN)
     arch="`arch | tr /: ..`"
     ;;
-  SYSINFO_OS_AIX)
+  SYSDEP_OS_AIX)
     arch="`arch | tr /: ..`"
     ;;
-  SYSINFO_OS_LINUX)
+  SYSDEP_OS_LINUX)
     case "$unamem" in
     i386|i486|i586|i686)
       arch="i386"
@@ -27,10 +22,10 @@ case "$sys" in
       ;;
     esac
     ;;
-  SYSINFO_OS_SUNOS)
+  SYSDEP_OS_SUNOS)
     arch="`(uname -p || mach) | tr /: ..`"
     ;;
-  SYSINFO_OS_HPUX)
+  SYSDEP_OS_HPUX)
     tmp="`file /stand/vmunix`"
     if [ $? -eq 0 ]
     then
@@ -40,7 +35,7 @@ case "$sys" in
     fi
     arch="`echo $tmp | awk '{print $7}'`"
     ;;
-  SYSINFO_OS_NEXTSTEP)
+  SYSDEP_OS_NEXTSTEP)
     arch="`hostinfo | sed -n 's/^Processor type: \(.*\) (.*)$/\1/p' | tr /: ..`"
     ;;
   *)
@@ -49,7 +44,7 @@ case "$sys" in
 esac
 
 case "$arch" in
-  i386) echo 'SYSINFO_ARCH_X86' ;; 
-  ppc) echo 'SYSINFO_ARCH_PPC' ;;
-  *) echo 'SYSINFO_ARCH_UNKNOWN' ;;
+  i386) echo 'SYSDEP_ARCH_X86' ;; 
+  ppc) echo 'SYSDEP_ARCH_PPC' ;;
+  *) echo 'SYSDEP_ARCH_UNKNOWN' ;;
 esac

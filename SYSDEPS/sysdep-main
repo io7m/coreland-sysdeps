@@ -41,7 +41,8 @@ export SYSDEP_CC
 
 if [ ! -f ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86 ]
 then
-  ${SYSDEP_CC} -o ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86 ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86.c
+  ${SYSDEP_CC} -o ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86 \
+  ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86.c 2>/dev/null
 fi
 
 # find system type
