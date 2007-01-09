@@ -1,11 +1,5 @@
 #!/bin/sh
 
-. ../sysdep-subs
-if [ $? -ne 0 ]
-then
-  exit 111
-fi
-
 exec 1> "$1"
 
 header="sndfile.h"
@@ -13,22 +7,22 @@ define="-DHAVE_LIBSNDFILE"
 path="${SYSDEP_STDINC}"
 pkg="sndfile"
 
-FLAGS=`try_pkg_config "${pkg}" "--cflags" 2>&-`
+FLAGS=`${SYSDEP_TRY_PKG_CONFIG} "${pkg}" "--cflags" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS} ${define}
   exit 0
 else
-  error "try_pkg_config failed"
+  ${SYSDEP_ERROR} "pkg-config failed"
 fi
 
-FLAGS=`try_manual_search "${header}" "${path}" "-I" 2>&-`
+FLAGS=`${SYSDEP_TRY_MANUAL} "${header}" "${path}" "-I" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS} ${define}
   exit 0
 else
-  error "try_manual_search failed"
+  ${SYSDEP_ERROR} "manual search failed"
 fi
 
 exit 0

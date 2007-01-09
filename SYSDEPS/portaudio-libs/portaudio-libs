@@ -1,11 +1,5 @@
 #!/bin/sh
 
-. ../sysdep-subs
-if [ $? -ne 0 ]
-then
-  exit 111
-fi
-
 exec 1> "$1"
 
 path="${SYSDEP_STDLIB}"
@@ -14,7 +8,7 @@ lib="lib${pkg}.${SYSDEP_LIBSUFFIX}"
 EXTRA_FLAGS="-lportaudio"
 
 case "${SYSDEP_SYSTYPE}" in
-  darwin)
+  SYSDEP_OS_DARWIN)
     path="${path} /sw/lib"
     EXTRA_FLAGS="${EXTRA_FLAGS} -framework AudioToolbox -framework CoreAudio"
     ;;
@@ -23,13 +17,13 @@ case "${SYSDEP_SYSTYPE}" in
     ;; 
 esac
 
-FLAGS=`try_manual_search "${lib}" "${path}" "-L" 2>&-`
+FLAGS=`${SYSDEP_TRY_MANUAL} "${lib}" "${path}" "-L" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS} ${EXTRA_FLAGS}
   exit 0
 else
-  error "try_manual_search failed"
+  ${SYSDEP_ERROR} "manual search failed"
 fi
 
 exit 0

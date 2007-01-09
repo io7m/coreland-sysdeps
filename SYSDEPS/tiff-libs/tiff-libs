@@ -1,24 +1,18 @@
 #!/bin/sh
 
-. ../sysdep-subs
-if [ $? -ne 0 ]
-then
-  exit 111
-fi
-
 exec 1> "$1"
 
 path="${SYSDEP_STDLIB}"
 pkg="tiff"
 lib="lib${pkg}.${SYSDEP_LIBSUFFIX}"
 
-FLAGS=`try_manual_search "${lib}" "${path}" "-L" 2>&-`
+FLAGS=`${SYSDEP_TRY_MANUAL} "${lib}" "${path}" "-L" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS} "-l${pkg}"
   exit 0
 else
-  error "try_manual_search failed"
+  ${SYSDEP_ERROR} "manual search failed"
 fi
 
 exit 0

@@ -1,11 +1,5 @@
 #!/bin/sh
 
-. ../sysdep-subs
-if [ $? -ne 0 ]
-then
-  exit 111
-fi
-
 exec 1> "$1"
 
 header="portaudio.h"
@@ -21,13 +15,13 @@ case "${SYSDEP_SYSTYPE}" in
     ;;
 esac
 
-FLAGS=`try_manual_search "${header}" "${path}" "-I" 2>&-`
+FLAGS=`${SYSDEP_TRY_MANUAL} "${header}" "${path}" "-I" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS} ${define}
   exit 0
 else
-  error "try_manual_search failed"
+  ${SYSDEP_ERROR} "manual search failed"
 fi
 
 exit 0
