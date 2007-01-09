@@ -304,13 +304,13 @@ int main(int argc, char *argv[])
     return !!printf("%u\n", !!(cpu.flags & SYSDEP_CPU_EXT_SSE4));
  
   if (strcmp(arg, "l1icachesize") == 0)
-    return !!printf("%u\n", cpu.cache_l1i);
+    return !!printf("%u\n", cpu.cache_l1i << 10);
   if (strcmp(arg, "l1dcachesize") == 0)
-    return !!printf("%u\n", cpu.cache_l1d);
+    return !!printf("%u\n", cpu.cache_l1d << 10);
   if (strcmp(arg, "l2cachesize") == 0)
-    return !!printf("%u\n", cpu.cache_l2);
+    return !!printf("%u\n", cpu.cache_l2 << 10);
   if (strcmp(arg, "l3cachesize") == 0)
-    return !!printf("%u\n", cpu.cache_l3);
+    return !!printf("%u\n", cpu.cache_l3 << 10);
   if (strcmp(arg, "cacheline") == 0)
     return !!printf("%u\n", cpu.cacheline);
  
