@@ -1,10 +1,5 @@
 #!/bin/sh
 
-if [ x"$1" = x ]
-then
-  exit 1
-fi
-
 exec 2>/dev/null
 sys="$1"
 model=""

@@ -2,10 +2,12 @@
 
 #
 # this file is only ever called by modules, so all paths must be
-# relative to the module ("../../")
+# relative to the module ("../../").
+# MUST END WITH TRAILING SLASH
 #
 
-DIR_RELATIVE="../../"
+SYSDEP_DIR_RELATIVE="../../"
+export SYSDEP_DIR_RELATIVE
 
 error()
 {
@@ -15,9 +17,9 @@ error()
 # compiler
 # sysdeps conf-cc preferred over project conf-cc preferred over 'cc'
 SYSDEP_CC="cc"
-if [ -f "${DIR_RELATIVE}/conf-cc" ]
+if [ -f "${SYSDEP_DIR_RELATIVE}/conf-cc" ]
 then
-  tmp=`head -n 1 "${DIR_RELATIVE}/conf-cc"`
+  tmp=`head -n 1 "${SYSDEP_DIR_RELATIVE}/conf-cc"`
   if [ ! -z "${tmp}" ]
   then
     SYSDEP_CC="${tmp}"
@@ -37,65 +39,58 @@ export SYSDEP_CC
 # compile support programs
 #
 
-if [ ! -f ${DIR_RELATIVE}/sd-cpuidx86 ]
+if [ ! -f ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86 ]
 then
-  ${SYSDEP_CC} -o ${DIR_RELATIVE}/sd-cpuidx86 ${DIR_RELATIVE}/sd-cpuidx86.c
+  ${SYSDEP_CC} -o ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86 ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86.c
 fi
 
 # find system type
-SYSDEP_OS="`${DIR_RELATIVE}/sd-os`"
-if [ $? -ne 0 ]; then SYSDEP_OS="SYSDEP_OS_UNKNOWN"; fi
+SYSDEP_OS="`${SYSDEP_DIR_RELATIVE}/sd-os`"
 export SYSDEP_OS
 
 # find system architecture
-SYSDEP_ARCH="`${DIR_RELATIVE}/sd-arch ${SYSDEP_OS}`"
-if [ $? -ne 0 ]; then SYSDEP_OS="SYSDEP_ARCH_UNKNOWN"; fi
+SYSDEP_ARCH="`${SYSDEP_DIR_RELATIVE}/sd-arch ${SYSDEP_OS}`"
 export SYSDEP_ARCH
 
 # find cpu features
-SYSDEP_CPU_EXT="`${DIR_RELATIVE}/sd-cpufeat ${SYSDEP_OS}`"
-if [ $? -ne 0 ]; then SYSDEP_CPU_EXT=""; fi
+SYSDEP_CPU_EXT="`${SYSDEP_DIR_RELATIVE}/sd-cpufeat ${SYSDEP_OS}`"
 export SYSDEP_CPU_EXT
 
 # find number of CPUs
-SYSDEP_NCPUS="`${DIR_RELATIVE}/sd-cpunum ${SYSDEP_OS}`"
-if [ $? -ne 0 ]; then SYSDEP_CPU_NUM="0"; fi
+SYSDEP_CPU_NUM="`${SYSDEP_DIR_RELATIVE}/sd-cpunum ${SYSDEP_OS}`"
 export SYSDEP_CPU_NUM
 
 # find CPU model
-SYSDEP_CPU_MODEL="`${DIR_RELATIVE}/sd-cpunum ${SYSDEP_OS}`"
-if [ $? -ne 0 ]; then SYSDEP_CPU_MODEL="SYSDEP_CPU_MODEL_UNKNOWN"; fi
+SYSDEP_CPU_MODEL="`${SYSDEP_DIR_RELATIVE}/sd-cpumodel ${SYSDEP_OS}`"
 export SYSDEP_CPU_MODEL
 
 # find CPU frequency
-SYSDEP_CPU_FREQ="`${DIR_RELATIVE}/sd-cpufreq ${SYSDEP_OS}`"
-if [ $? -ne 0 ]; then SYSDEP_CPU_FREQ="0"; fi
+SYSDEP_CPU_FREQ="`${SYSDEP_DIR_RELATIVE}/sd-cpufreq ${SYSDEP_OS}`"
 export SYSDEP_CPU_FREQ
 
 # find CPU L1 instruction cache size
-SYSDEP_CPU_L1_INST_CACHE_SIZE="`${DIR_RELATIVE}/sd-cpul1icache ${SYSDEP_OS}`"
-if [ $? -ne 0 ]; then SYSDEP_CPU_L1_INST_CACHE_SIZE="0"; fi
+SYSDEP_CPU_L1_INST_CACHE_SIZE="`${SYSDEP_DIR_RELATIVE}/sd-cpul1icache ${SYSDEP_OS}`"
 export SYSDEP_CPU_L1_INST_CACHE_SIZE
 
 # find CPU L1 data cache size
-SYSDEP_CPU_L1_DATA_CACHE_SIZE="`${DIR_RELATIVE}/sd-cpul1dcache ${SYSDEP_OS}`"
-if [ $? -ne 0 ]; then SYSDEP_CPU_L1_DATA_CACHE_SIZE="0"; fi
+SYSDEP_CPU_L1_DATA_CACHE_SIZE="`${SYSDEP_DIR_RELATIVE}/sd-cpul1dcache ${SYSDEP_OS}`"
 export SYSDEP_CPU_L1_DATA_CACHE_SIZE
 
 # find CPU L2 cache size
-SYSDEP_CPU_L2_CACHE_SIZE="`${DIR_RELATIVE}/sd-cpul2cache ${SYSDEP_OS}`"
-if [ $? -ne 0 ]; then SYSDEP_CPU_L2_CACHE_SIZE="0"; fi
+SYSDEP_CPU_L2_CACHE_SIZE="`${SYSDEP_DIR_RELATIVE}/sd-cpul2cache ${SYSDEP_OS}`"
 export SYSDEP_CPU_L2_CACHE_SIZE
 
 # find CPU L3 cache size
-SYSDEP_CPU_L3_CACHE_SIZE="`${DIR_RELATIVE}/sd-cpul3cache ${SYSDEP_OS}`"
-if [ $? -ne 0 ]; then SYSDEP_CPU_L3_CACHE_SIZE="0"; fi
+SYSDEP_CPU_L3_CACHE_SIZE="`${SYSDEP_DIR_RELATIVE}/sd-cpul3cache ${SYSDEP_OS}`"
 export SYSDEP_CPU_L3_CACHE_SIZE
 
 # find CPU cache line size
-SYSDEP_CPU_CACHE_LINE_SIZE="`${DIR_RELATIVE}/sd-cpuclinesz ${SYSDEP_OS}`"
-if [ $? -ne 0 ]; then SYSDEP_CPU_CACHE_LINE_SIZE="0"; fi
+SYSDEP_CPU_CACHE_LINE_SIZE="`${SYSDEP_DIR_RELATIVE}/sd-cpuclinesz ${SYSDEP_OS}`"
 export SYSDEP_CPU_CACHE_LINE_SIZE
+
+# find CPU extensions (altivec, sse etc)
+SYSDEP_CPU_EXT="`${SYSDEP_DIR_RELATIVE}/sd-cpufeat ${SYSDEP_OS}`"
+export SYSDEP_CPU_EXT
 
 # standard include path
 SYSDEP_STDINC="/usr/include /usr/local/include"
@@ -125,13 +120,13 @@ esac
 export SYSDEP_LIBSUFFIX
 
 # outdir is relative to each entry in modules directory
-SYSDEP_OUTDIR="${DIR_RELATIVE}/../"
+SYSDEP_OUTDIR="${SYSDEP_DIR_RELATIVE}/../"
 export SYSDEP_OUTDIR
 
-SYSDEP_TRY_CONFIG_BIN=${DIR_RELATIVE}/sd-configbin
-SYSDEP_TRY_PKG_CONFIG=${DIR_RELATIVE}/sd-configpkg
-SYSDEP_TRY_MANUAL=${DIR_RELATIVE}/sd-configman
-SYSDEP_ERROR=${DIR_RELATIVE}/sd-error
+SYSDEP_TRY_CONFIG_BIN=${SYSDEP_DIR_RELATIVE}/sd-configbin
+SYSDEP_TRY_PKG_CONFIG=${SYSDEP_DIR_RELATIVE}/sd-configpkg
+SYSDEP_TRY_MANUAL=${SYSDEP_DIR_RELATIVE}/sd-configman
+SYSDEP_ERROR=${SYSDEP_DIR_RELATIVE}/sd-error
 
 export SYSDEP_TRY_CONFIG_BIN
 export SYSDEP_TRY_PKG_CONFIG

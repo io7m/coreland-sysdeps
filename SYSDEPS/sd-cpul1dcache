@@ -1,15 +1,5 @@
 #!/bin/sh
 
-if [ -z ${SYSDEP_CC} ]
-then
-  SYSDEP_CC="cc"
-fi
-
-if [ x"$1" = x ]
-then
-  exit 1
-fi
-
 exec 2>/dev/null
 sys="$1"
 cache=0
@@ -20,14 +10,14 @@ case "$sys" in
     ;; 
 esac
 
-if [ -f ./sd-cpuidx86 ]
+if [ -f ${SYSDEP_DIR_RELATIVE}./sd-cpuidx86 ]
 then
-  cache=`./sd-cpuidx86 l1dcachesize`
+  cache=`${SYSDEP_DIR_RELATIVE}./sd-cpuidx86 l1dcachesize`
 fi
 
-if [ -z "${cache}" ]
+if [ ! -z "${cache}" ]
 then
-  echo 0
+  echo "$cache"
 else
-  echo "${cache}"
+  echo 0
 fi

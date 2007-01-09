@@ -1,14 +1,9 @@
 #!/bin/sh
 
-if [ x"$1" = x ]
-then
-  exit 1
-fi
-
 exec 2>/dev/null
-sys="$1"
 freq=0
 
+sys="$1"
 case "$sys" in
   SYSDEP_OS_DARWIN)
     freq="`sysctl hw.cpufrequency | awk '{print $2}'`"
