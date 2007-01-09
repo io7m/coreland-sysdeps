@@ -1,4 +1,0 @@
-systype
-
-This module attempts to discover as much as it can about the
-target system in order to create a 'systype:' line in sysdeps.out.
