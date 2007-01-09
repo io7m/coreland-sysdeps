@@ -1,8 +1,8 @@
 default: sysdeps
 clean: sysdeps_clean
 
-sysdeps:  sd_corelib-flags sd_corelib-libs sd_corelib-libs-S sd_io_poll-flags sd_io_poll-libs-S sd_pdcgi-flags sd_pdcgi-libs-S sd_aio-mech sd_ch_flags sd_byteorder sd_direntry sd_dlopen sd_fastcgi-flags sd_fastcgi-libs sd_float32 sd_float64 sd_uint16 sd_uint32 sd_uint64 sd_int16 sd_int32 sd_int64 sd_fd sd_floatcast sd_select sd_signal sd_fltk11-flags sd_fltk11-libs sd_fltk11-libs-S sd_fltk2-libs-S sd_fltk2-libs sd_fltk2-flags
-sysdeps_clean:  sd_corelib-flags_clean sd_corelib-libs_clean sd_corelib-libs-S_clean sd_io_poll-flags_clean sd_io_poll-libs-S_clean sd_pdcgi-flags_clean sd_pdcgi-libs-S_clean sd_aio-mech_clean sd_ch_flags_clean sd_byteorder_clean sd_direntry_clean sd_dlopen_clean sd_fastcgi-flags_clean sd_fastcgi-libs_clean sd_float32_clean sd_float64_clean sd_uint16_clean sd_uint32_clean sd_uint64_clean sd_int16_clean sd_int32_clean sd_int64_clean sd_fd_clean sd_floatcast_clean sd_select_clean sd_signal_clean sd_fltk11-flags_clean sd_fltk11-libs_clean sd_fltk11-libs-S_clean sd_fltk2-libs-S_clean sd_fltk2-libs_clean sd_fltk2-flags_clean
+sysdeps:  sd_corelib-flags sd_corelib-libs sd_corelib-libs-S sd_io_poll-flags sd_io_poll-libs-S sd_pdcgi-flags sd_pdcgi-libs-S sd_aio-mech sd_ch_flags sd_byteorder sd_direntry sd_dlopen sd_fastcgi-flags sd_fastcgi-libs sd_float32 sd_float64 sd_uint16 sd_uint32 sd_uint64 sd_int16 sd_int32 sd_int64 sd_fd sd_floatcast sd_select sd_signal sd_fltk11-flags sd_fltk11-libs sd_fltk11-libs-S sd_fltk2-libs-S sd_fltk2-libs sd_fltk2-flags sd_jack-flags sd_jack-libs sd_opengl-flags sd_opengl-libs sd_png-flags sd_png-libs sd_portaudio-flags sd_portaudio-libs sd_tiff-flags sd_tiff-libs sd_sndfile-flags sd_sndfile-libs
+sysdeps_clean:  sd_corelib-flags_clean sd_corelib-libs_clean sd_corelib-libs-S_clean sd_io_poll-flags_clean sd_io_poll-libs-S_clean sd_pdcgi-flags_clean sd_pdcgi-libs-S_clean sd_aio-mech_clean sd_ch_flags_clean sd_byteorder_clean sd_direntry_clean sd_dlopen_clean sd_fastcgi-flags_clean sd_fastcgi-libs_clean sd_float32_clean sd_float64_clean sd_uint16_clean sd_uint32_clean sd_uint64_clean sd_int16_clean sd_int32_clean sd_int64_clean sd_fd_clean sd_floatcast_clean sd_select_clean sd_signal_clean sd_fltk11-flags_clean sd_fltk11-libs_clean sd_fltk11-libs-S_clean sd_fltk2-libs-S_clean sd_fltk2-libs_clean sd_fltk2-flags_clean sd_jack-flags_clean sd_jack-libs_clean sd_opengl-flags_clean sd_opengl-libs_clean sd_png-flags_clean sd_png-libs_clean sd_portaudio-flags_clean sd_portaudio-libs_clean sd_tiff-flags_clean sd_tiff-libs_clean sd_sndfile-flags_clean sd_sndfile-libs_clean
 
 sd_corelib-flags:
 	@(cd modules/corelib-flags && ./run)
@@ -163,6 +163,66 @@ sd_fltk2-flags:
 	@(cd modules/fltk2-flags && ./run)
 sd_fltk2-flags_clean:
 	@(cd modules/fltk2-flags && ./clean)
+
+sd_jack-flags:
+	@(cd modules/jack-flags && ./run)
+sd_jack-flags_clean:
+	@(cd modules/jack-flags && ./clean)
+
+sd_jack-libs:
+	@(cd modules/jack-libs && ./run)
+sd_jack-libs_clean:
+	@(cd modules/jack-libs && ./clean)
+
+sd_opengl-flags:
+	@(cd modules/opengl-flags && ./run)
+sd_opengl-flags_clean:
+	@(cd modules/opengl-flags && ./clean)
+
+sd_opengl-libs:
+	@(cd modules/opengl-libs && ./run)
+sd_opengl-libs_clean:
+	@(cd modules/opengl-libs && ./clean)
+
+sd_png-flags:
+	@(cd modules/png-flags && ./run)
+sd_png-flags_clean:
+	@(cd modules/png-flags && ./clean)
+
+sd_png-libs:
+	@(cd modules/png-libs && ./run)
+sd_png-libs_clean:
+	@(cd modules/png-libs && ./clean)
+
+sd_portaudio-flags:
+	@(cd modules/portaudio-flags && ./run)
+sd_portaudio-flags_clean:
+	@(cd modules/portaudio-flags && ./clean)
+
+sd_portaudio-libs:
+	@(cd modules/portaudio-libs && ./run)
+sd_portaudio-libs_clean:
+	@(cd modules/portaudio-libs && ./clean)
+
+sd_tiff-flags:
+	@(cd modules/tiff-flags && ./run)
+sd_tiff-flags_clean:
+	@(cd modules/tiff-flags && ./clean)
+
+sd_tiff-libs:
+	@(cd modules/tiff-libs && ./run)
+sd_tiff-libs_clean:
+	@(cd modules/tiff-libs && ./clean)
+
+sd_sndfile-flags:
+	@(cd modules/sndfile-flags && ./run)
+sd_sndfile-flags_clean:
+	@(cd modules/sndfile-flags && ./clean)
+
+sd_sndfile-libs:
+	@(cd modules/sndfile-libs && ./run)
+sd_sndfile-libs_clean:
+	@(cd modules/sndfile-libs && ./clean)
 
 regen:
 	./gen-makefile > Makefile.tmp

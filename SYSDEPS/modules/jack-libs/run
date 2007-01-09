@@ -1,16 +1,15 @@
 #!/bin/sh
 
+. ../../sysdep-main
+if [ $? -ne 0 ]
+then
+  exit 111
+fi
+
 f1_tmp="libs-jack"
 echo "SYSDEPS jack-libs run create ${f1_tmp}"
 
-outdir="`head -n 1 ../conf-outdir`"
-if [ -z "${outdir}" ]
-then
-  echo "fatal: outdir not defined" 2>&1
-  exit 1
-fi
-outdir="../${outdir}"
-f1_out="${outdir}/${f1_tmp}"
+f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
 
 ./jack-libs ${f1_tmp}
 cp ${f1_tmp} ${f1_out}
