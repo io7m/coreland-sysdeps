@@ -26,14 +26,28 @@ then
   ${SYSDEP_CC} -o ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86 \
   ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86.c 2>/dev/null
 fi
+if [ ! -f ${SYSDEP_DIR_RELATIVE}/sd-arch ]
+then
+  ${SYSDEP_CC} -o ${SYSDEP_DIR_RELATIVE}/sd-arch \
+  ${SYSDEP_DIR_RELATIVE}/sd-arch.c 2>/dev/null
+fi
+if [ ! -f ${SYSDEP_DIR_RELATIVE}/sd-cctype ]
+then
+  ${SYSDEP_CC} -o ${SYSDEP_DIR_RELATIVE}/sd-cctype \
+  ${SYSDEP_DIR_RELATIVE}/sd-cctype.c 2>/dev/null
+fi
 
 # find system type
 SYSDEP_OS="`${SYSDEP_DIR_RELATIVE}/sd-os`"
 export SYSDEP_OS
 
 # find system architecture
-SYSDEP_ARCH="`${SYSDEP_DIR_RELATIVE}/sd-arch ${SYSDEP_OS}`"
+SYSDEP_ARCH="`${SYSDEP_DIR_RELATIVE}/sd-arch`"
 export SYSDEP_ARCH
+
+# find compiler type
+SYSDEP_CCTYPE="`${SYSDEP_DIR_RELATIVE}/sd-cctype`"
+export SYSDEP_CCTYPE
 
 # find cpu features
 SYSDEP_CPU_EXT="`${SYSDEP_DIR_RELATIVE}/sd-cpufeat ${SYSDEP_OS}`"
