@@ -1,3 +1,4 @@
+#include <string.h>
 #include <stdio.h>
 
 /* based on x86info by Dave Jones but sharing no code */
@@ -128,8 +129,9 @@ static const struct vendordesc vendors[] = {
 
 static int cpuid_sup()
 {
-  long eax;
-  long ecx;
+  unsigned long eax = 0;
+  unsigned long ecx = 0;
+#ifdef __GNUC__
   __asm__ __volatile__(
     "pushf\n\t"
     "pop %0\n\t"
@@ -143,18 +145,35 @@ static int cpuid_sup()
     :
     : "cc" 
   );
+#endif
   return (eax != ecx);
 }
 static void cpuid(unsigned long val, unsigned long *eax, unsigned long *ebx,
                                      unsigned long *ecx, unsigned long *edx)
 {
+#ifdef __SUNPRO_C
+  asm("movl 8(%ebp), %eax");
+  asm("cpuid");
+  asm("movl 12(%ebp), %esp");
+  asm("movl %eax, 0(%esp)");
+  asm("movl 16(%ebp), %esp");
+  asm("movl %ebx, 0(%esp)");
+  asm("movl 20(%ebp), %esp");
+  asm("movl %ecx, 0(%esp)");
+  asm("movl 24(%ebp), %esp");
+  asm("movl %edx, 0(%esp)");
+#endif
+
+#ifdef __GNUC__
   __asm __volatile__(
     "mov %%ebx, %%esi\n\t"
     "cpuid\n\t"
     "xchg %%ebx, %%esi"
     : "=a" (*eax), "=S" (*ebx), 
       "=c" (*ecx), "=d" (*edx)
-    : "0" (val));
+    : "0" (val)
+  );
+#endif
 }
 static void cachesize(const struct cachedesc *ctab, unsigned long cpunum,
                       unsigned int *sz, unsigned int *ls)
