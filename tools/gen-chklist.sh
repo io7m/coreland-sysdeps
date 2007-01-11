@@ -1,6 +1,6 @@
 #!/bin/sh
 
-for f in `find SYSDEPS -type f -name DEFINES`;
+for f in `find SYSDEPS/modules -type f -name DEFINES`;
 do
   define=`cat $f`
   IFS="
