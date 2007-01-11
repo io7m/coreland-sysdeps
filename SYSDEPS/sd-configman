@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ $# -ne 2 ]
+if [ $# -lt 3 ]
 then
   echo 'usage: file path prefix'
 fi
@@ -14,7 +14,7 @@ do
   if [ -f "${f}/${file}" ]
   then
     echo "${prefix}${f} "
-    return 0
+    exit 0
   fi
 done
-return 1
+exit 1
