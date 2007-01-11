@@ -2,14 +2,19 @@
 
 exec 2>/dev/null
 sys="$1"
-ncpu=0
 
 case "$sys" in
   SYSDEP_OS_LINUX)
-    ncpu=`grep -i '^processor' /proc/cpuinfo | wc -l`
+    ncpu="`grep -i '^processor' /proc/cpuinfo | wc -l`"
     ;;
   *)
-    ncpu="`sysctl hw.ncpu | awk '{print $2}'`"
+    ncpu="`sysctl hw.ncpu`"
+    if [ $? -eq 0 ]
+    then
+      ncpu="`echo ${ncpu} | awk '{print $2}'`"
+    else
+      ncpu=0
+    fi
     ;;
 esac
 
