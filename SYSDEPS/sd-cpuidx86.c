@@ -175,7 +175,7 @@ static void cachesize(const struct cachedesc *ctab, unsigned long cpunum,
     for (ind = 0; ind < max; ++ind) {
       cpuid(cpunum, &regs[0], &regs[1], &regs[2], &regs[3]);
       for (jnd = 0; jnd < 3; ++jnd)
-        regs[jnd] = (regs[jnd] & 0xfffffffe) ? 0 : regs[jnd];  
+        regs[jnd] = (regs[jnd] & 0x80000000) ? 0 : regs[jnd];  
       for (jnd = 1; jnd < 16; ++jnd) {
         ch = ptr[jnd];
         if (ch) {
@@ -202,10 +202,11 @@ static void vendor_intel()
   cpu.type = (eax >> 12) & 0x3;
   cpu.brand = ebx & 0xf;
 
-  if (edx & 0x800000) cpu.flags |= SYSDEP_CPU_EXT_MMX;
-  if (edx & 0x2000000) cpu.flags |= SYSDEP_CPU_EXT_MMX2;
-  if (edx & 0x2000000) cpu.flags |= SYSDEP_CPU_EXT_SSE;
-  if (edx & 0x4000000) cpu.flags |= SYSDEP_CPU_EXT_SSE2;
+  if (edx & 0x00800000) cpu.flags |= SYSDEP_CPU_EXT_MMX;
+  if (edx & 0x02000000) cpu.flags |= SYSDEP_CPU_EXT_MMX2;
+  if (edx & 0x02000000) cpu.flags |= SYSDEP_CPU_EXT_SSE;
+  if (edx & 0x04000000) cpu.flags |= SYSDEP_CPU_EXT_SSE2;
+  if (ecx & 0x00000001) cpu.flags |= SYSDEP_CPU_EXT_SSE3;
 
   cachesize(intel_l1i_caches, 0x00000002, &cpu.cache_l1i, &cpu.cacheline);
   cachesize(intel_l1d_caches, 0x00000002, &cpu.cache_l1d, &cpu.cacheline);
@@ -275,15 +276,13 @@ int main(int argc, char *argv[])
     default: break;
   }
 
-  if (cpu.vendor != CPU_VENDOR_INTEL) {
-    cpuid(0x80000000, &eax, &ebx, &ecx, &edx);
-    if (eax >= 0x80000001) {
-      cpuid(0x80000001, &eax, &ebx, &ecx, &edx);
-      if (edx & 0x800000) cpu.flags |= SYSDEP_CPU_EXT_MMX;
-      if (edx & 0x400000) cpu.flags |= SYSDEP_CPU_EXT_MMX2;
-      if (edx & 0x80000000) cpu.flags |= SYSDEP_CPU_EXT_3DNOW;
-      if (edx & 0x40000000) cpu.flags |= SYSDEP_CPU_EXT_3DNOWEXT;
-    }
+  cpuid(0x80000000, &eax, &ebx, &ecx, &edx);
+  if (eax >= 0x80000001) {
+    cpuid(0x80000001, &eax, &ebx, &ecx, &edx);
+    if (edx & 0x00800000) cpu.flags |= SYSDEP_CPU_EXT_MMX;
+    if (edx & 0x00400000) cpu.flags |= SYSDEP_CPU_EXT_MMX2;
+    if (edx & 0x80000000) cpu.flags |= SYSDEP_CPU_EXT_3DNOW;
+    if (edx & 0x40000000) cpu.flags |= SYSDEP_CPU_EXT_3DNOWEXT;
   }
 
   if (strcmp(arg, "mmx") == 0)
