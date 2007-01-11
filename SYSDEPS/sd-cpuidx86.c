@@ -220,7 +220,7 @@ static void vendor_amd()
   cpu.model = (eax >> 4) & 0xf;
   cpu.family = (eax >> 8) & 0xf;
   cpu.ext_model = (eax >> 16) & 0xff;
-  cpu.ext_family= (eax >> 20) & 0xf;
+  cpu.ext_family = (eax >> 20) & 0xf;
 
   if (cpu.maxi2 >= 0x80000005) {
     cpuid(0x80000005, &eax, &ebx, &ecx, &edx);
@@ -256,7 +256,7 @@ int main(int argc, char *argv[])
   cpu.maxi2 = eax;
 
   cpuid(0xC0000000, &eax, &ebx, &ecx, &edx);
-  cpu.maxi2 = eax;
+  cpu.maxi3 = eax;
 
   cpuid(0x00000000, &eax, &ebx, &ecx, &edx);
 

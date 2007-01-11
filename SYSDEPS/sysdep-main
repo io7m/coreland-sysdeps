@@ -27,4 +27,6 @@ export SYSDEP_ERROR
 if [ -z "${SYSDEP_CLEAN}" ];
 then
   . ${SYSDEP_DIR_RELATIVE}/sysdep-subs;
+else
+  rm -f ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86
 fi

@@ -44,9 +44,10 @@ case "$sys" in
 esac
 
 case "$arch" in
-  i386) echo 'SYSDEP_ARCH_X86' ;; 
-  ppc) echo 'SYSDEP_ARCH_PPC' ;;
-  pa-risc) echo 'SYSDEP_ARCH_PARISC' ;;
-  ia64) echo 'SYSDEP_ARCH_IA64' ;;
-  *) echo 'SYSDEP_ARCH_UNKNOWN' ;;
+  i386)    echo 'SYSDEP_ARCH_X86';; 
+  ppc)     echo 'SYSDEP_ARCH_PPC';;
+  pa-risc) echo 'SYSDEP_ARCH_PARISC';;
+  ia64)    echo 'SYSDEP_ARCH_IA64';;
+  x86_64)  echo 'SYSDEP_ARCH_X86_64';;
+  *)       echo 'SYSDEP_ARCH_UNKNOWN' ;;
 esac
