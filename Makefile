@@ -34,7 +34,7 @@ depchklist:\
 	./ld depchklist depchklist.o 
 depchklist.o:\
 	cc depchklist.c ch_flags.h dlopen.h fd.h floatcast.h aio-mech.h \
-	sig_action.h sig_pmask.h simd.h 
+	sig_action.h sig_pmask.h sysinfo.h 
 	./cc depchklist.c
 get_flags.o:\
 	cc get_flags.c ch_flags.h open.h uint32.h 
@@ -55,8 +55,8 @@ open_ro.o:\
 	cc open_ro.c open.h 
 	./cc open_ro.c
 clean: sysdeps_clean 
-	rm -f ch_flags.a ch_flags.o conf-cctype conf-systype depchklist \
-	depchklist.o get_flags.o open.a open_ro.o 
+	rm -f ch_flags.a ch_flags.o depchklist depchklist.o get_flags.o \
+	open.a open_ro.o 
 
 regen:
 	cpj-genmk > Makefile.tmp

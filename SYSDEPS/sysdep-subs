@@ -36,6 +36,11 @@ then
   ${SYSDEP_CC} -o ${SYSDEP_DIR_RELATIVE}/sd-cctype \
   ${SYSDEP_DIR_RELATIVE}/sd-cctype.c 2>/dev/null
 fi
+if [ ! -f ${SYSDEP_DIR_RELATIVE}/sd-os ]
+then
+  ${SYSDEP_CC} -o ${SYSDEP_DIR_RELATIVE}/sd-os \
+  ${SYSDEP_DIR_RELATIVE}/sd-os.c 2>/dev/null
+fi
 
 # find system type
 SYSDEP_OS="`${SYSDEP_DIR_RELATIVE}/sd-os`"

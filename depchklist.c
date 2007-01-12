@@ -5,7 +5,7 @@
 #include "aio-mech.h"
 #include "sig_action.h"
 #include "sig_pmask.h"
-#include "simd.h"
+#include "sysinfo.h"
 
 int main()
 {
