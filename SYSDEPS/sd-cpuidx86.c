@@ -131,6 +131,19 @@ static int cpuid_sup()
 {
   unsigned long eax = 0;
   unsigned long ecx = 0;
+
+#ifdef __SUNPRO_C
+  asm("pushf");
+  asm("pop %eax");
+  asm("movl %eax, -12(%ebp)");
+  asm("xor $0x200000, %eax");
+  asm("push %eax");
+  asm("popf");
+  asm("pushf");
+  asm("pop %eax");
+  asm("movl %eax, -8(%ebp)");
+#endif
+
 #ifdef __GNUC__
   __asm__ __volatile__(
     "pushf\n\t"
