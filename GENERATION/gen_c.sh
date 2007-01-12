@@ -1,13 +1,12 @@
 #!/bin/sh
 
-if [ $# -lt 2 ]
+if [ $# -lt 1 ]
 then
-  echo usage: data type
+  echo usage: data
   exit 111
 fi
 
 data=$1
-type=$2
 
 IFS="
 "

@@ -1,7 +1,7 @@
 #ifndef SYSINFO_H
 #define SYSINFO_H
 
-#define SYS_OS_UNKNOWN  0x0000
+#define SYS_OS_UNKNOWN 0x0000
 #define SYS_OS_AIX 0x0001
 #define SYS_OS_AMIGAOS 0x0002
 #define SYS_OS_BEOS 0x0003
@@ -46,7 +46,7 @@
 #define SYS_ARCH_PARISC 0x0004
 #define SYS_ARCH_X86 0x0005
 #define SYS_ARCH_IA64 0x0006
-#define SYS_ARCH_68K 0x0007
+#define SYS_ARCH_M68K 0x0007
 #define SYS_ARCH_MIPS 0x0008
 #define SYS_ARCH_PPC 0x0009
 #define SYS_ARCH_RS6000 0x000a
@@ -114,10 +114,6 @@
 #define SYS_CPU_EXT_SSE3      0x0040
 #define SYS_CPU_EXT_SSE4      0x0080
 #define SYS_CPU_EXT_ALTIVEC   0x0100
-
-#define SYS_CPU_MODEL_UNKNOWN     0x0000
-#define SYS_CPU_PPC_MODEL_750     0x0001
-#define SYS_CPU_PPC_MODEL_7450    0x0002
 
 #include "_sysinfo.h"
 

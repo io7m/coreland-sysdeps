@@ -1,151 +1,152 @@
 #include <stdio.h>
 
-const char *cctype = "UNKNOWN";
+const char *var = "UNKNOWN";
 
 int main()
 {
+
 #if defined(__TURBOC__)
-  cctype = "BORLAND_TURBO_C";
+  var = "BORLAND_TURBO_C";
 #endif
 #if defined(__BORLANDC__)
-  cctype = "BORLAND_CXX";
+  var = "BORLAND_CXX";
 #endif
 #if defined(__COMO__)
-  cctype = "COMEAU_CXX";
+  var = "COMEAU_CXX";
 #endif
-#if defined(__DECC)
-  cctype = "COMPAQ_C";
+#if defined(__DECC) || defined(__VAXC) || defined(VAXC)
+  var = "COMPAQ_C";
 #endif
-#if defined(__DECCXX)
-  cctype = "COMPAQ_CXX";
+#if defined(__DECCXX) || defined(__VAXC) || defined(VAXC)
+  var = "COMPAQ_CXX";
 #endif
 #if defined(_CRAYC)
-  cctype = "CRAY_C";
+  var = "CRAY_C";
 #endif
 #if defined(__DCC__)
-  cctype = "DIAB";
+  var = "DIAB";
 #endif
 #if defined(__DMC__) || defined(__SC__) || defined(__ZTC__)
-  cctype = "DIGITAL_MARS";
+  var = "DIGITAL_MARS";
 #endif
-#if defined(__DJGPP__)
-  cctype = "DJGPP";
+#if defined(__DJGPP__) || defined(__GO32__)
+  var = "DJGPP";
 #endif
 #if defined(__PATHCC__)
-  cctype = "EKOPATH";
+  var = "EKOPATH";
 #endif
 #if defined(__GNUC__)
-  cctype = "GCC";
+  var = "GCC";
 #endif
 #if defined(__ghs__)
-  cctype = "GREENHILL";
+  var = "GREENHILL";
 #endif
 #if defined(__HP_cc)
-  cctype = "HP_C";
+  var = "HP_C";
 #endif
 #if defined(__HP_aCC)
-  cctype = "HP_ACC";
+  var = "HP_ACC";
 #endif
 #if defined(__xlC__) || defined(__IBMC__) || defined(__IBMCPP__)
-  cctype = "IBM_XL";
+  var = "IBM_XL";
 #endif
 #if defined(__IAR_SYSTEMS_ICC__)
-  cctype = "IAR";
+  var = "IAR";
 #endif
 #if defined(__INTEL_COMPILER) || defined(__ICC) || defined(__ECC) || defined(__ICL)
-  cctype = "INTEL";
+  var = "INTEL";
 #endif
 #if defined(__KCC)
-  cctype = "KAI";
+  var = "KAI";
 #endif
 #if defined(__CA__) || defined(__KEIL__)
-  cctype = "KEIL_CARM";
+  var = "KEIL_CARM";
 #endif
 #if defined(__C166__)
-  cctype = "KEIL_C166";
+  var = "KEIL_C166";
 #endif
 #if defined(__C51__) || defined(__CX51__)
-  cctype = "KEIL_C51";
+  var = "KEIL_C51";
 #endif
 #if defined(__LCC__)
-  cctype = "LCC";
+  var = "LCC";
 #endif
 #if defined(__llvm__)
-  cctype = "LLVM";
+  var = "LLVM";
 #endif
 #if defined(__HIGHC__)
-  cctype = "METAWARE";
+  var = "METAWARE";
 #endif
 #if defined(__MWERKS__)
-  cctype = "CODEWARRIOR";
+  var = "CODEWARRIOR";
 #endif
 #if defined(__MINGW32__)
-  cctype = "MINGW32";
+  var = "MINGW32";
 #endif
-#if defined(__sgi) || defined(sgi) || defined(_SGI_COMPILER_VERSION)
-  cctype = "MIPSPRO";
+#if defined(__sgi) || defined(sgi)
+  var = "MIPSPRO";
 #endif
 #if defined(__MRC__) || defined(MPW_C) || defined(MPW_CPLUS)
-  cctype = "MPW";
+  var = "MPW";
 #endif
 #if defined(_MSC_VER)
-  cctype = "VISUAL_CXX";
+  var = "VISUAL_CXX";
 #endif
 #if defined(_MRI)
-  cctype = "MICROTEC";
+  var = "MICROTEC";
 #endif
 #if defined(__CC_NORCROFT)
-  cctype = "NORCROFT";
+  var = "NORCROFT";
 #endif
 #if defined(__PACIFIC__)
-  cctype = "PACIFIC";
+  var = "PACIFIC";
 #endif
 #if defined(_PACC_VER)
-  cctype = "PALM";
+  var = "PALM";
 #endif
 #if defined(__POCC__)
-  cctype = "PELLES";
+  var = "PELLES";
 #endif
 #if defined(__PGI)
-  cctype = "PORTLAND";
+  var = "PORTLAND";
 #endif
 #if defined(__CC_ARM)
-  cctype = "REALVIEW";
+  var = "REALVIEW";
 #endif
 #if defined(SASC) || defined(__SASC) || defined(__SASC__)
-  cctype = "SAS";
+  var = "SAS";
 #endif
 #if defined(_SCO_DS)
-  cctype = "SCO";
+  var = "SCO";
 #endif
 #if defined(SDCC)
-  cctype = "SMALLDEV";
+  var = "SMALLDEV";
 #endif
 #if defined(__SUNPRO_C)
-  cctype = "SUN_C";
+  var = "SUN_C";
 #endif
 #if defined(__SUNPRO_CC)
-  cctype = "SUN_CXX";
+  var = "SUN_CXX";
 #endif
 #if defined(__SYSC__)
-  cctype = "SYSTEMS";
+  var = "SYSTEMS";
 #endif
 #if defined(__TenDRA__)
-  cctype = "TENDRA";
+  var = "TENDRA";
 #endif
 #if defined(__TINYC__)
-  cctype = "TINYC";
+  var = "TINYC";
 #endif
 #if defined(_UCC)
-  cctype = "ULTIMATE";
+  var = "ULTIMATE";
 #endif
 #if defined(__USLC__)
-  cctype = "USL_C";
+  var = "USL_C";
 #endif
 #if defined(__WATCOMC__)
-  cctype = "WATCOM";
+  var = "WATCOM";
 #endif
 
-  printf("SYSDEP_CCTYPE_%s\n", cctype);
+  printf("SYSDEP_CCTYPE_%s\n", var);
   return 0;
 }

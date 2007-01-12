@@ -1,0 +1,36 @@
+AIX _AIX __TOS_AIX__
+AMIGAOS AMIGA __amigaos__
+BEOS __BEOS__
+BSD_OS __bsdi__
+CRAY_UNICOS _UNICOS
+DARWIN __APPLE__ __MACH__
+DG_UX DGUX __DGUX__ __dgux__
+DRAGONFLY __DragonFly__
+DYNIX_PTX _SEQUENT_ sequent
+FREEBSD __FreeBSD__
+GNU_HURD __GNU__
+HI_UX_MPP __hiuxmpp
+HPUX _hpux hpux __hpux
+IRIX sgi __sgi
+LINUX linux __linux
+LYNXOS __Lynx__
+MACOS macintosh Macintosh
+MICROWARE_OS_9 __OS9000 _OSK
+MINIX __minix
+MPE_IX mpeix __mpexl
+MSDOS MSDOS __MSDOS__ _MSDOS __DOS__
+MS_WINDOWS _WIN32 _WIN64 __WIN32__ __WIN64__ __TOS_WIN__
+NETBSD __NetBSD__
+OPENBSD __OpenBSD__
+OS2 OS2 _OS2 __OS2__ __TOS_OS2__
+PYRAMID_DC_OS pyr
+QNX __QNX__ __QNXNTO__
+RELIANT_UNIX sinux
+SCO_OPENSERVER M_XENIX _SCO_DS
+SUNOS sun __sun
+SYMBIAN_OS __SYMBIAN32__
+TRU64_OSF_1 __osf__ __osf
+ULTRIX ultrix __ultrix __ultrix__
+UNIXWARE sco _UNIXWARE7
+VMS VMS __VMS __VMS_VER
+Z_OS_OS390 __MVS__ __HOS_MVS__ __TOS_MVS__

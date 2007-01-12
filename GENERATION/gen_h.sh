@@ -1,8 +1,8 @@
 #!/bin/sh
 
-if [ $# -lt 3 ]
+if [ $# -lt 2 ]
 then
-  echo 'usage: data type prefix'
+  echo 'usage: data prefix'
   exit 111
 fi
 
@@ -10,8 +10,7 @@ IFS="
 "
 num=1
 data=$1
-type=$2
-prefix=$3
+prefix=$2
 
 echo "#define ${prefix}_UNKNOWN 0x0000"
 for f in `cat $1`
