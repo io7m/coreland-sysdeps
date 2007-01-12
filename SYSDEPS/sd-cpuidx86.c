@@ -159,7 +159,7 @@ static int cpuid_sup()
     : "cc" 
   );
 #endif
-  return (eax != ecx);
+  return ((eax ^ ecx) & 0x200000);
 }
 static void cpuid(unsigned long val, unsigned long *eax, unsigned long *ebx,
                                      unsigned long *ecx, unsigned long *edx)
