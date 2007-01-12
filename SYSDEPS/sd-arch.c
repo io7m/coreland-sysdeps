@@ -20,7 +20,7 @@ int main()
 #if defined(__i386__) || defined(__i386__) || defined(__i486__) || defined(__i586__) || defined(__i686__) || defined(__i386) || defined(_M_I_X86_) || defined(__THW_INTEL__) || defined(__I86__) || defined(__INTEL__)
   var = "X86";
 #endif
-#if defined(__ia64__) || defined(___IA64__) || defined(_M_IA64)
+#if defined(__ia64) || defined(__ia64__) || defined(___IA64__) || defined(_M_IA64)
   var = "IA64";
 #endif
 #if defined(__m68k__) || defined(M68000)
