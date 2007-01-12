@@ -15,6 +15,7 @@ cat >> "${fout}" <<EOF
 EOF
 
 define SYS_OS ${SYSDEP_OS}
+define SYS_OSVERSION \"${SYSDEP_OSVERSION}\"
 define SYS_ARCH ${SYSDEP_ARCH}
 define SYS_CCTYPE ${SYSDEP_CCTYPE}
 define SYS_CPU_NUM ${SYSDEP_CPU_NUM}

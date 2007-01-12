@@ -1,0 +1,15 @@
+#!/bin/sh
+
+exec 2>/dev/null
+sys="$1"
+
+case "$sys" in
+  *)
+    ver=`uname -r`
+    if [ $? -ne 0 ]
+    then
+      ver=0.0
+    fi
+    ;;
+esac
+echo ${ver} | tr '/:[A-Z]' '..[a-z]'

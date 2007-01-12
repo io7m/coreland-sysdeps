@@ -46,6 +46,10 @@ fi
 SYSDEP_OS="`${SYSDEP_DIR_RELATIVE}/sd-os`"
 export SYSDEP_OS
 
+# find system version
+SYSDEP_OSVERSION="`${SYSDEP_DIR_RELATIVE}/sd-osversion ${SYSDEP_OS}`"
+export SYSDEP_OSVERSION
+
 # find system architecture
 SYSDEP_ARCH="`${SYSDEP_DIR_RELATIVE}/sd-arch`"
 export SYSDEP_ARCH
