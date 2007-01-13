@@ -1,8 +1,0 @@
-#!/bin/sh
-
-fout="$1"
-
-case ${SYSDEP_CCTYPE} in
-  SYSDEP_CCTYPE_GCC) echo '-msse' > ${fout};;
-  SYSDEP_CCTYPE_INTEL) echo '-msse' > ${fout};;
-esac

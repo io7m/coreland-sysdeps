@@ -6,10 +6,10 @@ then
   exit 111
 fi
 
-f1_tmp="flags-sse"
-echo "SYSDEPS sse-flags run create ${f1_tmp}"
+f1_tmp="flags-sse3"
+echo "SYSDEPS sse3-flags run create ${f1_tmp}"
 
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
 
-./sse-flags ${f1_tmp} 
+./sse3-flags ${f1_tmp} 
 cp ${f1_tmp} ${f1_out}
