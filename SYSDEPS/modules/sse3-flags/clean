@@ -7,7 +7,7 @@ then
   exit 111
 fi
 
-f1_tmp="_flags-sse3.h"
+f1_tmp="flags-sse3"
 echo "SYSDEPS flags-sse3 clean ${f1_tmp}"
 
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"

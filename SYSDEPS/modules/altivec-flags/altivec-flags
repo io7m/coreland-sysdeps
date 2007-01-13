@@ -1,0 +1,13 @@
+#!/bin/sh
+
+fout="$1"
+
+echo ${SYSDEP_CPU_EXT} | grep 'SYSDEP_CPU_EXT_ALTIVEC' 1>/dev/null 2>&1
+if [ $? -eq 0 ]
+then
+  case ${SYSDEP_CCTYPE} in
+    SYSDEP_CCTYPE_GCC) echo '-faltivec' > ${fout};;
+  esac
+else
+  echo > ${fout}
+fi

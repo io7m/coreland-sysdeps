@@ -6,10 +6,10 @@ then
   exit 111
 fi
 
-f1_tmp="flags-sse"
-echo "SYSDEPS sse-flags run create ${f1_tmp}"
+f1_tmp="flags-altivec"
+echo "SYSDEPS altivec-flags run create ${f1_tmp}"
 
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
 
-./sse-flags ${f1_tmp} 
+./altivec-flags ${f1_tmp} 
 cp ${f1_tmp} ${f1_out}
