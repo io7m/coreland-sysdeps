@@ -44,3 +44,5 @@ cat >> "${fout}" <<EOF
 
 #endif
 EOF
+
+(printf "sysinfo: "; ./sysinfo-id.sh;) >> "${sysdeps}"
