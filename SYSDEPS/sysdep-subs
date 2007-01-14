@@ -15,6 +15,12 @@ then
   tmp=`head -n 1 "../conf-cc"`
   if [ ! -z "${tmp}" ]; then SYSDEP_CC="${tmp}"; fi
 fi
+which ${SYSDEP_CC}
+if [ $? -ne 0 ]
+then
+  ${SYSDEP_DIR_RELATIVE}/sd-error "could not locate usable compiler"
+  exit 112
+fi
 export SYSDEP_CC
 
 #
