@@ -1,0 +1,32 @@
+#!/bin/sh
+
+fout="$1"
+sysdeps="$2"
+
+cat >> "${fout}" <<EOF
+#ifndef _FCNTL_H
+#define _FCNTL_H
+
+EOF
+
+sup=""
+
+${SYSDEP_CC} -o tryfcntl tryfcntl.c 2>/dev/null
+if [ $? -eq 0 ]
+then
+  echo '#include <fcntl.h>' >> "${fout}"
+  echo '#define HAVE_FCNTL' >> "${fout}"
+  sup="${sup} fcntl"
+fi
+
+${SYSDEP_CC} -o tryioctlsock tryioctlsock.c -lws2_32 2>/dev/null
+if [ $? -eq 0 ]
+then
+  echo '#include <winsock.h>' >> "${fout}"
+  echo '#define HAVE_IOCTLSOCKET' >> "${fout}"
+  sup="${sup} ioctlsocket"
+fi
+
+echo '#endif' >> "${fout}"
+echo "fcntl: ${sup}" >> "${sysdeps}"
+rm -f tryfcntl tryioctlsock
