@@ -12,7 +12,7 @@ int main()
   fd_set rfds;
   struct timeval tv;
 
-  bzero(&tv, sizeof(tv));
+  memset(&tv, 0, sizeof(tv));
   FD_ZERO(&rfds);
   FD_SET(0, &rfds);
 

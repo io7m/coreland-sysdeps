@@ -1,8 +1,9 @@
-#include <sys/select.h>
+#include <winsock.h>
+#include <winbase.h>
 
 void snooze()
 {
-  usleep(100000);
+  Sleep(100000);
 }
 
 int main()
