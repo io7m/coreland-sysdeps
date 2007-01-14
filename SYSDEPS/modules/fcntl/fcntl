@@ -27,6 +27,16 @@ then
   sup="${sup} ioctlsocket"
 fi
 
-echo '#endif' >> "${fout}"
+cat >> "${fout}" <<EOF
+
+#ifndef O_NONBLOCK
+  #ifdef O_NDELAY
+    #define O_NONBLOCK O_NDELAY
+  #else
+#endif
+
+#endif
+EOF
+
 echo "fcntl: ${sup}" >> "${sysdeps}"
 rm -f tryfcntl tryioctlsock
