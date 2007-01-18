@@ -2,14 +2,13 @@
 
 fout="$1"
 sysdeps="$2"
+sup=""
 
 cat >> "${fout}" <<EOF
 #ifndef _FCNTL_H
 #define _FCNTL_H
 
 EOF
-
-sup=""
 
 ${SYSDEP_CC} -o tryfcntl tryfcntl.c 2>/dev/null
 if [ $? -eq 0 ]
@@ -33,6 +32,8 @@ cat >> "${fout}" <<EOF
   #ifdef O_NDELAY
     #define O_NONBLOCK O_NDELAY
   #else
+    #define O_NONBLOCK 0
+  #endif
 #endif
 
 #endif
