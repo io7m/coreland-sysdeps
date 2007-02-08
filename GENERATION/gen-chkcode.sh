@@ -3,7 +3,7 @@
 IFS="
 "
 
-for f in `tools/gen-chklist.sh`
+for f in `GENERATION/gen-chklist.sh`
 do
   lib=`echo $f | awk '{print $1}'`
   def=`echo $f | awk '{print $2}'`
