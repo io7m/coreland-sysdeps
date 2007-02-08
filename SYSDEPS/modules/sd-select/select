@@ -9,8 +9,8 @@ cleanup()
 }
 
 cat >> "${fout}" << EOF
-#ifndef _SELECT_H
-#define _SELECT_H
+#ifndef _SD_SELECT_H
+#define _SD_SELECT_H
 EOF
 
 ${SYSDEP_CC} -o tryselect1 tryselect1.c >/dev/null 2>&1

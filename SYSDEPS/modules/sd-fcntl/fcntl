@@ -5,8 +5,8 @@ sysdeps="$2"
 sup=""
 
 cat >> "${fout}" <<EOF
-#ifndef _FCNTL_H
-#define _FCNTL_H
+#ifndef _SD_FCNTL_H
+#define _SD_FCNTL_H
 
 EOF
 
