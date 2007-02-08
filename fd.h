@@ -1,7 +1,7 @@
 #ifndef FD_H
 #define FD_H
 
-#include "_fd.h"
+#include "_sd_fd.h"
 
 int fd_dup(int, int);
 int fd_move(int, int);

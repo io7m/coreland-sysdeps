@@ -9,7 +9,7 @@ fi
 
 sd_tmp="sysdeps.out"
 f1_tmp="_sd_dlopen.h"
-echo "SYSDEPS dlopen clean ${f1_tmp}"
+echo "SYSDEPS sd-dlopen clean ${f1_tmp}"
 
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
 

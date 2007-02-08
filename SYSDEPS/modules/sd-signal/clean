@@ -10,7 +10,7 @@ fi
 sd_tmp="sysdeps.out"
 f1_tmp="_sig_action.h"
 f2_tmp="_sig_pmask.h"
-echo "SYSDEPS signal clean ${f1_tmp} ${f2_tmp}"
+echo "SYSDEPS sd-signal clean ${f1_tmp} ${f2_tmp}"
 
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
 f2_out="${SYSDEP_OUTDIR}/${f2_tmp}"

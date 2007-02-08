@@ -34,7 +34,7 @@ depchklist:\
 	./ld depchklist depchklist.o 
 depchklist.o:\
 	cc depchklist.c ch_flags.h dlopen.h fd.h floatcast.h aio-mech.h \
-	sig_action.h sig_pmask.h sysinfo.h 
+	sd_fcntl.h sig_action.h sig_pmask.h sysinfo.h 
 	./cc depchklist.c
 get_flags.o:\
 	cc get_flags.c ch_flags.h open.h uint32.h 
