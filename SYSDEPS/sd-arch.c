@@ -14,6 +14,15 @@ int main()
 #if defined(__arm__) || defined(__thumb__) || defined(__TARGET_ARCH___TARGET_ARCH_THUMB)
   var = "ARM";
 #endif
+#if defined(_CRAY)
+  var = "CRAY";
+#endif
+#if defined(_CRAY1)
+  var = "CRAY_X_MP";
+#endif
+#if defined(_CRAY2)
+  var = "CRAY_2";
+#endif
 #if defined(__hppa__) || defined(__hppa)
   var = "PARISC";
 #endif
