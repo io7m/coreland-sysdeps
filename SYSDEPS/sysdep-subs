@@ -15,8 +15,17 @@ then
   tmp=`head -n 1 "../conf-cc"`
   if [ ! -z "${tmp}" ]; then SYSDEP_CC="${tmp}"; fi
 fi
-which ${SYSDEP_CC} 1>/dev/null 2>&1
-if [ $? -ne 0 ]
+
+# check C compiler
+cc_found=0
+for dir in `echo $PATH | sed -e 's/:/ /g'`
+do
+  if [ -x "${dir}/${SYSDEP_CC}" ]
+  then
+    cc_found=1
+  fi
+done
+if [ ${cc_found} -eq 0 ]
 then
   ${SYSDEP_DIR_RELATIVE}/sd-error "could not locate usable compiler"
   exit 112
