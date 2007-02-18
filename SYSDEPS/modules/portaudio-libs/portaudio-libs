@@ -7,7 +7,7 @@ pkg="portaudio"
 lib="lib${pkg}.${SYSDEP_LIBSUFFIX}"
 EXTRA_FLAGS="-lportaudio"
 
-case "${SYSDEP_SYSTYPE}" in
+case "${SYSDEP_OS}" in
   SYSDEP_OS_DARWIN)
     path="${path} /sw/lib"
     EXTRA_FLAGS="${EXTRA_FLAGS} -framework AudioToolbox -framework CoreAudio"

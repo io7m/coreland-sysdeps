@@ -7,7 +7,7 @@ define="-DHAVE_SDL"
 path="${SYSDEP_STDINC} /usr/local/include/SDL /usr/include/SDL"
 pkg="sdl"
 
-case "${SYSDEP_SYSTYPE}" in
+case "${SYSDEP_OS}" in
   SYSDEP_OS_SUNOS)
     path="${path} /usr/sfw/include/SDL"
     ;;

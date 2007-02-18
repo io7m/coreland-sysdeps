@@ -7,7 +7,7 @@ define="-DHAVE_FLTK -DHAVE_FLTK11"
 path="${SYSDEP_STDINC} /usr/X11R6/include/FL"
 pkg="fltk11"
 
-case "${SYSDEP_SYSTYPE}" in
+case "${SYSDEP_OS}" in
   SYSDEP_OS_DARWIN)
     path="${path} /sw/include/FL"
     ;;

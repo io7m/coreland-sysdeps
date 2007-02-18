@@ -7,7 +7,7 @@ define="-DHAVE_PORTAUDIO"
 path="${SYSDEP_STDINC}"
 pkg="portaudio"
 
-case "${SYSDEP_SYSTYPE}" in
+case "${SYSDEP_OS}" in
   darwin)
     path="${path} /sw/include"
     ;;

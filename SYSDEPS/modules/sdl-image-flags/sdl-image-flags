@@ -6,7 +6,7 @@ header="SDL_image.h"
 path="${SYSDEP_STDINC} /usr/include/SDL /usr/local/include/SDL"
 define="-DHAVE_SDL_IMAGE"
 
-case "$SYSDEP_SYSTYPE" in
+case "$SYSDEP_OS" in
   SYSDEP_OS_DARWIN)
     path="/Library/Frameworks/SDL_image.framework/Headers \
           /sw/include/SDL ${path}"
