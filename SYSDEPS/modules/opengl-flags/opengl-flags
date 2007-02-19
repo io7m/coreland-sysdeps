@@ -1,0 +1,27 @@
+#!/bin/sh
+
+exec 1> "$1"
+
+header="gl.h"
+define="-DHAVE_OPENGL"
+path="${SYSDEP_STDINC} /usr/X11R6/include/GL /usr/include/GL"
+pkg="gl"
+
+case "${SYSDEP_OS}" in
+  SYSDEP_OS_DARWIN)
+    path="/System/Library/Frameworks/OpenGL.framework/Headers ${path}"
+    ;;
+  *)
+    ;;
+esac
+
+FLAGS=`${SYSDEP_TRY_MANUAL} "${header}" "${path}" "-I" 2>&-`
+if [ "x${FLAGS}" != "x" ]
+then
+  echo ${FLAGS} ${define}
+  exit 0
+else
+  ${SYSDEP_ERROR} "manual search failed"
+fi
+
+exit 0
