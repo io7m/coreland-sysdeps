@@ -2,7 +2,7 @@
 
 exec 1> "$1"
 
-args=""
+args="-lGL"
 path="${SYSDEP_STDLIB} /usr/X11R6/lib"
 lib="libGL.so"
 
