@@ -2,13 +2,13 @@
 
 exec 1> "$1"
 
-header="gl.h"
+header="GL/gl.h"
 define="-DHAVE_OPENGL"
-path="${SYSDEP_STDINC} /usr/X11R6/include/GL /usr/include/GL"
-pkg="gl"
+path="${SYSDEP_STDINC} /usr/X11R6/include"
 
 case "${SYSDEP_OS}" in
   SYSDEP_OS_DARWIN)
+    header="gl.h"
     path="/System/Library/Frameworks/OpenGL.framework/Headers ${path}"
     ;;
   *)
