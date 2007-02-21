@@ -1,9 +1,11 @@
+flags-altivec
 flags-corelib
 flags-fastcgi
 flags-fltk11
 flags-fltk2
 flags-io_poll
 flags-jack
+flags-opengl
 flags-pdcgi
 flags-png
 flags-portaudio
@@ -12,4 +14,7 @@ flags-sdl-image
 flags-sdl-mixer
 flags-sdl-ttf
 flags-sndfile
+flags-sse
+flags-sse2
+flags-sse3
 flags-tiff

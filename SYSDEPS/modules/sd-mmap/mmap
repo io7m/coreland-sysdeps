@@ -1,0 +1,27 @@
+#!/bin/sh
+
+fout="$1"
+sysdeps="$2"
+
+cat >> "${fout}" <<EOF
+#ifndef _SD_MMAP_H
+#define _SD_MMAP_H
+
+EOF
+
+sd_done=0
+${SYSDEP_CC} -o trymmap trymmap.c ${lflag} >/dev/null 2>&1
+if [ $? -eq 0 ]
+then
+  ./trymmap
+  if [ $? -eq 0 ]
+  then
+    echo '#define HAVE_MMAP' >> "${fout}"
+    echo 'mmap: mmap' >> "${sysdeps}"
+  else
+    echo 'mmap: ' >> "${sysdeps}"
+  fi
+fi
+echo '#endif' >> "${fout}"
+
+rm -f trymmap

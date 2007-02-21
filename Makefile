@@ -13,16 +13,19 @@ sysdeps_clean:
 	(cd SYSDEPS && make clean)
 	rm -f sysdeps.out
 
-cc: conf-cc conf-cctype sysdeps.out flags-corelib flags-fastcgi \
-	flags-fltk11 flags-fltk2 flags-io_poll flags-jack flags-pdcgi \
-	flags-png flags-portaudio flags-sdl flags-sdl-image flags-sdl-mixer \
-	flags-sdl-ttf flags-sndfile flags-tiff 
+cc-compile: conf-cc conf-cctype sysdeps.out flags-altivec \
+	flags-corelib flags-fastcgi flags-fltk11 flags-fltk2 flags-io_poll \
+	flags-jack flags-opengl flags-pdcgi flags-png flags-portaudio \
+	flags-sdl flags-sdl-image flags-sdl-mixer flags-sdl-ttf \
+	flags-sndfile flags-sse flags-sse2 flags-sse3 flags-tiff 
+cc-link: conf-ld sysdeps.out 
+cc-slib: conf-systype 
 ch_flags.a:\
-	mk-slib ch_flags.sld ch_flags.o get_flags.o 
-	./mk-slib ch_flags ch_flags.o get_flags.o 
+	cc-slib ch_flags.sld ch_flags.o get_flags.o 
+	./cc-slib ch_flags ch_flags.o get_flags.o 
 ch_flags.o:\
-	cc ch_flags.c ch_flags.h uint32.h 
-	./cc ch_flags.c
+	cc-compile ch_flags.c ch_flags.h uint32.h 
+	./cc-compile ch_flags.c
 conf-cctype:\
 	conf-systype conf-cc mk-cctype 
 	./mk-cctype > conf-cctype
@@ -30,33 +33,26 @@ conf-systype:\
 	mk-systype 
 	./mk-systype > conf-systype
 depchklist:\
-	ld depchklist.ld depchklist.o 
-	./ld depchklist depchklist.o 
+	cc-link depchklist.ld depchklist.o 
+	./cc-link depchklist depchklist.o 
 depchklist.o:\
-	cc depchklist.c ch_flags.h dlopen.h fd.h floatcast.h aio-mech.h \
-	sd_fcntl.h sig_action.h sig_pmask.h sysinfo.h 
-	./cc depchklist.c
+	cc-compile depchklist.c ch_flags.h dlopen.h fd.h floatcast.h \
+	aio-mech.h sd_fcntl.h sd_mmap.h sig_action.h sig_pmask.h sysinfo.h 
+	./cc-compile depchklist.c
 get_flags.o:\
-	cc get_flags.c ch_flags.h open.h uint32.h 
-	./cc get_flags.c
-ld: conf-ld sysdeps.out 
+	cc-compile get_flags.c ch_flags.h open.h uint32.h 
+	./cc-compile get_flags.c
 mk-cctype: conf-cc conf-systype 
-mk-ctxt.o:\
-	cc mk-ctxt.c
-	./cc mk-ctxt.c
-mk-ctxt:\
-	ld mk-ctxt.o mk-ctxt.ld
-	./ld mk-ctxt mk-ctxt.o
-mk-slib: conf-systype 
+mk-systype: conf-cc 
 open.a:\
-	mk-slib open.sld open_ro.o 
-	./mk-slib open open_ro.o 
+	cc-slib open.sld open_ro.o 
+	./cc-slib open open_ro.o 
 open_ro.o:\
-	cc open_ro.c open.h 
-	./cc open_ro.c
+	cc-compile open_ro.c open.h 
+	./cc-compile open_ro.c
 clean: sysdeps_clean 
-	rm -f ch_flags.a ch_flags.o depchklist depchklist.o get_flags.o \
-	open.a open_ro.o 
+	rm -f ch_flags.a ch_flags.o conf-cctype conf-systype depchklist \
+	depchklist.o get_flags.o open.a open_ro.o 
 
 regen:
 	cpj-genmk > Makefile.tmp

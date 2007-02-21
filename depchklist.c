@@ -4,12 +4,18 @@
 #include "floatcast.h"
 #include "aio-mech.h"
 #include "sd_fcntl.h"
+#include "sd_mmap.h"
 #include "sig_action.h"
 #include "sig_pmask.h"
 #include "sysinfo.h"
 
 int main()
 {
+#ifdef HAVE_MMAP
+  printf("system has mmap\n");
+#else
+  printf("system does not have mmap\n");
+#endif
 #ifdef HAVE_KQUEUE
   printf("system has kqueue\n");
 #else
@@ -54,6 +60,11 @@ int main()
   printf("system has fastcgi\n");
 #else
   printf("system does not have fastcgi\n");
+#endif
+#ifdef HAVE_OPENGL
+  printf("system has opengl\n");
+#else
+  printf("system does not have opengl\n");
 #endif
 #ifdef HAVE_LIBSNDFILE
   printf("system has libsndfile\n");
