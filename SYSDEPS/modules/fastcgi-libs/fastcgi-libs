@@ -12,7 +12,7 @@ then
   echo ${FLAGS} "-l${pkg}"
   exit 0
 else
-  ${SYSDEP_ERROR} "manual config failed"
+  ${SYSDEP_ERROR} "manual search failed"
 fi
 
 exit 0
