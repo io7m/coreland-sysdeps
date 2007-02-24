@@ -56,6 +56,16 @@ then
   exit 0
 fi
 
+${SYSDEP_CC} -o tryselect5 tryselect5.c >/dev/null 2>&1
+if [ $? -eq 0 ]
+then
+  echo '#include <net/socket.h>' >> "${fout}"
+  echo '#endif' >> "${fout}"
+  echo 'select: socket.h' >> "${sysdeps}"
+  cleanup
+  exit 0
+fi
+
 if [ ! -f "${sysdeps}" ]
 then
   echo 'select: ' >> "${sysdeps}"

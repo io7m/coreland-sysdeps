@@ -1,10 +1,5 @@
 #include <sys/time.h>
 
-void snooze()
-{
-  usleep(100000);
-}
-
 int main()
 {
   char buf[128];
@@ -21,7 +16,6 @@ int main()
     if (ret == -1) { perror("select"); return 111; }
     if (ret == 0) {
       printf("no data\n");
-      snooze();
       continue;
     }
     if (FD_ISSET(0, &rfds)) {
