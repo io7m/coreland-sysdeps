@@ -4,6 +4,9 @@ exec 2>/dev/null
 sys="$1"
 
 case "$sys" in
+  SYSDEP_OS_IRIX)
+    ver=`uname -R | awk '{print $NF}'`
+    ;;
   *)
     ver=`uname -r`
     if [ $? -ne 0 ]
