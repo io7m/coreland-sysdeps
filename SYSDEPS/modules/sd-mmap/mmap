@@ -9,11 +9,10 @@ cat >> "${fout}" <<EOF
 
 EOF
 
-sd_done=0
-${SYSDEP_CC} -o trymmap trymmap.c  1>/dev/null 2>&1
+${SYSDEP_CC} -o trymmap1 trymmap1.c  1>/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  ./trymmap
+  ./trymmap1
   if [ $? -eq 0 ]
   then
     echo '#define HAVE_MMAP' >> "${fout}"
@@ -24,6 +23,7 @@ then
 else
   echo 'mmap: ' >> "${sysdeps}"
 fi
+
 cat >> "${fout}" <<EOF
 
 #include <sys/types.h>
@@ -31,4 +31,4 @@ cat >> "${fout}" <<EOF
 #endif
 EOF
 
-rm -f trymmap
+rm -f trymmap1

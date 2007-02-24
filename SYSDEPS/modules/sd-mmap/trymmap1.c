@@ -11,7 +11,7 @@ int main()
   void *map;
   int fd;
 
-  fd = open("/dev/zero", O_RDONLY);
+  fd = open("trymmap1.c", O_RDONLY);
   if (fd == -1) {
     perror("open");
     return 1;
