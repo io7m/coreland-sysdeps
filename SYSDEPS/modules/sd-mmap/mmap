@@ -7,8 +7,6 @@ cat >> "${fout}" <<EOF
 #ifndef _SD_MMAP_H
 #define _SD_MMAP_H
 
-#include <sys/types.h>
-#include <sys/mman.h>
 EOF
 
 sd_done=0
@@ -23,7 +21,14 @@ then
   else
     echo 'mmap: ' >> "${sysdeps}"
   fi
+else
+  echo 'mmap: ' >> "${sysdeps}"
 fi
-echo '#endif' >> "${fout}"
+cat >> "${fout}" <<EOF
+
+#include <sys/types.h>
+#include <sys/mman.h>
+#endif
+EOF
 
 rm -f trymmap
