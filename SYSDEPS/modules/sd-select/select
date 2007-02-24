@@ -56,4 +56,9 @@ then
   exit 0
 fi
 
+if [ ! -f "${sysdeps}" ]
+then
+  echo 'select: ' >> "${sysdeps}"
+fi
+
 echo '#endif' >> "${fout}"
