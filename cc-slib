@@ -48,6 +48,7 @@ case "${SYS_TYPE}" in
   IRIX) ;;
   DG_UX) ;;
   UNIXWARE) ;;
+  CRAY_UNICOS) ;;
   *)
     ${RANLIB} "$main.a"
     ;;
