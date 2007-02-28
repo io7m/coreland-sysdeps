@@ -1,0 +1,23 @@
+#!/bin/sh
+
+fout="$1"
+
+cleanup()
+{
+  rm -f trylonglong
+  exit 0
+}
+
+cat >> "${fout}" <<EOF
+#ifndef _SD_LONGLONG_H
+#define _SD_LONGLONG_H
+EOF
+
+${SYSDEP_CC} -o trylonglong trylonglong.c 1>/dev/null 2>&1
+if [ $? -eq 0 ]
+then
+  echo '#define HAVE_LONGLONG' >> "${fout}"
+fi
+
+echo '#endif' >> "${fout}"
+cleanup

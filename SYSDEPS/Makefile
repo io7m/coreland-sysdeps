@@ -1,8 +1,8 @@
 default: sysdeps
 clean: sysdeps_clean
 
-sysdeps:  sd_sd-mmap sd_sd-math sd_aio-mech sd_io_poll-libs-S sd_io_poll-flags sd_fltk11-libs-S sd_sdl-image-libs sd_uint64 sd_sysinfo sd_sdl-image-flags sd_int32 sd_int16 sd_ch_flags sd_corelib-libs sd_fastcgi-libs sd_sdl-ttf-flags sd_fltk2-libs-S sd_fastcgi-flags sd_opengl-libs sd_sndfile-libs sd_opengl-flags sd_sndfile-flags sd_float64 sd_tiff-libs sd_pdcgi-flags sd_floatcast sd_altivec-flags sd_tiff-flags sd_sse-flags sd_uint32 sd_uint16 sd_fltk11-libs sd_sdl-mixer-libs sd_fltk11-flags sd_portaudio-libs sd_sdl-mixer-flags sd_jack-libs sd_byteorder sd_direntry sd_portaudio-flags sd_jack-flags sd_int64 sd_sdl-ttf-libs sd_corelib-libs-S sd_float32 sd_sse2-flags sd_sse3-flags sd_fltk2-libs sd_corelib-flags sd_sdl-libs sd_png-libs sd_fltk2-flags sd_sdl-flags sd_pdcgi-libs-S sd_png-flags sd_sd-fcntl sd_sd-dlopen sd_sd-fd sd_sd-select sd_sd-signal
-sysdeps_clean:  sd_sd-mmap_clean sd_sd-math_clean sd_aio-mech_clean sd_io_poll-libs-S_clean sd_io_poll-flags_clean sd_fltk11-libs-S_clean sd_sdl-image-libs_clean sd_uint64_clean sd_sysinfo_clean sd_sdl-image-flags_clean sd_int32_clean sd_int16_clean sd_ch_flags_clean sd_corelib-libs_clean sd_fastcgi-libs_clean sd_sdl-ttf-flags_clean sd_fltk2-libs-S_clean sd_fastcgi-flags_clean sd_opengl-libs_clean sd_sndfile-libs_clean sd_opengl-flags_clean sd_sndfile-flags_clean sd_float64_clean sd_tiff-libs_clean sd_pdcgi-flags_clean sd_floatcast_clean sd_altivec-flags_clean sd_tiff-flags_clean sd_sse-flags_clean sd_uint32_clean sd_uint16_clean sd_fltk11-libs_clean sd_sdl-mixer-libs_clean sd_fltk11-flags_clean sd_portaudio-libs_clean sd_sdl-mixer-flags_clean sd_jack-libs_clean sd_byteorder_clean sd_direntry_clean sd_portaudio-flags_clean sd_jack-flags_clean sd_int64_clean sd_sdl-ttf-libs_clean sd_corelib-libs-S_clean sd_float32_clean sd_sse2-flags_clean sd_sse3-flags_clean sd_fltk2-libs_clean sd_corelib-flags_clean sd_sdl-libs_clean sd_png-libs_clean sd_fltk2-flags_clean sd_sdl-flags_clean sd_pdcgi-libs-S_clean sd_png-flags_clean sd_sd-fcntl_clean sd_sd-dlopen_clean sd_sd-fd_clean sd_sd-select_clean sd_sd-signal_clean
+sysdeps:  sd_sd-mmap sd_sd-math sd_aio-mech sd_io_poll-libs-S sd_io_poll-flags sd_fltk11-libs-S sd_sdl-image-libs sd_uint64 sd_sysinfo sd_sdl-image-flags sd_int32 sd_int16 sd_ch_flags sd_corelib-libs sd_fastcgi-libs sd_sdl-ttf-flags sd_fltk2-libs-S sd_fastcgi-flags sd_opengl-libs sd_sndfile-libs sd_opengl-flags sd_sndfile-flags sd_float64 sd_tiff-libs sd_pdcgi-flags sd_floatcast sd_altivec-flags sd_tiff-flags sd_sse-flags sd_uint32 sd_uint16 sd_fltk11-libs sd_sdl-mixer-libs sd_fltk11-flags sd_portaudio-libs sd_sdl-mixer-flags sd_jack-libs sd_byteorder sd_direntry sd_portaudio-flags sd_jack-flags sd_int64 sd_sdl-ttf-libs sd_corelib-libs-S sd_float32 sd_sse2-flags sd_sse3-flags sd_fltk2-libs sd_corelib-flags sd_sdl-libs sd_png-libs sd_fltk2-flags sd_sdl-flags sd_pdcgi-libs-S sd_png-flags sd_sd-fcntl sd_sd-dlopen sd_sd-fd sd_sd-select sd_sd-signal sd_sd-longlong
+sysdeps_clean:  sd_sd-mmap_clean sd_sd-math_clean sd_aio-mech_clean sd_io_poll-libs-S_clean sd_io_poll-flags_clean sd_fltk11-libs-S_clean sd_sdl-image-libs_clean sd_uint64_clean sd_sysinfo_clean sd_sdl-image-flags_clean sd_int32_clean sd_int16_clean sd_ch_flags_clean sd_corelib-libs_clean sd_fastcgi-libs_clean sd_sdl-ttf-flags_clean sd_fltk2-libs-S_clean sd_fastcgi-flags_clean sd_opengl-libs_clean sd_sndfile-libs_clean sd_opengl-flags_clean sd_sndfile-flags_clean sd_float64_clean sd_tiff-libs_clean sd_pdcgi-flags_clean sd_floatcast_clean sd_altivec-flags_clean sd_tiff-flags_clean sd_sse-flags_clean sd_uint32_clean sd_uint16_clean sd_fltk11-libs_clean sd_sdl-mixer-libs_clean sd_fltk11-flags_clean sd_portaudio-libs_clean sd_sdl-mixer-flags_clean sd_jack-libs_clean sd_byteorder_clean sd_direntry_clean sd_portaudio-flags_clean sd_jack-flags_clean sd_int64_clean sd_sdl-ttf-libs_clean sd_corelib-libs-S_clean sd_float32_clean sd_sse2-flags_clean sd_sse3-flags_clean sd_fltk2-libs_clean sd_corelib-flags_clean sd_sdl-libs_clean sd_png-libs_clean sd_fltk2-flags_clean sd_sdl-flags_clean sd_pdcgi-libs-S_clean sd_png-flags_clean sd_sd-fcntl_clean sd_sd-dlopen_clean sd_sd-fd_clean sd_sd-select_clean sd_sd-signal_clean sd_sd-longlong_clean
 
 sd_sd-mmap:
 	@(cd modules/sd-mmap && ./run)
@@ -303,6 +303,11 @@ sd_sd-signal:
 	@(cd modules/sd-signal && ./run)
 sd_sd-signal_clean:
 	@(cd modules/sd-signal && ./clean)
+
+sd_sd-longlong:
+	@(cd modules/sd-longlong && ./run)
+sd_sd-longlong_clean:
+	@(cd modules/sd-longlong && ./clean)
 
 regen:
 	./gen-makefile > Makefile.tmp
