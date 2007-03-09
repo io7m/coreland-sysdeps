@@ -51,8 +51,8 @@ open_ro.o:\
 	cc-compile open_ro.c open.h 
 	./cc-compile open_ro.c
 clean: sysdeps_clean 
-	rm -f ch_flags.a ch_flags.o conf-cctype conf-systype depchklist \
-	depchklist.o get_flags.o open.a open_ro.o 
+	rm -f ch_flags.a ch_flags.o depchklist depchklist.o get_flags.o \
+	open.a open_ro.o 
 
 regen:
 	cpj-genmk > Makefile.tmp

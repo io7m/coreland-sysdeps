@@ -10,9 +10,9 @@ then
   tmp=`head -n 1 "${SYSDEP_DIR_RELATIVE}/conf-cc"`
   if [ ! -z "${tmp}" ]; then SYSDEP_CC="${tmp}"; fi
 fi
-if [ -f "../conf-cc" ]
+if [ -f "${SYSDEP_DIR_RELATIVE}/../conf-cc" ]
 then
-  tmp=`head -n 1 "../conf-cc"`
+  tmp=`head -n 1 "${SYSDEP_DIR_RELATIVE}/../conf-cc"`
   if [ ! -z "${tmp}" ]; then SYSDEP_CC="${tmp}"; fi
 fi
 
