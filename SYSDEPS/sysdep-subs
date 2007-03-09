@@ -5,14 +5,14 @@
 # compiler
 # sysdeps conf-cc preferred over project conf-cc preferred over 'cc'
 SYSDEP_CC="cc"
-if [ -f "${SYSDEP_DIR_RELATIVE}/conf-cc" ]
-then
-  tmp=`head -n 1 "${SYSDEP_DIR_RELATIVE}/conf-cc"`
-  if [ ! -z "${tmp}" ]; then SYSDEP_CC="${tmp}"; fi
-fi
 if [ -f "${SYSDEP_DIR_RELATIVE}/../conf-cc" ]
 then
   tmp=`head -n 1 "${SYSDEP_DIR_RELATIVE}/../conf-cc"`
+  if [ ! -z "${tmp}" ]; then SYSDEP_CC="${tmp}"; fi
+fi
+if [ -f "${SYSDEP_DIR_RELATIVE}/conf-cc" ]
+then
+  tmp=`head -n 1 "${SYSDEP_DIR_RELATIVE}/conf-cc"`
   if [ ! -z "${tmp}" ]; then SYSDEP_CC="${tmp}"; fi
 fi
 
