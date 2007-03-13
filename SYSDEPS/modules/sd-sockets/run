@@ -6,10 +6,10 @@ then
   exit 111
 fi
 
-f1_tmp="libs-math"
-echo "SYSDEPS sd-math run create ${f1_tmp}"
+f1_tmp="libs-socket"
+echo "SYSDEPS sd-socket run create ${f1_tmp}"
 
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
 
-./sd-math ${f1_tmp} ${sd_tmp}
+./sd-socket ${f1_tmp} ${sd_tmp}
 cp ${f1_tmp} ${f1_out}

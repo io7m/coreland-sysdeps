@@ -4,18 +4,18 @@ fout="$1"
 
 cleanup()
 {
-  rm -f trymath1
+  rm -f trysocket
   exit 0
 }
 
-${SYSDEP_CC} -o trymath1 trymath1.c 1>/dev/null 2>&1
+${SYSDEP_CC} -o trysocket trysocket.c 1>/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo >> "${fout}"
   cleanup
 fi
 
-${SYSDEP_CC} -o trymath1 trymath1.c -lm 1>/dev/null 2>&1
+${SYSDEP_CC} -o trysocket trysocket.c -lm 1>/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '-lm' >> "${fout}"
