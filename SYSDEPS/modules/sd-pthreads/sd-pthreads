@@ -1,7 +1,10 @@
-#!/bin/sh
+#!/bin/sh -x
 
 libs_out="$1"
 flag_out="$2"
+
+FLAGS="-DHAVE_PTHREADS"
+LIBS=""
 
 cleanup()
 {
@@ -9,26 +12,33 @@ cleanup()
   exit 0
 }
 
-try_libs()
+try_compile()
 {
-  ${SYSDEP_CC} -o trypthreads trypthreads.o 1>/dev/null 2>&1
+  ${SYSDEP_CC} ${FLAGS} -o trypthreads trypthreads.c 1>/dev/null 2>&1
   if [ $? -eq 0 ]
   then
-    echo >> "${libs_out}"
     return 0
   fi
+
+  return 1
 }
 
-try_flags()
-{
-  ${SYSDEP_CC} -c -o trypthreads.o trypthreads.c 1>/dev/null 2>&1
-  if [ $? -eq 0 ]
-  then
-    echo >> "${flags_out}"
-    return 0
-  fi
-}
+case ${SYSDEP_OS} in
+  SYSDEP_OS_SUNOS)
+    FLAGS="${FLAGS} -D_POSIX_C_SOURCE"
+    ;;
+  *)
+    ;;
+esac
 
-try_flags
-try_libs
+try_compile
+if [ $? -eq 0 ]
+then
+  echo "${FLAGS}" >> "${flag_out}"
+  echo "${LIBS}" >> "${libs_out}"
+else
+  touch "${flag_out}"
+  touch "${libs_out}"
+fi
+
 cleanup
