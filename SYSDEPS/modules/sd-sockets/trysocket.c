@@ -8,13 +8,11 @@ int socket_tcp4(void)
   int s;
   s = socket(PF_INET, SOCK_STREAM, 0);
   if (s == -1) return -1;
-  if (nonblock(s) == -1) { close(s); return -1; }
   return s;
 }
 
 int main()
 {
   int s = socket_tcp4();
-
   return 0;
 }
