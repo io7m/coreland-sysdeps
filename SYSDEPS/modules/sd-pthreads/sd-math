@@ -1,0 +1,24 @@
+#!/bin/sh
+
+fout="$1"
+
+cleanup()
+{
+  rm -f trymath1
+  exit 0
+}
+
+${SYSDEP_CC} -o trymath1 trymath1.c 1>/dev/null 2>&1
+if [ $? -eq 0 ]
+then
+  echo >> "${fout}"
+  cleanup
+fi
+
+${SYSDEP_CC} -o trymath1 trymath1.c -lm 1>/dev/null 2>&1
+if [ $? -eq 0 ]
+then
+  echo '-lm' >> "${fout}"
+  cleanup
+fi
+
