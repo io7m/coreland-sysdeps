@@ -17,7 +17,7 @@ int main(void)
   unsigned int ind;
   int rc;
 
-  for(ind = 0; ind < NUM_THREADS; ind++){
+  for (ind = 0; ind < NUM_THREADS; ind++) {
     printf("[%u] thread create\n", ind);
     ids[ind] = ind;
     rc = pthread_create(&threads[ind], 0, hello, &ids[ind]);
