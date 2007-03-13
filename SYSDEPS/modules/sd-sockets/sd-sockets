@@ -4,18 +4,18 @@ fout="$1"
 
 cleanup()
 {
-  rm -f trysockets
+  rm -f trysocket
   exit 0
 }
 
-${SYSDEP_CC} -o trysockets trysockets.c 1>/dev/null 2>&1
+${SYSDEP_CC} -o trysocket trysocket.c 1>/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo >> "${fout}"
   cleanup
 fi
 
-${SYSDEP_CC} -o trysockets trysockets.c -lsocket 1>/dev/null 2>&1
+${SYSDEP_CC} -o trysocket trysocket.c -lsocket 1>/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '-lsocket' >> "${fout}"
