@@ -10,7 +10,7 @@ REALTIME_LIBS=""
 
 cleanup()
 {
-  rm -f trypthreads trypthreads.o
+  rm -f trypthreads tryptrealtime
   exit 0
 }
 
