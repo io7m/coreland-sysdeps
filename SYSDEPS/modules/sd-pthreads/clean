@@ -9,9 +9,14 @@ fi
 
 f1_tmp="libs-pthreads"
 f2_tmp="flags-pthreads"
-echo "SYSDEPS sd-pthreads clean ${f1_tmp} ${f2_tmp}"
+f3_tmp="libs-pthr_rt"
+f4_tmp="flags-pthr_rt"
+
+echo "SYSDEPS sd-pthreads clean ${f1_tmp} ${f2_tmp} ${f3_tmp} ${f4_tmp}"
 
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
 f2_out="${SYSDEP_OUTDIR}/${f2_tmp}"
+f3_out="${SYSDEP_OUTDIR}/${f3_tmp}"
+f4_out="${SYSDEP_OUTDIR}/${f4_tmp}"
 
-rm -f ${f1_tmp} ${f1_out} ${f2_tmp} ${f2_out}
+rm -f ${f1_tmp} ${f1_out} ${f2_tmp} ${f2_out} ${f3_tmp} ${f3_out} ${f4_tmp} ${f4_out}

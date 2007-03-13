@@ -1,12 +1,14 @@
 #!/bin/sh
 
-libs_out="$1"
-flag_out="$2"
+pthr_libs_out="$1"
+pthr_flag_out="$2"
+pthr_rt_libs_out="$3"
+pthr_rt_flag_out="$4"
 
 PTHREAD_FLAGS="-DHAVE_PTHREADS -D_REENTRANT -D_POSIX_C_SOURCE=200112L"
 PTHREAD_LIBS=""
-REALTIME_FLAGS="-DHAVE_PTHREADS_REALTIME"
-REALTIME_LIBS=""
+PTHR_REALTIME_FLAGS="-DHAVE_PTHREADS_REALTIME"
+PTHR_REALTIME_LIBS=""
 
 cleanup()
 {
@@ -29,7 +31,7 @@ try_one_pthread()
 try_one_realtime()
 {
   ${SYSDEP_CC} ${PTHREAD_FLAGS} \
-    -o tryptrealtime tryptrealtime.c ${PTHREAD_LIBS} ${REALTIME_LIBS} 1>/dev/null 2>&1
+    -o tryptrealtime tryptrealtime.c ${PTHREAD_LIBS} ${PTHR_REALTIME_LIBS} 1>/dev/null 2>&1
   if [ $? -eq 0 ]
   then
     return 0
@@ -40,7 +42,7 @@ try_one_realtime()
 
 try_pthreads()
 {
-  PTHREAD_LIBS=""
+  # default pthread libs
   try_one_pthread
   if [ $? -eq 0 ]; then return 0; fi
 
@@ -63,7 +65,15 @@ try_realtime()
   return 1
 }
 
-case ${SYSDEP_OS} in
+case ${SYSDEP_CCTYPE} in
+  SYSDEP_CCTYPE_SUN_C)
+    PTHREAD_FLAGS="-mt ${PTHREAD_FLAGS}"
+    PTHREAD_LIBS="${PTHREAD_LIBS} -lposix4"
+    ;;
+  SYSDEP_CCTYPE_SUN_CXX)
+    PTHREAD_FLAGS="-mt ${PTHREAD_FLAGS}"
+    PTHREAD_LIBS="${PTHREAD_LIBS} -lposix4"
+    ;;
   *) ;;
 esac
 
@@ -73,17 +83,17 @@ then
   try_realtime
   if [ $? -eq 0 ]
   then
-    ALL_FLAGS="${PTHREAD_FLAGS} ${REALTIME_FLAGS}"
-    ALL_LIBS="${PTHREAD_LIBS} ${REALTIME_LIBS}"
+    echo "${PTHR_REALTIME_FLAGS}" >> "${pthr_rt_flag_out}"
+    echo "${PTHR_REALTIME_LIBS}" >> "${pthr_rt_libs_out}"
   else
-    ALL_FLAGS="${PTHREAD_FLAGS}"
-    ALL_LIBS="${PTHREAD_LIBS}"
+    touch "${pthr_rt_flag_out}"
+    touch "${pthr_rt_libs_out}"
   fi
-  echo "${ALL_FLAGS}" >> "${flag_out}"
-  echo "${ALL_LIBS}" >> "${libs_out}"
+  echo "${PTHREAD_FLAGS}" >> "${pthr_flag_out}"
+  echo "${PTHREAD_LIBS}" >> "${pthr_libs_out}"
 else
-  touch "${flag_out}"
-  touch "${libs_out}"
+  touch "${pthr_flag_out}"
+  touch "${pthr_libs_out}"
 fi
 
 cleanup
