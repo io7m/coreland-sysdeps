@@ -15,9 +15,9 @@ sysdeps_clean:
 cc-compile: conf-cc conf-cctype sysdeps.out flags-altivec \
 	flags-corelib flags-fastcgi flags-fltk11 flags-fltk2 flags-io_poll \
 	flags-jack flags-opengl flags-pdcgi flags-png flags-portaudio \
-	flags-pthreads flags-pthr_rt flags-sdl flags-sdl-image \
+	flags-pthr_rt flags-pthreads flags-sdl flags-sdl-image \
 	flags-sdl-mixer flags-sdl-ttf flags-sndfile flags-sse flags-sse2 \
-	flags-sse3 flags-tiff 
+	flags-sse3 flags-tiff flags-vector 
 cc-link: conf-ld sysdeps.out 
 cc-slib: conf-systype 
 ch_flags.a:\

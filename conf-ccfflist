@@ -9,8 +9,8 @@ flags-opengl
 flags-pdcgi
 flags-png
 flags-portaudio
-flags-pthreads
 flags-pthr_rt
+flags-pthreads
 flags-sdl
 flags-sdl-image
 flags-sdl-mixer
@@ -20,3 +20,4 @@ flags-sse
 flags-sse2
 flags-sse3
 flags-tiff
+flags-vector
