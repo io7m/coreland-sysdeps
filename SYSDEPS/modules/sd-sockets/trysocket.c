@@ -1,12 +1,20 @@
-#include <math.h>
+#include <sys/types.h>
+#include <sys/param.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+
+int socket_tcp4(void)
+{
+  int s;
+  s = socket(PF_INET, SOCK_STREAM, 0);
+  if (s == -1) return -1;
+  if (nonblock(s) == -1) { close(s); return -1; }
+  return s;
+}
 
 int main()
 {
-  double x;
-
-  x = sin(0.1);
-  x = cos(0.0);
-  x = tan(0.0);
+  int s = socket_tcp4();
 
   return 0;
 }
