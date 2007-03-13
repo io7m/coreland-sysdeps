@@ -13,12 +13,6 @@
 
 int main()
 {
-
-#ifdef HAVE_MMAP
-  printf("system has mmap\n");
-#else
-  printf("system does not have mmap\n");
-#endif
 #ifdef HAVE_KQUEUE
   printf("system has kqueue\n");
 #else
@@ -39,6 +33,16 @@ int main()
 #else
   printf("system does not have select\n");
 #endif
+#ifdef HAVE_DLOPEN
+  printf("system has dlopen\n");
+#else
+  printf("system does not have dlopen\n");
+#endif
+#ifdef HAVE_DLFUNC
+  printf("system has dlfunc\n");
+#else
+  printf("system does not have dlfunc\n");
+#endif
 #ifdef HAVE_IO_POLL
   printf("system has io_poll\n");
 #else
@@ -48,6 +52,11 @@ int main()
   printf("system has sdl_image\n");
 #else
   printf("system does not have sdl_image\n");
+#endif
+#ifdef HAVE_DUP2
+  printf("system has dup2\n");
+#else
+  printf("system does not have dup2\n");
 #endif
 #ifdef HAVE_CHFLAGS
   printf("system has chflags\n");
@@ -99,6 +108,16 @@ int main()
 #else
   printf("system does not have lrintf\n");
 #endif
+#ifdef HAVE_SIGACTION
+  printf("system has sigaction\n");
+#else
+  printf("system does not have sigaction\n");
+#endif
+#ifdef HAVE_SIGPROCMASK
+  printf("system has sigprocmask\n");
+#else
+  printf("system does not have sigprocmask\n");
+#endif
 #ifdef HAVE_LIBTIFF
   printf("system has libtiff\n");
 #else
@@ -113,6 +132,11 @@ int main()
   printf("system has fltk11\n");
 #else
   printf("system does not have fltk11\n");
+#endif
+#ifdef HAVE_MMAP
+  printf("system has mmap\n");
+#else
+  printf("system does not have mmap\n");
 #endif
 #ifdef HAVE_SDL_MIXER
   printf("system has sdl_mixer\n");
@@ -134,6 +158,11 @@ int main()
 #else
   printf("system does not have corelib\n");
 #endif
+#ifdef HAVE_FCNTL
+  printf("system has fcntl\n");
+#else
+  printf("system does not have fcntl\n");
+#endif
 #ifdef HAVE_FLTK
   printf("system has fltk\n");
 #else
@@ -154,36 +183,6 @@ int main()
 #else
   printf("system does not have libpng\n");
 #endif
-#ifdef HAVE_FCNTL
-  printf("system has fcntl\n");
-#else
-  printf("system does not have fcntl\n");
-#endif
-#ifdef HAVE_DLOPEN
-  printf("system has dlopen\n");
-#else
-  printf("system does not have dlopen\n");
-#endif
-#ifdef HAVE_DLFUNC
-  printf("system has dlfunc\n");
-#else
-  printf("system does not have dlfunc\n");
-#endif
-#ifdef HAVE_DUP2
-  printf("system has dup2\n");
-#else
-  printf("system does not have dup2\n");
-#endif
-#ifdef HAVE_SIGACTION
-  printf("system has sigaction\n");
-#else
-  printf("system does not have sigaction\n");
-#endif
-#ifdef HAVE_SIGPROCMASK
-  printf("system has sigprocmask\n");
-#else
-  printf("system does not have sigprocmask\n");
-#endif
 #ifdef HAVE_PTHREADS
   printf("system has pthreads\n");
 #else
@@ -193,6 +192,11 @@ int main()
   printf("system has pthreads_realtime\n");
 #else
   printf("system does not have pthreads_realtime\n");
+#endif
+#ifdef HAVE_VECTOR
+  printf("system has vector\n");
+#else
+  printf("system does not have vector\n");
 #endif
   return 0;
 }
