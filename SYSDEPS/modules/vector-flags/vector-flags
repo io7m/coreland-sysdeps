@@ -3,7 +3,7 @@
 exec 1> "$1"
 define="-DHAVE_VECTOR"
 
-FLAGS=`${SYSDEP_TRY_CONFIG_BIN} "vector-conf" "compile incdir" 2>&-`
+FLAGS=`${SYSDEP_TRY_CONFIG_BIN} "vector-conf" "compile incdir cflags" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS} ${define}
