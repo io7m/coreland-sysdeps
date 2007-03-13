@@ -6,10 +6,10 @@ then
   exit 111
 fi
 
-f1_tmp="flags-corelib"
-echo "SYSDEPS corelib-flags run create ${f1_tmp}"
+f1_tmp="flags-vector"
+echo "SYSDEPS vector-flags run create ${f1_tmp}"
 
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
 
-./corelib-flags ${f1_tmp}
+./vector-flags ${f1_tmp}
 cp ${f1_tmp} ${f1_out}
