@@ -10,6 +10,7 @@ flags-pdcgi
 flags-png
 flags-portaudio
 flags-pthreads
+flags-pthr_rt
 flags-sdl
 flags-sdl-image
 flags-sdl-mixer
