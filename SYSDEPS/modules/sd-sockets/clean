@@ -7,8 +7,8 @@ then
   exit 111
 fi
 
-f1_tmp="libs-socket"
-echo "SYSDEPS sd-socket clean ${f1_tmp}"
+f1_tmp="libs-sockets"
+echo "SYSDEPS sd-sockets clean ${f1_tmp}"
 
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
 rm -f ${f1_tmp} ${f1_out}
