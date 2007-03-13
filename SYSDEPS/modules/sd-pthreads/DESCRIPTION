@@ -1,1 +1,1 @@
-linker flags to link against the system pthreads libraries.
+compiler and linker flags to compile with posix 2001 thread libraries (also detects optional realtime extensions).
