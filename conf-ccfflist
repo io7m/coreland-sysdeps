@@ -9,6 +9,7 @@ flags-opengl
 flags-pdcgi
 flags-png
 flags-portaudio
+flags-pthreads
 flags-sdl
 flags-sdl-image
 flags-sdl-mixer

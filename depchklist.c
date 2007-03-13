@@ -11,6 +11,7 @@
 
 int main()
 {
+
 #ifdef HAVE_MMAP
   printf("system has mmap\n");
 #else
@@ -180,6 +181,16 @@ int main()
   printf("system has sigprocmask\n");
 #else
   printf("system does not have sigprocmask\n");
+#endif
+#ifdef HAVE_PTHREADS
+  printf("system has pthreads\n");
+#else
+  printf("system does not have pthreads\n");
+#endif
+#ifdef HAVE_PTHREADS_REALTIME
+  printf("system has pthreads_realtime\n");
+#else
+  printf("system does not have pthreads_realtime\n");
 #endif
   return 0;
 }
