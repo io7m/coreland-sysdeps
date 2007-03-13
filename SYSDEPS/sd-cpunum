@@ -13,6 +13,9 @@ case "$sys" in
   SYSDEP_OS_IRIX)
     ncpu="`getconf NUM_PROCESSORS`"
     ;;
+  SYSDEP_OS_SUNOS)
+    ncpu="`psrinfo -v | grep "Status of" | wc -l`"
+    ;;
   *)
     ncpu="`sysctl hw.ncpu`"
     if [ $? -eq 0 ]
