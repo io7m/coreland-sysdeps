@@ -7,9 +7,12 @@ then
 fi
 
 f1_tmp="libs-pthreads"
-echo "SYSDEPS sd-pthreads run create ${f1_tmp}"
+f2_tmp="flags-pthreads"
+echo "SYSDEPS sd-pthreads run create ${f1_tmp} ${f2_tmp}"
 
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
+f2_out="${SYSDEP_OUTDIR}/${f2_tmp}"
 
-./sd-pthreads ${f1_tmp} ${sd_tmp}
+./sd-pthreads ${f1_tmp} ${f2_tmp}
 cp ${f1_tmp} ${f1_out}
+cp ${f2_tmp} ${f2_out}

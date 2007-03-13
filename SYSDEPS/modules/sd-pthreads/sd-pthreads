@@ -1,17 +1,34 @@
 #!/bin/sh
 
-fout="$1"
+libs_out="$1"
+flag_out="$2"
 
 cleanup()
 {
-  rm -f trypthreads1
+  rm -f trypthreads trypthreads.o
   exit 0
 }
 
-${SYSDEP_CC} -o trypthreads1 trypthreads1.c 1>/dev/null 2>&1
-if [ $? -eq 0 ]
-then
-  echo >> "${fout}"
-  cleanup
-fi
+try_libs()
+{
+  ${SYSDEP_CC} -o trypthreads trypthreads.o 1>/dev/null 2>&1
+  if [ $? -eq 0 ]
+  then
+    echo >> "${libs_out}"
+    return 0
+  fi
+}
 
+try_flags()
+{
+  ${SYSDEP_CC} -c -o trypthreads.o trypthreads.c 1>/dev/null 2>&1
+  if [ $? -eq 0 ]
+  then
+    echo >> "${flags_out}"
+    return 0
+  fi
+}
+
+try_flags
+try_libs
+cleanup
