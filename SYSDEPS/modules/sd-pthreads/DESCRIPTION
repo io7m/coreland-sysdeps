@@ -1,1 +1,1 @@
-linker flags to link against the system math libraries.
+linker flags to link against the system pthreads libraries.
