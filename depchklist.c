@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "ch_flags.h"
 #include "dlopen.h"
 #include "fd.h"
