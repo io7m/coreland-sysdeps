@@ -1,0 +1,15 @@
+#!/bin/sh
+
+. ../../sysdep-main
+if [ $? -ne 0 ]
+then
+  exit 111
+fi
+
+f1_tmp="libs-corelib"
+echo "SYSDEPS corelib-libs-S run create ${f1_tmp}"
+
+f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
+
+./corelib-libs ${f1_tmp}
+cp ${f1_tmp} ${f1_out}
