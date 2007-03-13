@@ -1,10 +1,12 @@
-#!/bin/sh -x
+#!/bin/sh
 
 libs_out="$1"
 flag_out="$2"
 
-FLAGS="-DHAVE_PTHREADS"
-LIBS=""
+PTHREAD_FLAGS="-DHAVE_PTHREADS -D_REENTRANT -D_POSIX_C_SOURCE=200112L"
+PTHREAD_LIBS=""
+REALTIME_FLAGS="-DHAVE_PTHREADS_REALTIME"
+REALTIME_LIBS=""
 
 cleanup()
 {
@@ -12,30 +14,73 @@ cleanup()
   exit 0
 }
 
-try_compile()
+try_one_pthread()
 {
-  ${SYSDEP_CC} ${FLAGS} -o trypthreads trypthreads.c 1>/dev/null 2>&1
+  ${SYSDEP_CC} ${PTHREAD_FLAGS} \
+    -o trypthreads trypthreads.c ${PTHREAD_LIBS} 1>/dev/null 2>&1
   if [ $? -eq 0 ]
   then
     return 0
+  else
+    return 1
   fi
+}
+
+try_one_realtime()
+{
+  ${SYSDEP_CC} ${PTHREAD_FLAGS} \
+    -o tryptrealtime tryptrealtime.c ${PTHREAD_LIBS} ${REALTIME_LIBS} 1>/dev/null 2>&1
+  if [ $? -eq 0 ]
+  then
+    return 0
+  else
+    return 1
+  fi
+}
+
+try_pthreads()
+{
+  PTHREAD_LIBS=""
+  try_one_pthread
+  if [ $? -eq 0 ]; then return 0; fi
+
+  PTHREAD_LIBS="-pthread"
+  try_one_pthread
+  if [ $? -eq 0 ]; then return 0; fi
+
+  return 1
+}
+
+try_realtime()
+{
+  REALTIME_LIBS=""
+  try_one_realtime
+  if [ $? -eq 0 ]; then return 0; fi
+
+  REALTIME_LIBS="-lrt"
+  if [ $? -eq 0 ]; then return 0; fi
 
   return 1
 }
 
 case ${SYSDEP_OS} in
-  SYSDEP_OS_SUNOS)
-    FLAGS="${FLAGS} -D_POSIX_C_SOURCE"
-    ;;
-  *)
-    ;;
+  *) ;;
 esac
 
-try_compile
+try_pthreads
 if [ $? -eq 0 ]
 then
-  echo "${FLAGS}" >> "${flag_out}"
-  echo "${LIBS}" >> "${libs_out}"
+  try_realtime
+  if [ $? -eq 0 ]
+  then
+    ALL_FLAGS="${PTHREAD_FLAGS} ${REALTIME_FLAGS}"
+    ALL_LIBS="${PTHREAD_LIBS} ${REALTIME_LIBS}"
+  else
+    ALL_FLAGS="${PTHREAD_FLAGS}"
+    ALL_LIBS="${PTHREAD_LIBS}"
+  fi
+  echo "${ALL_FLAGS}" >> "${flag_out}"
+  echo "${ALL_LIBS}" >> "${libs_out}"
 else
   touch "${flag_out}"
   touch "${libs_out}"
