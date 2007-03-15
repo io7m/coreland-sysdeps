@@ -1,0 +1,15 @@
+#!/bin/sh
+
+. ../../sysdep-main
+if [ $? -ne 0 ]
+then
+  exit 111
+fi
+
+f1_tmp="flags-corelib"
+echo "SYSDEPS corelib-flags run create ${f1_tmp}"
+
+f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
+
+./corelib-flags ${f1_tmp}
+cp ${f1_tmp} ${f1_out}
