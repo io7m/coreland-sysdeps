@@ -14,10 +14,10 @@ sysdeps_clean:
 
 cc-compile: conf-cc conf-cctype sysdeps.out flags-altivec \
 	flags-corelib flags-fastcgi flags-fltk11 flags-fltk2 flags-io_poll \
-	flags-jack flags-opengl flags-pdcgi flags-png flags-portaudio \
-	flags-pthr_rt flags-pthreads flags-sdl flags-sdl-image \
-	flags-sdl-mixer flags-sdl-ttf flags-sndfile flags-sse flags-sse2 \
-	flags-sse3 flags-tiff flags-vector 
+	flags-jack flags-loadso flags-opengl flags-pdcgi flags-png \
+	flags-portaudio flags-pthr_rt flags-pthreads flags-sdl \
+	flags-sdl-image flags-sdl-mixer flags-sdl-ttf flags-sndfile \
+	flags-sse flags-sse2 flags-sse3 flags-tiff flags-vector 
 cc-link: conf-ld sysdeps.out 
 cc-slib: conf-systype 
 ch_flags.a:\
@@ -51,8 +51,8 @@ open_ro.o:\
 	cc-compile open_ro.c open.h 
 	./cc-compile open_ro.c
 clean: sysdeps_clean 
-	rm -f ch_flags.a ch_flags.o depchklist depchklist.o get_flags.o \
-	open.a open_ro.o 
+	rm -f ch_flags.a ch_flags.o conf-cctype conf-systype depchklist \
+	depchklist.o get_flags.o open.a open_ro.o 
 
 regen:
 	cpj-genmk > Makefile.tmp

@@ -13,6 +13,7 @@
 
 int main()
 {
+
 #ifdef HAVE_KQUEUE
   printf("system has kqueue\n");
 #else
@@ -197,6 +198,11 @@ int main()
   printf("system has vector\n");
 #else
   printf("system does not have vector\n");
+#endif
+#ifdef HAVE_LOADSO
+  printf("system has loadso\n");
+#else
+  printf("system does not have loadso\n");
 #endif
   return 0;
 }
