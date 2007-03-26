@@ -1,6 +1,10 @@
 #!/bin/sh
 
-fout="$1"
+libs_out="$1"
+flag_out="$2"
+
+M_FLAGS=""
+M_LIBS=""
 
 cleanup()
 {
@@ -8,17 +12,26 @@ cleanup()
   exit 0
 }
 
-${SYSDEP_CC} -o trymath1 trymath1.c 1>/dev/null 2>&1
-if [ $? -eq 0 ]
-then
-  echo >> "${fout}"
-  cleanup
-fi
+try_math()
+{
+  ${SYSDEP_CC} ${M_FLAGS} -o trymath1 trymath1.c ${M_LIBS} 1>/dev/null 2>&1
+  if [ $? -eq 0 ]
+  then
+    echo "${M_FLAGS}" >> "${flag_out}"
+    echo "${M_LIBS}" >> "${libs_out}"
+    return 0
+  fi
+  return 1
+}
 
-${SYSDEP_CC} -o trymath1 trymath1.c -lm 1>/dev/null 2>&1
-if [ $? -eq 0 ]
-then
-  echo '-lm' >> "${fout}"
-  cleanup
-fi
+M_FLAGS=""
+M_LIBS=""
+try_math
+if [ $? -eq 0 ]; then cleanup; fi
 
+M_FLAGS=""
+M_LIBS="-lm"
+try_math
+if [ $? -eq 0 ]; then cleanup; fi
+
+cleanup

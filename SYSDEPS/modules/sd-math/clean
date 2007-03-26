@@ -8,7 +8,10 @@ then
 fi
 
 f1_tmp="libs-math"
-echo "SYSDEPS sd-math clean ${f1_tmp}"
+f2_tmp="flags-math"
+echo "SYSDEPS sd-math clean ${f1_tmp} ${f2_tmp}"
 
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
-rm -f ${f1_tmp} ${f1_out}
+f2_out="${SYSDEP_OUTDIR}/${f2_tmp}"
+
+rm -f ${f1_tmp} ${f1_out} ${f2_tmp} ${f2_out}
