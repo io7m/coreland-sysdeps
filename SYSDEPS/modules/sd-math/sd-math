@@ -2,9 +2,11 @@
 
 libs_out="$1"
 flag_out="$2"
+head_out="$3"
 
 M_FLAGS=""
 M_LIBS=""
+M_HAVE=0
 
 cleanup()
 {
@@ -19,19 +21,51 @@ try_math()
   then
     echo "${M_FLAGS}" >> "${flag_out}"
     echo "${M_LIBS}" >> "${libs_out}"
+    M_HAVE=1
     return 0
   fi
   return 1
 }
 
+try_math_funcs()
+{
+  echo "#ifndef _SD_MATH_H" >> "${head_out}"
+  echo "#define _SD_MATH_H" >> "${head_out}"
+  echo >> "${head_out}"
+
+  for fn in `ls math_funcs`
+  do
+    FUNC=`echo ${fn} | tr [a-z] [A-Z]`
+    ${SYSDEP_CC} ${M_FLAGS} -o tmp/${fn} math_funcs/${fn}/${fn}.c ${M_LIBS} 1>/dev/null 2>&1
+    if [ $? -eq 0 ]
+    then
+      echo "#define HAVE_MATH_${FUNC}" >> "${head_out}"
+      rm -f tmp/${fn}
+    fi
+  done
+
+  echo >> "${head_out}"
+  echo "#endif" >> "${head_out}"
+  cleanup
+  exit 0
+}
+
+#
+# try combinations of flags and libs to get math libs
+#
+
 M_FLAGS=""
 M_LIBS=""
 try_math
-if [ $? -eq 0 ]; then cleanup; fi
+if [ $? -eq 0 ]; then try_math_funcs; fi
 
 M_FLAGS=""
 M_LIBS="-lm"
 try_math
-if [ $? -eq 0 ]; then cleanup; fi
+if [ $? -eq 0 ]; then try_math_funcs; fi
 
-cleanup
+#
+# fallback
+#
+
+try_math_funcs

@@ -8,11 +8,14 @@ fi
 
 f1_tmp="libs-math"
 f2_tmp="flags-math"
-echo "SYSDEPS sd-math run create ${f1_tmp} ${f2_tmp}"
+f3_tmp="_sd_math.h"
+echo "SYSDEPS sd-math run create ${f1_tmp} ${f2_tmp} ${f3_tmp}"
 
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
 f2_out="${SYSDEP_OUTDIR}/${f2_tmp}"
+f3_out="${SYSDEP_OUTDIR}/${f3_tmp}"
 
-./sd-math ${f1_tmp} ${f2_tmp}
+./sd-math ${f1_tmp} ${f2_tmp} ${f3_tmp}
 cp ${f1_tmp} ${f1_out}
 cp ${f2_tmp} ${f2_out}
+cp ${f3_tmp} ${f3_out}
