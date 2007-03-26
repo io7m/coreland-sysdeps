@@ -2,7 +2,7 @@
 
 exec 1> "$1"
 
-FLAGS=`${SYSDEP_TRY_CONFIG_BIN} "vector-conf" "compile slibdir" 2>&-`
+FLAGS=`${SYSDEP_TRY_CONFIG_BIN} "vector-conf" "compile slibdir ldflags" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo ${FLAGS}
