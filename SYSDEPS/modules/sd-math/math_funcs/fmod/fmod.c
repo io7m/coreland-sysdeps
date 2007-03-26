@@ -3,6 +3,6 @@
 int main(void)
 {
   double x;
-  x = fmod(0.5);
+  x = fmod(0.5, 0.5);
   return 0;
 }
