@@ -75,3 +75,6 @@
 20070221 code: implemented opengl
 20070221 code: new coreproject tools
 20070225 code: added sd-math
+20070326 code: massively updated sd-math
+20070326 code: improved sd-osversion for sunos.
+20070326 code: vector-libs update.
