@@ -31,6 +31,7 @@ else
   rm -f ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86
   rm -f ${SYSDEP_DIR_RELATIVE}/sd-arch
   rm -f ${SYSDEP_DIR_RELATIVE}/sd-cctype
+  rm -f ${SYSDEP_DIR_RELATIVE}/sd-ccversion
   rm -f ${SYSDEP_DIR_RELATIVE}/sd-main
   rm -f ${SYSDEP_DIR_RELATIVE}/sd-os
 fi

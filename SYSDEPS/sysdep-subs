@@ -56,6 +56,11 @@ then
   ${SYSDEP_CC} -o ${SYSDEP_DIR_RELATIVE}/sd-os \
   ${SYSDEP_DIR_RELATIVE}/sd-os.c 2>/dev/null
 fi
+if [ ! -f ${SYSDEP_DIR_RELATIVE}/sd-ccversion ]
+then
+  ${SYSDEP_CC} -o ${SYSDEP_DIR_RELATIVE}/sd-ccversion \
+  ${SYSDEP_DIR_RELATIVE}/sd-ccversion.c 2>/dev/null
+fi
 
 # find system type
 SYSDEP_OS="`${SYSDEP_DIR_RELATIVE}/sd-os`"
@@ -72,6 +77,10 @@ export SYSDEP_ARCH
 # find compiler type
 SYSDEP_CCTYPE="`${SYSDEP_DIR_RELATIVE}/sd-cctype`"
 export SYSDEP_CCTYPE
+
+# find compiler version
+SYSDEP_CCVERSION="`${SYSDEP_DIR_RELATIVE}/sd-ccversion`"
+export SYSDEP_CCVERSION
 
 # find cpu features
 SYSDEP_CPU_EXT="`${SYSDEP_DIR_RELATIVE}/sd-cpufeat ${SYSDEP_OS}`"

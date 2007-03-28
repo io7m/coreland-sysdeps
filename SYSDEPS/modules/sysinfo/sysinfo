@@ -18,6 +18,16 @@ define SYS_OS ${SYSDEP_OS}
 define SYS_OSVERSION \"${SYSDEP_OSVERSION}\"
 define SYS_ARCH ${SYSDEP_ARCH}
 define SYS_CCTYPE ${SYSDEP_CCTYPE}
+define SYS_CCVERSION ${SYSDEP_CCVERSION}
+
+major=`echo ${SYSDEP_CCVERSION} | awk -F. '{print $1}'`
+minor=`echo ${SYSDEP_CCVERSION} | awk -F. '{print $2}'`
+patch=`echo ${SYSDEP_CCVERSION} | awk -F. '{print $3}'`
+
+define SYS_CCVERSION_MAJOR $major
+define SYS_CCVERSION_MINOR $minor
+define SYS_CCVERSION_PATCH $patch
+
 define SYS_CPU_NUM ${SYSDEP_CPU_NUM}
 define SYS_CPU_L1_INST_CACHE_SIZE ${SYSDEP_CPU_L1_INST_CACHE_SIZE}
 define SYS_CPU_L1_DATA_CACHE_SIZE ${SYSDEP_CPU_L1_DATA_CACHE_SIZE}
