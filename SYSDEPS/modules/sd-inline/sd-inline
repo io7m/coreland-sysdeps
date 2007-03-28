@@ -1,0 +1,27 @@
+#!/bin/sh
+
+fout="$1"
+sdout="$2"
+
+cleanup()
+{
+  rm -f tryinline
+  exit 0
+}
+
+cat >> "${fout}" <<EOF
+#ifndef _SD_INLINE_H
+#define _SD_INLINE_H
+EOF
+
+${SYSDEP_CC} -o tryinline tryinline.c 1>/dev/null 2>&1
+if [ $? -eq 0 ]
+then
+  echo '#define HAVE_INLINE' >> "${fout}"
+  echo 'inline: yes' >> "${sdout}"
+else
+  echo 'inline: no' >> "${sdout}"
+fi
+
+echo '#endif' >> "${fout}"
+cleanup

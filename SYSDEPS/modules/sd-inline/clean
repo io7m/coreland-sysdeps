@@ -7,9 +7,9 @@ then
   exit 111
 fi
 
-f1_tmp="_sd_longlong.h"
+f1_tmp="_sd_inline.h"
 sd_tmp="sysdeps.out"
-echo "SYSDEPS sd-longlong clean ${f1_tmp}"
+echo "SYSDEPS sd-inline clean ${f1_tmp}"
 
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
 sd_out="${SYSDEP_OUTDIR}/${sd_tmp}"

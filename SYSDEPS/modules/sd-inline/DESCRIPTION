@@ -1,1 +1,1 @@
-check for presence of 'long long' type in C compiler.
+check for presence of 'inline' keyword in C compiler.
