@@ -15,4 +15,4 @@ f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
 sd_out="${SYSDEP_OUTDIR}/${sd_tmp}"
 
 rm -f ${f1_tmp} ${f1_out}
-rm -r ${sd_tmp} ${sd_out}
+rm -f ${sd_tmp} ${sd_out}

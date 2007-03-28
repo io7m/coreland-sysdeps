@@ -22,7 +22,7 @@ then
 
 #endif
 EOF
-  echo "ch_flags:chflags" >> "${sysdep}"
+  echo "ch_flags: chflags" >> "${sysdep}"
   do_clean
   exit 0
 fi
@@ -33,6 +33,6 @@ cat > "${fout}" <<EOF
 
 #endif
 EOF
-echo "ch_flags:none" >> "${sysdep}"
+echo "ch_flags: none" >> "${sysdep}"
 do_clean
 exit 0
