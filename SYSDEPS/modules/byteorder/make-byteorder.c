@@ -17,10 +17,10 @@ int main()
 
   if(b == i) {
     printf("#define BYTEORDER E_LITTLE_ENDIAN\n");
-    fprintf(stderr,"byteorder:little\n");
+    fprintf(stderr,"byteorder: little\n");
   } else {
     printf("#define BYTEORDER E_BIG_ENDIAN\n");
-    fprintf(stderr,"byteorder:big\n");
+    fprintf(stderr,"byteorder: big\n");
   }
 
   printf("\n");

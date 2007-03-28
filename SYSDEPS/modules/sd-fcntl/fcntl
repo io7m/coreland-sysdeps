@@ -15,7 +15,7 @@ if [ $? -eq 0 ]
 then
   echo '#include <fcntl.h>' >> "${fout}"
   echo '#define HAVE_FCNTL' >> "${fout}"
-  sup="${sup} fcntl"
+  sup="fcntl ${sup}"
 fi
 
 ${SYSDEP_CC} -o tryioctlsock tryioctlsock.c -lws2_32 2>/dev/null
@@ -23,7 +23,7 @@ if [ $? -eq 0 ]
 then
   echo '#include <winsock.h>' >> "${fout}"
   echo '#define HAVE_IOCTLSOCKET' >> "${fout}"
-  sup="${sup} ioctlsocket"
+  sup="ioctlsocket ${sup}"
 fi
 
 cat >> "${fout}" <<EOF

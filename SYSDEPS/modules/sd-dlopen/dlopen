@@ -24,10 +24,10 @@ then
   if [ $? -eq 0 ]
   then
     echo '#define HAVE_DLFUNC' >> "${fout}"
-    echo 'dlopen:dlfunc' >> "${sysdeps}"
+    echo 'dlopen: dlfunc' >> "${sysdeps}"
     sd_done=1
   else
-    echo 'dlopen:dlsym' >> "${sysdeps}"
+    echo 'dlopen: dlsym' >> "${sysdeps}"
     sd_done=1
   fi
 fi
@@ -36,7 +36,7 @@ echo >> "${fout}"
 echo '#endif' >> "${fout}"
 if [ ${sd_done} -eq 0 ]
 then
-  echo 'dlopen:none' >> "${sysdeps}"
+  echo 'dlopen: none' >> "${sysdeps}"
 fi
 
 rm -f trydlopen trydlfunc

@@ -6,7 +6,7 @@ int go(const char* s)
   puts("#define _FLOAT64_H");
   puts("/* automatically generated - do not edit */");
   printf("typedef %s float64;\n", s);
-  fprintf(stderr, "float64:%s\n", s);
+  fprintf(stderr, "float64: %s\n", s);
   puts("#endif");
   return 0;
 }

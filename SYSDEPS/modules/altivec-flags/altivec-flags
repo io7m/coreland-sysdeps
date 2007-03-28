@@ -10,5 +10,5 @@ then
     *) echo > "${fout}";;
   esac
 else
-  echo > "${fout}"
+  touch "${fout}"
 fi

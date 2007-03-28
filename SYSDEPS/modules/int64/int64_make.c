@@ -6,7 +6,7 @@ int go(const char* s)
   puts("#define _INT64_H");
   puts("/* automatically generated - do not edit */");
   printf("typedef %s int64;\n", s);
-  fprintf(stderr, "int64:%s\n", s);
+  fprintf(stderr, "int64: %s\n", s);
   puts("#endif");
   return 0;
 }

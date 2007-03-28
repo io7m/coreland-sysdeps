@@ -16,7 +16,7 @@ then
 
 #endif
 EOF
-  echo "direntry:struct dirent" >> "${sysdeps}"
+  echo "direntry: struct dirent" >> "${sysdeps}"
 else
   cat > "${fout}" <<EOF
 #ifndef _DIRENTRY_H
@@ -28,7 +28,7 @@ else
 
 #endif
 EOF
-  echo "direntry:struct direct" >> "${sysdeps}"
+  echo "direntry: struct direct" >> "${sysdeps}"
 fi
 
 rm -f trydirent.o

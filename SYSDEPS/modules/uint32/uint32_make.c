@@ -6,7 +6,7 @@ int go(const char* s)
   puts("#define _UINT32_H");
   puts("/* automatically generated - do not edit */");
   printf("typedef %s uint32;\n", s);
-  fprintf(stderr, "uint32:%s\n", s);
+  fprintf(stderr, "uint32: %s\n", s);
   puts("#endif");
   return 0;
 }

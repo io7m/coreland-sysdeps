@@ -13,9 +13,9 @@ ${SYSDEP_CC} -o trydup2 trydup2.c
 if [ $? -eq 0 ]
 then
   echo '#define HAVE_DUP2' >> "${fout}"
-  echo 'fd_dup2:dup2' >> "${sysdeps}"
+  echo 'fd_dup2: dup2' >> "${sysdeps}"
 else
-  echo 'fd_dup2:none' >> "${sysdeps}"
+  echo 'fd_dup2: none' >> "${sysdeps}"
 fi
 
 echo '#endif' >> "${fout}"
