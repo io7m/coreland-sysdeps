@@ -1,6 +1,7 @@
 #!/bin/sh
 
 fout="$1"
+sd_out="$2"
 
 cleanup()
 {
@@ -12,6 +13,7 @@ ${SYSDEP_CC} -o trysocket trysocket.c 1>/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo >> "${fout}"
+  echo "socket-libs: " >> "${sd_out}"
   cleanup
 fi
 
@@ -19,8 +21,9 @@ ${SYSDEP_CC} -o trysocket trysocket.c -lsocket 1>/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '-lsocket' >> "${fout}"
+  echo "socket-libs: -lsocket" >> "${sd_out}"
   cleanup
 fi
 
-
+touch "${sd_out}"
 touch "${fout}"

@@ -7,9 +7,12 @@ then
 fi
 
 f1_tmp="libs-sockets"
+sd_tmp="sysdeps.out"
 echo "SYSDEPS sd-sockets run create ${f1_tmp}"
 
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
+sd_out="${SYSDEP_OUTDIR}/${sd_tmp}"
 
 ./sd-sockets ${f1_tmp} ${sd_tmp}
 cp ${f1_tmp} ${f1_out}
+cat ${sd_tmp} >> ${sd_out}

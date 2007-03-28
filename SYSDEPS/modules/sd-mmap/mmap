@@ -18,10 +18,10 @@ then
     echo '#define HAVE_MMAP' >> "${fout}"
     echo 'mmap: mmap' >> "${sysdeps}"
   else
-    echo 'mmap: ' >> "${sysdeps}"
+    echo 'mmap: none' >> "${sysdeps}"
   fi
 else
-  echo 'mmap: ' >> "${sysdeps}"
+  echo 'mmap: none' >> "${sysdeps}"
 fi
 
 cat >> "${fout}" <<EOF

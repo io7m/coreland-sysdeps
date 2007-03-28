@@ -4,6 +4,7 @@ pthr_libs_out="$1"
 pthr_flag_out="$2"
 pthr_rt_libs_out="$3"
 pthr_rt_flag_out="$4"
+sysd_out="$5"
 
 PTHREAD_FLAGS="-DHAVE_PTHREADS -D_REENTRANT -D_POSIX_C_SOURCE=200112L"
 PTHREAD_LIBS=""
@@ -30,7 +31,7 @@ try_one_pthread()
 
 try_one_realtime()
 {
-  ${SYSDEP_CC} ${PTHREAD_FLAGS} \
+  ${SYSDEP_CC} ${PTHREAD_FLAGS} ${PTHR_REALTIME_FLAGS} \
     -o tryptrealtime tryptrealtime.c ${PTHREAD_LIBS} ${PTHR_REALTIME_LIBS} 1>/dev/null 2>&1
   if [ $? -eq 0 ]
   then
@@ -85,15 +86,21 @@ then
   then
     echo "${PTHR_REALTIME_FLAGS}" >> "${pthr_rt_flag_out}"
     echo "${PTHR_REALTIME_LIBS}" >> "${pthr_rt_libs_out}"
+    echo "pthr-realtime-flags: ${PTHR_REALTIME_FLAGS}" >> "${sysd_out}"
+    echo "pthr-realtime-libs: ${PTHR_REALTIME_LIBS}" >> "${sysd_out}"
   else
     touch "${pthr_rt_flag_out}"
     touch "${pthr_rt_libs_out}"
+    touch "${sysd_out}"
   fi
   echo "${PTHREAD_FLAGS}" >> "${pthr_flag_out}"
   echo "${PTHREAD_LIBS}" >> "${pthr_libs_out}"
+  echo "pthreads-flags: ${PTHREAD_FLAGS}" >> "${sysd_out}"
+  echo "pthreads-libs: ${PTHREAD_LIBS}" >> "${sysd_out}"
 else
   touch "${pthr_flag_out}"
   touch "${pthr_libs_out}"
+  touch "${sysd_out}"
 fi
 
 cleanup
