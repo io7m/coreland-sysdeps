@@ -34,7 +34,9 @@ try_dlfunc()
   ${SYSDEP_CC} -o trydlfunc trydlfunc.c ${DL_LIBS} 1>/dev/null 2>&1
   if [ $? -eq 0 ]
   then
-    echo "#define HAVE_DLFUNC" >> "${head_out}"
+    return 1
+  else
+    return 0
   fi
 }
 
@@ -47,6 +49,13 @@ try_dlopen()
     echo "${DL_LIBS}" >> "${flag_out}"
     echo "#define HAVE_DLOPEN" >> "${head_out}"
     try_dlfunc
+    if [ $? -eq 1 ]
+    then
+      echo "#define HAVE_DLFUNC" >> "${head_out}"
+      echo "dlopen: dlopen dlfunc" >> "${sysd_out}"
+    else
+      echo "dlopen: dlopen" >> "${sysd_out}"
+    fi
     return 1
   else
     return 0
