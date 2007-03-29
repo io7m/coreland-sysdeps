@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   float x;
-  x = tgammaf(0.5);
+  x = tgammaf((float) argc);
   return 0;
 }

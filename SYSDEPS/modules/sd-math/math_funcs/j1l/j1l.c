@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   long double x;
-  x = j1l(0.5);
+  x = j1l((long double) argc);
   return 0;
 }

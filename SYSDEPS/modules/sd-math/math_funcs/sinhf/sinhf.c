@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   float x;
-  x = sinhf(0.5);
+  x = sinhf((float) argc);
   return 0;
 }

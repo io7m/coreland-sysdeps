@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   long double x;
-  x = remainderl(0.5, 0.5);
+  x = remainderl((long double) argc, (long double) argc);
   return 0;
 }

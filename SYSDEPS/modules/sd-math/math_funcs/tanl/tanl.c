@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   long double x;
-  x = tanl(0.5);
+  x = tanl((long double) argc);
   return 0;
 }

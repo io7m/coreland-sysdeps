@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   double x;
-  x = tan(0.5);
+  x = tan((double) argc);
   return 0;
 }

@@ -1,10 +1,10 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   float x;
   int i;
 
-  x = remquof(0.5, 0.5, &i);
+  x = remquof((float) argc, (float) argc, &i);
   return 0;
 }

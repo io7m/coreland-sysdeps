@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   float x;
-  x = fmaf(0.5, 0.5, 0.5);
+  x = fmaf((float) argc, (float) argc, (float) argc);
   return 0;
 }

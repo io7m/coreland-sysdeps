@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   double x;
-  x = scalbn(0.5, 1);
+  x = scalbn((double) argc, 1);
   return 0;
 }

@@ -1,8 +1,10 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   long double x;
-  x = remquol(0.5);
+  int i;
+
+  x = remquol((long double) argc, (long double) argc, &i);
   return 0;
 }

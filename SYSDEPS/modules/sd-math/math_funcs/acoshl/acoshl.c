@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   long double x;
-  x = acoshl(0.5);
+  x = acoshl((long double) argc);
   return 0;
 }

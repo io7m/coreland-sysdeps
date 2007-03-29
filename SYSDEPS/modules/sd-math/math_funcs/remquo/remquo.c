@@ -1,10 +1,10 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   double x;
   int i;
 
-  x = remquo(0.5, 0.5, &i);
+  x = remquo((double) argc, (double) argc, &i);
   return 0;
 }

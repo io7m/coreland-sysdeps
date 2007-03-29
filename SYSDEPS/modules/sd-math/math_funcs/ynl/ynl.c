@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   long double x;
-  x = ynl(0.5, 0.5);
+  x = ynl((long double) argc, (long double) argc);
   return 0;
 }

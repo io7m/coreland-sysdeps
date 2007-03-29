@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   double x;
-  x = isunordered(0.5, 0.5);
+  x = isunordered((double) argc, (double) argc);
   return 0;
 }

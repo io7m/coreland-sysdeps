@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   float x;
-  x = lrintf(0.5);
+  x = lrintf((float) argc);
   return 0;
 }

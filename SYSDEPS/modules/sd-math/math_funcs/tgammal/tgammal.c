@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   long double x;
-  x = tgammal(0.5);
+  x = tgammal((long double) argc);
   return 0;
 }

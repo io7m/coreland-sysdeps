@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   float x;
-  x = scalblnf(0.5, 1);
+  x = scalblnf((float) argc, 1);
   return 0;
 }

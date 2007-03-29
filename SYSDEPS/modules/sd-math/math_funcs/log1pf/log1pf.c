@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   float x;
-  x = log1pf(0.5);
+  x = log1pf((float) argc);
   return 0;
 }

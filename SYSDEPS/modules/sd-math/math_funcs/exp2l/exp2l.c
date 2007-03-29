@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   long double x;
-  x = exp2l(0.5);
+  x = exp2l((long double) argc);
   return 0;
 }

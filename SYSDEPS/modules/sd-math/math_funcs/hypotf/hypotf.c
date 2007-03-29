@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   float x;
-  x = hypotf(0.5);
+  x = hypotf((float) argc, (float) argc);
   return 0;
 }

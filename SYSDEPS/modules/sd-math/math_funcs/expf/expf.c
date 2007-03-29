@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   float x;
-  x = expf(0.5);
+  x = expf((float) argc);
   return 0;
 }

@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   float x;
-  x = acoshf(0.5);
+  x = acoshf((float) argc);
   return 0;
 }

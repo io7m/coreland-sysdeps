@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   double x;
-  x = fmax(0.5, 0.5);
+  x = fmax((double) argc, (double) argc);
   return 0;
 }

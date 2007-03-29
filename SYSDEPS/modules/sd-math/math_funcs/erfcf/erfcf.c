@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   float x;
-  x = erfcf(0.5);
+  x = erfcf((float) argc);
   return 0;
 }

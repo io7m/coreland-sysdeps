@@ -1,10 +1,10 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   long double x;
   int i;
 
-  x = frexpl(0.5, &i);
+  x = frexpl((long double) argc, &i);
   return 0;
 }

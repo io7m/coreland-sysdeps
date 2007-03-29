@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   double x;
-  x = isnan(0.5);
+  x = isnan((double) argc);
   return 0;
 }

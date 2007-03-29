@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   double x;
-  x = trunc(0.5);
+  x = trunc((double) argc);
   return 0;
 }

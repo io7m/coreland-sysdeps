@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   float x;
-  x = y0f(0.5);
+  x = y0f((float) argc);
   return 0;
 }

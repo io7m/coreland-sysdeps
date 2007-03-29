@@ -1,10 +1,10 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   float x;
   int i;
 
-  x = frexpf(0.5, &i);
+  x = frexpf((float) argc, &i);
   return 0;
 }

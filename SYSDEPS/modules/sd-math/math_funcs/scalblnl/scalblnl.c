@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   long double x;
-  x = scalblnl(0.5, 1);
+  x = scalblnl((long double) argc, 1);
   return 0;
 }

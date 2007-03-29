@@ -1,9 +1,9 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   double x;
   double y;
-  x = modf(0.5, &y);
+  x = modf((double) argc, &y);
   return 0;
 }

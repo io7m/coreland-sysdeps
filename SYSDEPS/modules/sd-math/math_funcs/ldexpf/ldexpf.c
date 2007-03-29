@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   float x;
-  x = ldexpf(0.5, 0.5);
+  x = ldexpf((float) argc, (float) argc);
   return 0;
 }

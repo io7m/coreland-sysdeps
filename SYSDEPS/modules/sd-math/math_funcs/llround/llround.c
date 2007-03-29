@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   double x;
-  x = llround(0.5);
+  x = llround((double) argc);
   return 0;
 }

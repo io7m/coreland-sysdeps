@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   long double x;
-  x = fpclassifyl(0.5);
+  x = fpclassifyl((long double) argc);
   return 0;
 }

@@ -1,10 +1,10 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   double x;
   int i;
 
-  x = frexp(0.5, &i);
+  x = frexp((double) argc, &i);
   return 0;
 }

@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   double x;
-  x = fabs(0.5);
+  x = fabs((double) argc);
   return 0;
 }

@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   double x;
-  x = cosh(0.5);
+  x = cosh((double) argc);
   return 0;
 }

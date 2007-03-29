@@ -1,8 +1,8 @@
 #include <math.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
   float x;
-  x = log10f(0.5);
+  x = log10f((float) argc);
   return 0;
 }
