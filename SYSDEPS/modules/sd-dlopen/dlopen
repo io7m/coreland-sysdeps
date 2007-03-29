@@ -1,42 +1,68 @@
 #!/bin/sh
 
-fout="$1"
-sysdeps="$2"
+head_out="$1"
+flag_out="$2"
+sysd_out="$3"
 
-cat >> "${fout}" <<EOF
+DL_LIBS=""
+
+cleanup()
+{
+  rm -f trydlfunc trydlopen
+  exit 0
+}
+
+head_begin()
+{
+  cat >> "${head_out}" <<EOF
 #ifndef _SD_DLOPEN_H
 #define _SD_DLOPEN_H
-
+ 
 EOF
+}
 
-lflag=""
-case "`uname -s | tr '/:[A-Z]' '..[a-z]'`" in
-  linux) lflag="-ldl";;
-  *) ;;
-esac
+head_end()
+{
+  cat >> "${head_out}" <<EOF
 
-sd_done=0
-${SYSDEP_CC} -o trydlopen trydlopen.c ${lflag} >/dev/null 2>&1
-if [ $? -eq 0 ]
-then
-  echo '#define HAVE_DLOPEN' >> "${fout}"
-  ${SYSDEP_CC} -o trydlfunc trydlfunc.c ${lflag} >/dev/null 2>&1
+#endif
+EOF
+}
+
+try_dlfunc()
+{
+  ${SYSDEP_CC} -o trydlfunc trydlfunc.c ${DL_LIBS} 1>/dev/null 2>&1
   if [ $? -eq 0 ]
   then
-    echo '#define HAVE_DLFUNC' >> "${fout}"
-    echo 'dlopen: dlfunc' >> "${sysdeps}"
-    sd_done=1
-  else
-    echo 'dlopen: dlsym' >> "${sysdeps}"
-    sd_done=1
+    echo "#define HAVE_DLFUNC" >> "${head_out}"
   fi
-fi
+}
 
-echo >> "${fout}"
-echo '#endif' >> "${fout}"
-if [ ${sd_done} -eq 0 ]
-then
-  echo 'dlopen: none' >> "${sysdeps}"
-fi
+try_dlopen()
+{
+  ${SYSDEP_CC} -o trydlopen trydlopen.c ${DL_LIBS} 1>/dev/null 2>&1
+  if [ $? -eq 0 ]
+  then
+    echo "dlopen-libs: ${DL_LIBS}" >> "${sysd_out}"
+    echo "${DL_LIBS}" >> "${flag_out}"
+    echo "#define HAVE_DLOPEN" >> "${head_out}"
+    try_dlfunc
+    return 1
+  else
+    return 0
+  fi
+}
 
-rm -f trydlopen trydlfunc
+touch "${flag_out}"
+head_begin
+
+DL_LIBS="-ldl"
+try_dlopen
+if [ $? -ne 0 ]; then head_end; cleanup; fi
+
+DL_LIBS=""
+try_dlopen
+if [ $? -ne 0 ]; then head_end; cleanup; fi
+
+head_end
+cleanup

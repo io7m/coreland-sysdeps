@@ -9,8 +9,10 @@ fi
 
 sd_tmp="sysdeps.out"
 f1_tmp="_sd_dlopen.h"
-echo "SYSDEPS sd-dlopen clean ${f1_tmp}"
+f2_tmp="libs-dlopen"
+echo "SYSDEPS sd-dlopen clean ${f1_tmp} ${f2_tmp}"
 
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
+f2_out="${SYSDEP_OUTDIR}/${f2_tmp}"
 
-rm -f ${f1_tmp} ${f1_out} ${sd_tmp}
+rm -f ${f1_tmp} ${f1_out} ${f2_tmp} ${f2_out} ${sd_tmp}
