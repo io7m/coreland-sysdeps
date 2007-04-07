@@ -1,1 +1,1 @@
-linker flags to link against the system math libraries.
+detects C math library support and required compiler and linker flags.

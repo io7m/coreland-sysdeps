@@ -1,0 +1,3 @@
+libs-posix_rt
+flags-posix_rt
+_sd_posix_rt.h

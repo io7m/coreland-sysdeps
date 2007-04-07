@@ -1,0 +1,81 @@
+#!/bin/sh
+
+libs_out="$1"
+flag_out="$2"
+head_out="$3"
+sysd_out="$4"
+
+PRT_FLAGS=""
+PRT_LIBS=""
+PRT_HAVE=0
+
+cleanup()
+{
+  rm -f trylink
+  exit 0
+}
+
+try_posix_rt()
+{
+  ${SYSDEP_CC} ${PRT_FLAGS} -o trylink trylink.c ${PRT_LIBS} 1>/dev/null 2>&1
+  if [ $? -eq 0 ]
+  then
+    echo "${PRT_FLAGS}" >> "${flag_out}"
+    echo "${PRT_LIBS}" >> "${libs_out}"
+    echo "posix_rt-flags: ${PRT_FLAGS}" >> "${sysd_out}"
+    echo "posix_rt-libs: ${PRT_LIBS}" >> "${sysd_out}"
+    PRT_HAVE=1
+    return 0
+  fi
+  return 1
+}
+
+try_posix_rt_funcs()
+{
+  echo "#ifndef _SD_POSIX_RT_H" >> "${head_out}"
+  echo "#define _SD_POSIX_RT_H" >> "${head_out}"
+  echo >> "${head_out}"
+
+  for fn in `ls functions`
+  do
+    FUNC=`echo ${fn} | tr [a-z] [A-Z]`
+    ${SYSDEP_CC} ${PRT_FLAGS} -o tmp/${fn} functions/${fn}/${fn}.c ${PRT_LIBS} 1>/dev/null 2>&1
+    if [ $? -eq 0 ]
+    then
+      echo "#define HAVE_${FUNC}" >> "${head_out}"
+      funcs="${fn} ${funcs}"
+      rm -f tmp/${fn}
+    fi
+  done
+
+  echo >> "${head_out}"
+  echo "#endif" >> "${head_out}"
+  echo "posix_rt-funcs: ${funcs}" >> "${sysd_out}"
+  cleanup
+  exit 0
+}
+
+#
+# try combinations of flags and libs to get posix_rt libs
+#
+
+PRT_FLAGS=""
+PRT_LIBS="-lposix4"
+try_posix_rt
+if [ $? -eq 0 ]; then try_posix_rt_funcs; fi
+
+PRT_FLAGS=""
+PRT_LIBS="-lrt"
+try_posix_rt
+if [ $? -eq 0 ]; then try_posix_rt_funcs; fi
+
+PRT_FLAGS=""
+PRT_LIBS=""
+try_posix_rt
+if [ $? -eq 0 ]; then try_posix_rt_funcs; fi
+
+#
+# fallback
+#
+
+try_posix_rt_funcs

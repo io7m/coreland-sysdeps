@@ -8,13 +8,13 @@
 #include "sd_fcntl.h"
 #include "sd_mmap.h"
 #include "sd_math.h"
+#include "sd_posix_rt.h"
 #include "sig_action.h"
 #include "sig_pmask.h"
 #include "sysinfo.h"
 
 int main(void)
 {
-
 #ifdef HAVE_KQUEUE
   printf("system has kqueue\n");
 #else
@@ -889,6 +889,436 @@ int main(void)
   printf("system has loadso\n");
 #else
   printf("system does not have loadso\n");
+#endif
+#ifdef HAVE_AIO_CANCEL
+  printf("system has aio_cancel\n");
+#else
+  printf("system does not have aio_cancel\n");
+#endif
+#ifdef HAVE_AIO_ERROR
+  printf("system has aio_error\n");
+#else
+  printf("system does not have aio_error\n");
+#endif
+#ifdef HAVE_AIO_FSYNC
+  printf("system has aio_fsync\n");
+#else
+  printf("system does not have aio_fsync\n");
+#endif
+#ifdef HAVE_AIO_READ
+  printf("system has aio_read\n");
+#else
+  printf("system does not have aio_read\n");
+#endif
+#ifdef HAVE_AIO_RETURN
+  printf("system has aio_return\n");
+#else
+  printf("system does not have aio_return\n");
+#endif
+#ifdef HAVE_AIO_SUSPEND
+  printf("system has aio_suspend\n");
+#else
+  printf("system does not have aio_suspend\n");
+#endif
+#ifdef HAVE_AIO_WRITE
+  printf("system has aio_write\n");
+#else
+  printf("system does not have aio_write\n");
+#endif
+#ifdef HAVE_CLOCK_GETCPUCLOCKID
+  printf("system has clock_getcpuclockid\n");
+#else
+  printf("system does not have clock_getcpuclockid\n");
+#endif
+#ifdef HAVE_CLOCK_GETRES
+  printf("system has clock_getres\n");
+#else
+  printf("system does not have clock_getres\n");
+#endif
+#ifdef HAVE_CLOCK_GETTIME
+  printf("system has clock_gettime\n");
+#else
+  printf("system does not have clock_gettime\n");
+#endif
+#ifdef HAVE_CLOCK_NANOSLEEP
+  printf("system has clock_nanosleep\n");
+#else
+  printf("system does not have clock_nanosleep\n");
+#endif
+#ifdef HAVE_CLOCK_SETTIME
+  printf("system has clock_settime\n");
+#else
+  printf("system does not have clock_settime\n");
+#endif
+#ifdef HAVE_FCHMOD
+  printf("system has fchmod\n");
+#else
+  printf("system does not have fchmod\n");
+#endif
+#ifdef HAVE_FDATASYNC
+  printf("system has fdatasync\n");
+#else
+  printf("system does not have fdatasync\n");
+#endif
+#ifdef HAVE_FSYNC
+  printf("system has fsync\n");
+#else
+  printf("system does not have fsync\n");
+#endif
+#ifdef HAVE_FTRUNCATE
+  printf("system has ftruncate\n");
+#else
+  printf("system does not have ftruncate\n");
+#endif
+#ifdef HAVE_LIO_LISTIO
+  printf("system has lio_listio\n");
+#else
+  printf("system does not have lio_listio\n");
+#endif
+#ifdef HAVE_MLOCK
+  printf("system has mlock\n");
+#else
+  printf("system does not have mlock\n");
+#endif
+#ifdef HAVE_MLOCKALL
+  printf("system has mlockall\n");
+#else
+  printf("system does not have mlockall\n");
+#endif
+#ifdef HAVE_MMAP
+  printf("system has mmap\n");
+#else
+  printf("system does not have mmap\n");
+#endif
+#ifdef HAVE_MPROTECT
+  printf("system has mprotect\n");
+#else
+  printf("system does not have mprotect\n");
+#endif
+#ifdef HAVE_MQ_CLOSE
+  printf("system has mq_close\n");
+#else
+  printf("system does not have mq_close\n");
+#endif
+#ifdef HAVE_MQ_GETATTR
+  printf("system has mq_getattr\n");
+#else
+  printf("system does not have mq_getattr\n");
+#endif
+#ifdef HAVE_MQ_NOTIFY
+  printf("system has mq_notify\n");
+#else
+  printf("system does not have mq_notify\n");
+#endif
+#ifdef HAVE_MQ_OPEN
+  printf("system has mq_open\n");
+#else
+  printf("system does not have mq_open\n");
+#endif
+#ifdef HAVE_MQ_RECEIVE
+  printf("system has mq_receive\n");
+#else
+  printf("system does not have mq_receive\n");
+#endif
+#ifdef HAVE_MQ_SEND
+  printf("system has mq_send\n");
+#else
+  printf("system does not have mq_send\n");
+#endif
+#ifdef HAVE_MQ_SETATTR
+  printf("system has mq_setattr\n");
+#else
+  printf("system does not have mq_setattr\n");
+#endif
+#ifdef HAVE_MQ_TIMEDRECEIVE
+  printf("system has mq_timedreceive\n");
+#else
+  printf("system does not have mq_timedreceive\n");
+#endif
+#ifdef HAVE_MQ_TIMEDSEND
+  printf("system has mq_timedsend\n");
+#else
+  printf("system does not have mq_timedsend\n");
+#endif
+#ifdef HAVE_MQ_UNLINK
+  printf("system has mq_unlink\n");
+#else
+  printf("system does not have mq_unlink\n");
+#endif
+#ifdef HAVE_MSYNC
+  printf("system has msync\n");
+#else
+  printf("system does not have msync\n");
+#endif
+#ifdef HAVE_MUNMAP
+  printf("system has munmap\n");
+#else
+  printf("system does not have munmap\n");
+#endif
+#ifdef HAVE_NANOSLEEP
+  printf("system has nanosleep\n");
+#else
+  printf("system does not have nanosleep\n");
+#endif
+#ifdef HAVE_POSIX_FADVISE
+  printf("system has posix_fadvise\n");
+#else
+  printf("system does not have posix_fadvise\n");
+#endif
+#ifdef HAVE_POSIX_FALLOCATE
+  printf("system has posix_fallocate\n");
+#else
+  printf("system does not have posix_fallocate\n");
+#endif
+#ifdef HAVE_POSIX_MADVISE
+  printf("system has posix_madvise\n");
+#else
+  printf("system does not have posix_madvise\n");
+#endif
+#ifdef HAVE_POSIX_MEM_OFFSET
+  printf("system has posix_mem_offset\n");
+#else
+  printf("system does not have posix_mem_offset\n");
+#endif
+#ifdef HAVE_POSIX_MEMALIGN
+  printf("system has posix_memalign\n");
+#else
+  printf("system does not have posix_memalign\n");
+#endif
+#ifdef HAVE_POSIX_SPAWN
+  printf("system has posix_spawn\n");
+#else
+  printf("system does not have posix_spawn\n");
+#endif
+#ifdef HAVE_POSIX_SPAWN_FILE_ACTIONS_ADDCLOSE
+  printf("system has posix_spawn_file_actions_addclose\n");
+#else
+  printf("system does not have posix_spawn_file_actions_addclose\n");
+#endif
+#ifdef HAVE_POSIX_SPAWN_FILE_ACTIONS_ADDDUP2
+  printf("system has posix_spawn_file_actions_adddup2\n");
+#else
+  printf("system does not have posix_spawn_file_actions_adddup2\n");
+#endif
+#ifdef HAVE_POSIX_SPAWN_FILE_ACTIONS_ADDOPEN
+  printf("system has posix_spawn_file_actions_addopen\n");
+#else
+  printf("system does not have posix_spawn_file_actions_addopen\n");
+#endif
+#ifdef HAVE_POSIX_SPAWN_FILE_ACTIONS_DESTROY
+  printf("system has posix_spawn_file_actions_destroy\n");
+#else
+  printf("system does not have posix_spawn_file_actions_destroy\n");
+#endif
+#ifdef HAVE_POSIX_SPAWN_FILE_ACTIONS_INIT
+  printf("system has posix_spawn_file_actions_init\n");
+#else
+  printf("system does not have posix_spawn_file_actions_init\n");
+#endif
+#ifdef HAVE_POSIX_SPAWNATTR_DESTROY
+  printf("system has posix_spawnattr_destroy\n");
+#else
+  printf("system does not have posix_spawnattr_destroy\n");
+#endif
+#ifdef HAVE_POSIX_SPAWNATTR_GETFLAGS
+  printf("system has posix_spawnattr_getflags\n");
+#else
+  printf("system does not have posix_spawnattr_getflags\n");
+#endif
+#ifdef HAVE_POSIX_SPAWNATTR_GETPGROUP
+  printf("system has posix_spawnattr_getpgroup\n");
+#else
+  printf("system does not have posix_spawnattr_getpgroup\n");
+#endif
+#ifdef HAVE_POSIX_SPAWNATTR_GETSCHEDPARAM
+  printf("system has posix_spawnattr_getschedparam\n");
+#else
+  printf("system does not have posix_spawnattr_getschedparam\n");
+#endif
+#ifdef HAVE_POSIX_SPAWNATTR_GETSCHEDPOLICY
+  printf("system has posix_spawnattr_getschedpolicy\n");
+#else
+  printf("system does not have posix_spawnattr_getschedpolicy\n");
+#endif
+#ifdef HAVE_POSIX_SPAWNATTR_GETSIGDEFAULT
+  printf("system has posix_spawnattr_getsigdefault\n");
+#else
+  printf("system does not have posix_spawnattr_getsigdefault\n");
+#endif
+#ifdef HAVE_POSIX_SPAWNATTR_GETSIGMASK
+  printf("system has posix_spawnattr_getsigmask\n");
+#else
+  printf("system does not have posix_spawnattr_getsigmask\n");
+#endif
+#ifdef HAVE_POSIX_SPAWNATTR_INIT
+  printf("system has posix_spawnattr_init\n");
+#else
+  printf("system does not have posix_spawnattr_init\n");
+#endif
+#ifdef HAVE_POSIX_SPAWNATTR_SETFLAGS
+  printf("system has posix_spawnattr_setflags\n");
+#else
+  printf("system does not have posix_spawnattr_setflags\n");
+#endif
+#ifdef HAVE_POSIX_SPAWNATTR_SETPGROUP
+  printf("system has posix_spawnattr_setpgroup\n");
+#else
+  printf("system does not have posix_spawnattr_setpgroup\n");
+#endif
+#ifdef HAVE_POSIX_SPAWNATTR_SETSCHEDPARAM
+  printf("system has posix_spawnattr_setschedparam\n");
+#else
+  printf("system does not have posix_spawnattr_setschedparam\n");
+#endif
+#ifdef HAVE_POSIX_SPAWNATTR_SETSCHEDPOLICY
+  printf("system has posix_spawnattr_setschedpolicy\n");
+#else
+  printf("system does not have posix_spawnattr_setschedpolicy\n");
+#endif
+#ifdef HAVE_POSIX_SPAWNATTR_SETSIGDEFAULT
+  printf("system has posix_spawnattr_setsigdefault\n");
+#else
+  printf("system does not have posix_spawnattr_setsigdefault\n");
+#endif
+#ifdef HAVE_POSIX_SPAWNATTR_SETSIGMASK
+  printf("system has posix_spawnattr_setsigmask\n");
+#else
+  printf("system does not have posix_spawnattr_setsigmask\n");
+#endif
+#ifdef HAVE_POSIX_SPAWNP
+  printf("system has posix_spawnp\n");
+#else
+  printf("system does not have posix_spawnp\n");
+#endif
+#ifdef HAVE_POSIX_TYPED_MEM_GET_INFO
+  printf("system has posix_typed_mem_get_info\n");
+#else
+  printf("system does not have posix_typed_mem_get_info\n");
+#endif
+#ifdef HAVE_POSIX_TYPED_MEM_OPEN
+  printf("system has posix_typed_mem_open\n");
+#else
+  printf("system does not have posix_typed_mem_open\n");
+#endif
+#ifdef HAVE_SCHED_GET_PRIORITY_MAX
+  printf("system has sched_get_priority_max\n");
+#else
+  printf("system does not have sched_get_priority_max\n");
+#endif
+#ifdef HAVE_SCHED_GETPARAM
+  printf("system has sched_getparam\n");
+#else
+  printf("system does not have sched_getparam\n");
+#endif
+#ifdef HAVE_SCHED_GETSCHEDULER
+  printf("system has sched_getscheduler\n");
+#else
+  printf("system does not have sched_getscheduler\n");
+#endif
+#ifdef HAVE_SCHED_RR_GET_INTERVAL
+  printf("system has sched_rr_get_interval\n");
+#else
+  printf("system does not have sched_rr_get_interval\n");
+#endif
+#ifdef HAVE_SCHED_SETPARAM
+  printf("system has sched_setparam\n");
+#else
+  printf("system does not have sched_setparam\n");
+#endif
+#ifdef HAVE_SCHED_SETSCHEDULER
+  printf("system has sched_setscheduler\n");
+#else
+  printf("system does not have sched_setscheduler\n");
+#endif
+#ifdef HAVE_SEM_CLOSE
+  printf("system has sem_close\n");
+#else
+  printf("system does not have sem_close\n");
+#endif
+#ifdef HAVE_SEM_DESTROY
+  printf("system has sem_destroy\n");
+#else
+  printf("system does not have sem_destroy\n");
+#endif
+#ifdef HAVE_SEM_GETVALUE
+  printf("system has sem_getvalue\n");
+#else
+  printf("system does not have sem_getvalue\n");
+#endif
+#ifdef HAVE_SEM_INIT
+  printf("system has sem_init\n");
+#else
+  printf("system does not have sem_init\n");
+#endif
+#ifdef HAVE_SEM_OPEN
+  printf("system has sem_open\n");
+#else
+  printf("system does not have sem_open\n");
+#endif
+#ifdef HAVE_SEM_POST
+  printf("system has sem_post\n");
+#else
+  printf("system does not have sem_post\n");
+#endif
+#ifdef HAVE_SEM_TIMEDWAIT
+  printf("system has sem_timedwait\n");
+#else
+  printf("system does not have sem_timedwait\n");
+#endif
+#ifdef HAVE_SEM_TRYWAIT
+  printf("system has sem_trywait\n");
+#else
+  printf("system does not have sem_trywait\n");
+#endif
+#ifdef HAVE_SEM_UNLINK
+  printf("system has sem_unlink\n");
+#else
+  printf("system does not have sem_unlink\n");
+#endif
+#ifdef HAVE_SEM_WAIT
+  printf("system has sem_wait\n");
+#else
+  printf("system does not have sem_wait\n");
+#endif
+#ifdef HAVE_SHM_OPEN
+  printf("system has shm_open\n");
+#else
+  printf("system does not have shm_open\n");
+#endif
+#ifdef HAVE_SHM_UNLINK
+  printf("system has shm_unlink\n");
+#else
+  printf("system does not have shm_unlink\n");
+#endif
+#ifdef HAVE_SIGQUEUE
+  printf("system has sigqueue\n");
+#else
+  printf("system does not have sigqueue\n");
+#endif
+#ifdef HAVE_SIGTIMEDWAIT
+  printf("system has sigtimedwait\n");
+#else
+  printf("system does not have sigtimedwait\n");
+#endif
+#ifdef HAVE_SIGWAITINFO
+  printf("system has sigwaitinfo\n");
+#else
+  printf("system does not have sigwaitinfo\n");
+#endif
+#ifdef HAVE_TIMER_CREATE
+  printf("system has timer_create\n");
+#else
+  printf("system does not have timer_create\n");
+#endif
+#ifdef HAVE_TIMER_DELETE
+  printf("system has timer_delete\n");
+#else
+  printf("system does not have timer_delete\n");
+#endif
+#ifdef HAVE_TIMER_GETOVERRUN
+  printf("system has timer_getoverrun\n");
+#else
+  printf("system does not have timer_getoverrun\n");
 #endif
   return 0;
 }
