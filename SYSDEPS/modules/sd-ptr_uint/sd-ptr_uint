@@ -1,0 +1,48 @@
+#!/bin/sh
+
+cleanup()
+{
+  rm -f try_ptr_uint1 try_ptr_uint1.1 try_ptr_uint1.2 \
+        try_ptr_uint2 try_ptr_uint2.1 try_ptr_uint2.2
+}
+
+fatal()
+{
+  echo "fatal: $1" 1>&2
+  cleanup
+  exit 1
+}
+
+temp_f="$1"
+temp_sys="$2"
+
+${SYSDEP_CC} -o try_ptr_uint1 try_ptr_uint1.c
+if [ $? -eq 0 ]
+then
+  ./try_ptr_uint1 1>> try_ptr_uint1.1 2>> try_ptr_uint1.2
+  if [ $? -eq 0 ]
+  then
+    mv try_ptr_uint1.1 "${temp_f}"
+    mv try_ptr_uint1.2 "${temp_sys}"
+  else
+    ${SYSDEP_CC} -o try_ptr_uint2 try_ptr_uint2.c
+    if [ $? -eq 0 ]
+    then
+      ./try_ptr_uint2 1>> try_ptr_uint2.1 2>> try_ptr_uint2.2
+      if [ $? -eq 0 ]
+      then
+        mv try_ptr_uint2.1 "${temp_f}"
+        mv try_ptr_uint2.2 "${temp_sys}"
+      else
+        fatal "could not retrieve integer type equal in size to pointer"
+      fi
+    else
+      fatal "error compiling try_ptr_uint2"
+    fi
+  fi
+else
+  fatal "error compiling try_ptr_uint1"
+fi
+
+cleanup
+exit 0
