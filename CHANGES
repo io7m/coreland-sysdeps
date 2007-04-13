@@ -80,3 +80,5 @@
 20070326 code: vector-libs update.
 20070407 code: added sd-posix_rt.
 20070409 code: added sd-ptr_uint.
+20070413 code: added sd-creates script so Makefile generators can get a list
+               of all files created by the current modules.
