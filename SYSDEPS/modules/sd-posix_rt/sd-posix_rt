@@ -11,13 +11,16 @@ PRT_HAVE=0
 
 cleanup()
 {
-  rm -f trylink
-  exit 0
+  rm -f trylink trylink.o
 }
 
 try_posix_rt()
 {
-  ${SYSDEP_CC} ${PRT_FLAGS} -o trylink trylink.c ${PRT_LIBS} 1>/dev/null 2>&1
+  ${SYSDEP_CC} ${SYSDEP_CFLAGS} ${PRT_FLAGS} \
+    -c -o trylink.o trylink.c 1>/dev/null 2>&1
+  ${SYSDEP_LD} \
+    -o trylink trylink.o ${SYSDEP_LDFLAGS} ${PRT_LIBS} 1>/dev/null 2>&1
+ 
   if [ $? -eq 0 ]
   then
     echo "${PRT_FLAGS}" >> "${flag_out}"
@@ -25,8 +28,10 @@ try_posix_rt()
     echo "posix_rt-flags: ${PRT_FLAGS}" >> "${sysd_out}"
     echo "posix_rt-libs: ${PRT_LIBS}" >> "${sysd_out}"
     PRT_HAVE=1
+    cleanup
     return 0
   fi
+  cleanup
   return 1
 }
 
@@ -39,19 +44,21 @@ try_posix_rt_funcs()
   for fn in `ls functions`
   do
     FUNC=`echo ${fn} | tr [a-z] [A-Z]`
-    ${SYSDEP_CC} ${PRT_FLAGS} -o tmp/${fn} functions/${fn}/${fn}.c ${PRT_LIBS} 1>/dev/null 2>&1
+    ${SYSDEP_CC} ${SYSDEP_CFLAGS} ${PRT_FLAGS} \
+      -c -o tmp/${fn}.o functions/${fn}/${fn}.c 1>/dev/null 2>&1
+    ${SYSDEP_LD} \
+      -o tmp/${fn} tmp/${fn}.o ${SYSDEP_LDFLAGS} ${PRT_LIBS} 1>/dev/null 2>&1
     if [ $? -eq 0 ]
     then
       echo "#define HAVE_${FUNC}" >> "${head_out}"
       funcs="${fn} ${funcs}"
-      rm -f tmp/${fn}
+      rm -f tmp/${fn} tmp/${fn}.o
     fi
   done
 
   echo >> "${head_out}"
   echo "#endif" >> "${head_out}"
   echo "posix_rt-funcs: ${funcs}" >> "${sysd_out}"
-  cleanup
   exit 0
 }
 

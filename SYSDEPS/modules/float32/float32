@@ -2,7 +2,7 @@
 
 do_clean()
 {
-  rm -f float32_make float64_make
+  rm -f float32_make float32_make.o
 }
 
 fatal()
@@ -15,7 +15,8 @@ fatal()
 temp32="$1"
 tempsys="$2"
 
-${SYSDEP_CC} -o float32_make float32_make.c
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o float32_make.o float32_make.c
+${SYSDEP_LD} -o float32_make float32_make.o ${SYSDEP_LDFLAGS}
 if [ $? -ne 0 ]; then fatal "error compiling float32_make"; fi
 ./float32_make 1>${temp32} 2>>${tempsys}
 if [ $? -ne 0 ]; then fatal "could not get 32-bit floats"; fi

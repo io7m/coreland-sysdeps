@@ -1,24 +1,52 @@
 #!/bin/sh
 
-do_clean()
+cleanup()
 {
-  rm -f uint16_make
+  rm -f try_uint1 try_uint1.o try_uint1.1 try_uint1.2 \
+        try_uint2 try_uint2.o try_uint2.1 try_uint2.2
 }
 
 fatal()
 {
   echo "fatal: $1" 1>&2
-  do_clean
+  cleanup
   exit 1
 }
 
-tempuint="$1"
-tempsys="$2"
+temp_f="$1"
+temp_sys="$2"
+HAVE_SIZE=0
 
-${SYSDEP_CC} -o uint16_make uint16_make.c
-if [ $? -ne 0 ]; then fatal "error compiling uint16_make"; fi
-./uint16_make 1>${tempuint} 2>>${tempsys}
-if [ $? -ne 0 ]; then fatal "could not get 16-bit unsigned ints"; fi
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o try_uint1.o try_uint1.c 1>/dev/null 2>&1
+${SYSDEP_LD} -o try_uint1 try_uint1.o ${SYSDEP_LDFLAGS} 1>/dev/null 2>&1
+if [ $? -eq 0 ]
+then
+  ./try_uint1 1>> try_uint1.1 2>> try_uint1.2
+  if [ $? -eq 0 ]
+  then
+    mv try_uint1.1 "${temp_f}"
+    mv try_uint1.2 "${temp_sys}"
+    HAVE_SIZE=1
+  else
+    ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o try_uint2.o try_uint2.c 1>/dev/null 2>&1
+    ${SYSDEP_LD} -o try_uint2 try_uint2.o ${SYSDEP_LDFLAGS} 1>/dev/null 2>&1
+    if [ $? -eq 0 ]
+    then
+      ./try_uint2 1>> try_uint2.1 2>> try_uint2.2
+      if [ $? -eq 0 ]
+      then
+        mv try_uint2.1 "${temp_f}"
+        mv try_uint2.2 "${temp_sys}"
+        HAVE_SIZE=1
+      fi
+    fi
+  fi
+fi
 
-do_clean
+if [ ${HAVE_SIZE} -eq 0 ]
+then
+  fatal "could not get unsigned 16 bit integer type"
+fi
+
+cleanup
 exit 0

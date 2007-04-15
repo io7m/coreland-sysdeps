@@ -2,7 +2,7 @@
 
 do_clean()
 {
-  rm -f make-byteorder
+  rm -f make-byteorder make-byteorder.o
 }
 
 fatal()
@@ -15,7 +15,8 @@ fatal()
 temph="$1"
 tempsys="$2"
 
-${SYSDEP_CC} -o make-byteorder make-byteorder.c
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o make-byteorder.o make-byteorder.c
+${SYSDEP_LD} -o make-byteorder make-byteorder.o ${SYSDEP_LDFLAGS}
 if [ $? -ne 0 ]; then fatal "error compiling make-byteorder"; fi
 
 ./make-byteorder 1>${temph} 2>>${tempsys}

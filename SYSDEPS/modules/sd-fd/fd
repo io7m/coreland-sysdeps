@@ -9,7 +9,8 @@ cat >> "${fout}" <<EOF
 
 EOF
 
-${SYSDEP_CC} -o trydup2 trydup2.c
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trydup2.o trydup2.c 1>/dev/null 2>&1
+${SYSDEP_LD} -o trydup2 trydup2.o ${SYSDEP_LDFLAGS} 1>/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '#define HAVE_DUP2' >> "${fout}"

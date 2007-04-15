@@ -14,7 +14,8 @@ cat >> "${fout}" <<EOF
 #define _SD_LONGLONG_H
 EOF
 
-${SYSDEP_CC} -o trylonglong trylonglong.c 1>/dev/null 2>&1
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trylonglong.o trylonglong.c 1>/dev/null 2>&1
+${SYSDEP_LD} -o trylonglong trylonglong.o ${SYSDEP_LDFLAGS} 1>/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '#define HAVE_LONGLONG' >> "${fout}"

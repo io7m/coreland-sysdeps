@@ -11,13 +11,16 @@ M_HAVE=0
 
 cleanup()
 {
-  rm -f trymath1
-  exit 0
+  rm -f trymath1 trymath1.o
 }
 
 try_math()
 {
-  ${SYSDEP_CC} ${M_FLAGS} -o trymath1 trymath1.c ${M_LIBS} 1>/dev/null 2>&1
+  ${SYSDEP_CC} ${SYSDEP_CFLAGS} ${M_FLAGS} \
+    -c -o trymath1.o trymath1.c 1>/dev/null 2>&1
+  ${SYSDEP_LD} \
+    -o trymath1 trymath1.o ${SYSDEP_LDFLAGS} ${M_LIBS} 1>/dev/null 2>&1
+
   if [ $? -eq 0 ]
   then
     echo "${M_FLAGS}" >> "${flag_out}"
@@ -25,8 +28,10 @@ try_math()
     echo "math-flags: ${M_FLAGS}" >> "${sysd_out}"
     echo "math-libs: ${M_LIBS}" >> "${sysd_out}"
     M_HAVE=1
+    cleanup
     return 0
   fi
+  cleanup
   return 1
 }
 
@@ -39,12 +44,16 @@ try_math_funcs()
   for fn in `ls math_funcs`
   do
     FUNC=`echo ${fn} | tr [a-z] [A-Z]`
-    ${SYSDEP_CC} ${M_FLAGS} -o tmp/${fn} math_funcs/${fn}/${fn}.c ${M_LIBS} 1>/dev/null 2>&1
+    ${SYSDEP_CC} ${SYSDEP_CFLAGS} ${M_FLAGS} \
+      -c -o tmp/${fn}.o math_funcs/${fn}/${fn}.c 1>/dev/null 2>&1
+    ${SYSDEP_LD} \
+      -o tmp/${fn} tmp/${fn}.o ${SYSDEP_LDFLAGS} ${M_LIBS} 1>/dev/null 2>&1
+
     if [ $? -eq 0 ]
     then
       echo "#define HAVE_MATH_${FUNC}" >> "${head_out}"
       funcs="${fn} ${funcs}"
-      rm -f tmp/${fn}
+      rm -f tmp/${fn} tmp/${fn}.o
     fi
   done
 

@@ -9,7 +9,8 @@ cat >> "${sigact_out}" <<EOF
 #define _SIG_ACTION_H
 EOF
 
-${SYSDEP_CC} -o trysigact trysigact.c >/dev/null 2>&1
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trysigact.o trysigact.c >/dev/null 2>&1
+${SYSDEP_LD} -o trysigact trysigact.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '#define HAVE_SIGACTION' >> "${sigact_out}"
@@ -25,7 +26,8 @@ cat >> "${sigpm_out}" <<EOF
 #define _SIG_PMASK_H
 EOF
 
-${SYSDEP_CC} -o trysigpm trysigpm.c >/dev/null 2>&1
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trysigpm.o trysigpm.c >/dev/null 2>&1
+${SYSDEP_LD} -o trysigpm trysigpm.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '#define HAVE_SIGPROCMASK' >> "${sigpm_out}"
@@ -36,4 +38,4 @@ fi
 
 echo '#endif' >> "${sigpm_out}"
 
-rm -f trysigpm trysigact
+rm -f trysigpm trysigact trysigpm.o trysigact.o

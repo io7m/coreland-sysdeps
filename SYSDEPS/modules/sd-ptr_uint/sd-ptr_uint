@@ -16,7 +16,8 @@ fatal()
 temp_f="$1"
 temp_sys="$2"
 
-${SYSDEP_CC} -o try_ptr_uint1 try_ptr_uint1.c
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o try_ptr_uint1.o try_ptr_uint1.c
+${SYSDEP_LD} -o try_ptr_uint1 try_ptr_uint1.o ${SYSDEP_LDFLAGS}
 if [ $? -eq 0 ]
 then
   ./try_ptr_uint1 1>> try_ptr_uint1.1 2>> try_ptr_uint1.2
@@ -25,7 +26,8 @@ then
     mv try_ptr_uint1.1 "${temp_f}"
     mv try_ptr_uint1.2 "${temp_sys}"
   else
-    ${SYSDEP_CC} -o try_ptr_uint2 try_ptr_uint2.c
+    ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o try_ptr_uint2.o try_ptr_uint2.c
+    ${SYSDEP_LD} -o try_ptr_uint2 try_ptr_uint2.o ${SYSDEP_LDFLAGS}
     if [ $? -eq 0 ]
     then
       ./try_ptr_uint2 1>> try_ptr_uint2.1 2>> try_ptr_uint2.2

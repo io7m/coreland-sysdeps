@@ -9,7 +9,8 @@ cat >> "${fout}" <<EOF
 
 EOF
 
-${SYSDEP_CC} -o trymmap1 trymmap1.c  1>/dev/null 2>&1
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trymmap1.o trymmap1.c  1>/dev/null 2>&1
+${SYSDEP_LD} -o trymmap1 trymmap1.o ${SYSDEP_LDFLAGS} 1>/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   ./trymmap1

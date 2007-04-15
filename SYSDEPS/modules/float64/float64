@@ -2,7 +2,7 @@
 
 do_clean()
 {
-  rm -f float64_make float64_make
+  rm -f float64_make float64_make.o
 }
 
 fatal()
@@ -15,7 +15,8 @@ fatal()
 temp64="$1"
 tempsys="$2"
 
-${SYSDEP_CC} -o float64_make float64_make.c
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o float64_make.o float64_make.c
+${SYSDEP_LD} -o float64_make float64_make.o ${SYSDEP_LDFLAGS}
 if [ $? -ne 0 ]; then fatal "error compiling float64_make"; fi
 ./float64_make 1>${temp64} 2>>${tempsys}
 if [ $? -ne 0 ]; then fatal "could not get 64-bit floats"; fi

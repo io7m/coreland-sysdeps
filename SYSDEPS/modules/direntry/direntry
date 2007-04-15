@@ -3,7 +3,8 @@
 fout="$1"
 sysdeps="$2"
 
-${SYSDEP_CC} -c trydirent.c >/dev/null 2>&1
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -o trydirent.o -c trydirent.c >/dev/null 2>&1
+${SYSDEP_LD} -o trydirent trydirent.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   cat > "${fout}" <<EOF
@@ -31,4 +32,4 @@ EOF
   echo "direntry: struct direct" >> "${sysdeps}"
 fi
 
-rm -f trydirent.o
+rm -f trydirent.o trydirent

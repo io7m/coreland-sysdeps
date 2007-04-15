@@ -8,7 +8,7 @@ DL_LIBS=""
 
 cleanup()
 {
-  rm -f trydlfunc trydlopen
+  rm -f trydlfunc trydlfunc.o trydlopen trydlopen.o
   exit 0
 }
 
@@ -31,7 +31,8 @@ EOF
 
 try_dlfunc()
 {
-  ${SYSDEP_CC} -o trydlfunc trydlfunc.c ${DL_LIBS} 1>/dev/null 2>&1
+  ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trydlfunc.o trydlfunc.c 1>/dev/null 2>&1
+  ${SYSDEP_LD} -o trydlfunc trydlfunc.o ${SYSDEP_LDFLAGS} ${DL_LIBS} 1>/dev/null 2>&1
   if [ $? -eq 0 ]
   then
     return 1
@@ -42,7 +43,8 @@ try_dlfunc()
 
 try_dlopen()
 {
-  ${SYSDEP_CC} -o trydlopen trydlopen.c ${DL_LIBS} 1>/dev/null 2>&1
+  ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trydlopen.o trydlopen.c 1>/dev/null 2>&1
+  ${SYSDEP_LD} -o trydlopen trydlopen.o ${SYSDEP_LDFLAGS} ${DL_LIBS} 1>/dev/null 2>&1
   if [ $? -eq 0 ]
   then
     echo "dlopen-libs: ${DL_LIBS}" >> "${sysd_out}"

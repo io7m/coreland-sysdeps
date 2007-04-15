@@ -9,8 +9,13 @@ fi
 
 sd_tmp="sysdeps.out"
 f1_tmp="_sd_fcntl.h"
-echo "SYSDEPS sd-fcntl clean ${f1_tmp}"
+f2_tmp="flags-fcntl"
+f3_tmp="libs-fcntl"
+
+echo "SYSDEPS sd-fcntl clean ${f1_tmp} ${f2_tmp} ${f3_tmp}"
 
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
+f2_out="${SYSDEP_OUTDIR}/${f2_tmp}"
+f3_out="${SYSDEP_OUTDIR}/${f3_tmp}"
 
-rm -f ${f1_tmp} ${f1_out} ${sd_tmp}
+rm -f ${f1_tmp} ${f1_out} ${f2_tmp} ${f2_out} ${f3_tmp} ${f3_out} ${sd_tmp}

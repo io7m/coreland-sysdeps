@@ -5,7 +5,8 @@ sysdeps="$2"
 
 cleanup()
 {
-  rm -f tryselect1 tryselect2 tryselect3 tryselect4 *.exe
+  rm -f tryselect1 tryselect2 tryselect3 tryselect4 \
+        tryselect1.o tryselect2.o tryselect3.o tryselect4.o *.exe
 }
 
 cat >> "${fout}" << EOF
@@ -13,7 +14,8 @@ cat >> "${fout}" << EOF
 #define _SD_SELECT_H
 EOF
 
-${SYSDEP_CC} -o tryselect1 tryselect1.c >/dev/null 2>&1
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o tryselect1.o tryselect1.c >/dev/null 2>&1
+${SYSDEP_LD} -o tryselect1 tryselect1.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '#include <sys/select.h>' >> "${fout}"
@@ -23,7 +25,8 @@ then
   exit 0
 fi
 
-${SYSDEP_CC} -o tryselect2 tryselect2.c >/dev/null 2>&1
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o tryselect2 tryselect2.c >/dev/null 2>&1
+${SYSDEP_LD} -o tryselect2 tryselect2.c ${SYSDEP_LDFLAGS} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '#include <sys/time.h>' >> "${fout}"
@@ -33,7 +36,8 @@ then
   exit 0
 fi
 
-${SYSDEP_CC} -o tryselect3 tryselect3.c >/dev/null 2>&1
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o tryselect3 tryselect3.c >/dev/null 2>&1
+${SYSDEP_LD} -o tryselect3 tryselect3.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '#include <sys/time.h>' >> "${fout}"
@@ -45,7 +49,8 @@ then
   exit 0
 fi
 
-${SYSDEP_CC} -o tryselect4 tryselect4.c -lws2_32 >/dev/null 2>&1
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o tryselect4.o tryselect4.c >/dev/null 2>&1
+${SYSDEP_CC} -o tryselect4 tryselect4.o -lws2_32 ${SYSDEP_LDFLAGS} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '#include <winsock.h>' >> "${fout}"
@@ -56,7 +61,8 @@ then
   exit 0
 fi
 
-${SYSDEP_CC} -o tryselect5 tryselect5.c >/dev/null 2>&1
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o tryselect5.o tryselect5.c >/dev/null 2>&1
+${SYSDEP_LD} -o tryselect5 tryselect5.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '#include <net/socket.h>' >> "${fout}"

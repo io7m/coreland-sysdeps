@@ -5,11 +5,12 @@ sd_out="$2"
 
 cleanup()
 {
-  rm -f trysocket
+  rm -f trysocket trysocket.o
   exit 0
 }
 
-${SYSDEP_CC} -o trysocket trysocket.c 1>/dev/null 2>&1
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trysocket.o trysocket.c 1>/dev/null 2>&1
+${SYSDEP_LD} -o trysocket trysocket.o ${SYSDEP_LDFLAGS} 1>/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo >> "${fout}"
@@ -17,7 +18,8 @@ then
   cleanup
 fi
 
-${SYSDEP_CC} -o trysocket trysocket.c -lsocket 1>/dev/null 2>&1
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trysocket.o trysocket.c 1>/dev/null 2>&1
+${SYSDEP_LD} -o trysocket trysocket.c -lsocket ${SYSDEP_LDFLAGS} 1>/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '-lsocket' >> "${fout}"

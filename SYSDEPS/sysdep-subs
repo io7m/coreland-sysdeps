@@ -76,7 +76,7 @@ fi
 if [ -f "${SYSDEP_DIR_RELATIVE}/../conf-ldflags" ]
 then
   tmp=`head -n 1 "${SYSDEP_DIR_RELATIVE}/../conf-ldflags"`
-  if [ ! -z "${tmp}" ]; then SYSDEP_CFLAGS="${tmp}"; fi
+  if [ ! -z "${tmp}" ]; then SYSDEP_LDFLAGS="${tmp}"; fi
 fi
 export SYSDEP_CFLAGS
 export SYSDEP_LDFLAGS

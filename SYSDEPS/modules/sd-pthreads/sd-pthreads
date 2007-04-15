@@ -19,8 +19,11 @@ cleanup()
 
 try_one_pthread()
 {
-  ${SYSDEP_CC} ${PTHREAD_FLAGS} \
-    -o trypthreads trypthreads.c ${PTHREAD_LIBS} 1>/dev/null 2>&1
+  ${SYSDEP_CC} ${SYSDEP_CFLAGS} ${PTHREAD_FLAGS} \
+    -c -o trypthreads.o trypthreads.c 1>/dev/null 2>&1
+  ${SYSDEP_LD} \
+    -o trypthreads trypthreads.o ${SYSDEP_LDFLAGS} ${PTHREAD_LIBS} 1>/dev/null 2>&1
+ 
   if [ $? -eq 0 ]
   then
     return 0
@@ -31,8 +34,11 @@ try_one_pthread()
 
 try_one_realtime()
 {
-  ${SYSDEP_CC} ${PTHREAD_FLAGS} ${PTHR_REALTIME_FLAGS} \
-    -o tryptrealtime tryptrealtime.c ${PTHREAD_LIBS} ${PTHR_REALTIME_LIBS} 1>/dev/null 2>&1
+  ${SYSDEP_CC} ${SYSDEP_CFLAGS} ${PTHREAD_FLAGS} ${PTHR_REALTIME_FLAGS} \
+    -o tryptrealtime.o tryptrealtime.c 1>/dev/null 2>&1
+  ${SYSDEP_LD} \
+    -o tryptrealtime tryptrealtime.o ${SYSDEP_LDFLAGS} ${PTHREAD_LIBS} ${PTHR_REALTIME_LIBS} 1>/dev/null 2>&1
+ 
   if [ $? -eq 0 ]
   then
     return 0
