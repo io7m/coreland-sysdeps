@@ -9,8 +9,18 @@
 SYSDEP_DIR_RELATIVE="../../"
 export SYSDEP_DIR_RELATIVE
 
-# outdir is relative to each entry in modules directory
+# outdir is relative to each entry in modules directory, can be
 SYSDEP_OUTDIR="${SYSDEP_DIR_RELATIVE}/../"
+
+# override with conf-outdir if it exists
+if [ -f "${SYSDEP_DIR_RELATIVE}/conf-outdir" ]
+then
+  DIR=`head -n 1 "${SYSDEP_DIR_RELATIVE}/conf-outdir"`
+  if [ $? -eq 0 ]
+  then
+    SYSDEP_OUTDIR="${SYSDEP_DIR_RELATIVE}/${DIR}"
+  fi
+fi
 export SYSDEP_OUTDIR
 
 SYSDEP_TRY_CONFIG_BIN=${SYSDEP_DIR_RELATIVE}/sd-configbin
@@ -28,10 +38,14 @@ if [ -z "${SYSDEP_CLEAN}" ];
 then
   . ${SYSDEP_DIR_RELATIVE}/sysdep-subs;
 else
-  rm -f ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86
-  rm -f ${SYSDEP_DIR_RELATIVE}/sd-arch
-  rm -f ${SYSDEP_DIR_RELATIVE}/sd-cctype
-  rm -f ${SYSDEP_DIR_RELATIVE}/sd-ccversion
-  rm -f ${SYSDEP_DIR_RELATIVE}/sd-main
-  rm -f ${SYSDEP_DIR_RELATIVE}/sd-os
+  rm -f ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86 \
+        ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86.o
+  rm -f ${SYSDEP_DIR_RELATIVE}/sd-arch \
+        ${SYSDEP_DIR_RELATIVE}/sd-arch.o
+  rm -f ${SYSDEP_DIR_RELATIVE}/sd-cctype \
+        ${SYSDEP_DIR_RELATIVE}/sd-cctype.o
+  rm -f ${SYSDEP_DIR_RELATIVE}/sd-ccversion \
+        ${SYSDEP_DIR_RELATIVE}/sd-ccversion.o
+  rm -f ${SYSDEP_DIR_RELATIVE}/sd-os \
+        ${SYSDEP_DIR_RELATIVE}/sd-os.o
 fi

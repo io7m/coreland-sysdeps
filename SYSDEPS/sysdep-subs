@@ -2,7 +2,7 @@
 
 # this file is intended to be called by 'sysdeps-main'
 
-# compiler
+# C compiler
 # sysdeps conf-cc preferred over project conf-cc preferred over 'cc'
 SYSDEP_CC="cc"
 if [ -f "${SYSDEP_DIR_RELATIVE}/../conf-cc" ]
@@ -27,10 +27,40 @@ do
 done
 if [ ${cc_found} -eq 0 ]
 then
-  ${SYSDEP_DIR_RELATIVE}/sd-error "could not locate usable compiler"
+  ${SYSDEP_DIR_RELATIVE}/sd-error "could not locate usable C compiler"
   exit 112
 fi
 export SYSDEP_CC
+
+# C linker
+# sysdeps conf-ld preferred over project conf-ld preferred over 'ld'
+SYSDEP_LD="cc"
+if [ -f "${SYSDEP_DIR_RELATIVE}/../conf-ld" ]
+then
+  tmp=`head -n 1 "${SYSDEP_DIR_RELATIVE}/../conf-ld"`
+  if [ ! -z "${tmp}" ]; then SYSDEP_LD="${tmp}"; fi
+fi
+if [ -f "${SYSDEP_DIR_RELATIVE}/conf-ld" ]
+then
+  tmp=`head -n 1 "${SYSDEP_DIR_RELATIVE}/conf-ld"`
+  if [ ! -z "${tmp}" ]; then SYSDEP_LD="${tmp}"; fi
+fi
+
+# check C linker
+ld_found=0
+for dir in `echo $PATH | sed -e 's/:/ /g'`
+do
+  if [ -x "${dir}/${SYSDEP_LD}" ]
+  then
+    ld_found=1
+  fi
+done
+if [ ${ld_found} -eq 0 ]
+then
+  ${SYSDEP_DIR_RELATIVE}/sd-error "could not locate usable C linker"
+  exit 112
+fi
+export SYSDEP_LD
 
 #
 # compile support programs
@@ -38,28 +68,38 @@ export SYSDEP_CC
 
 if [ ! -f ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86 ]
 then
-  ${SYSDEP_CC} -o ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86 \
+  ${SYSDEP_CC} -c -o ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86.o \
   ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86.c 2>/dev/null
+  ${SYSDEP_LD} -o ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86 \
+  ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86.o 2>/dev/null
 fi
 if [ ! -f ${SYSDEP_DIR_RELATIVE}/sd-arch ]
 then
-  ${SYSDEP_CC} -o ${SYSDEP_DIR_RELATIVE}/sd-arch \
+  ${SYSDEP_CC} -c -o ${SYSDEP_DIR_RELATIVE}/sd-arch.o \
   ${SYSDEP_DIR_RELATIVE}/sd-arch.c 2>/dev/null
+  ${SYSDEP_LD} -o ${SYSDEP_DIR_RELATIVE}/sd-arch \
+  ${SYSDEP_DIR_RELATIVE}/sd-arch.o 2>/dev/null
 fi
 if [ ! -f ${SYSDEP_DIR_RELATIVE}/sd-cctype ]
 then
-  ${SYSDEP_CC} -o ${SYSDEP_DIR_RELATIVE}/sd-cctype \
+  ${SYSDEP_CC} -c -o ${SYSDEP_DIR_RELATIVE}/sd-cctype.o \
   ${SYSDEP_DIR_RELATIVE}/sd-cctype.c 2>/dev/null
+  ${SYSDEP_LD} -o ${SYSDEP_DIR_RELATIVE}/sd-cctype \
+  ${SYSDEP_DIR_RELATIVE}/sd-cctype.o 2>/dev/null
 fi
 if [ ! -f ${SYSDEP_DIR_RELATIVE}/sd-os ]
 then
-  ${SYSDEP_CC} -o ${SYSDEP_DIR_RELATIVE}/sd-os \
+  ${SYSDEP_CC} -c -o ${SYSDEP_DIR_RELATIVE}/sd-os.o \
   ${SYSDEP_DIR_RELATIVE}/sd-os.c 2>/dev/null
+  ${SYSDEP_LD} -o ${SYSDEP_DIR_RELATIVE}/sd-os \
+  ${SYSDEP_DIR_RELATIVE}/sd-os.o 2>/dev/null
 fi
 if [ ! -f ${SYSDEP_DIR_RELATIVE}/sd-ccversion ]
 then
-  ${SYSDEP_CC} -o ${SYSDEP_DIR_RELATIVE}/sd-ccversion \
+  ${SYSDEP_CC} -c -o ${SYSDEP_DIR_RELATIVE}/sd-ccversion.o \
   ${SYSDEP_DIR_RELATIVE}/sd-ccversion.c 2>/dev/null
+  ${SYSDEP_LD} -o ${SYSDEP_DIR_RELATIVE}/sd-ccversion \
+  ${SYSDEP_DIR_RELATIVE}/sd-ccversion.o 2>/dev/null
 fi
 
 # find system type
