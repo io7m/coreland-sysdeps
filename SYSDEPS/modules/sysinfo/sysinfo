@@ -18,6 +18,8 @@ define SYS_OS ${SYSDEP_OS}
 define SYS_OSVERSION \"${SYSDEP_OSVERSION}\"
 define SYS_ARCH ${SYSDEP_ARCH}
 define SYS_CCTYPE ${SYSDEP_CCTYPE}
+define SYS_CFLAGS \"${SYSDEP_CFLAGS}\"
+define SYS_LDFLAGS \"${SYSDEP_LDFLAGS}\"
 define SYS_CCVERSION ${SYSDEP_CCVERSION}
 
 major=`echo ${SYSDEP_CCVERSION} | awk -F. '{print $1}'`
@@ -56,3 +58,5 @@ cat >> "${fout}" <<EOF
 EOF
 
 (printf "sysinfo: "; ./sysinfo-id.sh;) >> "${sysdeps}"
+echo "sysinfo-cflags: ${SYSDEP_CFLAGS}" >> "${sysdeps}"
+echo "sysinfo-ldflags: ${SYSDEP_LDFLAGS}" >> "${sysdeps}"

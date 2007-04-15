@@ -2,8 +2,11 @@
 
 # this file is intended to be called by 'sysdeps-main'
 
+#
 # C compiler
 # sysdeps conf-cc preferred over project conf-cc preferred over 'cc'
+#
+
 SYSDEP_CC="cc"
 if [ -f "${SYSDEP_DIR_RELATIVE}/../conf-cc" ]
 then
@@ -15,8 +18,6 @@ then
   tmp=`head -n 1 "${SYSDEP_DIR_RELATIVE}/conf-cc"`
   if [ ! -z "${tmp}" ]; then SYSDEP_CC="${tmp}"; fi
 fi
-
-# check C compiler
 cc_found=0
 for dir in `echo $PATH | sed -e 's/:/ /g'`
 do
@@ -32,8 +33,11 @@ then
 fi
 export SYSDEP_CC
 
+#
 # C linker
 # sysdeps conf-ld preferred over project conf-ld preferred over 'ld'
+#
+
 SYSDEP_LD="cc"
 if [ -f "${SYSDEP_DIR_RELATIVE}/../conf-ld" ]
 then
@@ -45,8 +49,6 @@ then
   tmp=`head -n 1 "${SYSDEP_DIR_RELATIVE}/conf-ld"`
   if [ ! -z "${tmp}" ]; then SYSDEP_LD="${tmp}"; fi
 fi
-
-# check C linker
 ld_found=0
 for dir in `echo $PATH | sed -e 's/:/ /g'`
 do
@@ -61,6 +63,23 @@ then
   exit 112
 fi
 export SYSDEP_LD
+
+#
+# CFLAGS and LDFLAGS
+#
+
+if [ -f "${SYSDEP_DIR_RELATIVE}/../conf-cflags" ]
+then
+  tmp=`head -n 1 "${SYSDEP_DIR_RELATIVE}/../conf-cflags"`
+  if [ ! -z "${tmp}" ]; then SYSDEP_CFLAGS="${tmp}"; fi
+fi
+if [ -f "${SYSDEP_DIR_RELATIVE}/../conf-ldflags" ]
+then
+  tmp=`head -n 1 "${SYSDEP_DIR_RELATIVE}/../conf-ldflags"`
+  if [ ! -z "${tmp}" ]; then SYSDEP_CFLAGS="${tmp}"; fi
+fi
+export SYSDEP_CFLAGS
+export SYSDEP_LDFLAGS
 
 #
 # compile support programs
