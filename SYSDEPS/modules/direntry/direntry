@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 
 fout="$1"
 sysdeps="$2"
