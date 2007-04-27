@@ -53,8 +53,8 @@ try_math_funcs()
     then
       echo "#define HAVE_MATH_${FUNC}" >> "${head_out}"
       funcs="${fn} ${funcs}"
-      rm -f tmp/${fn} tmp/${fn}.o
     fi
+    rm -f tmp/${fn} tmp/${fn}.o
   done
 
   echo >> "${head_out}"
