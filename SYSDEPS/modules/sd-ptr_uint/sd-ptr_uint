@@ -2,8 +2,8 @@
 
 cleanup()
 {
-  rm -f try_ptr_uint1 try_ptr_uint1.1 try_ptr_uint1.2 \
-        try_ptr_uint2 try_ptr_uint2.1 try_ptr_uint2.2
+  rm -f try_ptr_uint1 try_ptr_uint1.1 try_ptr_uint1.2 try_ptr_uint1.o \
+        try_ptr_uint2 try_ptr_uint2.1 try_ptr_uint2.2 try_ptr_uint2.o
 }
 
 fatal()

@@ -20,4 +20,4 @@ else
 fi
 
 echo '#endif' >> "${fout}"
-rm -f trydup2
+rm -f trydup2 trydup2.o

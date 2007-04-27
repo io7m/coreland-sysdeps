@@ -5,7 +5,7 @@ sdout="$2"
 
 cleanup()
 {
-  rm -f trylonglong
+  rm -f trylonglong trylonglong.o
   exit 0
 }
 

@@ -32,4 +32,4 @@ cat >> "${fout}" <<EOF
 #endif
 EOF
 
-rm -f trymmap1
+rm -f trymmap1 trymmap1.o

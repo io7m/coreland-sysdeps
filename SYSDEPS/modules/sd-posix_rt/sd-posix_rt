@@ -52,8 +52,8 @@ try_posix_rt_funcs()
     then
       echo "#define HAVE_${FUNC}" >> "${head_out}"
       funcs="${fn} ${funcs}"
-      rm -f tmp/${fn} tmp/${fn}.o
     fi
+    rm -f tmp/${fn} tmp/${fn}.o
   done
 
   echo >> "${head_out}"

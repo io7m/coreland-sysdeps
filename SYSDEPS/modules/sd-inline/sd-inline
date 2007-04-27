@@ -5,7 +5,7 @@ sdout="$2"
 
 cleanup()
 {
-  rm -f tryinline
+  rm -f tryinline tryinline.o
   exit 0
 }
 
