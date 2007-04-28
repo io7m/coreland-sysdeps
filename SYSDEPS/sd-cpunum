@@ -17,7 +17,7 @@ case "$sys" in
     ncpu="`psrinfo -v | grep "Status of" | wc -l`"
     ;;
   SYSDEP_OS_VMS)
-    ncpu="`SHOW CPU /BRIEF | grep CPU | wc -l`"
+    ncpu="`SHOW CPU /BRIEF | grep CPU | wc -l | sed 's/ //g'`"
     ;;
   *)
     ncpu="`sysctl hw.ncpu`"
