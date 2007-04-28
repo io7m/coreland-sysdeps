@@ -48,4 +48,6 @@ else
         ${SYSDEP_DIR_RELATIVE}/sd-ccversion.o
   rm -f ${SYSDEP_DIR_RELATIVE}/sd-os \
         ${SYSDEP_DIR_RELATIVE}/sd-os.o
+  rm -f ${SYSDEP_DIR_RELATIVE}/sd-print \
+        ${SYSDEP_DIR_RELATIVE}/sd-print.o
 fi

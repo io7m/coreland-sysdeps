@@ -17,5 +17,10 @@ ccver=`grep 'SYS_CCVERSION ' _sysinfo.h \
 arch=`grep 'SYS_ARCH ' _sysinfo.h \
  | sed -e 's/SYS_ARCH_//g' | awk '{print $NF}'`
 
-printf "%s %s %s %s %s\n" "${os}" "${ver}" "${cc}" "${ccver}" "${arch}" \
+${SYSDEP_DIR_RELATIVE}/sd-print \
+  "${os} " \
+  "${ver} " \
+  "${cc} " \
+  "${ccver} " \
+  "${arch}" \
   | tr [A-Z] [a-z] | sed -e 's/"//g'

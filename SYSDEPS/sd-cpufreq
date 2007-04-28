@@ -16,6 +16,9 @@ case "$sys" in
     freq="`grep -i 'cpu MHz' /proc/cpuinfo | awk -F. '{print $1'}`"
     freq="`echo ${freq} | awk '{print $NF}'`"
     ;;
+  SYSDEP_OS_VMS)
+    freq="`SHOW CPU /FULL | grep Speed | awk '{print $2}' | head -1`"
+    ;;
 esac
 
 echo "$freq"

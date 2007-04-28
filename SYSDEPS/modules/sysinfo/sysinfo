@@ -57,6 +57,6 @@ cat >> "${fout}" <<EOF
 #endif
 EOF
 
-(printf "sysinfo: "; ./sysinfo-id.sh;) >> "${sysdeps}"
+(${SYSDEP_DIR_RELATIVE}/sd-print "sysinfo: "; ./sysinfo-id.sh;) >> "${sysdeps}"
 echo "sysinfo-cflags: ${SYSDEP_CFLAGS}" >> "${sysdeps}"
 echo "sysinfo-ldflags: ${SYSDEP_LDFLAGS}" >> "${sysdeps}"

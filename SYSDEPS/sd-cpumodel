@@ -8,6 +8,9 @@ case "$sys" in
   SYSDEP_OS_DARWIN)
     model=`machine`
     ;;
+  SYSDEP_OS_VMS)
+    model=""
+    ;;
   *)
     model="`sysctl hw.model | tr [A-Z] [a-z]`"
     ;;

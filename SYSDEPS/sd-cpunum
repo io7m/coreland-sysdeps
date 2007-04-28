@@ -16,6 +16,9 @@ case "$sys" in
   SYSDEP_OS_SUNOS)
     ncpu="`psrinfo -v | grep "Status of" | wc -l`"
     ;;
+  SYSDEP_OS_VMS)
+    ncpu="`SHOW CPU /BRIEF | grep CPU | wc -l`"
+    ;;
   *)
     ncpu="`sysctl hw.ncpu`"
     if [ $? -eq 0 ]
