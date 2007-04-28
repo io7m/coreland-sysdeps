@@ -34,6 +34,28 @@ int main(void)
   dec_decode_tri(__COMO_VERSION__);
 #endif
 
+  /* Compaq C */
+#if defined(__DECC_VER)
+  ver = __DECC_VER;
+  ver_major = ver / 10000000
+  ver -= ver_major * 10000000
+  ver_minor = ver / 100000
+  ver -= ver_minor * 100000
+  ver -= (ver / 10000) * 10000
+  ver_patch = ver
+#endif
+
+  /* Compaq C++ */
+#if defined(__DECCXX_VER)
+  ver = __DECCXX_VER;
+  ver_major = ver / 10000000
+  ver -= ver_major * 10000000
+  ver_minor = ver / 100000
+  ver -= ver_minor * 100000
+  ver -= (ver / 10000) * 10000
+  ver_patch = ver
+#endif
+
   /* Cray C */
 #if defined(_CRAY)
   ver_major = _RELEASE;
