@@ -120,13 +120,6 @@ then
   ${SYSDEP_LD} -o ${SYSDEP_DIR_RELATIVE}/sd-ccversion \
   ${SYSDEP_DIR_RELATIVE}/sd-ccversion.o 2>/dev/null
 fi
-if [ ! -f ${SYSDEP_DIR_RELATIVE}/sd-print ]
-then
-  ${SYSDEP_CC} -c -o ${SYSDEP_DIR_RELATIVE}/sd-print.o \
-  ${SYSDEP_DIR_RELATIVE}/sd-print.c 2>/dev/null
-  ${SYSDEP_LD} -o ${SYSDEP_DIR_RELATIVE}/sd-print \
-  ${SYSDEP_DIR_RELATIVE}/sd-print.o 2>/dev/null
-fi
 
 # find system type
 SYSDEP_OS="`${SYSDEP_DIR_RELATIVE}/sd-os`"
