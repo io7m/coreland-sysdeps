@@ -41,6 +41,5 @@ do
 done
 
 echo "regen:"
-printf "\t./gen-makefile > Makefile.tmp\n"
-printf "\tmv Makefile.tmp Makefile"
+printf "\t./gen-makefile > Makefile.tmp && mv Makefile.tmp Makefile"
 echo

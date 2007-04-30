@@ -82,3 +82,5 @@
 20070409 code: added sd-ptr_uint.
 20070413 code: added sd-creates script so Makefile generators can get a list
                of all files created by the current modules.
+20070430 code: added sd-fork.
+20070430 code: adjusted regen target.

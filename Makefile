@@ -54,6 +54,7 @@ _sd_fcntl.h: sysdeps.out
 flags-fcntl: sysdeps.out
 libs-fcntl: sysdeps.out
 _sd_fd.h: sysdeps.out
+_sd_fork.h: sysdeps.out
 _sd_inline.h: sysdeps.out
 _sd_longlong.h: sysdeps.out
 libs-math: sysdeps.out
@@ -119,14 +120,20 @@ depchklist:\
 	cc-link depchklist.ld depchklist.o 
 	./cc-link depchklist depchklist.o 
 depchklist.o:\
-	cc-compile depchklist.c ch_flags.h dlopen.h fd.h floatcast.h \
-	aio-mech.h sd_fcntl.h sd_mmap.h sd_math.h sd_posix_rt.h sig_action.h \
-	sig_pmask.h sysinfo.h 
+	cc-compile depchklist.c aio-mech.h ch_flags.h dlopen.h fd.h \
+	floatcast.h sd_fcntl.h sd_fork.h sd_math.h sd_mmap.h sd_posix_rt.h \
+	sig_action.h sig_pmask.h sysinfo.h 
 	./cc-compile depchklist.c
 get_flags.o:\
 	cc-compile get_flags.c ch_flags.h open.h uint32.h 
 	./cc-compile get_flags.c
 mk-cctype: conf-cc conf-systype 
+mk-ctxt.o:\
+	cc-compile mk-ctxt.c
+	./cc-compile mk-ctxt.c
+mk-ctxt:\
+	cc-link mk-ctxt.o mk-ctxt.ld
+	./cc-link mk-ctxt mk-ctxt.o
 mk-systype: conf-cc 
 open.a:\
 	cc-slib open.sld open_ro.o 
@@ -137,10 +144,9 @@ open_ro.o:\
 clean-all: sysdeps_clean obj_clean 
 clean: obj_clean
 obj_clean: 
-	rm -f ch_flags.a ch_flags.o depchklist depchklist.o get_flags.o \
-	open.a open_ro.o 
+	rm -f ch_flags.a ch_flags.o conf-cctype conf-systype depchklist \
+	depchklist.o get_flags.o open.a open_ro.o 
 
 regen:
-	cpj-genmk > Makefile.tmp
-	mv Makefile.tmp Makefile
+	cpj-genmk > Makefile.tmp && mv Makefile.tmp Makefile
 

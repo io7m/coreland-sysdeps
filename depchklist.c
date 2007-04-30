@@ -1,13 +1,14 @@
 #include <stdio.h>
 
+#include "aio-mech.h"
 #include "ch_flags.h"
 #include "dlopen.h"
 #include "fd.h"
 #include "floatcast.h"
-#include "aio-mech.h"
 #include "sd_fcntl.h"
-#include "sd_mmap.h"
+#include "sd_fork.h"
 #include "sd_math.h"
+#include "sd_mmap.h"
 #include "sd_posix_rt.h"
 #include "sig_action.h"
 #include "sig_pmask.h"
@@ -1319,6 +1320,16 @@ int main(void)
   printf("system has timer_getoverrun\n");
 #else
   printf("system does not have timer_getoverrun\n");
+#endif
+#ifdef HAVE_FORK
+  printf("system has fork\n");
+#else
+  printf("system does not have fork\n");
+#endif
+#ifdef HAVE_VFORK
+  printf("system has vfork\n");
+#else
+  printf("system does not have vfork\n");
 #endif
   return 0;
 }
