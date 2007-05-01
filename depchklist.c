@@ -16,6 +16,7 @@
 
 int main(void)
 {
+
 #ifdef HAVE_KQUEUE
   printf("system has kqueue\n");
 #else
@@ -1330,6 +1331,11 @@ int main(void)
   printf("system has vfork\n");
 #else
   printf("system does not have vfork\n");
+#endif
+#ifdef HAVE_INTEGER
+  printf("system has integer\n");
+#else
+  printf("system does not have integer\n");
 #endif
   return 0;
 }
