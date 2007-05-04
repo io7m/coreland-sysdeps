@@ -66,15 +66,16 @@ try_math_funcs()
 
 #
 # try combinations of flags and libs to get math libs
+# order is, unfortunately, significant.
 #
 
 M_FLAGS=""
-M_LIBS=""
+M_LIBS="-lm"
 try_math
 if [ $? -eq 0 ]; then try_math_funcs; fi
 
 M_FLAGS=""
-M_LIBS="-lm"
+M_LIBS=""
 try_math
 if [ $? -eq 0 ]; then try_math_funcs; fi
 
