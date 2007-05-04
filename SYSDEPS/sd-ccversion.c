@@ -191,13 +191,23 @@ int main(void)
 #endif
 
   /* MIPSpro */
-#if defined(__sgi) || defined(sgi)
-  ver = _SGI_COMPILER_VERSION;
-  ver_major = ver / 100;
+#if (defined(__sgi) || defined(sgi)) && defined(_SGI_COMPILER_VERSION)
+  ver = _SGI_COMPILER_VERSION;     
+  ver_major = ver / 100;     
   ver -= ver_major * 100;
-  ver_minor = ver / 10;
+  ver_minor = ver / 10; 
   ver -= ver_minor * 10;
-  ver_patch = ver;
+  ver_patch = ver;     
+#endif
+
+  /* MIPSpro again */
+#if (defined(__sgi) || defined(sgi)) && defined(_COMPILER_VERSION)
+  ver = _COMPILER_VERSION;                   
+  ver_major = ver / 100;     
+  ver -= ver_major * 100;
+  ver_minor = ver / 10; 
+  ver -= ver_minor * 10;
+  ver_patch = ver;     
 #endif
 
   /* MPW C++ */
