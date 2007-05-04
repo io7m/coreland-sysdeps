@@ -1,1 +1,1 @@
-test for asynchronous IO mechanisms such as kqueue or epoll
+test for IO notification mechanisms such as kqueue or epoll

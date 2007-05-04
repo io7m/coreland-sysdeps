@@ -7,13 +7,13 @@ then
 fi
 
 sd_tmp="sysdeps.out"
-f1_tmp="_aio-mech.h"
-echo "SYSDEPS aio-mech run create ${f1_tmp}"
+f1_tmp="_io-notice.h"
+echo "SYSDEPS io-notice run create ${f1_tmp}"
 
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
 sd_out="${SYSDEP_OUTDIR}/${sd_tmp}"
 
-./aio-mech ${f1_tmp} ${sd_tmp}
+./io-notice ${f1_tmp} ${sd_tmp}
 cp ${f1_tmp} ${f1_out}
 cat ${sd_tmp} >> ${sd_out}
 

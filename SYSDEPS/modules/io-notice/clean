@@ -8,8 +8,8 @@ then
 fi
 
 sd_tmp="sysdeps.out"
-f1_tmp="_aio-mech.h"
-echo "SYSDEPS aio-mech clean ${f1_tmp}"
+f1_tmp="_io-notice.h"
+echo "SYSDEPS io-notice clean ${f1_tmp}"
 
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
 rm -f ${f1_tmp} ${f1_out} ${sd_tmp}
