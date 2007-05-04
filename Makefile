@@ -12,7 +12,6 @@ sysdeps_clean:
 	(cd SYSDEPS && make clean)
 	rm -f sysdeps.out
 
-_aio-mech.h: sysdeps.out
 flags-altivec: sysdeps.out
 _byteorder.h: sysdeps.out
 _ch_flags.h: sysdeps.out
@@ -33,6 +32,10 @@ libs-fltk2: sysdeps.out
 _int16.h: sysdeps.out
 _int32.h: sysdeps.out
 _int64.h: sysdeps.out
+flags-integer: sysdeps.out
+libs-integer: sysdeps.out
+libs-integer: sysdeps.out
+_io-notice.h: sysdeps.out
 flags-io_poll: sysdeps.out
 libs-io_poll: sysdeps.out
 flags-jack: sysdeps.out
@@ -98,10 +101,11 @@ libs-vector: sysdeps.out
 
 cc-compile: conf-cc conf-cctype conf-cflags sysdeps.out \
 	flags-altivec flags-corelib flags-fastcgi flags-fltk11 flags-fltk2 \
-	flags-io_poll flags-jack flags-loadso flags-opengl flags-pdcgi \
-	flags-png flags-portaudio flags-pthr_rt flags-pthreads flags-sdl \
-	flags-sdl-image flags-sdl-mixer flags-sdl-ttf flags-sndfile \
-	flags-sse flags-sse2 flags-sse3 flags-tiff flags-vector 
+	flags-integer flags-io_poll flags-jack flags-loadso flags-opengl \
+	flags-pdcgi flags-png flags-portaudio flags-pthr_rt flags-pthreads \
+	flags-sdl flags-sdl-image flags-sdl-mixer flags-sdl-ttf \
+	flags-sndfile flags-sse flags-sse2 flags-sse3 flags-tiff \
+	flags-vector 
 cc-link: conf-ld conf-ldflags sysdeps.out 
 cc-slib: conf-systype 
 ch_flags.a:\
@@ -120,7 +124,7 @@ depchklist:\
 	cc-link depchklist.ld depchklist.o 
 	./cc-link depchklist depchklist.o 
 depchklist.o:\
-	cc-compile depchklist.c aio-mech.h ch_flags.h dlopen.h fd.h \
+	cc-compile depchklist.c io-notice.h ch_flags.h dlopen.h fd.h \
 	floatcast.h sd_fcntl.h sd_fork.h sd_math.h sd_mmap.h sd_posix_rt.h \
 	sig_action.h sig_pmask.h sysinfo.h 
 	./cc-compile depchklist.c
@@ -144,8 +148,8 @@ open_ro.o:\
 clean-all: sysdeps_clean obj_clean 
 clean: obj_clean
 obj_clean: 
-	rm -f ch_flags.a ch_flags.o conf-cctype conf-systype depchklist \
-	depchklist.o get_flags.o open.a open_ro.o 
+	rm -f ch_flags.a ch_flags.o depchklist depchklist.o get_flags.o \
+	open.a open_ro.o 
 
 regen:
 	cpj-genmk > Makefile.tmp && mv Makefile.tmp Makefile

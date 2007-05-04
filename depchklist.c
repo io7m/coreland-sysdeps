@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "aio-mech.h"
+#include "io-notice.h"
 #include "ch_flags.h"
 #include "dlopen.h"
 #include "fd.h"
@@ -16,27 +16,6 @@
 
 int main(void)
 {
-
-#ifdef HAVE_KQUEUE
-  printf("system has kqueue\n");
-#else
-  printf("system does not have kqueue\n");
-#endif
-#ifdef HAVE_EPOLL
-  printf("system has epoll\n");
-#else
-  printf("system does not have epoll\n");
-#endif
-#ifdef HAVE_POLL
-  printf("system has poll\n");
-#else
-  printf("system does not have poll\n");
-#endif
-#ifdef HAVE_SELECT
-  printf("system has select\n");
-#else
-  printf("system does not have select\n");
-#endif
 #ifdef HAVE_DLOPEN
   printf("system has dlopen\n");
 #else
@@ -1336,6 +1315,26 @@ int main(void)
   printf("system has integer\n");
 #else
   printf("system does not have integer\n");
+#endif
+#ifdef HAVE_KQUEUE
+  printf("system has kqueue\n");
+#else
+  printf("system does not have kqueue\n");
+#endif
+#ifdef HAVE_EPOLL
+  printf("system has epoll\n");
+#else
+  printf("system does not have epoll\n");
+#endif
+#ifdef HAVE_POLL
+  printf("system has poll\n");
+#else
+  printf("system does not have poll\n");
+#endif
+#ifdef HAVE_SELECT
+  printf("system has select\n");
+#else
+  printf("system does not have select\n");
 #endif
   return 0;
 }
