@@ -7,6 +7,7 @@ flags-integer
 flags-io_poll
 flags-jack
 flags-loadso
+flags-netlib
 flags-opengl
 flags-pdcgi
 flags-png

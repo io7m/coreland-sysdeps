@@ -43,6 +43,9 @@ libs-jack: sysdeps.out
 flags-loadso: sysdeps.out
 libs-loadso: sysdeps.out
 libs-loadso: sysdeps.out
+flags-netlib: sysdeps.out
+libs-netlib: sysdeps.out
+libs-netlib: sysdeps.out
 flags-opengl: sysdeps.out
 libs-opengl: sysdeps.out
 flags-pdcgi: sysdeps.out
@@ -101,11 +104,11 @@ libs-vector: sysdeps.out
 
 cc-compile: conf-cc conf-cctype conf-cflags sysdeps.out \
 	flags-altivec flags-corelib flags-fastcgi flags-fltk11 flags-fltk2 \
-	flags-integer flags-io_poll flags-jack flags-loadso flags-opengl \
-	flags-pdcgi flags-png flags-portaudio flags-pthr_rt flags-pthreads \
-	flags-sdl flags-sdl-image flags-sdl-mixer flags-sdl-ttf \
-	flags-sndfile flags-sse flags-sse2 flags-sse3 flags-tiff \
-	flags-vector 
+	flags-integer flags-io_poll flags-jack flags-loadso flags-netlib \
+	flags-opengl flags-pdcgi flags-png flags-portaudio flags-pthr_rt \
+	flags-pthreads flags-sdl flags-sdl-image flags-sdl-mixer \
+	flags-sdl-ttf flags-sndfile flags-sse flags-sse2 flags-sse3 \
+	flags-tiff flags-vector 
 cc-link: conf-ld conf-ldflags sysdeps.out 
 cc-slib: conf-systype 
 ch_flags.a:\
@@ -148,8 +151,8 @@ open_ro.o:\
 clean-all: sysdeps_clean obj_clean 
 clean: obj_clean
 obj_clean: 
-	rm -f ch_flags.a ch_flags.o depchklist depchklist.o get_flags.o \
-	open.a open_ro.o 
+	rm -f ch_flags.a ch_flags.o conf-cctype conf-systype depchklist \
+	depchklist.o get_flags.o open.a open_ro.o 
 
 regen:
 	cpj-genmk > Makefile.tmp && mv Makefile.tmp Makefile

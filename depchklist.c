@@ -16,6 +16,7 @@
 
 int main(void)
 {
+
 #ifdef HAVE_DLOPEN
   printf("system has dlopen\n");
 #else
@@ -1335,6 +1336,11 @@ int main(void)
   printf("system has select\n");
 #else
   printf("system does not have select\n");
+#endif
+#ifdef HAVE_NETLIB
+  printf("system has netlib\n");
+#else
+  printf("system does not have netlib\n");
 #endif
   return 0;
 }
