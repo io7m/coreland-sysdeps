@@ -1342,5 +1342,10 @@ int main(void)
 #else
   printf("system does not have netlib\n");
 #endif
+#ifdef HAVE_CHRONO
+  printf("system has chrono\n");
+#else
+  printf("system does not have chrono\n");
+#endif
   return 0;
 }

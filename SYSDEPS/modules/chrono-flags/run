@@ -1,0 +1,15 @@
+#!/bin/sh
+
+. ../../sysdep-main
+if [ $? -ne 0 ]
+then
+  exit 111
+fi
+
+f1_tmp="flags-chrono"
+echo "SYSDEPS chrono-flags run create ${f1_tmp}"
+
+f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
+
+./chrono-flags ${f1_tmp}
+cp ${f1_tmp} ${f1_out}
