@@ -1,0 +1,15 @@
+#!/bin/sh
+
+exec 1> "$1"
+define="-DHAVE_PNGLOAD"
+
+FLAGS=`${SYSDEP_TRY_CONFIG_BIN} "pngload-conf" "compile cflags incdir" 2>&-`
+if [ "x${FLAGS}" != "x" ]
+then
+  echo ${FLAGS} ${define}
+  exit 0
+else
+  ${SYSDEP_ERROR} "config binary failed"
+fi
+
+exit 0

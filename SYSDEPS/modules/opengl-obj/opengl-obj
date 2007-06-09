@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 
 csrc_out="$1"
 sysd_out="$2"
