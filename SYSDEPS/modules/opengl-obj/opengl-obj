@@ -1,0 +1,32 @@
+#!/bin/sh -x
+
+csrc_out="$1"
+sysd_out="$2"
+
+file="libGL.${SYSDEP_LIBSUFFIX}"
+case ${SYSDEP_OS} in
+  SYSDEP_OS_DARWIN)
+    path="/System/Library/Frameworks/OpenGL.framework ${path}"
+    ;;
+  *)
+    ;;
+esac
+
+FOUND=""
+for dir in ${SYSDEP_STDLIB}
+do
+  if [ -f "${dir}/${file}" ]
+  then 
+    FOUND="${FOUND} ${dir}/${file}"
+  fi
+done
+
+echo '/* automatically generated - do not edit */' >> "${csrc_out}"
+echo 'static const char *opengl_obj[] = {' >> "${csrc_out}"
+for f in ${FOUND}
+do
+  echo \"${f}\", >> "${csrc_out}"
+done
+echo '};' >> "${csrc_out}"
+
+echo "opengl-obj: ${FOUND}" >> "${sysd_out}"
