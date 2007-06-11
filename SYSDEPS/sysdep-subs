@@ -184,7 +184,7 @@ export SYSDEP_CPU_EXT
 # standard include path
 SYSDEP_STDINC="/usr/include /usr/local/include"
 case ${SYSDEP_OS} in
-  SYSDEP_OS_DARWIN) SYSDEP_STDINC="/sw/include ${SYSDEP_STDINC}";;
+  SYSDEP_OS_DARWIN) SYSDEP_STDINC="/opt/include /sw/include ${SYSDEP_STDINC}";;
   SYSDEP_OS_SUNOS) SYSDEP_STDINC="/usr/sfw/include ${SYSDEP_STDINC}";;
   *)
 esac
@@ -193,7 +193,7 @@ export SYSDEP_STDINC
 # standard library path
 SYSDEP_STDLIB="/usr/lib /usr/local/lib"
 case ${SYSDEP_OS} in
-  SYSDEP_OS_DARWIN) SYSDEP_STDLIB="/sw/lib ${SYSDEP_STDLIB}";;
+  SYSDEP_OS_DARWIN) SYSDEP_STDLIB="/opt/lib /sw/lib ${SYSDEP_STDLIB}";;
   SYSDEP_OS_SUNOS) SYSDEP_STDLIB="/usr/sfw/lib ${SYSDEP_STDLIB}";;
   *)
 esac
