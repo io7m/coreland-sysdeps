@@ -115,10 +115,6 @@ flags-vector: sysdeps.out
 libs-vector: sysdeps.out
 libs-vector: sysdeps.out
 
-_opengl_obj.o:\
-cc-compile _opengl_obj.c 
-	./cc-compile _opengl_obj.c
-
 cc-compile:\
 conf-cc conf-cctype conf-systype conf-cflags sysdeps.out flags-altivec \
 flags-carbon flags-chrono flags-corelib flags-fastcgi flags-fltk11 \
@@ -195,8 +191,8 @@ cc-compile open_ro.c open.h
 clean-all: sysdeps_clean obj_clean 
 clean: obj_clean
 obj_clean: 
-	rm -f _opengl_obj.o ch_flags.a ch_flags.o conf-cctype conf-ldtype \
-	conf-systype depchklist depchklist.o get_flags.o open.a open_ro.o 
+	rm -f ch_flags.a ch_flags.o depchklist depchklist.o get_flags.o \
+	open.a open_ro.o 
 
 regen:
 	cpj-genmk > Makefile.tmp && mv Makefile.tmp Makefile

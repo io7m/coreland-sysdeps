@@ -14,6 +14,20 @@ then
 fi
 LDFLAGS="${LDFLAGS} `head -n 1 conf-ldflags 2>/dev/null`"
 
+SYSTYPE=`head -n 1 conf-systype`
+if [ $? -ne 0 ]
+then
+  echo "fatal: could not read conf-systype" 1>&2
+  exit 1
+fi  
+  
+LDTYPE=`head -n 1 conf-ldtype`
+if [ $? -ne 0 ]
+then
+  echo "fatal: could not read conf-ldtype" 1>&2
+  exit 1
+fi
+
 if [ -f "conf-ldfflist" ]
 then
   for f in `cat "conf-ldfflist"`
@@ -36,5 +50,31 @@ then
     LDFLAGS="${LDFLAGS} ${FLAGS}"
   done
 fi
+
+case ${LDTYPE} in
+  GCC)
+    case ${SYSTYPE} in
+      DARWIN)
+        # On Darwin >= 8, produce fat binaries
+        release=`uname -r | awk -F. '{print $1}'`
+        if [ ${release} -gt 7 ]
+        then
+          if [ -d /Developer/SDKs/MacOSX10.4u.sdk ]
+          then
+            exec ${LD} \
+              -arch ppc \
+              -arch i386 \
+              -isysroot /Developer/SDKs/MacOSX10.4u.sdk \
+              -o ${out} ${1+"$@"} ${LDFLAGS}
+          fi
+        fi
+        ;;
+      *)
+        ;;
+    esac
+    ;;
+  *)
+    ;;
+esac
 
 exec ${LD} -o ${out} ${1+"$@"} ${LDFLAGS}
