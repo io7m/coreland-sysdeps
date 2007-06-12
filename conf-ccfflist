@@ -1,4 +1,5 @@
 flags-altivec
+flags-carbon
 flags-chrono
 flags-corelib
 flags-fastcgi

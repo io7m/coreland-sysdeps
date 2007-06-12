@@ -1347,5 +1347,25 @@ int main(void)
 #else
   printf("system does not have chrono\n");
 #endif
+#ifdef HAVE_GLTEXLOAD
+  printf("system has gltexload\n");
+#else
+  printf("system does not have gltexload\n");
+#endif
+#ifdef HAVE_GLSOLOAD
+  printf("system has glsoload\n");
+#else
+  printf("system does not have glsoload\n");
+#endif
+#ifdef HAVE_PNGLOAD
+  printf("system has pngload\n");
+#else
+  printf("system does not have pngload\n");
+#endif
+#ifdef HAVE_CARBON
+  printf("system has carbon\n");
+#else
+  printf("system does not have carbon\n");
+#endif
   return 0;
 }
