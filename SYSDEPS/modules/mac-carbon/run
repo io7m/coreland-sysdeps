@@ -7,12 +7,15 @@ then
 fi
 
 f1_tmp="libs-carbon"
+f2_tmp="flags-carbon"
 sd_tmp="sysdeps.out"
-echo "SYSDEPS carbon-libs run create ${f1_tmp}"
+echo "SYSDEPS mac-carbon run create ${f1_tmp} ${f2_tmp}"
 
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
+f2_out="${SYSDEP_OUTDIR}/${f2_tmp}"
 sd_out="${SYSDEP_OUTDIR}/${sd_tmp}"
 
-./carbon-libs ${f1_tmp} ${sd_tmp}
+./mac-carbon ${f1_tmp} ${f2_tmp} ${sd_tmp}
 cp ${f1_tmp} ${f1_out}
+cp ${f2_tmp} ${f2_out}
 cat ${sd_tmp} >> ${sd_out}

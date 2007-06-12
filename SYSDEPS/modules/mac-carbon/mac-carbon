@@ -1,7 +1,8 @@
 #!/bin/sh
 
-fout="$1"
-sdout="$2"
+lib_out="$1"
+flg_out="$2"
+sdout="$3"
 
 cleanup()
 {
@@ -13,10 +14,14 @@ ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trycarbon.o trycarbon.c 1>/dev/null 2>&1
 ${SYSDEP_LD} -o trycarbon trycarbon.o -framework Carbon ${SYSDEP_LDFLAGS} 1>/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  echo '-framework Carbon' >> "${fout}"
+  echo '-framework Carbon' >> "${lib_out}"
+  echo '-HAVE_CARBON' >> "${flg_out}"
+  echo 'carbon-libs: -framework Carbon' >> "${sdout}"
   echo 'carbon: yes' >> "${sdout}"
 else
-  echo >> "${fout}"
+  echo >> "${lib_out}"
+  echo >> "${flg_out}"
+  echo 'carbon-libs:' >> "${sdout}"
   echo 'carbon: no' >> "${sdout}"
 fi
 
