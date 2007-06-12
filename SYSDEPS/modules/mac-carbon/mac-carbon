@@ -15,7 +15,7 @@ ${SYSDEP_LD} -o trycarbon trycarbon.o -framework Carbon ${SYSDEP_LDFLAGS} 1>/dev
 if [ $? -eq 0 ]
 then
   echo '-framework Carbon' >> "${lib_out}"
-  echo '-HAVE_CARBON' >> "${flg_out}"
+  echo '-DHAVE_CARBON' >> "${flg_out}"
   echo 'carbon-libs: -framework Carbon' >> "${sdout}"
   echo 'carbon: yes' >> "${sdout}"
 else
