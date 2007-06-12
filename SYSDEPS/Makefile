@@ -1,8 +1,8 @@
 default: sysdeps
 clean: sysdeps_clean
 
-sysdeps:  sd_sd-sockets sd_netlib-libs sd_sd-select sd_io_poll-libs-S sd_sd-dlopen sd_io_poll-flags sd_fltk11-libs-S sd_sdl-image-libs sd_uint64 sd_sysinfo sd_sdl-image-flags sd_sd-fd sd_sd-math sd_int32 sd_int16 sd_ch_flags sd_corelib-libs sd_fastcgi-libs sd_sdl-ttf-flags sd_fltk2-libs-S sd_fastcgi-flags sd_opengl-libs sd_float64 sd_sndfile-libs sd_opengl-flags sd_sndfile-flags sd_tiff-libs sd_pdcgi-flags sd_altivec-flags sd_sd-signal sd_tiff-flags sd_sd-longlong sd_sse-flags sd_uint32 sd_uint16 sd_fltk11-libs sd_sdl-mixer-libs sd_fltk11-flags sd_portaudio-libs sd_sd-mmap sd_sdl-mixer-flags sd_jack-libs sd_byteorder sd_direntry sd_portaudio-flags sd_jack-flags sd_sd-inline sd_int64 sd_sdl-ttf-libs sd_corelib-libs-S sd_sse2-flags sd_sse3-flags sd_fltk2-libs sd_corelib-flags sd_sdl-libs sd_float32 sd_sd-fcntl sd_png-libs sd_fltk2-flags sd_sdl-flags sd_pdcgi-libs-S sd_png-flags sd_sd-pthreads sd_vector-flags sd_vector-libs sd_vector-libs-S sd_loadso-flags sd_loadso-libs sd_loadso-libs-S sd_sd-posix_rt sd_sd-fork sd_sd-ptr_uint sd_integer-flags sd_integer-libs sd_integer-libs-S sd_io-notice sd_netlib-flags sd_netlib-libs-S sd_chrono-flags sd_chrono-libs sd_chrono-libs-S
-sysdeps_clean:  sd_sd-sockets_clean sd_netlib-libs_clean sd_sd-select_clean sd_io_poll-libs-S_clean sd_sd-dlopen_clean sd_io_poll-flags_clean sd_fltk11-libs-S_clean sd_sdl-image-libs_clean sd_uint64_clean sd_sysinfo_clean sd_sdl-image-flags_clean sd_sd-fd_clean sd_sd-math_clean sd_int32_clean sd_int16_clean sd_ch_flags_clean sd_corelib-libs_clean sd_fastcgi-libs_clean sd_sdl-ttf-flags_clean sd_fltk2-libs-S_clean sd_fastcgi-flags_clean sd_opengl-libs_clean sd_float64_clean sd_sndfile-libs_clean sd_opengl-flags_clean sd_sndfile-flags_clean sd_tiff-libs_clean sd_pdcgi-flags_clean sd_altivec-flags_clean sd_sd-signal_clean sd_tiff-flags_clean sd_sd-longlong_clean sd_sse-flags_clean sd_uint32_clean sd_uint16_clean sd_fltk11-libs_clean sd_sdl-mixer-libs_clean sd_fltk11-flags_clean sd_portaudio-libs_clean sd_sd-mmap_clean sd_sdl-mixer-flags_clean sd_jack-libs_clean sd_byteorder_clean sd_direntry_clean sd_portaudio-flags_clean sd_jack-flags_clean sd_sd-inline_clean sd_int64_clean sd_sdl-ttf-libs_clean sd_corelib-libs-S_clean sd_sse2-flags_clean sd_sse3-flags_clean sd_fltk2-libs_clean sd_corelib-flags_clean sd_sdl-libs_clean sd_float32_clean sd_sd-fcntl_clean sd_png-libs_clean sd_fltk2-flags_clean sd_sdl-flags_clean sd_pdcgi-libs-S_clean sd_png-flags_clean sd_sd-pthreads_clean sd_vector-flags_clean sd_vector-libs_clean sd_vector-libs-S_clean sd_loadso-flags_clean sd_loadso-libs_clean sd_loadso-libs-S_clean sd_sd-posix_rt_clean sd_sd-fork_clean sd_sd-ptr_uint_clean sd_integer-flags_clean sd_integer-libs_clean sd_integer-libs-S_clean sd_io-notice_clean sd_netlib-flags_clean sd_netlib-libs-S_clean sd_chrono-flags_clean sd_chrono-libs_clean sd_chrono-libs-S_clean
+sysdeps:  sd_sd-sockets sd_netlib-libs sd_sd-select sd_io_poll-libs-S sd_sd-dlopen sd_io_poll-flags sd_fltk11-libs-S sd_sdl-image-libs sd_uint64 sd_sysinfo sd_sdl-image-flags sd_sd-fd sd_sd-math sd_int32 sd_int16 sd_ch_flags sd_corelib-libs sd_fastcgi-libs sd_sdl-ttf-flags sd_fltk2-libs-S sd_fastcgi-flags sd_opengl-libs sd_float64 sd_sndfile-libs sd_opengl-flags sd_sndfile-flags sd_tiff-libs sd_pdcgi-flags sd_altivec-flags sd_sd-signal sd_tiff-flags sd_sd-longlong sd_sse-flags sd_uint32 sd_uint16 sd_fltk11-libs sd_sdl-mixer-libs sd_fltk11-flags sd_portaudio-libs sd_sd-mmap sd_sdl-mixer-flags sd_jack-libs sd_byteorder sd_direntry sd_portaudio-flags sd_jack-flags sd_sd-inline sd_int64 sd_sdl-ttf-libs sd_corelib-libs-S sd_sse2-flags sd_sse3-flags sd_fltk2-libs sd_corelib-flags sd_sdl-libs sd_float32 sd_sd-fcntl sd_png-libs sd_fltk2-flags sd_sdl-flags sd_pdcgi-libs-S sd_png-flags sd_sd-pthreads sd_vector-flags sd_vector-libs sd_vector-libs-S sd_loadso-flags sd_loadso-libs sd_loadso-libs-S sd_sd-posix_rt sd_sd-fork sd_sd-ptr_uint sd_integer-flags sd_integer-libs sd_integer-libs-S sd_io-notice sd_netlib-flags sd_netlib-libs-S sd_chrono-flags sd_chrono-libs sd_chrono-libs-S sd_opengl-obj sd_gltexload-flags sd_glsoload-flags sd_pngload-flags sd_pngload-libs-S sd_gltexload-libs-S sd_glsoload-libs-S sd_carbon-libs
+sysdeps_clean:  sd_sd-sockets_clean sd_netlib-libs_clean sd_sd-select_clean sd_io_poll-libs-S_clean sd_sd-dlopen_clean sd_io_poll-flags_clean sd_fltk11-libs-S_clean sd_sdl-image-libs_clean sd_uint64_clean sd_sysinfo_clean sd_sdl-image-flags_clean sd_sd-fd_clean sd_sd-math_clean sd_int32_clean sd_int16_clean sd_ch_flags_clean sd_corelib-libs_clean sd_fastcgi-libs_clean sd_sdl-ttf-flags_clean sd_fltk2-libs-S_clean sd_fastcgi-flags_clean sd_opengl-libs_clean sd_float64_clean sd_sndfile-libs_clean sd_opengl-flags_clean sd_sndfile-flags_clean sd_tiff-libs_clean sd_pdcgi-flags_clean sd_altivec-flags_clean sd_sd-signal_clean sd_tiff-flags_clean sd_sd-longlong_clean sd_sse-flags_clean sd_uint32_clean sd_uint16_clean sd_fltk11-libs_clean sd_sdl-mixer-libs_clean sd_fltk11-flags_clean sd_portaudio-libs_clean sd_sd-mmap_clean sd_sdl-mixer-flags_clean sd_jack-libs_clean sd_byteorder_clean sd_direntry_clean sd_portaudio-flags_clean sd_jack-flags_clean sd_sd-inline_clean sd_int64_clean sd_sdl-ttf-libs_clean sd_corelib-libs-S_clean sd_sse2-flags_clean sd_sse3-flags_clean sd_fltk2-libs_clean sd_corelib-flags_clean sd_sdl-libs_clean sd_float32_clean sd_sd-fcntl_clean sd_png-libs_clean sd_fltk2-flags_clean sd_sdl-flags_clean sd_pdcgi-libs-S_clean sd_png-flags_clean sd_sd-pthreads_clean sd_vector-flags_clean sd_vector-libs_clean sd_vector-libs-S_clean sd_loadso-flags_clean sd_loadso-libs_clean sd_loadso-libs-S_clean sd_sd-posix_rt_clean sd_sd-fork_clean sd_sd-ptr_uint_clean sd_integer-flags_clean sd_integer-libs_clean sd_integer-libs-S_clean sd_io-notice_clean sd_netlib-flags_clean sd_netlib-libs-S_clean sd_chrono-flags_clean sd_chrono-libs_clean sd_chrono-libs-S_clean sd_opengl-obj_clean sd_gltexload-flags_clean sd_glsoload-flags_clean sd_pngload-flags_clean sd_pngload-libs-S_clean sd_gltexload-libs-S_clean sd_glsoload-libs-S_clean sd_carbon-libs_clean
 
 sd_sd-sockets:
 	@(cd modules/sd-sockets && ./run)
@@ -408,6 +408,46 @@ sd_chrono-libs-S:
 	@(cd modules/chrono-libs-S && ./run)
 sd_chrono-libs-S_clean:
 	@(cd modules/chrono-libs-S && ./clean)
+
+sd_opengl-obj:
+	@(cd modules/opengl-obj && ./run)
+sd_opengl-obj_clean:
+	@(cd modules/opengl-obj && ./clean)
+
+sd_gltexload-flags:
+	@(cd modules/gltexload-flags && ./run)
+sd_gltexload-flags_clean:
+	@(cd modules/gltexload-flags && ./clean)
+
+sd_glsoload-flags:
+	@(cd modules/glsoload-flags && ./run)
+sd_glsoload-flags_clean:
+	@(cd modules/glsoload-flags && ./clean)
+
+sd_pngload-flags:
+	@(cd modules/pngload-flags && ./run)
+sd_pngload-flags_clean:
+	@(cd modules/pngload-flags && ./clean)
+
+sd_pngload-libs-S:
+	@(cd modules/pngload-libs-S && ./run)
+sd_pngload-libs-S_clean:
+	@(cd modules/pngload-libs-S && ./clean)
+
+sd_gltexload-libs-S:
+	@(cd modules/gltexload-libs-S && ./run)
+sd_gltexload-libs-S_clean:
+	@(cd modules/gltexload-libs-S && ./clean)
+
+sd_glsoload-libs-S:
+	@(cd modules/glsoload-libs-S && ./run)
+sd_glsoload-libs-S_clean:
+	@(cd modules/glsoload-libs-S && ./clean)
+
+sd_carbon-libs:
+	@(cd modules/carbon-libs && ./run)
+sd_carbon-libs_clean:
+	@(cd modules/carbon-libs && ./clean)
 
 regen:
 	./gen-makefile > Makefile.tmp && mv Makefile.tmp Makefile
