@@ -51,6 +51,8 @@ libs-jack: sysdeps.out
 flags-loadso: sysdeps.out
 libs-loadso: sysdeps.out
 libs-loadso: sysdeps.out
+libs-carbon: sysdeps.out
+flags-carbon: sysdeps.out
 flags-netlib: sysdeps.out
 libs-netlib: sysdeps.out
 libs-netlib: sysdeps.out
@@ -189,8 +191,8 @@ cc-compile open_ro.c open.h
 clean-all: sysdeps_clean obj_clean 
 clean: obj_clean
 obj_clean: 
-	rm -f ch_flags.a ch_flags.o depchklist depchklist.o get_flags.o \
-	open.a open_ro.o 
+	rm -f ch_flags.a ch_flags.o conf-cctype conf-systype depchklist \
+	depchklist.o get_flags.o open.a open_ro.o 
 
 regen:
 	cpj-genmk > Makefile.tmp && mv Makefile.tmp Makefile
