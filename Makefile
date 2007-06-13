@@ -3,7 +3,7 @@
 default: all
 
 all:\
-sysdeps.out ch_flags.a depchklist open.a 
+sysdeps.out ch_flags.a depchklist mk-ctxt open.a 
 
 sysdeps: sysdeps.out
 sysdeps.out:
@@ -139,15 +139,15 @@ cc-compile ch_flags.c ch_flags.h uint32.h
 
 conf-cctype:\
 conf-systype conf-cc mk-cctype 
-	./mk-cctype > conf-cctype
+	./mk-cctype > conf-cctype.tmp && mv conf-cctype.tmp conf-cctype
 
 conf-ldtype:\
 conf-systype conf-ld conf-cctype mk-ldtype 
-	./mk-ldtype > conf-ldtype
+	./mk-ldtype > conf-ldtype.tmp && mv conf-ldtype.tmp conf-ldtype
 
 conf-systype:\
 mk-systype 
-	./mk-systype > conf-systype
+	./mk-systype > conf-systype.tmp && mv conf-systype.tmp conf-systype
 
 depchklist:\
 cc-link depchklist.ld depchklist.o 
@@ -166,16 +166,19 @@ cc-compile get_flags.c ch_flags.h open.h uint32.h
 mk-cctype:\
 conf-cc conf-systype 
 
-mk-ctxt.o:\
-cc-compile mk-ctxt.c
-	./cc-compile mk-ctxt.c
-
 mk-ctxt:\
-cc-link mk-ctxt.o mk-ctxt.ld
-	./cc-link mk-ctxt mk-ctxt.o
+cc-link mk-ctxt.ld mk-ctxt.o 
+	./cc-link mk-ctxt mk-ctxt.o 
+
+mk-ctxt.o:\
+cc-compile mk-ctxt.c 
+	./cc-compile mk-ctxt.c
 
 mk-ldtype:\
 conf-cctype conf-systype 
+
+mk-mk-ctxt:\
+conf-cc 
 
 mk-systype:\
 conf-cc 
@@ -192,7 +195,7 @@ clean-all: sysdeps_clean obj_clean
 clean: obj_clean
 obj_clean: 
 	rm -f ch_flags.a ch_flags.o depchklist depchklist.o get_flags.o \
-	open.a open_ro.o 
+	mk-ctxt mk-ctxt.o open.a open_ro.o 
 
 regen:
 	cpj-genmk > Makefile.tmp && mv Makefile.tmp Makefile
