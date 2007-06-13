@@ -51,30 +51,4 @@ then
   done
 fi
 
-case ${LDTYPE} in
-  GCC)
-    case ${SYSTYPE} in
-      DARWIN)
-        # On Darwin >= 8, produce fat binaries
-        release=`uname -r | awk -F. '{print $1}'`
-        if [ ${release} -gt 7 ]
-        then
-          if [ -d /Developer/SDKs/MacOSX10.4u.sdk ]
-          then
-            exec ${LD} \
-              -arch ppc \
-              -arch i386 \
-              -isysroot /Developer/SDKs/MacOSX10.4u.sdk \
-              -o ${out} ${1+"$@"} ${LDFLAGS}
-          fi
-        fi
-        ;;
-      *)
-        ;;
-    esac
-    ;;
-  *)
-    ;;
-esac
-
 exec ${LD} -o ${out} ${1+"$@"} ${LDFLAGS}
