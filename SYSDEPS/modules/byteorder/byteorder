@@ -1,6 +1,6 @@
 #!/bin/sh
 
-do_clean()
+cleanup()
 {
   rm -f make-byteorder make-byteorder.o
 }
@@ -8,19 +8,53 @@ do_clean()
 fatal()
 {
   echo "fatal: $1" 1>&2
-  do_clean
+  cleanup
   exit 1
 }
 
 temph="$1"
 tempsys="$2"
 
-${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o make-byteorder.o make-byteorder.c
-${SYSDEP_LD} -o make-byteorder make-byteorder.o ${SYSDEP_LDFLAGS}
-if [ $? -ne 0 ]; then fatal "error compiling make-byteorder"; fi
+cat >> "${temph}" << EOF
+#ifndef _BYTEORDER_H
+#define _BYTEORDER_H
 
-./make-byteorder 1>${temph} 2>>${tempsys}
-if [ $? -ne 0 ]; then fatal "could not create make-byteorder header"; fi
+#define E_BIG_ENDIAN 0
+#define E_LITTLE_ENDIAN 1
 
-do_clean
+EOF
+
+if [ ${SYSDEP_CROSS_COMPILE} -eq 0 ]
+then
+  ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o make-byteorder.o make-byteorder.c
+  ${SYSDEP_LD} -o make-byteorder make-byteorder.o ${SYSDEP_LDFLAGS}
+  if [ $? -ne 0 ]; then fatal "error compiling make-byteorder"; fi
+
+  order=`./make-byteorder`
+  if [ $? -ne 0 ]; then fatal "could not execute make-byteorder"; fi
+else
+  order=`file_get_by_path "conf-x-byteorder" ""`
+  if [ -z "${order}" ]
+  then
+    fatal "unable to read conf-x-byteorder"
+  fi
+fi
+
+case "${order}" in
+  little)
+    echo '#define E_ENDIANNESS E_LITTLE_ENDIAN' >> "${temph}"
+    echo 'byteorder: little' >> "${tempsys}"
+    ;;
+  big)
+    echo '#define E_ENDIANNESS E_BIG_ENDIAN' >> "${temph}"
+    echo 'byteorder: big' >> "${tempsys}"
+    ;;
+  *)
+    fatal "unknown byte ordering"
+    ;;
+esac
+
+echo '#endif' >> "${temph}"
+
+cleanup
 exit 0

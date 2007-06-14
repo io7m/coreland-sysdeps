@@ -6,8 +6,10 @@ then
   exit 111
 fi
 
+set
+
 sd_tmp="sysdeps.out"
-f1_tmp="_byteorder.h"
+f1_tmp="`head -n 1 CREATES`"
 echo "SYSDEPS byteorder run create ${f1_tmp}"
 
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
