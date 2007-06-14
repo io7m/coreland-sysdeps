@@ -1,17 +1,7 @@
 #include <stdio.h>
 #include <limits.h>
 
-int go(const char* s)
-{
-  puts("#ifndef _INT16_H");
-  puts("#define _INT16_H");
-  puts("/* automatically generated - do not edit */");
-  printf("typedef %s int16;\n", s);
-  fprintf(stderr, "int16: %s\n", s);
-  puts("#endif");
-  return 0;
-}
-
+int go(const char* s) { printf("%s\n", s); return 0; }
 int main(void)
 {
   if (sizeof(signed char) * CHAR_BIT == 16)
