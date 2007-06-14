@@ -1,12 +1,2 @@
 #!/bin/sh
-
-SYSDEP_MODULE="fltk11-libs-S"
-export SYSDEP_MODULE
-
-. ../../sysdep-main
-if [ $? -ne 0 ]; then exit 111; fi
-
-f1_tmp="`${SYSDEP_LINE} 1 < CREATES`"
-f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
-./fltk11-libs ${f1_tmp}
-cp ${f1_tmp} ${f1_out}
+exec ../../sysdep-main

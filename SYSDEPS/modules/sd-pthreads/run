@@ -1,28 +1,2 @@
 #!/bin/sh
-
-. ../../sysdep-main
-if [ $? -ne 0 ]
-then
-  exit 111
-fi
-
-f1_tmp="libs-pthreads"
-f2_tmp="flags-pthreads"
-f3_tmp="libs-pthr_rt"
-f4_tmp="flags-pthr_rt"
-sd_tmp="sysdeps.out"
-
-echo "SYSDEPS sd-pthreads run create ${f1_tmp} ${f2_tmp} ${f3_tmp} ${f4_tmp}"
-
-f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
-f2_out="${SYSDEP_OUTDIR}/${f2_tmp}"
-f3_out="${SYSDEP_OUTDIR}/${f3_tmp}"
-f4_out="${SYSDEP_OUTDIR}/${f4_tmp}"
-sd_out="${SYSDEP_OUTDIR}/${sd_tmp}"
-
-./sd-pthreads ${f1_tmp} ${f2_tmp} ${f3_tmp} ${f4_tmp} ${sd_tmp}
-cp ${f1_tmp} ${f1_out}
-cp ${f2_tmp} ${f2_out}
-cp ${f3_tmp} ${f3_out}
-cp ${f4_tmp} ${f4_out}
-cat ${sd_tmp} >> ${sd_out}
+exec ../../sysdep-main

@@ -1,3 +1,2 @@
 #!/bin/sh
-SYSDEP_CLEAN=1
-exec ../../sysdep-main
+SYSDEP_CLEAN=1 exec ../../sysdep-main

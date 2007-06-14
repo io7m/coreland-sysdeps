@@ -1,17 +1,2 @@
 #!/bin/sh
-
-SYSDEP_CLEAN=1
-. ../../sysdep-main
-if [ $? -ne 0 ]
-then
-  exit 111
-fi
-
-f1_tmp="_opengl_obj.c"
-sd_tmp="sysdeps.out"
-echo "SYSDEPS opengl-obj clean ${f1_tmp}"
-
-f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
-sd_out="${SYSDEP_OUTDIR}/${sd_tmp}"
-
-rm -f ${f1_tmp} ${f1_out} ${sd_tmp} ${sd_out}
+SYSDEP_CLEAN=1 exec ../../sysdep-main
