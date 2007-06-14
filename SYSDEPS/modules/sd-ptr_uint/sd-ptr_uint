@@ -2,8 +2,9 @@
 
 cleanup()
 {
-  rm -f try_ptr_uint1 try_ptr_uint1.1 try_ptr_uint1.2 try_ptr_uint1.o \
-        try_ptr_uint2 try_ptr_uint2.1 try_ptr_uint2.2 try_ptr_uint2.o
+  rm -f try_ptr_uint1 try_ptr_uint1.o \
+        try_ptr_uint2 try_ptr_uint2.o \
+        try_stdint try_stdint.o
 }
 
 fatal()
@@ -13,38 +14,57 @@ fatal()
   exit 1
 }
 
+have_it()
+{
+  type="$1"
+  extra="$2"
+
+  cat >> "${temp_f}" <<EOF
+#ifndef _PTR_UINT_H
+#define _PTR_UINT_H
+
+$extra
+typedef $type ptr_uint;
+
+#endif
+EOF
+  echo "ptr_uint: ${type}" >> "${temp_sys}"
+  cleanup
+  exit 0
+}
+
 temp_f="$1"
 temp_sys="$2"
 
-${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o try_ptr_uint1.o try_ptr_uint1.c
-${SYSDEP_LD} -o try_ptr_uint1 try_ptr_uint1.o ${SYSDEP_LDFLAGS}
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o try_stdint.o try_stdint.c 1>/dev/null 2>&1
+${SYSDEP_LD} -o try_stdint try_stdint.o ${SYSDEP_LDFLAGS} 1>/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  ./try_ptr_uint1 1>> try_ptr_uint1.1 2>> try_ptr_uint1.2
-  if [ $? -eq 0 ]
-  then
-    mv try_ptr_uint1.1 "${temp_f}"
-    mv try_ptr_uint1.2 "${temp_sys}"
-  else
-    ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o try_ptr_uint2.o try_ptr_uint2.c
-    ${SYSDEP_LD} -o try_ptr_uint2 try_ptr_uint2.o ${SYSDEP_LDFLAGS}
-    if [ $? -eq 0 ]
-    then
-      ./try_ptr_uint2 1>> try_ptr_uint2.1 2>> try_ptr_uint2.2
-      if [ $? -eq 0 ]
-      then
-        mv try_ptr_uint2.1 "${temp_f}"
-        mv try_ptr_uint2.2 "${temp_sys}"
-      else
-        fatal "could not retrieve integer type equal in size to pointer"
-      fi
-    else
-      fatal "error compiling try_ptr_uint2"
-    fi
-  fi
-else
-  fatal "error compiling try_ptr_uint1"
+  have_it "uintptr_t" "#include <stdint.h>"
 fi
 
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o try_ptr_uint1.o try_ptr_uint1.c 1>/dev/null 2>&1
+${SYSDEP_LD} -o try_ptr_uint1 try_ptr_uint1.o ${SYSDEP_LDFLAGS} 1>/dev/null 2>&1
+if [ $? -eq 0 ]
+then
+  type=`./try_ptr_uint1`
+  if [ $? -eq 0 ]
+  then
+    have_it "${type}"
+  else
+    ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o try_ptr_uint2.o try_ptr_uint2.c 1>/dev/null 2>&1
+    ${SYSDEP_LD} -o try_ptr_uint2 try_ptr_uint2.o ${SYSDEP_LDFLAGS} 1>/dev/null 2>&1
+    if [ $? -eq 0 ]
+    then
+      type=`./try_ptr_uint2`
+      if [ $? -eq 0 ]
+      then
+        have_it "${type}"
+      fi
+    fi
+  fi
+fi
+
+fatal "could not get integer type equal in size to pointer"
 cleanup
 exit 0

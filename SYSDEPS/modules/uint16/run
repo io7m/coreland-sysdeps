@@ -7,7 +7,7 @@ then
 fi
 
 sd_tmp="sysdeps.out"
-f1_tmp="_uint16.h"
+f1_tmp="`${SYSDEP_LINE} 1 < CREATES`"
 echo "SYSDEPS uint16 run create ${f1_tmp}"
 
 sd_out="${SYSDEP_OUTDIR}/${sd_tmp}"

@@ -1,1 +1,1 @@
-unsigned integer type, equal in size to native pointer size.
+signed, 16 bit integer typedef.

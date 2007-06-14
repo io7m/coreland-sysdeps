@@ -7,9 +7,8 @@ then
   exit 111
 fi
 
-f1_tmp="flags-altivec"
+f1_tmp="`${SYSDEP_LINE} 1 < CREATES`"
 echo "SYSDEPS flags-altivec clean ${f1_tmp}"
-
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
 
 rm -f ${f1_tmp} ${f1_out}

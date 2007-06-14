@@ -1,0 +1,8 @@
+#!/bin/sh
+
+IFS="
+"
+for line in `set | grep "^SYSDEP_"`
+do
+  ${SYSDEP_INFO} "$line"
+done
