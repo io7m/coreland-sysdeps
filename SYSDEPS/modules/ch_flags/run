@@ -1,16 +1,2 @@
 #!/bin/sh
-
-SYSDEP_MODULE="ch_flags"
-export SYSDEP_MODULE
-
-. ../../sysdep-main
-if [ $? -ne 0 ]; then exit 111; fi
-
-sd_tmp="sysdeps.out"
-f1_tmp="`${SYSDEP_LINE} 1 < CREATES`"
-f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
-sd_out="${SYSDEP_OUTDIR}/${sd_tmp}"
-
-./ch_flags ${f1_tmp} ${sd_tmp}
-cp ${f1_tmp} ${f1_out}
-cat ${sd_tmp} >> ${sd_out}
+exec ../../sysdep-main

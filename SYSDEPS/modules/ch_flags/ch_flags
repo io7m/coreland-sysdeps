@@ -10,13 +10,12 @@ cleanup()
 
 have_chflags()
 {
+  define=`${SYSDEP_LINE} 1 < defines`
   cat > "${fout}" <<EOF
 #ifndef _CH_FLAGS_H
 #define _CH_FLAGS_H
 
-#define CH_FLAGS_HAVE_CHFLAGS
-#define CH_FLAGS_WORKING
-#define HAVE_CHFLAGS
+#define $define
 
 #endif
 EOF
