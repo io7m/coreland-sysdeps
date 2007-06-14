@@ -48,7 +48,7 @@ cat >> "${head_out}" <<EOF
 EOF
 
 echo "fcntl: ${sup}" >> "${sysd_out}"
-echo "fcntl-flags: `head -n 1 ${flag_out}`" >> "${sysd_out}"
-echo "fcntl-libs: `head -n 1 ${libs_out}`" >> "${sysd_out}"
+echo "fcntl-flags: `${SYSDEP_LINE} 1 < ${flag_out}`" >> "${sysd_out}"
+echo "fcntl-libs: `${SYSDEP_LINE} 1 < ${libs_out}`" >> "${sysd_out}"
 
 rm -f tryfcntl tryfcntl.o tryioctlsock tryioctlsock.o

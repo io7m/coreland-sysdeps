@@ -241,6 +241,13 @@ else
   export SYSDEP_CPU_CACHE_LINE_SIZE
 fi
 
+# override path prefix
+PREFIX=`${SYSDEP_FILE} get "conf-prefix" ""`
+if [ ${SYSDEP_CROSS_COMPILE} -eq 1 ]
+then
+  PREFIX="`${SYSDEP_FILE} get "conf-x-prefix" "${PREFIX}"` ${PREFIX}"
+fi
+
 # standard include path
 SYSDEP_STDINC="/usr/include /usr/local/include"
 case ${SYSDEP_OS} in
@@ -248,6 +255,7 @@ case ${SYSDEP_OS} in
   SYSDEP_OS_SUNOS) SYSDEP_STDINC="/usr/sfw/include ${SYSDEP_STDINC}";;
   *)
 esac
+SYSDEP_STDINC="${PREFIX}/include ${SYSDEP_STDINC}"
 export SYSDEP_STDINC
 
 # standard library path
@@ -257,6 +265,7 @@ case ${SYSDEP_OS} in
   SYSDEP_OS_SUNOS) SYSDEP_STDLIB="/usr/sfw/lib ${SYSDEP_STDLIB}";;
   *)
 esac
+SYSDEP_STDLIB="${PREFIX}/lib ${SYSDEP_STDLIB}"
 export SYSDEP_STDLIB
 
 # find system dynamic library suffix
@@ -264,6 +273,7 @@ SYSDEP_LIBSUFFIX="so"
 case ${SYSDEP_OS} in
   SYSDEP_OS_DARWIN) SYSDEP_LIBSUFFIX="dylib" ;;
   SYSDEP_OS_HPUX) SYSDEP_LIBSUFFIX="sl";;
+  SYSDEP_OS_MS_WINDOWS) SYSDEP_LIBSUFFIX="dll";;
   *) ;;
 esac
 export SYSDEP_LIBSUFFIX

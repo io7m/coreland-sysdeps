@@ -28,12 +28,14 @@ SYSDEP_TRY_PKG_CONFIG=${SYSDEP_DIR_RELATIVE}/sd-configpkg
 SYSDEP_TRY_MANUAL=${SYSDEP_DIR_RELATIVE}/sd-configman
 SYSDEP_ERROR=${SYSDEP_DIR_RELATIVE}/sd-error
 SYSDEP_FILE=${SYSDEP_DIR_RELATIVE}/sd-file
+SYSDEP_LINE=${SYSDEP_DIR_RELATIVE}/sd-line
 
 export SYSDEP_TRY_CONFIG_BIN
 export SYSDEP_TRY_PKG_CONFIG
 export SYSDEP_TRY_MANUAL
 export SYSDEP_ERROR
 export SYSDEP_FILE
+export SYSDEP_LINE
 
 # 'clean' scripts may set this variable to vastly speed up 'make clean'
 if [ -z "${SYSDEP_CLEAN}" ];
