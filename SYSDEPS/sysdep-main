@@ -50,11 +50,11 @@ if [ -z "${SYSDEP_CLEAN}" ];
 then
   . ${SYSDEP_DIR_RELATIVE}/sysdep-subs;
 
-  if [ -f CREATES ]
+  if [ -f creates ]
   then
-    CREATES=`cat CREATES`
+    CREATES=`cat creates`
   fi
-  if [ -f SYSDEPOUT ]
+  if [ -f sysdepout ]
   then
     CREATES="${CREATES} sysdeps.out"
   fi
@@ -89,9 +89,9 @@ else
   # Clean up created files
   #
 
-  if [ -f CREATES ]
+  if [ -f creates ]
   then
-    for file in `cat CREATES`
+    for file in `cat creates`
     do
       rm -f "${file}" "${SYSDEP_OUTDIR}/${file}"
     done
