@@ -2,7 +2,7 @@
 
 cleanup()
 {
-  rm -f make-byteorder make-byteorder.o
+  rm -f byteorder byteorder.o
 }
 
 fatal()
@@ -26,10 +26,10 @@ EOF
 
 if [ ${SYSDEP_CROSS_COMPILE} -eq 0 ]
 then
-  ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o make-byteorder.o make-byteorder.c
-  ${SYSDEP_LD} -o make-byteorder make-byteorder.o ${SYSDEP_LDFLAGS}
-  if [ $? -ne 0 ]; then fatal "error compiling make-byteorder"; fi
-  order=`./make-byteorder`
+  ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o byteorder.o byteorder.c
+  ${SYSDEP_LD} -o byteorder byteorder.o ${SYSDEP_LDFLAGS}
+  if [ $? -ne 0 ]; then fatal "error compiling byteorder"; fi
+  order=`./byteorder`
 fi
 
 if [ -z "${order}" ]
