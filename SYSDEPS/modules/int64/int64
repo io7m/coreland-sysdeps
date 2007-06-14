@@ -9,7 +9,7 @@ cleanup()
 
 fatal()
 {
-  echo "fatal: $1" 1>&2
+  ${SYSDEP_FATAL} "$1"
   cleanup
   exit 1
 }
@@ -65,6 +65,13 @@ then
   fi
 fi
 
-fatal "could not get signed 64 bit integer type"
+conf=`${SYSDEP_LINE} 1 < CONFIG`
+${SYSDEP_INFO} "falling back to ${conf}"
+type=`${SYSDEP_FILE} get "${conf}" ""`
+if [ ! -z ${type} ]
+then
+  fatal "could not get signed 64 bit integer type"
+fi
+
 cleanup
 exit 0
