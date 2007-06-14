@@ -32,6 +32,10 @@ SYSDEP_INFO=${SYSDEP_DIR_RELATIVE}/sd-info
 SYSDEP_FILE=${SYSDEP_DIR_RELATIVE}/sd-file
 SYSDEP_LINE=${SYSDEP_DIR_RELATIVE}/sd-line
 
+PWD=`pwd`
+SYSDEP_MODULE="`basename $PWD`"
+
+export SYSDEP_MODULE
 export SYSDEP_TRY_CONFIG_BIN
 export SYSDEP_TRY_PKG_CONFIG
 export SYSDEP_TRY_MANUAL
@@ -45,6 +49,30 @@ export SYSDEP_LINE
 if [ -z "${SYSDEP_CLEAN}" ];
 then
   . ${SYSDEP_DIR_RELATIVE}/sysdep-subs;
+
+  if [ -f CREATES ]
+  then
+    CREATES=`cat CREATES`
+  fi
+  if [ -f SYSDEPOUT ]
+  then
+    CREATES="${CREATES} sysdeps.out"
+  fi
+  if [ -x custom ]
+  then
+    ./custom ${CREATES}
+  fi
+  for file in ${CREATES}
+  do
+    if [ "${file}" = "sysdeps.out" ]
+    then
+      cat "$file" >> "${SYSDEP_OUTDIR}/$file"
+      rm -f "${file}"
+    else
+      cp "$file" "${SYSDEP_OUTDIR}/$file"
+      rm -f "${file}"
+    fi
+  done
 else
   rm -f ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86 \
         ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86.o
@@ -56,4 +84,16 @@ else
         ${SYSDEP_DIR_RELATIVE}/sd-ccversion.o
   rm -f ${SYSDEP_DIR_RELATIVE}/sd-os \
         ${SYSDEP_DIR_RELATIVE}/sd-os.o
+
+  #
+  # Clean up created files
+  #
+
+  if [ -f CREATES ]
+  then
+    for file in `cat CREATES`
+    do
+      rm -f "${file}" "${SYSDEP_OUTDIR}/${file}"
+    done
+  fi
 fi
