@@ -45,23 +45,8 @@ export SYSDEP_FATAL
 export SYSDEP_FILE
 export SYSDEP_LINE
 
-# 'clean' scripts may set this variable to vastly speed up 'make clean'
-if [ -z "${SYSDEP_CLEAN}" ];
-then
-  . ${SYSDEP_DIR_RELATIVE}/sysdep-subs;
-
-  if [ -f creates ]
-  then
-    CREATES=`cat creates`
-  fi
-  if [ -f sysdepout ]
-  then
-    CREATES="${CREATES} sysdeps.out"
-  fi
-  if [ -x custom ]
-  then
-    ./custom ${CREATES}
-  fi
+files_move()
+{
   for file in ${CREATES}
   do
     if [ "${file}" = "sysdeps.out" ]
@@ -73,6 +58,162 @@ then
       rm -f "${file}"
     fi
   done
+}
+
+files_clean()
+{
+  if [ -f creates ]
+  then
+    for file in `cat creates`
+    do
+      rm -f "${file}" "${SYSDEP_OUTDIR}/${file}"
+    done
+  fi
+}
+
+flatten_defines()
+{
+  for tag in $1
+  do
+    d="-D${tag} ${defines}"
+  done
+  echo "$d"
+}
+
+if [ -z "${SYSDEP_CLEAN}" ];
+then
+  . ${SYSDEP_DIR_RELATIVE}/sysdep-subs;
+
+  #
+  # List of created files.
+  #
+
+  CREATES=`cat creates`
+
+  #
+  # Execute custom script if present
+  #
+
+  if [ -x custom ]
+  then
+    if [ -f sysdepout ]
+    then
+      CREATES="${CREATES} sysdeps.out"
+    fi
+    ./custom ${CREATES}
+    files_move
+    exit 0
+  fi
+
+  #
+  # Try config binary if requested
+  #
+
+  if [ -f config_bin ]
+  then
+    define="`cat defines`"
+    ofile="`${SYSDEP_LINE} 1 < creates`"
+    config_bin="`${SYSDEP_LINE} 1 < config_bin`"
+    config_bin_args="`${SYSDEP_LINE} 1 < config_bin_args`"
+    flags=`${SYSDEP_TRY_CONFIG_BIN} "${config_bin}" "${config_bin_args}" 2>&-`
+    if [ ! -z "${flags}" ]
+    then
+      str="${flags} `flatten_defines "${define}"`"
+      echo "${str}" >> "${ofile}"
+      if [ -f sysdepout ]
+      then
+        echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
+      fi
+      files_move
+      exit 0
+    else
+      ${SYSDEP_ERROR} "config binary failed"
+    fi
+  fi
+
+  #
+  # Try pkg-config if requested
+  #
+
+  if [ -f pkg_config ]
+  then
+    define="`cat defines`"
+    ofile="`${SYSDEP_LINE} 1 < creates`"
+    pkg_config_args="`${SYSDEP_LINE} 1 < pkg_config_args`"
+    pkg="`${SYSDEP_LINE} 1 < pkg`"
+    flags=`${SYSDEP_TRY_PKG_CONFIG} "${pkg}" "${pkg_config_args}" 2>&-`
+    if [ ! -z "${flags}" ]
+    then
+      str="${flags} `flatten_defines "${define}"`"
+      echo "${str}" >> "${ofile}"
+      if [ -f sysdepout ]
+      then
+        echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
+      fi
+      files_move
+      exit 0
+    else
+      ${SYSDEP_ERROR} "pkg-config failed"
+    fi
+  fi
+
+  #
+  # Fall back to manual search.
+  #
+
+  define="`cat defines`"
+  ofile="`${SYSDEP_LINE} 1 < creates`"
+
+  if [ -f path_ext ]
+  then
+    path_ext="`${SYSDEP_LINE} 1 < path_ext`"
+    for dir in ${SYSDEP_STDINC}
+    do
+      SYSDEP_STDINC="${dir}/${path_ext} ${SYSDEP_STDINC}"
+    done
+    for dir in ${SYSDEP_STDLIB}
+    do
+      SYSDEP_STDLIB="${dir}/${path_ext} ${SYSDEP_STDLIB}"
+    done
+  fi
+
+  if [ -f header ]
+  then
+    file="`${SYSDEP_LINE} 1 < header`"
+    flags=`${SYSDEP_TRY_MANUAL} "${file}" "${SYSDEP_STDINC}" "-I" 2>&-`
+    if [ ! -z "${flags}" ]
+    then
+      str="${flags} `flatten_defines "${define}"`"
+      echo "${str}" >> "${ofile}"
+      if [ -f sysdepout ]
+      then
+        echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
+      fi
+      files_move
+      exit 0
+    fi
+  fi
+
+  if [ -f dynlib ]
+  then
+    lib="`${SYSDEP_LINE} 1 < dynlib`"
+    file="${lib}.${SYSDEP_LIBSUFFIX}"
+    flags=`${SYSDEP_TRY_MANUAL} "${file}" "${SYSDEP_STDLIB}" "-L" 2>&-`
+    if [ ! -z "${flags}" ]
+    then
+      str="${flags} -l${lib}"
+      echo "${str}" >> "${ofile}"
+      if [ -f sysdepout ]
+      then
+        echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
+      fi
+      files_move
+      exit 0
+    fi
+  fi
+
+  ${SYSDEP_ERROR} "manual search failed"
+
 else
   rm -f ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86 \
         ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86.o
@@ -85,15 +226,5 @@ else
   rm -f ${SYSDEP_DIR_RELATIVE}/sd-os \
         ${SYSDEP_DIR_RELATIVE}/sd-os.o
 
-  #
-  # Clean up created files
-  #
-
-  if [ -f creates ]
-  then
-    for file in `cat creates`
-    do
-      rm -f "${file}" "${SYSDEP_OUTDIR}/${file}"
-    done
-  fi
+  files_clean
 fi

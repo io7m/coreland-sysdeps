@@ -1,13 +1,3 @@
 #!/bin/sh
-
-SYSDEP_MODULE="byteorder"
-export SYSDEP_MODULE
-
 SYSDEP_CLEAN=1
-. ../../sysdep-main
-if [ $? -ne 0 ]; then exit 111; fi
-
-sd_tmp="sysdeps.out"
-f1_tmp="`${SYSDEP_LINE} 1 < CREATES`"
-f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
-rm -f ${f1_tmp} ${f1_out} ${sd_tmp}
+exec ../../sysdep-main
