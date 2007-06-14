@@ -33,10 +33,11 @@ then
   order=`./make-byteorder`
   if [ $? -ne 0 ]; then fatal "could not execute make-byteorder"; fi
 else
-  order=`file_get_by_path "conf-x-byteorder" ""`
+  conf=`head -n 1 CONFIG`
+  order=`${SYSDEP_FILE} get "${conf}" ""`
   if [ -z "${order}" ]
   then
-    fatal "unable to read conf-x-byteorder"
+    fatal "cross compiling and unable to read ${conf}"
   fi
 fi
 

@@ -4,34 +4,6 @@
 # This file is intended to be called by 'sysdeps-main'
 #
 
-FILE_PATH_DIRS="
-${SYSDEP_DIR_RELATIVE}/../
-${SYSDEP_DIR_RELATIVE}/
-"
-file_get_by_path()
-{
-  targ_file="$1"
-  orig_text="$2"
-  for dir in ${FILE_PATH_DIRS}
-  do
-    if [ -f "${dir}/${targ_file}" ]
-    then
-      tmp=`head -n 1 "${dir}/${targ_file}"`
-      if [ ! -z "${tmp}" ]; then echo "${tmp}"; return; fi
-    fi
-  done
-  echo "${orig_text}"
-}
-file_exists_by_path()
-{
-  targ_file="$1"
-  for dir in ${FILE_PATH_DIRS}
-  do
-    if [ -f "${dir}/${targ_file}" ]; then return 1; fi
-  done
-  return 0
-}
-
 #
 # C compiler and linker
 # sysdeps conf-cc preferred over project conf-cc preferred over 'cc'
@@ -39,43 +11,43 @@ file_exists_by_path()
 #
 
 SYSDEP_CROSS_COMPILE=0
-file_exists_by_path "conf-x-cc"
+${SYSDEP_FILE} exists "conf-x-cc"
 if [ $? -eq 1 ]; then SYSDEP_CROSS_COMPILE=1; fi
 export SYSDEP_CROSS_COMPILE
 
 if [ $SYSDEP_CROSS_COMPILE -eq 1 ]
 then
-  SYSDEP_CC=`file_get_by_path "conf-x-cc" "${SYSDEP_CC}"`
-  SYSDEP_LD=`file_get_by_path "conf-x-ld" "${SYSDEP_LD}"`
+  SYSDEP_CC=`${SYSDEP_FILE} get "conf-x-cc" "${SYSDEP_CC}"`
+  SYSDEP_LD=`${SYSDEP_FILE} get "conf-x-ld" "${SYSDEP_LD}"`
 
   if [ -z "${SYSDEP_CC}" ]
   then
-    ${SYSDEP_DIR_RELATIVE}/sd-error "cross compiler is not defined"
+    ${SYSDEP_ERROR} "cross compiler is not defined"
     exit 112
   fi
   if [ -z "${SYSDEP_LD}" ]
   then
-    ${SYSDEP_DIR_RELATIVE}/sd-error "cross linker is not defined"
+    ${SYSDEP_ERROR} "cross linker is not defined"
     exit 112
   fi
 
-  SYSDEP_CFLAGS=`file_get_by_path "conf-x-cflags" "${SYSDEP_CFLAGS}"`
-  SYSDEP_LDFLAGS=`file_get_by_path "conf-x-ldflags" "${SYSDEP_LDFLAGS}"`
+  SYSDEP_CFLAGS=`${SYSDEP_FILE} get "conf-x-cflags" "${SYSDEP_CFLAGS}"`
+  SYSDEP_LDFLAGS=`${SYSDEP_FILE} get "conf-x-ldflags" "${SYSDEP_LDFLAGS}"`
   export SYSDEP_CFLAGS
   export SYSDEP_LDFLAGS
 else
   SYSDEP_CC="cc"
-  SYSDEP_CC=`file_get_by_path "conf-cc" "${SYSDEP_CC}"`
-  SYSDEP_LD=`file_get_by_path "conf-ld" "${SYSDEP_LD}"`
+  SYSDEP_CC=`${SYSDEP_FILE} get "conf-cc" "${SYSDEP_CC}"`
+  SYSDEP_LD=`${SYSDEP_FILE} get "conf-ld" "${SYSDEP_LD}"`
 
   if [ -z ${SYSDEP_CC} ]
   then
-    ${SYSDEP_DIR_RELATIVE}/sd-error "C compiler is not defined"
+    ${SYSDEP_ERROR} "C compiler is not defined"
     exit 112
   fi
   if [ -z ${SYSDEP_LD} ]
   then
-    ${SYSDEP_DIR_RELATIVE}/sd-error "linker is not defined"
+    ${SYSDEP_ERROR} "linker is not defined"
     exit 112
   fi
 fi
@@ -94,7 +66,7 @@ do
 done
 if [ ${cc_usable} -eq 0 ]
 then
-  ${SYSDEP_DIR_RELATIVE}/sd-error "could not locate usable C compiler"
+  ${SYSDEP_ERROR} "could not locate usable C compiler"
   exit 112
 fi
 export SYSDEP_CC
@@ -109,7 +81,7 @@ do
 done
 if [ ${ld_usable} -eq 0 ]
 then
-  ${SYSDEP_DIR_RELATIVE}/sd-error "could not locate usable C linker"
+  ${SYSDEP_ERROR} "could not locate usable C linker"
   exit 112
 fi
 export SYSDEP_LD
@@ -213,59 +185,59 @@ then
   export SYSDEP_CPU_CACHE_LINE_SIZE
 else
   # find system type
-  SYSDEP_OS="SYSDEP_OS_`file_get_by_path "conf-x-systype" "UNKNOWN"`"
+  SYSDEP_OS="SYSDEP_OS_`${SYSDEP_FILE} get "conf-x-systype" "UNKNOWN"`"
   export SYSDEP_OS
   
   # find system version
-  SYSDEP_OSVERSION=`file_get_by_path "conf-x-sysver" "0.0"`
+  SYSDEP_OSVERSION=`${SYSDEP_FILE} get "conf-x-sysver" "0.0"`
   export SYSDEP_OSVERSION
   
   # find system architecture
-  SYSDEP_ARCH="SYSDEP_ARCH_`file_get_by_path "conf-x-arch" "UNKNOWN"`"
+  SYSDEP_ARCH="SYSDEP_ARCH_`${SYSDEP_FILE} get "conf-x-arch" "UNKNOWN"`"
   export SYSDEP_ARCH
   
   # find compiler type
-  SYSDEP_CCTYPE="SYSDEP_CCTYPE_`file_get_by_path "conf-x-cctype" "UNKNOWN"`"
+  SYSDEP_CCTYPE="SYSDEP_CCTYPE_`${SYSDEP_FILE} get "conf-x-cctype" "UNKNOWN"`"
   export SYSDEP_CCTYPE
   
   # find compiler version
-  SYSDEP_CCVERSION=`file_get_by_path "conf-x-ccver" "0.0.0"`
+  SYSDEP_CCVERSION=`${SYSDEP_FILE} get "conf-x-ccver" "0.0.0"`
   export SYSDEP_CCVERSION
   
   # find cpu features
-  SYSDEP_CPU_EXT=`file_get_by_path "conf-x-cpufeat" ""`
+  SYSDEP_CPU_EXT=`${SYSDEP_FILE} get "conf-x-cpufeat" ""`
   export SYSDEP_CPU_EXT
   
   # find number of CPUs
-  SYSDEP_CPU_NUM=`file_get_by_path "conf-x-cpunum" "0"`
+  SYSDEP_CPU_NUM=`${SYSDEP_FILE} get "conf-x-cpunum" "0"`
   export SYSDEP_CPU_NUM
   
   # find CPU model
-  SYSDEP_CPU_MODEL=`file_get_by_path "conf-x-cpumodel" ""`
+  SYSDEP_CPU_MODEL=`${SYSDEP_FILE} get "conf-x-cpumodel" ""`
   export SYSDEP_CPU_MODEL
   
   # find CPU frequency
-  SYSDEP_CPU_FREQ=`file_get_by_path "conf-x-cpufreq" "0"`
+  SYSDEP_CPU_FREQ=`${SYSDEP_FILE} get "conf-x-cpufreq" "0"`
   export SYSDEP_CPU_FREQ
   
   # find CPU L1 instruction cache size
-  SYSDEP_CPU_L1_INST_CACHE_SIZE=`file_get_by_path "conf-x-cpul1ic" "0"`
+  SYSDEP_CPU_L1_INST_CACHE_SIZE=`${SYSDEP_FILE} get "conf-x-cpul1ic" "0"`
   export SYSDEP_CPU_L1_INST_CACHE_SIZE
   
   # find CPU L1 data cache size
-  SYSDEP_CPU_L1_DATA_CACHE_SIZE=`file_get_by_path "conf-x-cpul1dc" "0"`
+  SYSDEP_CPU_L1_DATA_CACHE_SIZE=`${SYSDEP_FILE} get "conf-x-cpul1dc" "0"`
   export SYSDEP_CPU_L1_DATA_CACHE_SIZE
   
   # find CPU L2 cache size
-  SYSDEP_CPU_L2_CACHE_SIZE=`file_get_by_path "conf-x-cpul2c" "0"`
+  SYSDEP_CPU_L2_CACHE_SIZE=`${SYSDEP_FILE} get "conf-x-cpul2c" "0"`
   export SYSDEP_CPU_L2_CACHE_SIZE
   
   # find CPU L3 cache size
-  SYSDEP_CPU_L3_CACHE_SIZE=`file_get_by_path "conf-x-cpul3c" "0"`
+  SYSDEP_CPU_L3_CACHE_SIZE=`${SYSDEP_FILE} get "conf-x-cpul3c" "0"`
   export SYSDEP_CPU_L3_CACHE_SIZE
   
   # find CPU cache line size
-  SYSDEP_CPU_CACHE_LINE_SIZE=`file_get_by_path "conf-x-cpucline" "0"`
+  SYSDEP_CPU_CACHE_LINE_SIZE=`${SYSDEP_FILE} get "conf-x-cpucline" "0"`
   export SYSDEP_CPU_CACHE_LINE_SIZE
 fi
 
