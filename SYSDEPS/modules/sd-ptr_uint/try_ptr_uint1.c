@@ -11,17 +11,7 @@ union ptr_largest {
   unsigned long *ulp;
 };
 
-int go(const char* s)
-{
-  puts("#ifndef _SD_PTR_UINT_H");
-  puts("#define _SD_PTR_UINT_H");
-  puts("/* automatically generated - do not edit */");
-  printf("typedef %s ptr_uint;\n", s);
-  fprintf(stderr, "ptr_uint: %s\n", s);
-  puts("#endif");
-  return 0;
-}
-
+int go(const char* s) { printf("%s\n", s); return 0; }
 int main(void)
 {
   if (sizeof(unsigned char) == sizeof(union ptr_largest))

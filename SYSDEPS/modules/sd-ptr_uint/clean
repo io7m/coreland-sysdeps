@@ -8,7 +8,7 @@ then
 fi
 
 sd_tmp="sysdeps.out"
-f1_tmp="_sd_ptr_uint.h"
+f1_tmp="`${SYSDEP_LINE} 1 < CREATES`"
 echo "SYSDEPS sd-ptr_uint clean ${f1_tmp}"
 
 sd_out="${SYSDEP_OUTDIR}/${sd_tmp}"
