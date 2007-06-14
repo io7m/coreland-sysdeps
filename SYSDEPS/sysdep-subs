@@ -243,9 +243,21 @@ fi
 
 # override path prefix
 PREFIX=`${SYSDEP_FILE} get "conf-prefix" ""`
+for dir in ${PREFIX}
+do
+  STDINC_ADD="${STDINC_ADD} ${dir}/include"
+  STDLIB_ADD="${STDLIB_ADD} ${dir}/lib"
+done
+
+# override path prefix for cross compilation
 if [ ${SYSDEP_CROSS_COMPILE} -eq 1 ]
 then
-  PREFIX="`${SYSDEP_FILE} get "conf-x-prefix" "${PREFIX}"` ${PREFIX}"
+  PREFIX=`${SYSDEP_FILE} get "conf-x-prefix" ""`
+  for dir in ${PREFIX}
+  do
+    STDINC_ADD="${STDINC_ADD} ${dir}/include"
+    STDLIB_ADD="${STDLIB_ADD} ${dir}/lib"
+  done
 fi
 
 # standard include path
@@ -255,7 +267,7 @@ case ${SYSDEP_OS} in
   SYSDEP_OS_SUNOS) SYSDEP_STDINC="/usr/sfw/include ${SYSDEP_STDINC}";;
   *)
 esac
-SYSDEP_STDINC="${PREFIX}/include ${SYSDEP_STDINC}"
+SYSDEP_STDINC="${STDINC_ADD} ${SYSDEP_STDINC}"
 export SYSDEP_STDINC
 
 # standard library path
@@ -265,7 +277,7 @@ case ${SYSDEP_OS} in
   SYSDEP_OS_SUNOS) SYSDEP_STDLIB="/usr/sfw/lib ${SYSDEP_STDLIB}";;
   *)
 esac
-SYSDEP_STDLIB="${PREFIX}/lib ${SYSDEP_STDLIB}"
+SYSDEP_STDLIB="${STDLIB_ADD} ${SYSDEP_STDLIB}"
 export SYSDEP_STDLIB
 
 # find system dynamic library suffix

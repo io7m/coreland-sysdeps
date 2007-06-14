@@ -4,5 +4,5 @@ IFS="
 "
 for line in `set | grep "^SYSDEP_"`
 do
-  echo "info: $line"
+  ${SYSDEP_INFO} "$line"
 done
