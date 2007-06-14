@@ -1,22 +1,20 @@
 #include <stdio.h>
 
-#include "io-notice.h"
-#include "ch_flags.h"
-#include "dlopen.h"
-#include "fd.h"
-#include "floatcast.h"
-#include "sd_fcntl.h"
-#include "sd_fork.h"
-#include "sd_math.h"
-#include "sd_mmap.h"
-#include "sd_posix_rt.h"
-#include "sig_action.h"
-#include "sig_pmask.h"
-#include "sysinfo.h"
+#include "_io-notice.h"
+#include "_ch_flags.h"
+#include "_sd_dlopen.h"
+#include "_sd_fd.h"
+#include "_sd_fcntl.h"
+#include "_sd_fork.h"
+#include "_sd_math.h"
+#include "_sd_mmap.h"
+#include "_sd_posix_rt.h"
+#include "_sig_action.h"
+#include "_sig_pmask.h"
+#include "_sysinfo.h"
 
 int main(void)
 {
-
 #ifdef HAVE_DLOPEN
   printf("system has dlopen\n");
 #else
