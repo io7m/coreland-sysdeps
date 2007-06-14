@@ -1,15 +1,12 @@
 #!/bin/sh
 
+SYSDEP_MODULE="vector-libs-S"
+export SYSDEP_MODULE
+
 . ../../sysdep-main
-if [ $? -ne 0 ]
-then
-  exit 111
-fi
+if [ $? -ne 0 ]; then exit 111; fi
 
-f1_tmp="libs-vector"
-echo "SYSDEPS vector-libs-S run create ${f1_tmp}"
-
+f1_tmp="`${SYSDEP_LINE} 1 < CREATES`"
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
-
 ./vector-libs ${f1_tmp}
 cp ${f1_tmp} ${f1_out}

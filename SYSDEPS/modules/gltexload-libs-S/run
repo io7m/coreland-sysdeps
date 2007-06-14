@@ -1,15 +1,12 @@
 #!/bin/sh
 
+SYSDEP_MODULE="gltexload-libs-S"
+export SYSDEP_MODULE
+
 . ../../sysdep-main
-if [ $? -ne 0 ]
-then
-  exit 111
-fi
+if [ $? -ne 0 ]; then exit 111; fi
 
-f1_tmp="libs-gltexload"
-echo "SYSDEPS gltexload-libs-S run create ${f1_tmp}"
-
+f1_tmp="`${SYSDEP_LINE} 1 < CREATES`"
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
-
 ./gltexload-libs ${f1_tmp}
 cp ${f1_tmp} ${f1_out}

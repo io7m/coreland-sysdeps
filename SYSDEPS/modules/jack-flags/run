@@ -1,14 +1,12 @@
 #!/bin/sh
 
+SYSDEP_MODULE="jack-flags"
+export SYSDEP_MODULE
+
 . ../../sysdep-main
-if [ $? -ne 0 ]
-then
-  exit 111
-fi
+if [ $? -ne 0 ]; then exit 111; fi
 
-f1_tmp="flags-jack"
-echo "SYSDEPS jack-flags run create ${f1_tmp}"
-
+f1_tmp="`${SYSDEP_LINE} 1 < CREATES`"
 f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
 
 ./jack-flags ${f1_tmp}
