@@ -1,0 +1,51 @@
+#!/bin/sh
+
+head_out="$1"
+flag_out="$2"
+libs_out="$3"
+sysd_out="$4"
+sup=""
+
+cat >> "${head_out}" <<EOF
+#ifndef _SD_FCNTL_H
+#define _SD_FCNTL_H
+
+EOF
+
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o tryfcntl.o tryfcntl.c 2>/dev/null
+${SYSDEP_LD} -o tryfcntl tryfcntl.o ${SYSDEP_LDFLAGS} 2>/dev/null
+if [ $? -eq 0 ]
+then
+  echo '#include <fcntl.h>' >> "${head_out}"
+  echo '#define HAVE_FCNTL' >> "${head_out}"
+  sup="fcntl ${sup}"
+fi
+
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o tryioctlsock.o tryioctlsock.c 2>/dev/null
+${SYSDEP_LD} -o tryioctlsock tryioctlsock.o ${SYSDEP_LDFLAGS} -lws2_32 2>/dev/null
+if [ $? -eq 0 ]
+then
+  echo '#include <winsock.h>' >> "${head_out}"
+  echo '#define HAVE_IOCTLSOCKET' >> "${head_out}"
+  echo '-lws2_32' >> "${libs_out}"
+  sup="ioctlsocket ${sup}"
+fi
+
+cat >> "${head_out}" <<EOF
+
+#ifndef O_NONBLOCK
+  #ifdef O_NDELAY
+    #define O_NONBLOCK O_NDELAY
+  #else
+    #define O_NONBLOCK 0
+  #endif
+#endif
+
+#endif
+EOF
+
+echo "fcntl: ${sup}" >> "${sysd_out}"
+echo "fcntl-flags: `${SYSDEP_LINE} 1 < ${flag_out}`" >> "${sysd_out}"
+echo "fcntl-libs: `${SYSDEP_LINE} 1 < ${libs_out}`" >> "${sysd_out}"
+
+rm -f tryfcntl tryfcntl.o tryioctlsock tryioctlsock.o

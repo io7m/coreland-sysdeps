@@ -1,18 +1,2 @@
 #!/bin/sh
-
-SYSDEP_CLEAN=1
-. ../../sysdep-main
-if [ $? -ne 0 ]
-then
-  exit 111
-fi
-
-f1_tmp="libs-carbon"
-f2_tmp="flags-carbon"
-sd_tmp="sysdeps.out"
-
-echo "SYSDEPS mac-carbon clean ${f1_tmp} ${f2_tmp}"
-
-f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
-f2_out="${SYSDEP_OUTDIR}/${f2_tmp}"
-rm -f ${f1_tmp} ${f1_out} ${f2_tmp} ${f2_out} ${sd_tmp}
+SYSDEP_CLEAN=1 exec ../../sysdep-main

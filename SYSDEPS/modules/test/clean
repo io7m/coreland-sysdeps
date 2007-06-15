@@ -1,10 +1,2 @@
 #!/bin/sh
-
-SYSDEP_CLEAN=1
-. ../../sysdep-main
-if [ $? -ne 0 ]
-then
-  exit 111
-fi
-
-echo "SYSDEPS test clean"
+SYSDEP_CLEAN=1 exec ../../sysdep-main

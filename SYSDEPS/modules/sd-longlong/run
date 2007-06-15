@@ -1,18 +1,2 @@
 #!/bin/sh
-
-. ../../sysdep-main
-if [ $? -ne 0 ]
-then
-  exit 111
-fi
-
-f1_tmp="_sd_longlong.h"
-sd_tmp="sysdeps.out"
-echo "SYSDEPS sd-longlong run create ${f1_tmp}"
-
-f1_out="${SYSDEP_OUTDIR}/${f1_tmp}"
-sd_out="${SYSDEP_OUTDIR}/${sd_tmp}"
-
-./sd-longlong ${f1_tmp} ${sd_tmp}
-cp ${f1_tmp} ${f1_out}
-cat ${sd_tmp} >> ${sd_out}
+exec ../../sysdep-main

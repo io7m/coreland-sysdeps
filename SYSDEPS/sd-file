@@ -49,7 +49,7 @@ case "${command}" in
     exit $?
     ;;
   *)
-    echo 'fatal: unknown command'
+    echo '${SYSDEP_MODULE}: fatal: unknown command'
     exit 111
     ;;
 esac

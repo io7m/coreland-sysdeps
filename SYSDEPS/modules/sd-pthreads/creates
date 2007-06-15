@@ -1,0 +1,4 @@
+libs-pthreads
+flags-pthreads
+libs-pthr_rt
+flags-pthr_rt
