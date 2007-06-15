@@ -7,7 +7,10 @@ FOUND=""
 file="libGL.${SYSDEP_LIBSUFFIX}"
 case ${SYSDEP_OS} in
   SYSDEP_OS_DARWIN)
-    FOUND="/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL"
+    if [ -f "/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL" ]
+    then
+      FOUND="/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL"
+    fi
     ;;
   *)
     ;;

@@ -1,16 +1,16 @@
 #!/bin/sh
 
 echo '# -- SYSDEPS start'
-for module in `ls modules`
+for module in `ls modules | sort`
 do
-  if [ -f modules/$module/CREATES ]
+  if [ -f modules/$module/creates ]
   then
-    files=`cat modules/$module/CREATES`
+    files=`cat modules/$module/creates`
     first_done=0
     # flatten files to a string
     flat_files=""
     for file in $files; do flat_files="$file ${flat_files}"; done
-    for file in `cat modules/$module/CREATES`
+    for file in `cat modules/$module/creates`
     do
       if [ $first_done -eq 0 ]
       then
@@ -33,11 +33,11 @@ done
 echo
 echo
 
-for module in `ls modules`
+for module in `ls modules | sort`
 do
-  if [ -f modules/$module/CREATES ]
+  if [ -f modules/$module/creates ]
   then
-    files=`cat modules/$module/CREATES`
+    files=`cat modules/$module/creates`
     # flatten files to a string
     flat_files=""
     for file in $files; do flat_files="$file ${flat_files}"; done
@@ -53,9 +53,9 @@ echo
 echo
 
 echo "sysdeps_clean:\\"
-for module in `ls modules`
+for module in `ls modules | sort`
 do
-  if [ -f modules/$module/CREATES ]
+  if [ -f modules/$module/creates ]
   then
     echo "${module}_clean \\"
   fi

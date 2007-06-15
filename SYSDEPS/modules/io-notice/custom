@@ -4,8 +4,8 @@ fout="$1"
 sysdeps="$2"
 
 cat >> "${fout}" <<EOF
-#ifndef _AIO_MECH_H
-#define _AIO_MECH_H
+#ifndef _IO_NOTICE_H
+#define _IO_NOTICE_H
 EOF
 
 ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trykqueue1.o trykqueue1.c >/dev/null 2>&1

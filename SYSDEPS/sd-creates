@@ -1,8 +1,8 @@
 #!/bin/sh
 
-for mod in `ls modules`
+for mod in `ls modules | sort`
 do
-  for file in `cat modules/$mod/CREATES`
+  for file in `cat modules/$mod/creates`
   do
     echo $file
   done

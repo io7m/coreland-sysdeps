@@ -6,9 +6,6 @@ libs_out="$3"
 sysd_out="$4"
 sup=""
 
-touch "${flag_out}"
-touch "${libs_out}"
-
 cat >> "${head_out}" <<EOF
 #ifndef _SD_FCNTL_H
 #define _SD_FCNTL_H
