@@ -3,13 +3,10 @@
 IFS="
 "
 
-for f in `GENERATION/gen-chklist.sh`
+DEFINES=`cd SYSDEPS && ./sd-defines`
+for def in ${DEFINES}
 do
-  lib=`echo $f | awk '{print $1}'`
-  def=`echo $f | awk '{print $2}'`
-
   xdef=`echo $def | sed -e 's/HAVE_//g' | tr [A-Z] [a-z]`
-
   cat <<EOF
 #ifdef $def
   printf("system has $xdef\n");
