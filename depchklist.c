@@ -12,6 +12,12 @@
 #include "_sig_action.h"
 #include "_sig_pmask.h"
 #include "_sysinfo.h"
+#include "_int16.h"
+#include "_int32.h"
+#include "_int64.h"
+#include "_uint16.h"
+#include "_uint32.h"
+#include "_uint64.h"
 
 int main(void)
 {

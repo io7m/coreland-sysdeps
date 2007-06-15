@@ -3,62 +3,7 @@
 default: all
 
 all:\
- depchklist 
-
-cc-compile:\
-conf-cc conf-cctype conf-systype conf-cflags  flags-altivec \
-flags-chrono flags-corelib flags-fastcgi flags-fltk11 flags-fltk2 \
-flags-glsoload flags-gltexload flags-integer flags-io_poll flags-jack \
-flags-loadso flags-carbon flags-netlib flags-opengl flags-pdcgi flags-png \
-flags-pngload flags-portaudio flags-fcntl flags-math flags-posix_rt \
-flags-pthreads flags-pthr_rt flags-sdl flags-sdl-image flags-sdl-mixer \
-flags-sdl-ttf flags-sndfile flags-sse flags-sse2 flags-sse3 flags-tiff \
-flags-vector 
-
-cc-link:\
-conf-ld conf-ldtype conf-systype conf-ldflags  
-
-cc-slib:\
-conf-systype 
-
-conf-cctype:\
-conf-systype conf-cc mk-cctype 
-	./mk-cctype > conf-cctype.tmp && mv conf-cctype.tmp conf-cctype
-
-conf-ldtype:\
-conf-systype conf-ld conf-cctype mk-ldtype 
-	./mk-ldtype > conf-ldtype.tmp && mv conf-ldtype.tmp conf-ldtype
-
-conf-systype:\
-mk-systype 
-	./mk-systype > conf-systype.tmp && mv conf-systype.tmp conf-systype
-
-depchklist:\
-cc-link depchklist.ld depchklist.o 
-	./cc-link depchklist depchklist.o 
-
-depchklist.o:\
-cc-compile depchklist.c _io-notice.h _ch_flags.h _sd_dlopen.h _sd_fd.h \
-_sd_fcntl.h _sd_fork.h _sd_math.h _sd_mmap.h _sd_posix_rt.h _sig_action.h \
-_sig_pmask.h _sysinfo.h 
-	./cc-compile depchklist.c
-
-mk-cctype:\
-conf-cc conf-systype 
-
-mk-ctxt:\
-mk-mk-ctxt 
-	./mk-mk-ctxt
-
-mk-ldtype:\
-conf-cctype conf-systype 
-
-mk-mk-ctxt:\
-conf-cc 
-
-mk-systype:\
-conf-cc 
-
+depchklist 
 
 # -- SYSDEPS start
 flags-altivec:
@@ -255,12 +200,12 @@ libs-posix_rt:
 	@(cd SYSDEPS/modules/sd-posix_rt && ./run)
 flags-posix_rt: libs-posix_rt
 _sd_posix_rt.h: libs-posix_rt
-flags-pthreads:
-	@echo SYSDEPS sd-pthreads run create libs-pthr_rt libs-pthreads flags-pthr_rt flags-pthreads 
+libs-pthreads:
+	@echo SYSDEPS sd-pthreads run create flags-pthr_rt libs-pthr_rt flags-pthreads libs-pthreads 
 	@(cd SYSDEPS/modules/sd-pthreads && ./run)
-flags-pthr_rt: flags-pthreads
-libs-pthreads: flags-pthreads
-libs-pthr_rt: flags-pthreads
+flags-pthreads: libs-pthreads
+libs-pthr_rt: libs-pthreads
+flags-pthr_rt: libs-pthreads
 _sd-ptr_uint.h:
 	@echo SYSDEPS sd-ptr_uint run create _sd-ptr_uint.h 
 	@(cd SYSDEPS/modules/sd-ptr_uint && ./run)
@@ -529,7 +474,7 @@ sd-posix_rt_clean:
 	@echo SYSDEPS sd-posix_rt clean _sd_posix_rt.h flags-posix_rt libs-posix_rt 
 	@(cd SYSDEPS/modules/sd-posix_rt && ./clean)
 sd-pthreads_clean:
-	@echo SYSDEPS sd-pthreads clean libs-pthr_rt libs-pthreads flags-pthr_rt flags-pthreads 
+	@echo SYSDEPS sd-pthreads clean flags-pthr_rt libs-pthr_rt flags-pthreads libs-pthreads 
 	@(cd SYSDEPS/modules/sd-pthreads && ./clean)
 sd-ptr_uint_clean:
 	@echo SYSDEPS sd-ptr_uint clean _sd-ptr_uint.h 
@@ -705,11 +650,64 @@ vector-libs-S_clean \
 
 # -- SYSDEPS end
 
+cc-compile:\
+conf-cc conf-cctype conf-systype conf-cflags flags-altivec flags-chrono \
+flags-corelib flags-fastcgi flags-fltk11 flags-fltk2 flags-glsoload \
+flags-gltexload flags-integer flags-io_poll flags-jack flags-loadso \
+flags-carbon flags-netlib flags-opengl flags-pdcgi flags-png flags-pngload \
+flags-portaudio flags-fcntl flags-math flags-posix_rt flags-pthreads \
+flags-pthr_rt flags-sdl flags-sdl-image flags-sdl-mixer flags-sdl-ttf \
+flags-sndfile flags-sse flags-sse2 flags-sse3 flags-tiff flags-vector 
+
+cc-link:\
+conf-ld conf-ldtype conf-systype conf-ldflags 
+
+cc-slib:\
+conf-systype 
+
+conf-cctype:\
+conf-systype conf-cc mk-cctype 
+	./mk-cctype > conf-cctype.tmp && mv conf-cctype.tmp conf-cctype
+
+conf-ldtype:\
+conf-systype conf-ld conf-cctype mk-ldtype 
+	./mk-ldtype > conf-ldtype.tmp && mv conf-ldtype.tmp conf-ldtype
+
+conf-systype:\
+mk-systype 
+	./mk-systype > conf-systype.tmp && mv conf-systype.tmp conf-systype
+
+depchklist:\
+cc-link depchklist.ld depchklist.o 
+	./cc-link depchklist depchklist.o 
+
+depchklist.o:\
+cc-compile depchklist.c _io-notice.h _ch_flags.h _sd_dlopen.h _sd_fd.h \
+_sd_fcntl.h _sd_fork.h _sd_math.h _sd_mmap.h _sd_posix_rt.h _sig_action.h \
+_sig_pmask.h _sysinfo.h _int16.h _int32.h _int64.h _uint16.h _uint32.h \
+_uint64.h 
+	./cc-compile depchklist.c
+
+mk-cctype:\
+conf-cc conf-systype 
+
+mk-ctxt:\
+mk-mk-ctxt 
+	./mk-mk-ctxt
+
+mk-ldtype:\
+conf-cctype conf-systype 
+
+mk-mk-ctxt:\
+conf-cc 
+
+mk-systype:\
+conf-cc 
+
 clean-all: sysdeps_clean obj_clean 
 clean: obj_clean
 obj_clean: 
-	rm -f conf-cctype conf-ldtype conf-systype depchklist depchklist.o \
-	
+	rm -f depchklist depchklist.o 
 
 regen:
 	cpj-genmk > Makefile.tmp && mv Makefile.tmp Makefile
