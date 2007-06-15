@@ -707,7 +707,8 @@ conf-cc
 clean-all: sysdeps_clean obj_clean 
 clean: obj_clean
 obj_clean: 
-	rm -f depchklist depchklist.o 
+	rm -f conf-cctype conf-ldtype conf-systype depchklist depchklist.o \
+	
 
 regen:
 	cpj-genmk > Makefile.tmp && mv Makefile.tmp Makefile

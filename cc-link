@@ -31,6 +31,7 @@ then
     echo "fatal: could not read conf-x-ldtype" 1>&2
     exit 1
   fi
+  LDFLAGS="${LDFLAGS} `head -n 1 conf-x-ldflags 2>/dev/null`"
 else
   LD=`head -n 1 conf-ld`
   if [ $? -ne 0 ]

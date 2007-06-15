@@ -31,6 +31,7 @@ then
     echo "fatal: could not read conf-x-cctype" 1>&2
     exit 1
   fi
+  CFLAGS="${CFLAGS} `head -n 1 conf-x-cflags 2>/dev/null`"
 else
   CC=`head -n 1 conf-cc`
   if [ $? -ne 0 ]
