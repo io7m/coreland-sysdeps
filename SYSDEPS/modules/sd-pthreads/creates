@@ -1,4 +1,4 @@
-flags-pthreads
-flags-pthr_rt
 libs-pthreads
+flags-pthreads
 libs-pthr_rt
+flags-pthr_rt

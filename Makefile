@@ -7,11 +7,13 @@ all:\
 
 cc-compile:\
 conf-cc conf-cctype conf-systype conf-cflags  flags-altivec \
-flags-carbon flags-chrono flags-corelib flags-fastcgi flags-fltk11 \
-flags-fltk2 flags-integer flags-io_poll flags-jack flags-loadso flags-netlib \
-flags-opengl flags-pdcgi flags-png flags-portaudio flags-pthr_rt \
-flags-pthreads flags-sdl flags-sdl-image flags-sdl-mixer flags-sdl-ttf \
-flags-sndfile flags-sse flags-sse2 flags-sse3 flags-tiff flags-vector 
+flags-chrono flags-corelib flags-fastcgi flags-fltk11 flags-fltk2 \
+flags-glsoload flags-gltexload flags-integer flags-io_poll flags-jack \
+flags-loadso flags-carbon flags-netlib flags-opengl flags-pdcgi flags-png \
+flags-pngload flags-portaudio flags-fcntl flags-math flags-posix_rt \
+flags-pthreads flags-pthr_rt flags-sdl flags-sdl-image flags-sdl-mixer \
+flags-sdl-ttf flags-sndfile flags-sse flags-sse2 flags-sse3 flags-tiff \
+flags-vector 
 
 cc-link:\
 conf-ld conf-ldtype conf-systype conf-ldflags  
@@ -21,31 +23,38 @@ conf-systype
 
 conf-cctype:\
 conf-systype conf-cc mk-cctype 
-	./mk-cctype > conf-cctype
+	./mk-cctype > conf-cctype.tmp && mv conf-cctype.tmp conf-cctype
 
 conf-ldtype:\
 conf-systype conf-ld conf-cctype mk-ldtype 
-	./mk-ldtype > conf-ldtype
+	./mk-ldtype > conf-ldtype.tmp && mv conf-ldtype.tmp conf-ldtype
 
 conf-systype:\
 mk-systype 
-	./mk-systype > conf-systype
+	./mk-systype > conf-systype.tmp && mv conf-systype.tmp conf-systype
 
 depchklist:\
 cc-link depchklist.ld depchklist.o 
 	./cc-link depchklist depchklist.o 
 
 depchklist.o:\
-cc-compile depchklist.c _io-notice.h _ch_flags.h _sd_dlopen.h \
-_sd_fd.h _sd_fcntl.h _sd_fork.h _sd_math.h _sd_mmap.h _sd_posix_rt.h \
-_sig_action.h _sig_pmask.h _sysinfo.h 
+cc-compile depchklist.c _io-notice.h _ch_flags.h _sd_dlopen.h _sd_fd.h \
+_sd_fcntl.h _sd_fork.h _sd_math.h _sd_mmap.h _sd_posix_rt.h _sig_action.h \
+_sig_pmask.h _sysinfo.h 
 	./cc-compile depchklist.c
 
 mk-cctype:\
 conf-cc conf-systype 
 
+mk-ctxt:\
+mk-mk-ctxt 
+	./mk-mk-ctxt
+
 mk-ldtype:\
 conf-cctype conf-systype 
+
+mk-mk-ctxt:\
+conf-cc 
 
 mk-systype:\
 conf-cc 
@@ -699,7 +708,8 @@ vector-libs-S_clean \
 clean-all: sysdeps_clean obj_clean 
 clean: obj_clean
 obj_clean: 
-	rm -f depchklist depchklist.o 
+	rm -f conf-cctype conf-ldtype conf-systype depchklist depchklist.o \
+	
 
 regen:
 	cpj-genmk > Makefile.tmp && mv Makefile.tmp Makefile
