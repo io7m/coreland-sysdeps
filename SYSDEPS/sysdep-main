@@ -73,22 +73,24 @@ files_clean()
 
 flatten_defines()
 {
-  for tag in $1
-  do
-    d="-D${tag} ${defines}"
-  done
-  echo "$d"
+  if [ ! -z $1 ]
+  then
+    for tag in $1
+    do
+      d="-D${tag} ${defines}"
+    done
+    echo "$d"
+  fi
 }
 
+#
+# List of created files.
+#
+
+CREATES="`cat creates` sysdeps.out"
 if [ -z "${SYSDEP_CLEAN}" ];
 then
   . ${SYSDEP_DIR_RELATIVE}/sysdep-subs;
-
-  #
-  # List of created files.
-  #
-
-  CREATES=`cat creates`
 
   #
   # Execute custom script if present
@@ -96,14 +98,13 @@ then
 
   if [ -x custom ]
   then
-    if [ -f sysdepout ]
-    then
-      CREATES="${CREATES} sysdeps.out"
-    fi
     ./custom ${CREATES}
     files_move
     exit 0
   fi
+
+  define="`cat defines 2>/dev/null`"
+  ofile="`${SYSDEP_LINE} 1 < creates`"
 
   #
   # Try config binary if requested
@@ -111,19 +112,19 @@ then
 
   if [ -f config_bin ]
   then
-    define="`cat defines`"
-    ofile="`${SYSDEP_LINE} 1 < creates`"
     config_bin="`${SYSDEP_LINE} 1 < config_bin`"
     config_bin_args="`${SYSDEP_LINE} 1 < config_bin_args`"
     flags=`${SYSDEP_TRY_CONFIG_BIN} "${config_bin}" "${config_bin_args}" 2>&-`
     if [ ! -z "${flags}" ]
-    then
-      str="${flags} `flatten_defines "${define}"`"
-      echo "${str}" >> "${ofile}"
-      if [ -f sysdepout ]
+    then 
+      if [ ! -z "${define}" ]
       then
-        echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
+        str="${flags} `flatten_defines "${define}"`"
+      else
+        str="${flags}"
       fi
+      echo "${str}" >> "${ofile}"
+      echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
       files_move
       exit 0
     else
@@ -137,8 +138,6 @@ then
 
   if [ -f pkg_config ]
   then
-    define="`cat defines`"
-    ofile="`${SYSDEP_LINE} 1 < creates`"
     pkg_config_args="`${SYSDEP_LINE} 1 < pkg_config_args`"
     pkg="`${SYSDEP_LINE} 1 < pkg`"
     flags=`${SYSDEP_TRY_PKG_CONFIG} "${pkg}" "${pkg_config_args}" 2>&-`
@@ -146,10 +145,7 @@ then
     then
       str="${flags} `flatten_defines "${define}"`"
       echo "${str}" >> "${ofile}"
-      if [ -f sysdepout ]
-      then
-        echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
-      fi
+      echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
       files_move
       exit 0
     else
@@ -160,9 +156,6 @@ then
   #
   # Fall back to manual search.
   #
-
-  define="`cat defines`"
-  ofile="`${SYSDEP_LINE} 1 < creates`"
 
   if [ -f path_ext ]
   then
@@ -185,10 +178,7 @@ then
     then
       str="${flags} `flatten_defines "${define}"`"
       echo "${str}" >> "${ofile}"
-      if [ -f sysdepout ]
-      then
-        echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
-      fi
+      echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
       files_move
       exit 0
     fi
@@ -197,23 +187,19 @@ then
   if [ -f dynlib ]
   then
     lib="`${SYSDEP_LINE} 1 < dynlib`"
-    file="${lib}.${SYSDEP_LIBSUFFIX}"
+    file="lib${lib}.${SYSDEP_LIBSUFFIX}"
     flags=`${SYSDEP_TRY_MANUAL} "${file}" "${SYSDEP_STDLIB}" "-L" 2>&-`
     if [ ! -z "${flags}" ]
     then
       str="${flags} -l${lib}"
       echo "${str}" >> "${ofile}"
-      if [ -f sysdepout ]
-      then
-        echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
-      fi
+      echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
       files_move
       exit 0
     fi
   fi
 
   ${SYSDEP_ERROR} "manual search failed"
-
 else
   rm -f ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86 \
         ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86.o
@@ -225,6 +211,7 @@ else
         ${SYSDEP_DIR_RELATIVE}/sd-ccversion.o
   rm -f ${SYSDEP_DIR_RELATIVE}/sd-os \
         ${SYSDEP_DIR_RELATIVE}/sd-os.o
+  rm -f ${SYSDEP_OUTDIR}/sysdeps.out
 
   files_clean
 fi

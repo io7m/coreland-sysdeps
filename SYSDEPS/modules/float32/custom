@@ -19,10 +19,11 @@ have_it()
 #ifndef _FLOAT32_H
 #define _FLOAT32_H
 
-typedef %s float32;
+typedef ${type} float32;
 
 #endif
 EOF
+  echo "float32: ${type}" >> "${tempsys}"
   cleanup
   exit 0
 }
