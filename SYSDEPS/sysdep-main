@@ -115,13 +115,13 @@ then
   ofile="`${SYSDEP_LINE} 1 < creates`"
 
   # Read extra flags if present
-  if [ -f flags ]; then extra_flags="`${SYDEP_LINE} 1 < flags`"; fi
+  if [ -f flags ]; then extra_flags="`${SYSDEP_LINE} 1 < flags`"; fi
 
   # Read OS specific flags if there is a matching OS
   os_lower="`echo ${SYSDEP_OS} | sed -e 's/SYSDEP_OS_//g' | tr [A-Z] [a-z]`"
   if [ -f "os_ext/$os_lower/flags" ]
   then
-    extra_flags="${extra_flags} `${SYDEP_LINE} 1 < flags`"
+    extra_flags="${extra_flags} `${SYSDEP_LINE} 1 < os_ext/$os_lower/flags`"
   fi
 
   #
