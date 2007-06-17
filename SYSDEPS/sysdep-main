@@ -60,19 +60,9 @@ files_move()
   done
 }
 
-files_clean()
-{
-  if [ -f creates ]
-  then
-    for file in `cat creates`
-    do
-      rm -f "${file}" "${SYSDEP_OUTDIR}/${file}"
-    done
-  fi
-}
-
 flatten_defines()
 {
+  d=""
   if [ ! -z "$1" ]
   then
     for tag in $1
@@ -83,6 +73,28 @@ flatten_defines()
   fi
 }
 
+paths_add()
+{
+  for p in $1; do SYSDEP_STDINC="$p/include ${SYSDEP_STDINC}"; done
+  for p in $1; do SYSDEP_STDLIB="$p/lib ${SYSDEP_STDLIB}"; done
+}
+
+paths_extend()
+{
+  for d in ${SYSDEP_STDINC}
+  do
+    for e in $1; do SYSDEP_STDINC="$d/$e ${SYSDEP_STDINC}"; done
+  done
+  for d in ${SYSDEP_STDLIB}
+  do
+    for e in $1; do SYSDEP_STDLIB="$d/$e ${SYSDEP_STDLIB}"; done
+  done
+}
+
+os_tolower()
+{
+  echo ${SYSDEP_OS} | sed -e 's/SYSDEP_OS_//g' | tr [A-Z] [a-z]
+}
 
 #
 # List of created files.
@@ -111,31 +123,36 @@ then
     exit 0
   fi
 
-  defines="`cat defines 2>/dev/null`"
   ofile="`${SYSDEP_LINE} 1 < creates`"
+  os_lower=`os_tolower`
+  defines="`cat defines 2>/dev/null`"
 
-  # Read extra flags if present
-  if [ -f flags ]; then extra_flags="`${SYSDEP_LINE} 1 < flags`"; fi
-
-  # Read OS specific flags if there is a matching OS
-  os_lower="`echo ${SYSDEP_OS} | sed -e 's/SYSDEP_OS_//g' | tr [A-Z] [a-z]`"
+  if [ -f "os_ext/$os_lower/defines" ]
+  then
+    defines="`cat "os_ext/$os_lower/defines" 2>/dev/null`"
+  fi
+  if [ -f flags ]
+  then
+    xflags="`${SYSDEP_LINE} 1 < flags`";
+  fi
   if [ -f "os_ext/$os_lower/flags" ]
   then
-    extra_flags="${extra_flags} `${SYSDEP_LINE} 1 < os_ext/$os_lower/flags`"
+    xflags="${xflags} `${SYSDEP_LINE} 1 < os_ext/$os_lower/flags`"
   fi
 
   #
   # Try config binary if requested
   #
 
-  if [ -f config_bin ]
+  if [ -f "config_bin" ]
   then
     config_bin="`${SYSDEP_LINE} 1 < config_bin`"
     config_bin_args="`${SYSDEP_LINE} 1 < config_bin_args`"
     flags=`${SYSDEP_TRY_CONFIG_BIN} "${config_bin}" "${config_bin_args}" 2>&-`
     if [ ! -z "${flags}" ]
     then 
-      str="${flags} `flatten_defines "${defines}"` ${extra_flags}"
+      def=`flatten_defines "${defines}"`
+      str="${flags} ${def} ${xflags}"
       echo "${str}" >> "${ofile}"
       echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
       files_move
@@ -149,14 +166,15 @@ then
   # Try pkg-config if requested
   #
 
-  if [ -f pkg ]
+  if [ -f "pkg" ]
   then
     pkg_config_args="`${SYSDEP_LINE} 1 < pkg_config_args`"
     pkg="`${SYSDEP_LINE} 1 < pkg`"
     flags=`${SYSDEP_TRY_PKG_CONFIG} "${pkg}" "${pkg_config_args}" 2>&-`
     if [ ! -z "${flags}" ]
     then
-      str="${flags} `flatten_defines "${defines}"` ${extra_flags}"
+      def=`flatten_defines "${defines}"`
+      str="${flags} ${xflags}"
       echo "${str}" >> "${ofile}"
       echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
       files_move
@@ -170,45 +188,35 @@ then
   # Fall back to manual search.
   #
 
-  if [ -f path_add ]
+  if [ -f "path_add" ]
   then
-    path_add="`cat path_add`"
-    for add in ${path_add}
-    do
-      SYSDEP_STDINC="${add}/include ${SYSDEP_STDINC}"
-    done
-    for add in ${path_add}
-    do
-      SYSDEP_STDLIB="${add}/lib ${SYSDEP_STDLIB}"
-    done
+    paths_add "`cat path_add`"
   fi
-
-  if [ -f path_ext ]
+  if [ -f "os_ext/$os_lower/path_add" ]
   then
-    path_ext="`cat path_ext`"
-    for dir in ${SYSDEP_STDINC}
-    do
-      for ext in ${path_ext}
-      do
-        SYSDEP_STDINC="${dir}/${ext} ${SYSDEP_STDINC}"
-      done
-    done
-    for dir in ${SYSDEP_STDLIB}
-    do
-      for ext in ${path_ext}
-      do
-        SYSDEP_STDLIB="${dir}/${ext} ${SYSDEP_STDLIB}"
-      done
-    done
+    paths_add "`cat os_ext/$os_lower/path_add`"
+  fi
+  if [ -f "path_ext" ]
+  then
+    paths_extend "`cat path_ext`"
+  fi
+  if [ -f "os_ext/$os_lower/path_ext" ]
+  then
+    paths_extend "`cat os_ext/$os_lower/path_ext`"
   fi
 
   if [ -f header ]
   then
     file="`${SYSDEP_LINE} 1 < header`"
+    if [ -f "os_ext/$os_lower/header" ]
+    then
+      file="`${SYSDEP_LINE} 1 < os_ext/$os_lower/header`"
+    fi
     flags=`${SYSDEP_TRY_MANUAL} "${file}" "${SYSDEP_STDINC}" "-I" 2>&-`
     if [ ! -z "${flags}" ]
     then
-      str="${flags} `flatten_defines "${defines}"` ${extra_flags}"
+      def=`flatten_defines "${defines}"`
+      str="${flags} ${def} ${xflags}"
       echo "${str}" >> "${ofile}"
       echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
       files_move
@@ -219,11 +227,15 @@ then
   if [ -f dynlib ]
   then
     lib="`${SYSDEP_LINE} 1 < dynlib`"
+    if [ -f "os_ext/$os_lower/dynlib" ]
+    then
+      lib="`${SYSDEP_LINE} 1 < os_ext/$os_lower/dynlib`"
+    fi
     file="lib${lib}.${SYSDEP_LIBSUFFIX}"
     flags=`${SYSDEP_TRY_MANUAL} "${file}" "${SYSDEP_STDLIB}" "-L" 2>&-`
     if [ ! -z "${flags}" ]
     then
-      str="${flags} -l${lib} ${extra_flags}"
+      str="${flags} -l${lib} ${xflags}"
       echo "${str}" >> "${ofile}"
       echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
       files_move
@@ -244,6 +256,5 @@ else
   rm -f ${SYSDEP_DIR_RELATIVE}/sd-os \
         ${SYSDEP_DIR_RELATIVE}/sd-os.o
   rm -f ${SYSDEP_OUTDIR}/sysdeps.out
-
-  files_clean
+  rm -f ${CREATES}
 fi
