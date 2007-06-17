@@ -2,13 +2,13 @@
 
 exec 1> "$1"
 
-args="-lGLU"
+args="-lglut"
 path="${SYSDEP_STDLIB} /usr/X11R6/lib"
-lib="libGLU.so"
+lib="libglut.so"
 
 case ${SYSDEP_OS} in
   SYSDEP_OS_DARWIN)
-    lib="libGLU.dylib"
+    lib="libglut.dylib"
     args="-framework GLUT"
     path="/System/Library/Frameworks/OpenGL.framework ${path}"
     ;;
