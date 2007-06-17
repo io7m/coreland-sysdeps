@@ -75,8 +75,8 @@ flatten_defines()
 
 paths_add()
 {
-  for p in $1; do SYSDEP_STDINC="$p/include ${SYSDEP_STDINC}"; done
-  for p in $1; do SYSDEP_STDLIB="$p/lib ${SYSDEP_STDLIB}"; done
+  for p in $1; do SYSDEP_STDINC="$p/include $p ${SYSDEP_STDINC}"; done
+  for p in $1; do SYSDEP_STDLIB="$p/lib $p ${SYSDEP_STDLIB}"; done
 }
 
 paths_extend()
