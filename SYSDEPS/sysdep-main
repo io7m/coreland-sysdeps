@@ -64,7 +64,7 @@ files_clean()
 {
   for file in ${CREATES}
   do
-    rm -f "${file} ${SYSDEP_OUTDIR}/${file}"
+    rm -f "${file}" "${SYSDEP_OUTDIR}/${file}"
   done
 }
 
