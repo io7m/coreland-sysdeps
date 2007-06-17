@@ -121,6 +121,12 @@ then
     ./custom ${CREATES}
     files_move
     exit 0
+  else
+    if [ -f custom ]
+    then
+      ${SYSDEP_FATAL} "custom exists but is not executable"
+      exit 112
+    fi
   fi
 
   ofile="`${SYSDEP_LINE} 1 < creates`"
