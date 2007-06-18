@@ -80,15 +80,17 @@ fail()
   cleanup_exit
 }
 
+config_file="`${SYSDEP_LINE} 1 < config`"
+
 try_mmap
 if [ $? -eq 1 ]
 then
   if [ ${SYSDEP_CROSS_COMPILE} -eq 1 ]
   then
-    ${SYSDEP_FILE} exists "conf-x-mmap"
+    ${SYSDEP_FILE} exists "${config_file}"
     if [ $? -eq 1 ]
     then
-      case `${SYSDEP_LINE} 1 < "conf-x-mmap"` in
+      case `${SYSDEP_LINE} 1 < "${config_file}"` in
         mmap) success ;;
         *) fail ;;
       esac
