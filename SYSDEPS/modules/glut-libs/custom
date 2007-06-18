@@ -6,11 +6,17 @@ args="-lglut"
 path="${SYSDEP_STDLIB} /usr/X11R6/lib"
 lib="libglut.so"
 
+# What a hack.
 case ${SYSDEP_OS} in
   SYSDEP_OS_DARWIN)
     lib="libglut.dylib"
     args="-framework GLUT"
-    path="/System/Library/Frameworks/OpenGL.framework ${path}"
+    path="/System/Library/Frameworks/GLUT.framework ${path}"
+    if [ -d "/System/Library/Frameworks/GLUT.framework" ]
+    then
+      echo ${args}
+      exit 0
+    fi
     ;;
   *)
     ;;
