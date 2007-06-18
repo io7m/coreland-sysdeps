@@ -3,33 +3,102 @@
 fout="$1"
 sysdeps="$2"
 
-cat >> "${fout}" <<EOF
+cleanup_exit()
+{
+  rm -f trymmap1 trymmap1.o
+  exit 0
+}
+
+have_mmap()
+{
+  echo '#define HAVE_MMAP' >> "${fout}"
+  echo 'mmap: mmap' >> "${sysdeps}"
+
+  cat >> "${fout}" <<EOF
+#include <sys/types.h>
+#include <sys/mman.h>
+EOF
+}
+
+no_mmap()
+{
+  echo 'mmap: none' >> "${sysdeps}"
+}
+
+try_mmap()
+{
+  ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trymmap1.o trymmap1.c  1>/dev/null 2>&1
+  ${SYSDEP_LD} -o trymmap1 trymmap1.o ${SYSDEP_LDFLAGS} 1>/dev/null 2>&1
+  if [ $? -eq 0 ]
+  then
+    return 1
+  else
+    return 0
+  fi
+}
+
+try_run_mmap()
+{
+  ./trymmap1
+  if [ $? -eq 0 ]
+  then
+    return 1
+  else
+    return 0
+  fi
+}
+
+header_open()
+{
+  cat >> "${fout}" <<EOF
 #ifndef _SD_MMAP_H
 #define _SD_MMAP_H
 
 EOF
+}
 
-${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trymmap1.o trymmap1.c  1>/dev/null 2>&1
-${SYSDEP_LD} -o trymmap1 trymmap1.o ${SYSDEP_LDFLAGS} 1>/dev/null 2>&1
-if [ $? -eq 0 ]
-then
-  ./trymmap1
-  if [ $? -eq 0 ]
-  then
-    echo '#define HAVE_MMAP' >> "${fout}"
-    echo 'mmap: mmap' >> "${sysdeps}"
-  else
-    echo 'mmap: none' >> "${sysdeps}"
-  fi
-else
-  echo 'mmap: none' >> "${sysdeps}"
-fi
-
-cat >> "${fout}" <<EOF
-
-#include <sys/types.h>
-#include <sys/mman.h>
+header_close()
+{
+  cat >> "${fout}" <<EOF
 #endif
 EOF
+}
 
-rm -f trymmap1 trymmap1.o
+success()
+{
+  header_open
+  have_mmap
+  header_close
+  cleanup_exit
+}
+
+fail()
+{
+  header_open
+  no_mmap
+  header_close
+  cleanup_exit
+}
+
+try_mmap
+if [ $? -eq 1 ]
+then
+  if [ ${SYSDEP_CROSS_COMPILE} -eq 1 ]
+  then
+    ${SYSDEP_FILE} exists "conf-x-mmap"
+    if [ $? -eq 1 ]
+    then
+      case `${SYSDEP_LINE} 1 < "conf-x-mmap"` in
+        mmap) success ;;
+        *) fail ;;
+      esac
+    else
+      # Compile succeeded, cross compiling and no config file.
+      success
+    fi
+  else
+    try_run_mmap
+    if [ $? -eq 1 ]; then success; fi
+  fi
+fi
+fail
