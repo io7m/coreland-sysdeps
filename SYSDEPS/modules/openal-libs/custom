@@ -1,0 +1,36 @@
+#!/bin/sh
+
+exec 1> "$1"
+
+args="-lopenal"
+path="${SYSDEP_STDLIB} /usr/X11R6/lib"
+lib="libopenal.so"
+
+case ${SYSDEP_OS} in
+  SYSDEP_OS_DARWIN)
+    lib="libopenal.dylib"
+    args="-framework OpenAL"
+    path="/System/Library/Frameworks/OpenAL.framework ${path}"
+    ;;
+  *)
+    ;;
+esac
+
+FLAGS=`${SYSDEP_TRY_MANUAL} "${lib}" "${path}" "-L" 2>&-`
+if [ "x${FLAGS}" != "x" ]
+then
+  case ${SYSDEP_OS} in
+    SYSDEP_OS_DARWIN)
+      echo ${args}
+      exit 0
+      ;;
+    *)
+      echo ${FLAGS} ${args}
+      exit 0
+      ;;
+    esac
+else
+  ${SYSDEP_ERROR} "manual search failed"
+fi
+
+exit 0
