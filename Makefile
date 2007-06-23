@@ -9,6 +9,12 @@ depchklist
 flags-altivec:
 	@echo SYSDEPS altivec-flags run create flags-altivec 
 	@(cd SYSDEPS/modules/altivec-flags && ./run)
+flags-alut:
+	@echo SYSDEPS alut-flags run create flags-alut 
+	@(cd SYSDEPS/modules/alut-flags && ./run)
+libs-alut:
+	@echo SYSDEPS alut-libs run create libs-alut 
+	@(cd SYSDEPS/modules/alut-libs && ./run)
 _byteorder.h:
 	@echo SYSDEPS byteorder run create _byteorder.h 
 	@(cd SYSDEPS/modules/byteorder && ./run)
@@ -78,6 +84,12 @@ flags-gltexload:
 libs-gltexload-S:
 	@echo SYSDEPS gltexload-libs-S run create libs-gltexload-S 
 	@(cd SYSDEPS/modules/gltexload-libs-S && ./run)
+flags-glut:
+	@echo SYSDEPS glut-flags run create flags-glut 
+	@(cd SYSDEPS/modules/glut-flags && ./run)
+libs-glut:
+	@echo SYSDEPS glut-libs run create libs-glut 
+	@(cd SYSDEPS/modules/glut-libs && ./run)
 _int16.h:
 	@echo SYSDEPS int16 run create _int16.h 
 	@(cd SYSDEPS/modules/int16 && ./run)
@@ -133,6 +145,12 @@ libs-netlib:
 libs-netlib-S:
 	@echo SYSDEPS netlib-libs-S run create libs-netlib-S 
 	@(cd SYSDEPS/modules/netlib-libs-S && ./run)
+flags-openal:
+	@echo SYSDEPS openal-flags run create flags-openal 
+	@(cd SYSDEPS/modules/openal-flags && ./run)
+libs-openal:
+	@echo SYSDEPS openal-libs run create libs-openal 
+	@(cd SYSDEPS/modules/openal-libs && ./run)
 flags-opengl:
 	@echo SYSDEPS opengl-flags run create flags-opengl 
 	@(cd SYSDEPS/modules/opengl-flags && ./run)
@@ -290,6 +308,12 @@ libs-vector-S:
 altivec-flags_clean:
 	@echo SYSDEPS altivec-flags clean flags-altivec 
 	@(cd SYSDEPS/modules/altivec-flags && ./clean)
+alut-flags_clean:
+	@echo SYSDEPS alut-flags clean flags-alut 
+	@(cd SYSDEPS/modules/alut-flags && ./clean)
+alut-libs_clean:
+	@echo SYSDEPS alut-libs clean libs-alut 
+	@(cd SYSDEPS/modules/alut-libs && ./clean)
 byteorder_clean:
 	@echo SYSDEPS byteorder clean _byteorder.h 
 	@(cd SYSDEPS/modules/byteorder && ./clean)
@@ -359,6 +383,12 @@ gltexload-flags_clean:
 gltexload-libs-S_clean:
 	@echo SYSDEPS gltexload-libs-S clean libs-gltexload-S 
 	@(cd SYSDEPS/modules/gltexload-libs-S && ./clean)
+glut-flags_clean:
+	@echo SYSDEPS glut-flags clean flags-glut 
+	@(cd SYSDEPS/modules/glut-flags && ./clean)
+glut-libs_clean:
+	@echo SYSDEPS glut-libs clean libs-glut 
+	@(cd SYSDEPS/modules/glut-libs && ./clean)
 int16_clean:
 	@echo SYSDEPS int16 clean _int16.h 
 	@(cd SYSDEPS/modules/int16 && ./clean)
@@ -413,6 +443,12 @@ netlib-libs_clean:
 netlib-libs-S_clean:
 	@echo SYSDEPS netlib-libs-S clean libs-netlib-S 
 	@(cd SYSDEPS/modules/netlib-libs-S && ./clean)
+openal-flags_clean:
+	@echo SYSDEPS openal-flags clean flags-openal 
+	@(cd SYSDEPS/modules/openal-flags && ./clean)
+openal-libs_clean:
+	@echo SYSDEPS openal-libs clean libs-openal 
+	@(cd SYSDEPS/modules/openal-libs && ./clean)
 opengl-flags_clean:
 	@echo SYSDEPS opengl-flags clean flags-opengl 
 	@(cd SYSDEPS/modules/opengl-flags && ./clean)
@@ -558,6 +594,8 @@ vector-libs-S_clean:
 
 sysdeps_clean:\
 altivec-flags_clean \
+alut-flags_clean \
+alut-libs_clean \
 byteorder_clean \
 ch_flags_clean \
 chrono-flags_clean \
@@ -581,6 +619,8 @@ glsoload-flags_clean \
 glsoload-libs-S_clean \
 gltexload-flags_clean \
 gltexload-libs-S_clean \
+glut-flags_clean \
+glut-libs_clean \
 int16_clean \
 int32_clean \
 int64_clean \
@@ -599,6 +639,8 @@ mac-carbon_clean \
 netlib-flags_clean \
 netlib-libs_clean \
 netlib-libs-S_clean \
+openal-flags_clean \
+openal-libs_clean \
 opengl-flags_clean \
 opengl-libs_clean \
 opengl-obj_clean \
@@ -707,8 +749,7 @@ conf-cc
 clean-all: sysdeps_clean obj_clean 
 clean: obj_clean
 obj_clean: 
-	rm -f conf-cctype conf-ldtype conf-systype depchklist depchklist.o \
-	
+	rm -f depchklist depchklist.o 
 
 regen:
 	cpj-genmk > Makefile.tmp && mv Makefile.tmp Makefile
