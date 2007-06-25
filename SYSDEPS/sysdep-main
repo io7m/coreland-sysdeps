@@ -257,6 +257,25 @@ then
     fi
   fi
 
+  if [ -f slib ]
+  then
+    lib="`${SYSDEP_LINE} 1 < slib`"
+    if [ -f "os_ext/$os_lower/slib" ]
+    then
+      lib="`${SYSDEP_LINE} 1 < os_ext/$os_lower/slib`"
+    fi
+    file="lib${lib}.a"
+    flags=`${SYSDEP_TRY_MANUAL} "${file}" "${SYSDEP_STDLIB}" "-L" 2>&-`
+    if [ ! -z "${flags}" ]
+    then
+      str="${flags} -l${lib} ${xflags}"
+      echo "${str}" >> "${ofile}"
+      echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
+      files_move
+      exit 0
+    fi
+  fi
+
   ${SYSDEP_ERROR} "manual search failed"
 else
   rm -f ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86 \

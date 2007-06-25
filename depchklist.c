@@ -1,26 +1,179 @@
 #include <stdio.h>
 
-#include "_io-notice.h"
+#include "_byteorder.h"
 #include "_ch_flags.h"
-#include "_sd_dlopen.h"
-#include "_sd_fd.h"
-#include "_sd_fcntl.h"
-#include "_sd_fork.h"
-#include "_sd_math.h"
-#include "_sd_mmap.h"
-#include "_sd_posix_rt.h"
-#include "_sig_action.h"
-#include "_sig_pmask.h"
-#include "_sysinfo.h"
+#include "_direntry.h"
+#include "_float32.h"
+#include "_float64.h"
 #include "_int16.h"
 #include "_int32.h"
 #include "_int64.h"
+#include "_io-notice.h"
+#include "_sd_dlopen.h"
+#include "_sd_fcntl.h"
+#include "_sd_fd.h"
+#include "_sd_fork.h"
+#include "_sd_inline.h"
+#include "_sd_longlong.h"
+#include "_sd_math.h"
+#include "_sd_mmap.h"
+#include "_sd_posix_rt.h"
+#include "_sd-ptr_uint.h"
+#include "_sd_select.h"
+#include "_sig_action.h"
+#include "_sig_pmask.h"
+#include "_sysinfo.h"
 #include "_uint16.h"
 #include "_uint32.h"
 #include "_uint64.h"
 
 int main(void)
 {
+#ifdef HAVE_ALUT
+  printf("system has alut\n");
+#else
+  printf("system does not have alut\n");
+#endif
+#ifdef HAVE_CHFLAGS
+  printf("system has chflags\n");
+#else
+  printf("system does not have chflags\n");
+#endif
+#ifdef HAVE_CHRONO
+  printf("system has chrono\n");
+#else
+  printf("system does not have chrono\n");
+#endif
+#ifdef HAVE_CORELIB
+  printf("system has corelib\n");
+#else
+  printf("system does not have corelib\n");
+#endif
+#ifdef HAVE_ENET
+  printf("system has enet\n");
+#else
+  printf("system does not have enet\n");
+#endif
+#ifdef HAVE_FASTCGI
+  printf("system has fastcgi\n");
+#else
+  printf("system does not have fastcgi\n");
+#endif
+#ifdef HAVE_FLTK
+  printf("system has fltk\n");
+#else
+  printf("system does not have fltk\n");
+#endif
+#ifdef HAVE_FLTK11
+  printf("system has fltk11\n");
+#else
+  printf("system does not have fltk11\n");
+#endif
+#ifdef HAVE_FLTK
+  printf("system has fltk\n");
+#else
+  printf("system does not have fltk\n");
+#endif
+#ifdef HAVE_FLTK2
+  printf("system has fltk2\n");
+#else
+  printf("system does not have fltk2\n");
+#endif
+#ifdef HAVE_GLSOLOAD
+  printf("system has glsoload\n");
+#else
+  printf("system does not have glsoload\n");
+#endif
+#ifdef HAVE_GLTEXLOAD
+  printf("system has gltexload\n");
+#else
+  printf("system does not have gltexload\n");
+#endif
+#ifdef HAVE_GLUT
+  printf("system has glut\n");
+#else
+  printf("system does not have glut\n");
+#endif
+#ifdef HAVE_INTEGER
+  printf("system has integer\n");
+#else
+  printf("system does not have integer\n");
+#endif
+#ifdef HAVE_KQUEUE
+  printf("system has kqueue\n");
+#else
+  printf("system does not have kqueue\n");
+#endif
+#ifdef HAVE_EPOLL
+  printf("system has epoll\n");
+#else
+  printf("system does not have epoll\n");
+#endif
+#ifdef HAVE_POLL
+  printf("system has poll\n");
+#else
+  printf("system does not have poll\n");
+#endif
+#ifdef HAVE_SELECT
+  printf("system has select\n");
+#else
+  printf("system does not have select\n");
+#endif
+#ifdef HAVE_IO_POLL
+  printf("system has io_poll\n");
+#else
+  printf("system does not have io_poll\n");
+#endif
+#ifdef HAVE_JACK
+  printf("system has jack\n");
+#else
+  printf("system does not have jack\n");
+#endif
+#ifdef HAVE_LOADSO
+  printf("system has loadso\n");
+#else
+  printf("system does not have loadso\n");
+#endif
+#ifdef HAVE_CARBON
+  printf("system has carbon\n");
+#else
+  printf("system does not have carbon\n");
+#endif
+#ifdef HAVE_NETLIB
+  printf("system has netlib\n");
+#else
+  printf("system does not have netlib\n");
+#endif
+#ifdef HAVE_OPENAL
+  printf("system has openal\n");
+#else
+  printf("system does not have openal\n");
+#endif
+#ifdef HAVE_OPENGL
+  printf("system has opengl\n");
+#else
+  printf("system does not have opengl\n");
+#endif
+#ifdef HAVE_PDCGI
+  printf("system has pdcgi\n");
+#else
+  printf("system does not have pdcgi\n");
+#endif
+#ifdef HAVE_LIBPNG
+  printf("system has libpng\n");
+#else
+  printf("system does not have libpng\n");
+#endif
+#ifdef HAVE_PNGLOAD
+  printf("system has pngload\n");
+#else
+  printf("system does not have pngload\n");
+#endif
+#ifdef HAVE_PORTAUDIO
+  printf("system has portaudio\n");
+#else
+  printf("system does not have portaudio\n");
+#endif
 #ifdef HAVE_DLOPEN
   printf("system has dlopen\n");
 #else
@@ -31,20 +184,35 @@ int main(void)
 #else
   printf("system does not have dlfunc\n");
 #endif
-#ifdef HAVE_IO_POLL
-  printf("system has io_poll\n");
+#ifdef HAVE_FCNTL
+  printf("system has fcntl\n");
 #else
-  printf("system does not have io_poll\n");
-#endif
-#ifdef HAVE_SDL_IMAGE
-  printf("system has sdl_image\n");
-#else
-  printf("system does not have sdl_image\n");
+  printf("system does not have fcntl\n");
 #endif
 #ifdef HAVE_DUP2
   printf("system has dup2\n");
 #else
   printf("system does not have dup2\n");
+#endif
+#ifdef HAVE_FORK
+  printf("system has fork\n");
+#else
+  printf("system does not have fork\n");
+#endif
+#ifdef HAVE_VFORK
+  printf("system has vfork\n");
+#else
+  printf("system does not have vfork\n");
+#endif
+#ifdef HAVE_INLINE
+  printf("system has inline\n");
+#else
+  printf("system does not have inline\n");
+#endif
+#ifdef HAVE_LONGLONG
+  printf("system has longlong\n");
+#else
+  printf("system does not have longlong\n");
 #endif
 #ifdef HAVE_MATH_ACOS
   printf("system has math_acos\n");
@@ -751,130 +919,10 @@ int main(void)
 #else
   printf("system does not have math_ynf\n");
 #endif
-#ifdef HAVE_CHFLAGS
-  printf("system has chflags\n");
-#else
-  printf("system does not have chflags\n");
-#endif
-#ifdef HAVE_SDL_TTF
-  printf("system has sdl_ttf\n");
-#else
-  printf("system does not have sdl_ttf\n");
-#endif
-#ifdef HAVE_FASTCGI
-  printf("system has fastcgi\n");
-#else
-  printf("system does not have fastcgi\n");
-#endif
-#ifdef HAVE_OPENGL
-  printf("system has opengl\n");
-#else
-  printf("system does not have opengl\n");
-#endif
-#ifdef HAVE_LIBSNDFILE
-  printf("system has libsndfile\n");
-#else
-  printf("system does not have libsndfile\n");
-#endif
-#ifdef HAVE_PDCGI
-  printf("system has pdcgi\n");
-#else
-  printf("system does not have pdcgi\n");
-#endif
-#ifdef HAVE_SIGACTION
-  printf("system has sigaction\n");
-#else
-  printf("system does not have sigaction\n");
-#endif
-#ifdef HAVE_SIGPROCMASK
-  printf("system has sigprocmask\n");
-#else
-  printf("system does not have sigprocmask\n");
-#endif
-#ifdef HAVE_LIBTIFF
-  printf("system has libtiff\n");
-#else
-  printf("system does not have libtiff\n");
-#endif
-#ifdef HAVE_FLTK
-  printf("system has fltk\n");
-#else
-  printf("system does not have fltk\n");
-#endif
-#ifdef HAVE_FLTK11
-  printf("system has fltk11\n");
-#else
-  printf("system does not have fltk11\n");
-#endif
 #ifdef HAVE_MMAP
   printf("system has mmap\n");
 #else
   printf("system does not have mmap\n");
-#endif
-#ifdef HAVE_SDL_MIXER
-  printf("system has sdl_mixer\n");
-#else
-  printf("system does not have sdl_mixer\n");
-#endif
-#ifdef HAVE_PORTAUDIO
-  printf("system has portaudio\n");
-#else
-  printf("system does not have portaudio\n");
-#endif
-#ifdef HAVE_JACK
-  printf("system has jack\n");
-#else
-  printf("system does not have jack\n");
-#endif
-#ifdef HAVE_CORELIB
-  printf("system has corelib\n");
-#else
-  printf("system does not have corelib\n");
-#endif
-#ifdef HAVE_FCNTL
-  printf("system has fcntl\n");
-#else
-  printf("system does not have fcntl\n");
-#endif
-#ifdef HAVE_FLTK
-  printf("system has fltk\n");
-#else
-  printf("system does not have fltk\n");
-#endif
-#ifdef HAVE_FLTK2
-  printf("system has fltk2\n");
-#else
-  printf("system does not have fltk2\n");
-#endif
-#ifdef HAVE_SDL
-  printf("system has sdl\n");
-#else
-  printf("system does not have sdl\n");
-#endif
-#ifdef HAVE_LIBPNG
-  printf("system has libpng\n");
-#else
-  printf("system does not have libpng\n");
-#endif
-#ifdef HAVE_PTHREADS
-  printf("system has pthreads\n");
-#else
-  printf("system does not have pthreads\n");
-#endif
-#ifdef HAVE_PTHREADS_REALTIME
-  printf("system has pthreads_realtime\n");
-#else
-  printf("system does not have pthreads_realtime\n");
-#endif
-#ifdef HAVE_VECTOR
-  printf("system has vector\n");
-#else
-  printf("system does not have vector\n");
-#endif
-#ifdef HAVE_LOADSO
-  printf("system has loadso\n");
-#else
-  printf("system does not have loadso\n");
 #endif
 #ifdef HAVE_AIO_CANCEL
   printf("system has aio_cancel\n");
@@ -1306,70 +1354,59 @@ int main(void)
 #else
   printf("system does not have timer_getoverrun\n");
 #endif
-#ifdef HAVE_FORK
-  printf("system has fork\n");
+#ifdef HAVE_PTHREADS
+  printf("system has pthreads\n");
 #else
-  printf("system does not have fork\n");
+  printf("system does not have pthreads\n");
 #endif
-#ifdef HAVE_VFORK
-  printf("system has vfork\n");
+#ifdef HAVE_PTHREADS_REALTIME
+  printf("system has pthreads_realtime\n");
 #else
-  printf("system does not have vfork\n");
+  printf("system does not have pthreads_realtime\n");
 #endif
-#ifdef HAVE_INTEGER
-  printf("system has integer\n");
+#ifdef HAVE_SIGACTION
+  printf("system has sigaction\n");
 #else
-  printf("system does not have integer\n");
+  printf("system does not have sigaction\n");
 #endif
-#ifdef HAVE_KQUEUE
-  printf("system has kqueue\n");
+#ifdef HAVE_SIGPROCMASK
+  printf("system has sigprocmask\n");
 #else
-  printf("system does not have kqueue\n");
+  printf("system does not have sigprocmask\n");
 #endif
-#ifdef HAVE_EPOLL
-  printf("system has epoll\n");
+#ifdef HAVE_SDL
+  printf("system has sdl\n");
 #else
-  printf("system does not have epoll\n");
+  printf("system does not have sdl\n");
 #endif
-#ifdef HAVE_POLL
-  printf("system has poll\n");
+#ifdef HAVE_SDL_IMAGE
+  printf("system has sdl_image\n");
 #else
-  printf("system does not have poll\n");
+  printf("system does not have sdl_image\n");
 #endif
-#ifdef HAVE_SELECT
-  printf("system has select\n");
+#ifdef HAVE_SDL_MIXER
+  printf("system has sdl_mixer\n");
 #else
-  printf("system does not have select\n");
+  printf("system does not have sdl_mixer\n");
 #endif
-#ifdef HAVE_NETLIB
-  printf("system has netlib\n");
+#ifdef HAVE_SDL_TTF
+  printf("system has sdl_ttf\n");
 #else
-  printf("system does not have netlib\n");
+  printf("system does not have sdl_ttf\n");
 #endif
-#ifdef HAVE_CHRONO
-  printf("system has chrono\n");
+#ifdef HAVE_LIBSNDFILE
+  printf("system has libsndfile\n");
 #else
-  printf("system does not have chrono\n");
+  printf("system does not have libsndfile\n");
 #endif
-#ifdef HAVE_GLTEXLOAD
-  printf("system has gltexload\n");
+#ifdef HAVE_LIBTIFF
+  printf("system has libtiff\n");
 #else
-  printf("system does not have gltexload\n");
+  printf("system does not have libtiff\n");
 #endif
-#ifdef HAVE_GLSOLOAD
-  printf("system has glsoload\n");
+#ifdef HAVE_VECTOR
+  printf("system has vector\n");
 #else
-  printf("system does not have glsoload\n");
+  printf("system does not have vector\n");
 #endif
-#ifdef HAVE_PNGLOAD
-  printf("system has pngload\n");
-#else
-  printf("system does not have pngload\n");
-#endif
-#ifdef HAVE_CARBON
-  printf("system has carbon\n");
-#else
-  printf("system does not have carbon\n");
-#endif
-  return 0;
 }

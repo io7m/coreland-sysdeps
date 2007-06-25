@@ -42,6 +42,12 @@ libs-corelib-S:
 _direntry.h:
 	@echo SYSDEPS direntry run create _direntry.h 
 	@(cd SYSDEPS/modules/direntry && ./run)
+flags-enet:
+	@echo SYSDEPS enet-flags run create flags-enet 
+	@(cd SYSDEPS/modules/enet-flags && ./run)
+libs-enet-S:
+	@echo SYSDEPS enet-libs-S run create libs-enet-S 
+	@(cd SYSDEPS/modules/enet-libs-S && ./run)
 flags-fastcgi:
 	@echo SYSDEPS fastcgi-flags run create flags-fastcgi 
 	@(cd SYSDEPS/modules/fastcgi-flags && ./run)
@@ -341,6 +347,12 @@ corelib-libs-S_clean:
 direntry_clean:
 	@echo SYSDEPS direntry clean _direntry.h 
 	@(cd SYSDEPS/modules/direntry && ./clean)
+enet-flags_clean:
+	@echo SYSDEPS enet-flags clean flags-enet 
+	@(cd SYSDEPS/modules/enet-flags && ./clean)
+enet-libs-S_clean:
+	@echo SYSDEPS enet-libs-S clean libs-enet-S 
+	@(cd SYSDEPS/modules/enet-libs-S && ./clean)
 fastcgi-flags_clean:
 	@echo SYSDEPS fastcgi-flags clean flags-fastcgi 
 	@(cd SYSDEPS/modules/fastcgi-flags && ./clean)
@@ -605,6 +617,8 @@ corelib-flags_clean \
 corelib-libs_clean \
 corelib-libs-S_clean \
 direntry_clean \
+enet-flags_clean \
+enet-libs-S_clean \
 fastcgi-flags_clean \
 fastcgi-libs_clean \
 float32_clean \
@@ -693,13 +707,14 @@ vector-libs-S_clean \
 # -- SYSDEPS end
 
 cc-compile:\
-conf-cc conf-cctype conf-systype conf-cflags flags-altivec flags-chrono \
-flags-corelib flags-fastcgi flags-fltk11 flags-fltk2 flags-glsoload \
-flags-gltexload flags-integer flags-io_poll flags-jack flags-loadso \
-flags-carbon flags-netlib flags-opengl flags-pdcgi flags-png flags-pngload \
-flags-portaudio flags-fcntl flags-math flags-posix_rt flags-pthreads \
-flags-pthr_rt flags-sdl flags-sdl-image flags-sdl-mixer flags-sdl-ttf \
-flags-sndfile flags-sse flags-sse2 flags-sse3 flags-tiff flags-vector 
+conf-cc conf-cctype conf-systype conf-cflags flags-altivec flags-alut \
+flags-chrono flags-corelib flags-enet flags-fastcgi flags-fltk11 flags-fltk2 \
+flags-glsoload flags-gltexload flags-glut flags-integer flags-io_poll \
+flags-jack flags-loadso flags-carbon flags-netlib flags-openal flags-opengl \
+flags-pdcgi flags-png flags-pngload flags-portaudio flags-fcntl flags-math \
+flags-posix_rt flags-pthreads flags-pthr_rt flags-sdl flags-sdl-image \
+flags-sdl-mixer flags-sdl-ttf flags-sndfile flags-sse flags-sse2 flags-sse3 \
+flags-tiff flags-vector 
 
 cc-link:\
 conf-ld conf-ldtype conf-systype conf-ldflags 
@@ -724,10 +739,11 @@ cc-link depchklist.ld depchklist.o
 	./cc-link depchklist depchklist.o 
 
 depchklist.o:\
-cc-compile depchklist.c _io-notice.h _ch_flags.h _sd_dlopen.h _sd_fd.h \
-_sd_fcntl.h _sd_fork.h _sd_math.h _sd_mmap.h _sd_posix_rt.h _sig_action.h \
-_sig_pmask.h _sysinfo.h _int16.h _int32.h _int64.h _uint16.h _uint32.h \
-_uint64.h 
+cc-compile depchklist.c _byteorder.h _ch_flags.h _direntry.h _float32.h \
+_float64.h _int16.h _int32.h _int64.h _io-notice.h _sd_dlopen.h _sd_fcntl.h \
+_sd_fd.h _sd_fork.h _sd_inline.h _sd_longlong.h _sd_math.h _sd_mmap.h \
+_sd_posix_rt.h _sd-ptr_uint.h _sd_select.h _sig_action.h _sig_pmask.h \
+_sysinfo.h _uint16.h _uint32.h _uint64.h 
 	./cc-compile depchklist.c
 
 mk-cctype:\
@@ -749,7 +765,8 @@ conf-cc
 clean-all: sysdeps_clean obj_clean 
 clean: obj_clean
 obj_clean: 
-	rm -f depchklist depchklist.o 
+	rm -f conf-cctype conf-ldtype conf-systype depchklist depchklist.o \
+	
 
 regen:
 	cpj-genmk > Makefile.tmp && mv Makefile.tmp Makefile
