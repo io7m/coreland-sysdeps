@@ -84,12 +84,12 @@ flags-glsoload:
 libs-glsoload-S:
 	@echo SYSDEPS glsoload-libs-S run create libs-glsoload-S 
 	@(cd SYSDEPS/modules/glsoload-libs-S && ./run)
-flags-gltexload:
-	@echo SYSDEPS gltexload-flags run create flags-gltexload 
-	@(cd SYSDEPS/modules/gltexload-flags && ./run)
-libs-gltexload-S:
-	@echo SYSDEPS gltexload-libs-S run create libs-gltexload-S 
-	@(cd SYSDEPS/modules/gltexload-libs-S && ./run)
+flags-gltxload:
+	@echo SYSDEPS gltxload-flags run create flags-gltxload 
+	@(cd SYSDEPS/modules/gltxload-flags && ./run)
+libs-gltxload-S:
+	@echo SYSDEPS gltxload-libs-S run create libs-gltxload-S 
+	@(cd SYSDEPS/modules/gltxload-libs-S && ./run)
 flags-glut:
 	@echo SYSDEPS glut-flags run create flags-glut 
 	@(cd SYSDEPS/modules/glut-flags && ./run)
@@ -389,12 +389,12 @@ glsoload-flags_clean:
 glsoload-libs-S_clean:
 	@echo SYSDEPS glsoload-libs-S clean libs-glsoload-S 
 	@(cd SYSDEPS/modules/glsoload-libs-S && ./clean)
-gltexload-flags_clean:
-	@echo SYSDEPS gltexload-flags clean flags-gltexload 
-	@(cd SYSDEPS/modules/gltexload-flags && ./clean)
-gltexload-libs-S_clean:
-	@echo SYSDEPS gltexload-libs-S clean libs-gltexload-S 
-	@(cd SYSDEPS/modules/gltexload-libs-S && ./clean)
+gltxload-flags_clean:
+	@echo SYSDEPS gltxload-flags clean flags-gltxload 
+	@(cd SYSDEPS/modules/gltxload-flags && ./clean)
+gltxload-libs-S_clean:
+	@echo SYSDEPS gltxload-libs-S clean libs-gltxload-S 
+	@(cd SYSDEPS/modules/gltxload-libs-S && ./clean)
 glut-flags_clean:
 	@echo SYSDEPS glut-flags clean flags-glut 
 	@(cd SYSDEPS/modules/glut-flags && ./clean)
@@ -631,8 +631,8 @@ fltk2-libs_clean \
 fltk2-libs-S_clean \
 glsoload-flags_clean \
 glsoload-libs-S_clean \
-gltexload-flags_clean \
-gltexload-libs-S_clean \
+gltxload-flags_clean \
+gltxload-libs-S_clean \
 glut-flags_clean \
 glut-libs_clean \
 int16_clean \
