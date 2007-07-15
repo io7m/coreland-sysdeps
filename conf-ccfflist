@@ -7,7 +7,7 @@ flags-fastcgi
 flags-fltk11
 flags-fltk2
 flags-glsoload
-flags-gltexload
+flags-gltxload
 flags-glut
 flags-integer
 flags-io_poll

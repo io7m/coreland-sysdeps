@@ -29,6 +29,7 @@
 
 int main(void)
 {
+
 #ifdef HAVE_ALUT
   printf("system has alut\n");
 #else
@@ -84,10 +85,10 @@ int main(void)
 #else
   printf("system does not have glsoload\n");
 #endif
-#ifdef HAVE_GLTEXLOAD
-  printf("system has gltexload\n");
+#ifdef HAVE_GLTXLOAD
+  printf("system has gltxload\n");
 #else
-  printf("system does not have gltexload\n");
+  printf("system does not have gltxload\n");
 #endif
 #ifdef HAVE_GLUT
   printf("system has glut\n");
@@ -1409,4 +1410,5 @@ int main(void)
 #else
   printf("system does not have vector\n");
 #endif
+  return 0;
 }

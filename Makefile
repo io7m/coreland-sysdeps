@@ -709,7 +709,7 @@ vector-libs-S_clean \
 cc-compile:\
 conf-cc conf-cctype conf-systype conf-cflags flags-altivec flags-alut \
 flags-chrono flags-corelib flags-enet flags-fastcgi flags-fltk11 flags-fltk2 \
-flags-glsoload flags-gltexload flags-glut flags-integer flags-io_poll \
+flags-glsoload flags-gltxload flags-glut flags-integer flags-io_poll \
 flags-jack flags-loadso flags-carbon flags-netlib flags-openal flags-opengl \
 flags-pdcgi flags-png flags-pngload flags-portaudio flags-fcntl flags-math \
 flags-posix_rt flags-pthreads flags-pthr_rt flags-sdl flags-sdl-image \
@@ -765,7 +765,8 @@ conf-cc
 clean-all: sysdeps_clean obj_clean 
 clean: obj_clean
 obj_clean: 
-	rm -f depchklist depchklist.o 
+	rm -f conf-cctype conf-ldtype conf-systype depchklist depchklist.o \
+	
 
 regen:
 	cpj-genmk > Makefile.tmp && mv Makefile.tmp Makefile
