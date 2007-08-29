@@ -6,6 +6,12 @@ all:\
 depchklist 
 
 # -- SYSDEPS start
+flags-aiff:
+	@echo SYSDEPS aiff-flags run create flags-aiff 
+	@(cd SYSDEPS/modules/aiff-flags && ./run)
+libs-aiff-S:
+	@echo SYSDEPS aiff-libs-S run create libs-aiff-S 
+	@(cd SYSDEPS/modules/aiff-libs-S && ./run)
 flags-altivec:
 	@echo SYSDEPS altivec-flags run create flags-altivec 
 	@(cd SYSDEPS/modules/altivec-flags && ./run)
@@ -311,6 +317,12 @@ libs-vector-S:
 	@(cd SYSDEPS/modules/vector-libs-S && ./run)
 
 
+aiff-flags_clean:
+	@echo SYSDEPS aiff-flags clean flags-aiff 
+	@(cd SYSDEPS/modules/aiff-flags && ./clean)
+aiff-libs-S_clean:
+	@echo SYSDEPS aiff-libs-S clean libs-aiff-S 
+	@(cd SYSDEPS/modules/aiff-libs-S && ./clean)
 altivec-flags_clean:
 	@echo SYSDEPS altivec-flags clean flags-altivec 
 	@(cd SYSDEPS/modules/altivec-flags && ./clean)
@@ -605,6 +617,8 @@ vector-libs-S_clean:
 
 
 sysdeps_clean:\
+aiff-flags_clean \
+aiff-libs-S_clean \
 altivec-flags_clean \
 alut-flags_clean \
 alut-libs_clean \
@@ -707,14 +721,14 @@ vector-libs-S_clean \
 # -- SYSDEPS end
 
 cc-compile:\
-conf-cc conf-cctype conf-systype conf-cflags flags-altivec flags-alut \
-flags-chrono flags-corelib flags-enet flags-fastcgi flags-fltk11 flags-fltk2 \
-flags-glsoload flags-gltxload flags-glut flags-integer flags-io_poll \
-flags-jack flags-loadso flags-carbon flags-netlib flags-openal flags-opengl \
-flags-pdcgi flags-png flags-pngload flags-portaudio flags-fcntl flags-math \
-flags-posix_rt flags-pthreads flags-pthr_rt flags-sdl flags-sdl-image \
-flags-sdl-mixer flags-sdl-ttf flags-sndfile flags-sse flags-sse2 flags-sse3 \
-flags-tiff flags-vector 
+conf-cc conf-cctype conf-systype conf-cflags flags-aiff flags-altivec \
+flags-alut flags-carbon flags-chrono flags-corelib flags-enet flags-fastcgi \
+flags-fcntl flags-fltk11 flags-fltk2 flags-glsoload flags-gltxload \
+flags-glut flags-integer flags-io_poll flags-jack flags-loadso flags-math \
+flags-netlib flags-openal flags-opengl flags-pdcgi flags-png flags-pngload \
+flags-portaudio flags-posix_rt flags-pthr_rt flags-pthreads flags-sdl \
+flags-sdl-image flags-sdl-mixer flags-sdl-ttf flags-sndfile flags-sse \
+flags-sse2 flags-sse3 flags-tiff flags-vector 
 
 cc-link:\
 conf-ld conf-ldtype conf-systype conf-ldflags 
@@ -765,7 +779,8 @@ conf-cc
 clean-all: sysdeps_clean obj_clean 
 clean: obj_clean
 obj_clean: 
-	rm -f depchklist depchklist.o 
+	rm -f conf-cctype conf-ldtype conf-systype depchklist depchklist.o \
+	
 
 regen:
 	cpj-genmk > Makefile.tmp && mv Makefile.tmp Makefile

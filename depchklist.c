@@ -29,7 +29,11 @@
 
 int main(void)
 {
-
+#ifdef HAVE_LIBAIFF
+  printf("system has libaiff\n");
+#else
+  printf("system does not have libaiff\n");
+#endif
 #ifdef HAVE_ALUT
   printf("system has alut\n");
 #else
