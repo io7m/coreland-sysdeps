@@ -29,6 +29,7 @@
 
 int main(void)
 {
+
 #ifdef HAVE_LIBAIFF
   printf("system has libaiff\n");
 #else
@@ -1399,6 +1400,11 @@ int main(void)
 #else
   printf("system does not have sdl_ttf\n");
 #endif
+#ifdef HAVE_SMTPLIB
+  printf("system has smtplib\n");
+#else
+  printf("system does not have smtplib\n");
+#endif
 #ifdef HAVE_LIBSNDFILE
   printf("system has libsndfile\n");
 #else
@@ -1414,5 +1420,4 @@ int main(void)
 #else
   printf("system does not have vector\n");
 #endif
-  return 0;
 }

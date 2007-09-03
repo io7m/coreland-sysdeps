@@ -273,6 +273,12 @@ flags-sdl-ttf:
 libs-sdl-ttf:
 	@echo SYSDEPS sdl-ttf-libs run create libs-sdl-ttf 
 	@(cd SYSDEPS/modules/sdl-ttf-libs && ./run)
+flags-smtplib:
+	@echo SYSDEPS smtplib-flags run create flags-smtplib 
+	@(cd SYSDEPS/modules/smtplib-flags && ./run)
+libs-smtplib-S:
+	@echo SYSDEPS smtplib-libs-S run create libs-smtplib-S 
+	@(cd SYSDEPS/modules/smtplib-libs-S && ./run)
 flags-sndfile:
 	@echo SYSDEPS sndfile-flags run create flags-sndfile 
 	@(cd SYSDEPS/modules/sndfile-flags && ./run)
@@ -572,6 +578,12 @@ sdl-ttf-flags_clean:
 sdl-ttf-libs_clean:
 	@echo SYSDEPS sdl-ttf-libs clean libs-sdl-ttf 
 	@(cd SYSDEPS/modules/sdl-ttf-libs && ./clean)
+smtplib-flags_clean:
+	@echo SYSDEPS smtplib-flags clean flags-smtplib 
+	@(cd SYSDEPS/modules/smtplib-flags && ./clean)
+smtplib-libs-S_clean:
+	@echo SYSDEPS smtplib-libs-S clean libs-smtplib-S 
+	@(cd SYSDEPS/modules/smtplib-libs-S && ./clean)
 sndfile-flags_clean:
 	@echo SYSDEPS sndfile-flags clean flags-sndfile 
 	@(cd SYSDEPS/modules/sndfile-flags && ./clean)
@@ -702,6 +714,8 @@ sdl-mixer-flags_clean \
 sdl-mixer-libs_clean \
 sdl-ttf-flags_clean \
 sdl-ttf-libs_clean \
+smtplib-flags_clean \
+smtplib-libs-S_clean \
 sndfile-flags_clean \
 sndfile-libs_clean \
 sse-flags_clean \
@@ -727,8 +741,8 @@ flags-fcntl flags-fltk11 flags-fltk2 flags-glsoload flags-gltxload \
 flags-glut flags-integer flags-io_poll flags-jack flags-loadso flags-math \
 flags-netlib flags-openal flags-opengl flags-pdcgi flags-png flags-pngload \
 flags-portaudio flags-posix_rt flags-pthr_rt flags-pthreads flags-sdl \
-flags-sdl-image flags-sdl-mixer flags-sdl-ttf flags-sndfile flags-sse \
-flags-sse2 flags-sse3 flags-tiff flags-vector 
+flags-sdl-image flags-sdl-mixer flags-sdl-ttf flags-smtplib flags-sndfile \
+flags-sse flags-sse2 flags-sse3 flags-tiff flags-vector 
 
 cc-link:\
 conf-ld conf-ldtype conf-systype conf-ldflags 
@@ -779,7 +793,8 @@ conf-cc
 clean-all: sysdeps_clean obj_clean 
 clean: obj_clean
 obj_clean: 
-	rm -f depchklist depchklist.o 
+	rm -f conf-cctype conf-ldtype conf-systype depchklist depchklist.o \
+	
 
 regen:
 	cpj-genmk > Makefile.tmp && mv Makefile.tmp Makefile
