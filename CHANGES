@@ -86,3 +86,4 @@
 20070430 code: adjusted regen target.
 20070519 code: added netlib.
 20070829 code: added libaiff.
+20070904 code: quote SYS_CCVERSION in sysinfo.
