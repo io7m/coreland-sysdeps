@@ -1,6 +1,7 @@
 inline void func()
 {
   int x;
+  x = 1;
 }
 
 int main()
