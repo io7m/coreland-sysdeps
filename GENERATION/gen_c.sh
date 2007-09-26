@@ -10,6 +10,7 @@ data=$1
 
 IFS="
 "
+echo '  var = "UNKNOWN";';
 for str in `cat ${data}`
 do
   type=`echo ${str} | awk '{print $1}'`
