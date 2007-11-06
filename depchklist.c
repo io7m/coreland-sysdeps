@@ -29,7 +29,6 @@
 
 int main(void)
 {
-
 #ifdef HAVE_LIBAIFF
   printf("system has libaiff\n");
 #else
@@ -54,6 +53,11 @@ int main(void)
   printf("system has corelib\n");
 #else
   printf("system does not have corelib\n");
+#endif
+#ifdef HAVE_CIRCBUF
+  printf("system has circbuf\n");
+#else
+  printf("system does not have circbuf\n");
 #endif
 #ifdef HAVE_ENET
   printf("system has enet\n");

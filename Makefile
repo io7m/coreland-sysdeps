@@ -36,6 +36,15 @@ libs-chrono:
 libs-chrono-S:
 	@echo SYSDEPS chrono-libs-S run create libs-chrono-S 
 	@(cd SYSDEPS/modules/chrono-libs-S && ./run)
+flags-circbuf:
+	@echo SYSDEPS circbuf-flags run create flags-circbuf 
+	@(cd SYSDEPS/modules/circbuf-flags && ./run)
+libs-circbuf:
+	@echo SYSDEPS circbuf-libs run create libs-circbuf 
+	@(cd SYSDEPS/modules/circbuf-libs && ./run)
+libs-circbuf-S:
+	@echo SYSDEPS circbuf-libs-S run create libs-circbuf-S 
+	@(cd SYSDEPS/modules/circbuf-libs-S && ./run)
 flags-corelib:
 	@echo SYSDEPS corelib-flags run create flags-corelib 
 	@(cd SYSDEPS/modules/corelib-flags && ./run)
@@ -353,6 +362,15 @@ chrono-libs_clean:
 chrono-libs-S_clean:
 	@echo SYSDEPS chrono-libs-S clean libs-chrono-S 
 	@(cd SYSDEPS/modules/chrono-libs-S && ./clean)
+circbuf-flags_clean:
+	@echo SYSDEPS circbuf-flags clean flags-circbuf 
+	@(cd SYSDEPS/modules/circbuf-flags && ./clean)
+circbuf-libs_clean:
+	@echo SYSDEPS circbuf-libs clean libs-circbuf 
+	@(cd SYSDEPS/modules/circbuf-libs && ./clean)
+circbuf-libs-S_clean:
+	@echo SYSDEPS circbuf-libs-S clean libs-circbuf-S 
+	@(cd SYSDEPS/modules/circbuf-libs-S && ./clean)
 corelib-flags_clean:
 	@echo SYSDEPS corelib-flags clean flags-corelib 
 	@(cd SYSDEPS/modules/corelib-flags && ./clean)
@@ -639,6 +657,9 @@ ch_flags_clean \
 chrono-flags_clean \
 chrono-libs_clean \
 chrono-libs-S_clean \
+circbuf-flags_clean \
+circbuf-libs_clean \
+circbuf-libs-S_clean \
 corelib-flags_clean \
 corelib-libs_clean \
 corelib-libs-S_clean \
@@ -736,13 +757,14 @@ vector-libs-S_clean \
 
 cc-compile:\
 conf-cc conf-cctype conf-systype conf-cflags flags-aiff flags-altivec \
-flags-alut flags-carbon flags-chrono flags-corelib flags-enet flags-fastcgi \
-flags-fcntl flags-fltk11 flags-fltk2 flags-glsoload flags-gltxload \
-flags-glut flags-integer flags-io_poll flags-jack flags-loadso flags-math \
-flags-netlib flags-openal flags-opengl flags-pdcgi flags-png flags-pngload \
-flags-portaudio flags-posix_rt flags-pthr_rt flags-pthreads flags-sdl \
-flags-sdl-image flags-sdl-mixer flags-sdl-ttf flags-smtplib flags-sndfile \
-flags-sse flags-sse2 flags-sse3 flags-tiff flags-vector 
+flags-alut flags-carbon flags-chrono flags-circbuf flags-corelib flags-enet \
+flags-fastcgi flags-fcntl flags-fltk11 flags-fltk2 flags-glsoload \
+flags-gltxload flags-glut flags-integer flags-io_poll flags-jack \
+flags-loadso flags-math flags-netlib flags-openal flags-opengl flags-pdcgi \
+flags-png flags-pngload flags-portaudio flags-posix_rt flags-pthr_rt \
+flags-pthreads flags-sdl flags-sdl-image flags-sdl-mixer flags-sdl-ttf \
+flags-smtplib flags-sndfile flags-sse flags-sse2 flags-sse3 flags-tiff \
+flags-vector 
 
 cc-link:\
 conf-ld conf-ldtype conf-systype conf-ldflags 
@@ -793,7 +815,8 @@ conf-cc
 clean-all: sysdeps_clean obj_clean 
 clean: obj_clean
 obj_clean: 
-	rm -f depchklist depchklist.o 
+	rm -f conf-cctype conf-ldtype conf-systype depchklist depchklist.o \
+	
 
 regen:
 	cpj-genmk > Makefile.tmp && mv Makefile.tmp Makefile

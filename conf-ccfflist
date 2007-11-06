@@ -3,6 +3,7 @@ flags-altivec
 flags-alut
 flags-carbon
 flags-chrono
+flags-circbuf
 flags-corelib
 flags-enet
 flags-fastcgi
