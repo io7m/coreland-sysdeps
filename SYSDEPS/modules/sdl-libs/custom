@@ -8,10 +8,15 @@ lib="libSDLmain.a"
 
 case ${SYSDEP_OS} in
   SYSDEP_OS_DARWIN)
-    lib="SDL"               # searching for framework
-    args="-bind_at_load"    # darwin linker bug
-    args="${args} -framework SDL -framework Cocoa -framework OpenGL -lobjc"
-    path="${path} /Library/Frameworks/SDL.framework"
+    if [ -d "/Library/Frameworks/SDL.framework" ]
+    then
+      ${SYSDEP_INFO} "using SDL frameworks"
+      args="-bind_at_load"    # darwin linker bug
+      args="${args} -framework SDL -framework Cocoa -framework OpenGL -lobjc"
+      path="${path} /Library/Frameworks/SDL.framework"
+    else
+      ${SYSDEP_INFO} "using SDL 'unix style'" 
+    fi
     ;;
   *)
     ;;
