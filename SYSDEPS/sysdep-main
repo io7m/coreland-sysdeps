@@ -277,7 +277,6 @@ then
     if [ ! -z "${flags}" ]
     then
       str=`printf "%s/%s %s" ${flags} "${file}" "${xflags}"`
-      echo $str
       echo "${str}" >> "${ofile}"
       echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
       files_move
