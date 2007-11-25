@@ -13,7 +13,8 @@ case ${SYSDEP_OS} in
       ${SYSDEP_INFO} "using SDL frameworks"
       args="-bind_at_load"    # darwin linker bug
       args="${args} -framework SDL -framework Cocoa -framework OpenGL -lobjc"
-      path="${path} /Library/Frameworks/SDL.framework"
+      echo "${args}"
+      exit 0
     else
       ${SYSDEP_INFO} "using SDL 'unix style'" 
     fi
