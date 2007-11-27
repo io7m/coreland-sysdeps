@@ -282,6 +282,12 @@ flags-sdl-ttf:
 libs-sdl-ttf:
 	@echo SYSDEPS sdl-ttf-libs run create libs-sdl-ttf 
 	@(cd SYSDEPS/modules/sdl-ttf-libs && ./run)
+flags-skel:
+	@echo SYSDEPS skel-flags run create flags-skel 
+	@(cd SYSDEPS/modules/skel-flags && ./run)
+libs-skel-S:
+	@echo SYSDEPS skel-libs-S run create libs-skel-S 
+	@(cd SYSDEPS/modules/skel-libs-S && ./run)
 flags-smtplib:
 	@echo SYSDEPS smtplib-flags run create flags-smtplib 
 	@(cd SYSDEPS/modules/smtplib-flags && ./run)
@@ -596,6 +602,12 @@ sdl-ttf-flags_clean:
 sdl-ttf-libs_clean:
 	@echo SYSDEPS sdl-ttf-libs clean libs-sdl-ttf 
 	@(cd SYSDEPS/modules/sdl-ttf-libs && ./clean)
+skel-flags_clean:
+	@echo SYSDEPS skel-flags clean flags-skel 
+	@(cd SYSDEPS/modules/skel-flags && ./clean)
+skel-libs-S_clean:
+	@echo SYSDEPS skel-libs-S clean libs-skel-S 
+	@(cd SYSDEPS/modules/skel-libs-S && ./clean)
 smtplib-flags_clean:
 	@echo SYSDEPS smtplib-flags clean flags-smtplib 
 	@(cd SYSDEPS/modules/smtplib-flags && ./clean)
@@ -735,6 +747,8 @@ sdl-mixer-flags_clean \
 sdl-mixer-libs_clean \
 sdl-ttf-flags_clean \
 sdl-ttf-libs_clean \
+skel-flags_clean \
+skel-libs-S_clean \
 smtplib-flags_clean \
 smtplib-libs-S_clean \
 sndfile-flags_clean \
@@ -763,8 +777,8 @@ flags-gltxload flags-glut flags-integer flags-io_poll flags-jack \
 flags-loadso flags-math flags-netlib flags-openal flags-opengl flags-pdcgi \
 flags-png flags-pngload flags-portaudio flags-posix_rt flags-pthr_rt \
 flags-pthreads flags-sdl flags-sdl-image flags-sdl-mixer flags-sdl-ttf \
-flags-smtplib flags-sndfile flags-sse flags-sse2 flags-sse3 flags-tiff \
-flags-vector 
+flags-skel flags-smtplib flags-sndfile flags-sse flags-sse2 flags-sse3 \
+flags-tiff flags-vector 
 
 cc-link:\
 conf-ld conf-ldtype conf-systype conf-ldflags 
@@ -815,7 +829,8 @@ conf-cc
 clean-all: sysdeps_clean obj_clean 
 clean: obj_clean
 obj_clean: 
-	rm -f depchklist depchklist.o 
+	rm -f conf-cctype conf-ldtype conf-systype depchklist depchklist.o \
+	
 
 regen:
 	cpj-genmk > Makefile.tmp && mv Makefile.tmp Makefile

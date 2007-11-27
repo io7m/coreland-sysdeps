@@ -32,6 +32,7 @@ flags-sdl
 flags-sdl-image
 flags-sdl-mixer
 flags-sdl-ttf
+flags-skel
 flags-smtplib
 flags-sndfile
 flags-sse

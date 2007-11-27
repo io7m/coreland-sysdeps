@@ -29,6 +29,7 @@
 
 int main(void)
 {
+
 #ifdef HAVE_LIBAIFF
   printf("system has libaiff\n");
 #else
@@ -49,15 +50,15 @@ int main(void)
 #else
   printf("system does not have chrono\n");
 #endif
-#ifdef HAVE_CORELIB
-  printf("system has corelib\n");
-#else
-  printf("system does not have corelib\n");
-#endif
 #ifdef HAVE_CIRCBUF
   printf("system has circbuf\n");
 #else
   printf("system does not have circbuf\n");
+#endif
+#ifdef HAVE_CORELIB
+  printf("system has corelib\n");
+#else
+  printf("system does not have corelib\n");
 #endif
 #ifdef HAVE_ENET
   printf("system has enet\n");
@@ -1404,6 +1405,11 @@ int main(void)
 #else
   printf("system does not have sdl_ttf\n");
 #endif
+#ifdef HAVE_SKEL
+  printf("system has skel\n");
+#else
+  printf("system does not have skel\n");
+#endif
 #ifdef HAVE_SMTPLIB
   printf("system has smtplib\n");
 #else
@@ -1424,4 +1430,5 @@ int main(void)
 #else
   printf("system does not have vector\n");
 #endif
+  return 0;
 }
