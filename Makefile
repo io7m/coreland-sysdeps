@@ -328,8 +328,9 @@ _uint64.h:
 	@echo SYSDEPS uint64 run create _uint64.h 
 	@(cd SYSDEPS/modules/uint64 && ./run)
 flags-vector:
-	@echo SYSDEPS vector-flags run create flags-vector 
+	@echo SYSDEPS vector-flags run create flags-cc-vector flags-vector 
 	@(cd SYSDEPS/modules/vector-flags && ./run)
+flags-cc-vector: flags-vector
 libs-vector:
 	@echo SYSDEPS vector-libs run create libs-vector 
 	@(cd SYSDEPS/modules/vector-libs && ./run)
@@ -648,7 +649,7 @@ uint64_clean:
 	@echo SYSDEPS uint64 clean _uint64.h 
 	@(cd SYSDEPS/modules/uint64 && ./clean)
 vector-flags_clean:
-	@echo SYSDEPS vector-flags clean flags-vector 
+	@echo SYSDEPS vector-flags clean flags-cc-vector flags-vector 
 	@(cd SYSDEPS/modules/vector-flags && ./clean)
 vector-libs_clean:
 	@echo SYSDEPS vector-libs clean libs-vector 
