@@ -8,11 +8,16 @@ cat >> "${fout}" <<EOF
 #define _IO_NOTICE_H
 EOF
 
-${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trykqueue1.o trykqueue1.c >/dev/null 2>&1
+#
+# NOTE: this file specifically DOES NOT USE SYSDEP_CFLAGS
+#       the select() test appears extremely sensitive.
+#
+
+${SYSDEP_CC} -c -o trykqueue1.o trykqueue1.c >/dev/null 2>&1
 ${SYSDEP_LD} -o trykqueue1 trykqueue1.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trykqueue2.o trykqueue2.c >/dev/null 2>&1
+  ${SYSDEP_CC} -c -o trykqueue2.o trykqueue2.c >/dev/null 2>&1
   ${SYSDEP_LD} -o trykqueue2 trykqueue2.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
   ./trykqueue2 >/dev/null 2>&1
   ret=$?
@@ -23,11 +28,11 @@ then
   fi
 fi
 
-${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o tryepoll1.o tryepoll1.c >/dev/null 2>&1
+${SYSDEP_CC} -c -o tryepoll1.o tryepoll1.c >/dev/null 2>&1
 ${SYSDEP_LD} -o tryepoll1 tryepoll1.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o tryepoll2.o tryepoll2.c >/dev/null 2>&1
+  ${SYSDEP_CC} -c -o tryepoll2.o tryepoll2.c >/dev/null 2>&1
   ${SYSDEP_LD} -o tryepoll2 tryepoll2.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
   ./tryepoll2 >/dev/null 2>&1
   ret=$?
@@ -38,7 +43,7 @@ then
   fi
 fi
 
-${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trypoll.o trypoll.c >/dev/null 2>&1
+${SYSDEP_CC} -c -o trypoll.o trypoll.c >/dev/null 2>&1
 ${SYSDEP_LD} -o trypoll trypoll.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
@@ -46,21 +51,21 @@ then
   mechs="${mechs} poll"
 fi
 
-${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o tryselect1.o tryselect1.c >/dev/null 2>&1
+${SYSDEP_CC} -c -o tryselect1.o tryselect1.c >/dev/null 2>&1
 ${SYSDEP_LD} -o tryselect1 tryselect1.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   echo '#define HAVE_SELECT' >> "${fout}"
   mechs="${mechs} select"
 else
-  ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o tryselect2.o tryselect2.c >/dev/null 2>&1
+  ${SYSDEP_CC} -c -o tryselect2.o tryselect2.c >/dev/null 2>&1
   ${SYSDEP_LD} -o tryselect2 tryselect2.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
   if [ $? -eq 0 ]
   then
     echo '#define HAVE_SELECT' >> "${fout}"
     mechs="${mechs} select"
   else
-    ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o tryselect3.o tryselect3.c >/dev/null 2>&1
+    ${SYSDEP_CC} -c -o tryselect3.o tryselect3.c >/dev/null 2>&1
     ${SYSDEP_LD} -o tryselect3 tryselect3.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
     if [ $? -eq 0 ]
     then

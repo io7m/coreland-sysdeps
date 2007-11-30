@@ -2,7 +2,7 @@
 
 int main()
 {
-  void *h;
+  void *h = 0;
   dlfunc_t f;
 
   f = dlfunc(h, "symbol");
