@@ -88,3 +88,4 @@
 20070829 code: added libaiff.
 20070904 code: quote SYS_CCVERSION in sysinfo.
 20071214 code: fix stdint.h for pedantic compilers in int/uint*
+20080115 code: updated inst-check.c
