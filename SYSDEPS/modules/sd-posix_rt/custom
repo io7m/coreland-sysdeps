@@ -41,6 +41,8 @@ try_posix_rt_funcs()
   echo "#define _SD_POSIX_RT_H" >> "${head_out}"
   echo >> "${head_out}"
 
+  if [ ! -d tmp ]; then mkdir tmp; fi
+
   for fn in `ls functions`
   do
     FUNC=`echo ${fn} | tr [a-z] [A-Z]`
