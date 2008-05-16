@@ -10,8 +10,8 @@ file="lua.h"
 FLAGS=`${SYSDEP_TRY_MANUAL} "${file}" "${path}" "-I" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
-  echo "${args} -DHAVE_LUA " >> "${temp_f}"
-  echo "lua-flags: ${args} -DHAVE_LUA " >> "${temp_sys}"
+  echo "${FLAGS} -DHAVE_LUA " >> "${temp_f}"
+  echo "lua-flags: ${FLAGS} -DHAVE_LUA " >> "${temp_sys}"
   exit 0
 fi
 
