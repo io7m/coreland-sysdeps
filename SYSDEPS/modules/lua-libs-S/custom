@@ -10,8 +10,8 @@ file="liblua.a"
 FLAGS=`${SYSDEP_TRY_MANUAL} "${file}" "${path}" "-L" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
-  echo "${args} " >> "${temp_f}"
-  echo "lua-libs-S: ${args} " >> "${temp_sys}"
+  echo "${FLAGS} -llua " >> "${temp_f}"
+  echo "lua-libs-S: ${FLAGS} -llua " >> "${temp_sys}"
   exit 0
 fi
 
