@@ -32,6 +32,7 @@ flags-posix_rt
 flags-pthr_rt
 flags-pthreads
 flags-sdl
+flags-sdl-ada
 flags-sdl-image
 flags-sdl-mixer
 flags-sdl-ttf

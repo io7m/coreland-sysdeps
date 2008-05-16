@@ -267,6 +267,12 @@ _sig_pmask.h: _sig_action.h
 libs-sockets:
 	@echo SYSDEPS sd-sockets run create libs-sockets 
 	@(cd SYSDEPS/modules/sd-sockets && ./run)
+flags-sdl-ada:
+	@echo SYSDEPS sdl-ada-flags run create flags-sdl-ada 
+	@(cd SYSDEPS/modules/sdl-ada-flags && ./run)
+libs-sdl-ada:
+	@echo SYSDEPS sdl-ada-libs run create libs-sdl-ada 
+	@(cd SYSDEPS/modules/sdl-ada-libs && ./run)
 flags-sdl:
 	@echo SYSDEPS sdl-flags run create flags-sdl 
 	@(cd SYSDEPS/modules/sdl-flags && ./run)
@@ -597,6 +603,12 @@ sd-signal_clean:
 sd-sockets_clean:
 	@echo SYSDEPS sd-sockets clean libs-sockets 
 	@(cd SYSDEPS/modules/sd-sockets && ./clean)
+sdl-ada-flags_clean:
+	@echo SYSDEPS sdl-ada-flags clean flags-sdl-ada 
+	@(cd SYSDEPS/modules/sdl-ada-flags && ./clean)
+sdl-ada-libs_clean:
+	@echo SYSDEPS sdl-ada-libs clean libs-sdl-ada 
+	@(cd SYSDEPS/modules/sdl-ada-libs && ./clean)
 sdl-flags_clean:
 	@echo SYSDEPS sdl-flags clean flags-sdl 
 	@(cd SYSDEPS/modules/sdl-flags && ./clean)
@@ -761,6 +773,8 @@ sd-ptr_uint_clean \
 sd-select_clean \
 sd-signal_clean \
 sd-sockets_clean \
+sdl-ada-flags_clean \
+sdl-ada-libs_clean \
 sdl-flags_clean \
 sdl-image-flags_clean \
 sdl-image-libs_clean \
