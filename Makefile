@@ -3,7 +3,7 @@
 default: all
 
 all:\
-depchklist 
+depchklist depchklist.o
 
 # -- SYSDEPS start
 flags-aiff:
@@ -153,10 +153,19 @@ libs-loadso:
 libs-loadso-S:
 	@echo SYSDEPS loadso-libs-S run create libs-loadso-S 
 	@(cd SYSDEPS/modules/loadso-libs-S && ./run)
+flags-lua:
+	@echo SYSDEPS lua-flags run create flags-lua 
+	@(cd SYSDEPS/modules/lua-flags && ./run)
+libs-lua-S:
+	@echo SYSDEPS lua-libs-S run create libs-lua-S 
+	@(cd SYSDEPS/modules/lua-libs-S && ./run)
 libs-carbon:
 	@echo SYSDEPS mac-carbon run create flags-carbon libs-carbon 
 	@(cd SYSDEPS/modules/mac-carbon && ./run)
 flags-carbon: libs-carbon
+flags-mmx:
+	@echo SYSDEPS mmx-flags run create flags-mmx 
+	@(cd SYSDEPS/modules/mmx-flags && ./run)
 flags-netlib:
 	@echo SYSDEPS netlib-flags run create flags-netlib 
 	@(cd SYSDEPS/modules/netlib-flags && ./run)
@@ -486,9 +495,18 @@ loadso-libs_clean:
 loadso-libs-S_clean:
 	@echo SYSDEPS loadso-libs-S clean libs-loadso-S 
 	@(cd SYSDEPS/modules/loadso-libs-S && ./clean)
+lua-flags_clean:
+	@echo SYSDEPS lua-flags clean flags-lua 
+	@(cd SYSDEPS/modules/lua-flags && ./clean)
+lua-libs-S_clean:
+	@echo SYSDEPS lua-libs-S clean libs-lua-S 
+	@(cd SYSDEPS/modules/lua-libs-S && ./clean)
 mac-carbon_clean:
 	@echo SYSDEPS mac-carbon clean flags-carbon libs-carbon 
 	@(cd SYSDEPS/modules/mac-carbon && ./clean)
+mmx-flags_clean:
+	@echo SYSDEPS mmx-flags clean flags-mmx 
+	@(cd SYSDEPS/modules/mmx-flags && ./clean)
 netlib-flags_clean:
 	@echo SYSDEPS netlib-flags clean flags-netlib 
 	@(cd SYSDEPS/modules/netlib-flags && ./clean)
@@ -709,7 +727,10 @@ jack-libs_clean \
 loadso-flags_clean \
 loadso-libs_clean \
 loadso-libs-S_clean \
+lua-flags_clean \
+lua-libs-S_clean \
 mac-carbon_clean \
+mmx-flags_clean \
 netlib-flags_clean \
 netlib-libs_clean \
 netlib-libs-S_clean \
@@ -770,68 +791,70 @@ vector-libs-S_clean \
 
 # -- SYSDEPS end
 
+
 cc-compile:\
-conf-cc conf-cctype conf-systype conf-cflags flags-aiff flags-altivec \
-flags-alut flags-carbon flags-chrono flags-circbuf flags-corelib flags-enet \
-flags-fastcgi flags-fcntl flags-fltk11 flags-fltk2 flags-glsoload \
-flags-gltxload flags-glut flags-integer flags-io_poll flags-jack \
-flags-loadso flags-math flags-netlib flags-openal flags-opengl flags-pdcgi \
-flags-png flags-pngload flags-portaudio flags-posix_rt flags-pthr_rt \
-flags-pthreads flags-sdl flags-sdl-image flags-sdl-mixer flags-sdl-ttf \
-flags-skel flags-smtplib flags-sndfile flags-sse flags-sse2 flags-sse3 \
-flags-tiff flags-vector 
+conf-cc conf-cctype conf-systype conf-cflags conf-ccfflist flags-aiff \
+	flags-altivec flags-alut flags-carbon flags-cc-vector flags-chrono \
+	flags-circbuf flags-corelib flags-enet flags-fastcgi flags-fcntl flags-fltk11 \
+	flags-fltk2 flags-glsoload flags-gltxload flags-glut flags-integer \
+	flags-io_poll flags-jack flags-loadso flags-lua flags-math flags-mmx \
+	flags-netlib flags-openal flags-opengl flags-pdcgi flags-png flags-pngload \
+	flags-portaudio flags-posix_rt flags-pthr_rt flags-pthreads flags-sdl \
+	flags-sdl-image flags-sdl-mixer flags-sdl-ttf flags-skel flags-smtplib \
+	flags-sndfile flags-sse flags-sse2 flags-sse3 flags-tiff flags-vector
 
 cc-link:\
-conf-ld conf-ldtype conf-systype conf-ldflags 
+conf-ld conf-ldtype conf-systype conf-ldflags
 
 cc-slib:\
-conf-systype 
+conf-systype
 
 conf-cctype:\
-conf-systype conf-cc mk-cctype 
+conf-cc mk-cctype
 	./mk-cctype > conf-cctype.tmp && mv conf-cctype.tmp conf-cctype
 
 conf-ldtype:\
-conf-systype conf-ld conf-cctype mk-ldtype 
+conf-ld mk-ldtype
 	./mk-ldtype > conf-ldtype.tmp && mv conf-ldtype.tmp conf-ldtype
 
 conf-systype:\
-mk-systype 
+mk-systype
 	./mk-systype > conf-systype.tmp && mv conf-systype.tmp conf-systype
 
 depchklist:\
-cc-link depchklist.ld depchklist.o 
-	./cc-link depchklist depchklist.o 
+cc-link depchklist.ld depchklist.o
+	./cc-link depchklist depchklist.o
 
 depchklist.o:\
 cc-compile depchklist.c _byteorder.h _ch_flags.h _direntry.h _float32.h \
 _float64.h _int16.h _int32.h _int64.h _io-notice.h _sd_dlopen.h _sd_fcntl.h \
 _sd_fd.h _sd_fork.h _sd_inline.h _sd_longlong.h _sd_math.h _sd_mmap.h \
 _sd_posix_rt.h _sd-ptr_uint.h _sd_select.h _sig_action.h _sig_pmask.h \
-_sysinfo.h _uint16.h _uint32.h _uint64.h 
+_sysinfo.h _uint16.h _uint32.h _uint64.h
 	./cc-compile depchklist.c
 
 mk-cctype:\
-conf-cc conf-systype 
+conf-cc conf-systype
 
 mk-ctxt:\
-mk-mk-ctxt 
+mk-mk-ctxt
 	./mk-mk-ctxt
 
 mk-ldtype:\
-conf-cctype conf-systype 
+conf-ld conf-systype conf-cctype
 
 mk-mk-ctxt:\
-conf-cc 
+conf-cc
 
 mk-systype:\
-conf-cc 
+conf-cc
 
-clean-all: sysdeps_clean obj_clean 
+clean-all: sysdeps_clean obj_clean ext_clean
 clean: obj_clean
-obj_clean: 
-	rm -f depchklist depchklist.o 
+obj_clean:
+	rm -f depchklist depchklist.o
+ext_clean:
+	rm -f conf-cctype conf-ldtype conf-systype mk-ctxt
 
 regen:
 	cpj-genmk > Makefile.tmp && mv Makefile.tmp Makefile
-

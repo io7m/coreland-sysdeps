@@ -2,6 +2,7 @@ flags-aiff
 flags-altivec
 flags-alut
 flags-carbon
+flags-cc-vector
 flags-chrono
 flags-circbuf
 flags-corelib
@@ -17,7 +18,9 @@ flags-integer
 flags-io_poll
 flags-jack
 flags-loadso
+flags-lua
 flags-math
+flags-mmx
 flags-netlib
 flags-openal
 flags-opengl

@@ -145,6 +145,11 @@ int main(void)
 #else
   printf("system does not have loadso\n");
 #endif
+#ifdef HAVE_LUA
+  printf("system has lua\n");
+#else
+  printf("system does not have lua\n");
+#endif
 #ifdef HAVE_CARBON
   printf("system has carbon\n");
 #else
