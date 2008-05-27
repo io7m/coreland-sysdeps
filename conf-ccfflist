@@ -19,6 +19,8 @@ flags-io_poll
 flags-jack
 flags-loadso
 flags-lua
+flags-lua-ada
+flags-lua-load
 flags-math
 flags-mmx
 flags-netlib

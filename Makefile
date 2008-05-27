@@ -153,6 +153,18 @@ libs-loadso:
 libs-loadso-S:
 	@echo SYSDEPS loadso-libs-S run create libs-loadso-S 
 	@(cd SYSDEPS/modules/loadso-libs-S && ./run)
+flags-lua-ada:
+	@echo SYSDEPS lua-ada-flags run create flags-lua-ada 
+	@(cd SYSDEPS/modules/lua-ada-flags && ./run)
+libs-lua-ada:
+	@echo SYSDEPS lua-ada-libs run create libs-lua-ada 
+	@(cd SYSDEPS/modules/lua-ada-libs && ./run)
+flags-lua-load:
+	@echo SYSDEPS lua-ada-load-flags run create flags-lua-load 
+	@(cd SYSDEPS/modules/lua-ada-load-flags && ./run)
+libs-lua-load:
+	@echo SYSDEPS lua-ada-load-libs run create libs-lua-load 
+	@(cd SYSDEPS/modules/lua-ada-load-libs && ./run)
 flags-lua:
 	@echo SYSDEPS lua-flags run create flags-lua 
 	@(cd SYSDEPS/modules/lua-flags && ./run)
@@ -501,6 +513,18 @@ loadso-libs_clean:
 loadso-libs-S_clean:
 	@echo SYSDEPS loadso-libs-S clean libs-loadso-S 
 	@(cd SYSDEPS/modules/loadso-libs-S && ./clean)
+lua-ada-flags_clean:
+	@echo SYSDEPS lua-ada-flags clean flags-lua-ada 
+	@(cd SYSDEPS/modules/lua-ada-flags && ./clean)
+lua-ada-libs_clean:
+	@echo SYSDEPS lua-ada-libs clean libs-lua-ada 
+	@(cd SYSDEPS/modules/lua-ada-libs && ./clean)
+lua-ada-load-flags_clean:
+	@echo SYSDEPS lua-ada-load-flags clean flags-lua-load 
+	@(cd SYSDEPS/modules/lua-ada-load-flags && ./clean)
+lua-ada-load-libs_clean:
+	@echo SYSDEPS lua-ada-load-libs clean libs-lua-load 
+	@(cd SYSDEPS/modules/lua-ada-load-libs && ./clean)
 lua-flags_clean:
 	@echo SYSDEPS lua-flags clean flags-lua 
 	@(cd SYSDEPS/modules/lua-flags && ./clean)
@@ -739,6 +763,10 @@ jack-libs_clean \
 loadso-flags_clean \
 loadso-libs_clean \
 loadso-libs-S_clean \
+lua-ada-flags_clean \
+lua-ada-libs_clean \
+lua-ada-load-flags_clean \
+lua-ada-load-libs_clean \
 lua-flags_clean \
 lua-libs-S_clean \
 mac-carbon_clean \
@@ -811,11 +839,12 @@ conf-cc conf-cctype conf-systype conf-cflags conf-ccfflist flags-aiff \
 	flags-altivec flags-alut flags-carbon flags-cc-vector flags-chrono \
 	flags-circbuf flags-corelib flags-enet flags-fastcgi flags-fcntl flags-fltk11 \
 	flags-fltk2 flags-glsoload flags-gltxload flags-glut flags-integer \
-	flags-io_poll flags-jack flags-loadso flags-lua flags-math flags-mmx \
-	flags-netlib flags-openal flags-opengl flags-pdcgi flags-png flags-pngload \
-	flags-portaudio flags-posix_rt flags-pthr_rt flags-pthreads flags-sdl \
-	flags-sdl-image flags-sdl-mixer flags-sdl-ttf flags-skel flags-smtplib \
-	flags-sndfile flags-sse flags-sse2 flags-sse3 flags-tiff flags-vector
+	flags-io_poll flags-jack flags-loadso flags-lua flags-lua-ada flags-lua-load \
+	flags-math flags-mmx flags-netlib flags-openal flags-opengl flags-pdcgi \
+	flags-png flags-pngload flags-portaudio flags-posix_rt flags-pthr_rt \
+	flags-pthreads flags-sdl flags-sdl-ada flags-sdl-image flags-sdl-mixer \
+	flags-sdl-ttf flags-skel flags-smtplib flags-sndfile flags-sse flags-sse2 \
+	flags-sse3 flags-tiff flags-vector
 
 cc-link:\
 conf-ld conf-ldtype conf-systype conf-ldflags
@@ -824,11 +853,11 @@ cc-slib:\
 conf-systype
 
 conf-cctype:\
-conf-cc mk-cctype
+conf-cc conf-cc mk-cctype
 	./mk-cctype > conf-cctype.tmp && mv conf-cctype.tmp conf-cctype
 
 conf-ldtype:\
-conf-ld mk-ldtype
+conf-ld conf-ld mk-ldtype
 	./mk-ldtype > conf-ldtype.tmp && mv conf-ldtype.tmp conf-ldtype
 
 conf-systype:\
