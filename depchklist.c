@@ -155,6 +155,11 @@ int main(void)
 #else
   printf("system does not have carbon\n");
 #endif
+#ifdef HAVE_MATRIX4
+  printf("system has matrix4\n");
+#else
+  printf("system does not have matrix4\n");
+#endif
 #ifdef HAVE_NETLIB
   printf("system has netlib\n");
 #else

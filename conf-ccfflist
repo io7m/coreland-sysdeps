@@ -22,6 +22,7 @@ flags-lua
 flags-lua-ada
 flags-lua-load
 flags-math
+flags-matrix4
 flags-mmx
 flags-netlib
 flags-openal

@@ -175,6 +175,12 @@ libs-carbon:
 	@echo SYSDEPS mac-carbon run create flags-carbon libs-carbon 
 	@(cd SYSDEPS/modules/mac-carbon && ./run)
 flags-carbon: libs-carbon
+flags-matrix4:
+	@echo SYSDEPS matrix4-flags run create flags-matrix4 
+	@(cd SYSDEPS/modules/matrix4-flags && ./run)
+libs-matrix4-S:
+	@echo SYSDEPS matrix4-libs-S run create libs-matrix4-S 
+	@(cd SYSDEPS/modules/matrix4-libs-S && ./run)
 flags-mmx:
 	@echo SYSDEPS mmx-flags run create flags-mmx 
 	@(cd SYSDEPS/modules/mmx-flags && ./run)
@@ -534,6 +540,12 @@ lua-libs-S_clean:
 mac-carbon_clean:
 	@echo SYSDEPS mac-carbon clean flags-carbon libs-carbon 
 	@(cd SYSDEPS/modules/mac-carbon && ./clean)
+matrix4-flags_clean:
+	@echo SYSDEPS matrix4-flags clean flags-matrix4 
+	@(cd SYSDEPS/modules/matrix4-flags && ./clean)
+matrix4-libs-S_clean:
+	@echo SYSDEPS matrix4-libs-S clean libs-matrix4-S 
+	@(cd SYSDEPS/modules/matrix4-libs-S && ./clean)
 mmx-flags_clean:
 	@echo SYSDEPS mmx-flags clean flags-mmx 
 	@(cd SYSDEPS/modules/mmx-flags && ./clean)
@@ -770,6 +782,8 @@ lua-ada-load-libs_clean \
 lua-flags_clean \
 lua-libs-S_clean \
 mac-carbon_clean \
+matrix4-flags_clean \
+matrix4-libs-S_clean \
 mmx-flags_clean \
 netlib-flags_clean \
 netlib-libs_clean \
@@ -840,11 +854,11 @@ conf-cc conf-cctype conf-systype conf-cflags conf-ccfflist flags-aiff \
 	flags-circbuf flags-corelib flags-enet flags-fastcgi flags-fcntl flags-fltk11 \
 	flags-fltk2 flags-glsoload flags-gltxload flags-glut flags-integer \
 	flags-io_poll flags-jack flags-loadso flags-lua flags-lua-ada flags-lua-load \
-	flags-math flags-mmx flags-netlib flags-openal flags-opengl flags-pdcgi \
-	flags-png flags-pngload flags-portaudio flags-posix_rt flags-pthr_rt \
-	flags-pthreads flags-sdl flags-sdl-ada flags-sdl-image flags-sdl-mixer \
-	flags-sdl-ttf flags-skel flags-smtplib flags-sndfile flags-sse flags-sse2 \
-	flags-sse3 flags-tiff flags-vector
+	flags-math flags-matrix4 flags-mmx flags-netlib flags-openal flags-opengl \
+	flags-pdcgi flags-png flags-pngload flags-portaudio flags-posix_rt \
+	flags-pthr_rt flags-pthreads flags-sdl flags-sdl-ada flags-sdl-image \
+	flags-sdl-mixer flags-sdl-ttf flags-skel flags-smtplib flags-sndfile flags-sse \
+	flags-sse2 flags-sse3 flags-tiff flags-vector
 
 cc-link:\
 conf-ld conf-ldtype conf-systype conf-ldflags
@@ -853,11 +867,11 @@ cc-slib:\
 conf-systype
 
 conf-cctype:\
-conf-cc conf-cc mk-cctype
+conf-cc mk-cctype
 	./mk-cctype > conf-cctype.tmp && mv conf-cctype.tmp conf-cctype
 
 conf-ldtype:\
-conf-ld conf-ld mk-ldtype
+conf-ld mk-ldtype
 	./mk-ldtype > conf-ldtype.tmp && mv conf-ldtype.tmp conf-ldtype
 
 conf-systype:\
