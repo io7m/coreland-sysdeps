@@ -89,3 +89,5 @@
 20070904 code: quote SYS_CCVERSION in sysinfo.
 20071214 code: fix stdint.h for pedantic compilers in int/uint*
 20080115 code: updated inst-check.c
+20080717 code: added sdl-img-ada
+20080717 code: added sdl-ttf-ada
