@@ -214,6 +214,15 @@ flags-pdcgi:
 libs-pdcgi-S:
 	@echo SYSDEPS pdcgi-libs-S run create libs-pdcgi-S 
 	@(cd SYSDEPS/modules/pdcgi-libs-S && ./run)
+flags-physfs:
+	@echo SYSDEPS physfs-flags run create flags-physfs 
+	@(cd SYSDEPS/modules/physfs-flags && ./run)
+libs-physfs:
+	@echo SYSDEPS physfs-libs run create libs-physfs 
+	@(cd SYSDEPS/modules/physfs-libs && ./run)
+libs-physfs-S:
+	@echo SYSDEPS physfs-libs-S run create libs-physfs-S 
+	@(cd SYSDEPS/modules/physfs-libs-S && ./run)
 flags-png:
 	@echo SYSDEPS png-flags run create flags-png 
 	@(cd SYSDEPS/modules/png-flags && ./run)
@@ -300,6 +309,12 @@ flags-sdl-image:
 libs-sdl-image:
 	@echo SYSDEPS sdl-image-libs run create libs-sdl-image 
 	@(cd SYSDEPS/modules/sdl-image-libs && ./run)
+flags-sdl-img-ada:
+	@echo SYSDEPS sdl-img-ada-flags run create flags-sdl-img-ada 
+	@(cd SYSDEPS/modules/sdl-img-ada-flags && ./run)
+libs-sdl-img-ada:
+	@echo SYSDEPS sdl-img-ada-libs run create libs-sdl-img-ada 
+	@(cd SYSDEPS/modules/sdl-img-ada-libs && ./run)
 libs-sdl:
 	@echo SYSDEPS sdl-libs run create libs-sdl 
 	@(cd SYSDEPS/modules/sdl-libs && ./run)
@@ -309,6 +324,12 @@ flags-sdl-mixer:
 libs-sdl-mixer:
 	@echo SYSDEPS sdl-mixer-libs run create libs-sdl-mixer 
 	@(cd SYSDEPS/modules/sdl-mixer-libs && ./run)
+flags-sdl-ttf-ada:
+	@echo SYSDEPS sdl-ttf-ada-flags run create flags-sdl-ttf-ada 
+	@(cd SYSDEPS/modules/sdl-ttf-ada-flags && ./run)
+libs-sdl-ttf-ada:
+	@echo SYSDEPS sdl-ttf-ada-libs run create libs-sdl-ttf-ada 
+	@(cd SYSDEPS/modules/sdl-ttf-ada-libs && ./run)
 flags-sdl-ttf:
 	@echo SYSDEPS sdl-ttf-flags run create flags-sdl-ttf 
 	@(cd SYSDEPS/modules/sdl-ttf-flags && ./run)
@@ -579,6 +600,15 @@ pdcgi-flags_clean:
 pdcgi-libs-S_clean:
 	@echo SYSDEPS pdcgi-libs-S clean libs-pdcgi-S 
 	@(cd SYSDEPS/modules/pdcgi-libs-S && ./clean)
+physfs-flags_clean:
+	@echo SYSDEPS physfs-flags clean flags-physfs 
+	@(cd SYSDEPS/modules/physfs-flags && ./clean)
+physfs-libs_clean:
+	@echo SYSDEPS physfs-libs clean libs-physfs 
+	@(cd SYSDEPS/modules/physfs-libs && ./clean)
+physfs-libs-S_clean:
+	@echo SYSDEPS physfs-libs-S clean libs-physfs-S 
+	@(cd SYSDEPS/modules/physfs-libs-S && ./clean)
 png-flags_clean:
 	@echo SYSDEPS png-flags clean flags-png 
 	@(cd SYSDEPS/modules/png-flags && ./clean)
@@ -654,6 +684,12 @@ sdl-image-flags_clean:
 sdl-image-libs_clean:
 	@echo SYSDEPS sdl-image-libs clean libs-sdl-image 
 	@(cd SYSDEPS/modules/sdl-image-libs && ./clean)
+sdl-img-ada-flags_clean:
+	@echo SYSDEPS sdl-img-ada-flags clean flags-sdl-img-ada 
+	@(cd SYSDEPS/modules/sdl-img-ada-flags && ./clean)
+sdl-img-ada-libs_clean:
+	@echo SYSDEPS sdl-img-ada-libs clean libs-sdl-img-ada 
+	@(cd SYSDEPS/modules/sdl-img-ada-libs && ./clean)
 sdl-libs_clean:
 	@echo SYSDEPS sdl-libs clean libs-sdl 
 	@(cd SYSDEPS/modules/sdl-libs && ./clean)
@@ -663,6 +699,12 @@ sdl-mixer-flags_clean:
 sdl-mixer-libs_clean:
 	@echo SYSDEPS sdl-mixer-libs clean libs-sdl-mixer 
 	@(cd SYSDEPS/modules/sdl-mixer-libs && ./clean)
+sdl-ttf-ada-flags_clean:
+	@echo SYSDEPS sdl-ttf-ada-flags clean flags-sdl-ttf-ada 
+	@(cd SYSDEPS/modules/sdl-ttf-ada-flags && ./clean)
+sdl-ttf-ada-libs_clean:
+	@echo SYSDEPS sdl-ttf-ada-libs clean libs-sdl-ttf-ada 
+	@(cd SYSDEPS/modules/sdl-ttf-ada-libs && ./clean)
 sdl-ttf-flags_clean:
 	@echo SYSDEPS sdl-ttf-flags clean flags-sdl-ttf 
 	@(cd SYSDEPS/modules/sdl-ttf-flags && ./clean)
@@ -795,6 +837,9 @@ opengl-libs_clean \
 opengl-obj_clean \
 pdcgi-flags_clean \
 pdcgi-libs-S_clean \
+physfs-flags_clean \
+physfs-libs_clean \
+physfs-libs-S_clean \
 png-flags_clean \
 png-libs_clean \
 pngload-flags_clean \
@@ -820,9 +865,13 @@ sdl-ada-libs_clean \
 sdl-flags_clean \
 sdl-image-flags_clean \
 sdl-image-libs_clean \
+sdl-img-ada-flags_clean \
+sdl-img-ada-libs_clean \
 sdl-libs_clean \
 sdl-mixer-flags_clean \
 sdl-mixer-libs_clean \
+sdl-ttf-ada-flags_clean \
+sdl-ttf-ada-libs_clean \
 sdl-ttf-flags_clean \
 sdl-ttf-libs_clean \
 skel-flags_clean \
@@ -855,10 +904,11 @@ conf-cc conf-cctype conf-systype conf-cflags conf-ccfflist flags-aiff \
 	flags-fltk2 flags-glsoload flags-gltxload flags-glut flags-integer \
 	flags-io_poll flags-jack flags-loadso flags-lua flags-lua-ada flags-lua-load \
 	flags-math flags-matrix4 flags-mmx flags-netlib flags-openal flags-opengl \
-	flags-pdcgi flags-png flags-pngload flags-portaudio flags-posix_rt \
+	flags-pdcgi flags-physfs flags-png flags-pngload flags-portaudio flags-posix_rt \
 	flags-pthr_rt flags-pthreads flags-sdl flags-sdl-ada flags-sdl-image \
-	flags-sdl-mixer flags-sdl-ttf flags-skel flags-smtplib flags-sndfile flags-sse \
-	flags-sse2 flags-sse3 flags-tiff flags-vector
+	flags-sdl-img-ada flags-sdl-mixer flags-sdl-ttf flags-sdl-ttf-ada flags-skel \
+	flags-smtplib flags-sndfile flags-sse flags-sse2 flags-sse3 flags-tiff \
+	flags-vector
 
 cc-link:\
 conf-ld conf-ldtype conf-systype conf-ldflags

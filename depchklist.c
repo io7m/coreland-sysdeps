@@ -180,6 +180,11 @@ int main(void)
 #else
   printf("system does not have pdcgi\n");
 #endif
+#ifdef HAVE_PHYSFS
+  printf("system has physfs\n");
+#else
+  printf("system does not have physfs\n");
+#endif
 #ifdef HAVE_LIBPNG
   printf("system has libpng\n");
 #else

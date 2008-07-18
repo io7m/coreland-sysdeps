@@ -28,6 +28,7 @@ flags-netlib
 flags-openal
 flags-opengl
 flags-pdcgi
+flags-physfs
 flags-png
 flags-pngload
 flags-portaudio
@@ -37,8 +38,10 @@ flags-pthreads
 flags-sdl
 flags-sdl-ada
 flags-sdl-image
+flags-sdl-img-ada
 flags-sdl-mixer
 flags-sdl-ttf
+flags-sdl-ttf-ada
 flags-skel
 flags-smtplib
 flags-sndfile
