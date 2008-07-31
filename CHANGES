@@ -91,3 +91,4 @@
 20080115 code: updated inst-check.c
 20080717 code: added sdl-img-ada
 20080717 code: added sdl-ttf-ada
+20080731 code: added sndfile-ada
