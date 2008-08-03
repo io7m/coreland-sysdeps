@@ -93,3 +93,5 @@
 20080717 code: added sdl-ttf-ada
 20080731 code: added sndfile-ada
 20080802 code: added getopt-ada
+20080803 code: added samplerate
+20080803 code: added samplerate-ada
