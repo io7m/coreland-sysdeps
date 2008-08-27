@@ -21,6 +21,12 @@ flags-agar-gui-ada:
 libs-agar-gui-ada:
 	@echo SYSDEPS agar-gui-ada-libs run create libs-agar-gui-ada 
 	@(cd SYSDEPS/modules/agar-gui-ada-libs && ./run)
+flags-agar-gui:
+	@echo SYSDEPS agar-gui-flags run create flags-agar-gui 
+	@(cd SYSDEPS/modules/agar-gui-flags && ./run)
+libs-agar-gui:
+	@echo SYSDEPS agar-gui-libs run create libs-agar-gui 
+	@(cd SYSDEPS/modules/agar-gui-libs && ./run)
 libs-agar-core:
 	@echo SYSDEPS agar-libs run create libs-agar-core 
 	@(cd SYSDEPS/modules/agar-libs && ./run)
@@ -462,6 +468,12 @@ agar-gui-ada-flags_clean:
 agar-gui-ada-libs_clean:
 	@echo SYSDEPS agar-gui-ada-libs clean libs-agar-gui-ada 
 	@(cd SYSDEPS/modules/agar-gui-ada-libs && ./clean)
+agar-gui-flags_clean:
+	@echo SYSDEPS agar-gui-flags clean flags-agar-gui 
+	@(cd SYSDEPS/modules/agar-gui-flags && ./clean)
+agar-gui-libs_clean:
+	@echo SYSDEPS agar-gui-libs clean libs-agar-gui 
+	@(cd SYSDEPS/modules/agar-gui-libs && ./clean)
 agar-libs_clean:
 	@echo SYSDEPS agar-libs clean libs-agar-core 
 	@(cd SYSDEPS/modules/agar-libs && ./clean)
@@ -881,6 +893,8 @@ agar-core-ada-libs_clean \
 agar-flags_clean \
 agar-gui-ada-flags_clean \
 agar-gui-ada-libs_clean \
+agar-gui-flags_clean \
+agar-gui-libs_clean \
 agar-libs_clean \
 aiff-flags_clean \
 aiff-libs-S_clean \
