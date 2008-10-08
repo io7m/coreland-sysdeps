@@ -400,6 +400,9 @@ flags-sdl-ttf:
 libs-sdl-ttf:
 	@echo SYSDEPS sdl-ttf-libs run create libs-sdl-ttf 
 	@(cd SYSDEPS/modules/sdl-ttf-libs && ./run)
+flags-silc:
+	@echo SYSDEPS silc-flags run create flags-silc 
+	@(cd SYSDEPS/modules/silc-flags && ./run)
 flags-skel:
 	@echo SYSDEPS skel-flags run create flags-skel 
 	@(cd SYSDEPS/modules/skel-flags && ./run)
@@ -844,6 +847,9 @@ sdl-ttf-flags_clean:
 sdl-ttf-libs_clean:
 	@echo SYSDEPS sdl-ttf-libs clean libs-sdl-ttf 
 	@(cd SYSDEPS/modules/sdl-ttf-libs && ./clean)
+silc-flags_clean:
+	@echo SYSDEPS silc-flags clean flags-silc 
+	@(cd SYSDEPS/modules/silc-flags && ./clean)
 skel-flags_clean:
 	@echo SYSDEPS skel-flags clean flags-skel 
 	@(cd SYSDEPS/modules/skel-flags && ./clean)
@@ -1034,6 +1040,7 @@ sdl-ttf-ada-flags_clean \
 sdl-ttf-ada-libs_clean \
 sdl-ttf-flags_clean \
 sdl-ttf-libs_clean \
+silc-flags_clean \
 skel-flags_clean \
 skel-libs-S_clean \
 smtplib-flags_clean \
@@ -1060,17 +1067,19 @@ vector-libs-S_clean \
 
 
 cc-compile:\
-conf-cc conf-cctype conf-systype conf-cflags conf-ccfflist flags-aiff \
-	flags-altivec flags-alut flags-carbon flags-cc-vector flags-chrono \
-	flags-circbuf flags-corelib flags-enet flags-fastcgi flags-fcntl flags-fltk11 \
-	flags-fltk2 flags-glsoload flags-gltxload flags-glut flags-integer \
-	flags-io_poll flags-jack flags-loadso flags-lua flags-lua-ada flags-lua-load \
-	flags-math flags-matrix4 flags-mmx flags-netlib flags-openal flags-opengl \
-	flags-pdcgi flags-physfs flags-png flags-pngload flags-portaudio flags-posix_rt \
-	flags-pthr_rt flags-pthreads flags-sdl flags-sdl-ada flags-sdl-image \
-	flags-sdl-img-ada flags-sdl-mixer flags-sdl-ttf flags-sdl-ttf-ada flags-skel \
-	flags-smtplib flags-sndfile flags-sse flags-sse2 flags-sse3 flags-tiff \
-	flags-vector
+conf-cc conf-cctype conf-systype conf-cflags conf-ccfflist flags-agar-core-ada \
+	flags-agar-core flags-agar-gui-ada flags-agar-gui flags-aiff flags-altivec \
+	flags-alut flags-chrono flags-circbuf flags-corelib flags-enet flags-fastcgi \
+	flags-fltk11 flags-fltk2 flags-getopt-ada flags-glsoload flags-gltxload \
+	flags-glut flags-integer flags-io_poll flags-jack flags-loadso flags-lua-ada \
+	flags-lua-load flags-lua flags-carbon flags-matrix4 flags-mmx flags-msg-ada \
+	flags-netlib flags-openal flags-opengl flags-pdcgi flags-pgada flags-physfs \
+	flags-plexlog flags-png flags-pngload flags-portaudio flags-samplerate-ada \
+	flags-samplerate flags-fcntl flags-math flags-posix_rt flags-pthreads \
+	flags-pthr_rt flags-sdl-ada flags-sdl flags-sdl-image flags-sdl-img-ada \
+	flags-sdl-mixer flags-sdl-ttf-ada flags-sdl-ttf flags-silc flags-skel \
+	flags-smtplib flags-sndfile-ada flags-sndfile flags-sse flags-sse2 flags-sse3 \
+	flags-tiff flags-vector flags-cc-vector
 
 cc-link:\
 conf-ld conf-ldtype conf-systype conf-ldflags

@@ -30,6 +30,7 @@
 
 int main(void)
 {
+
 #ifdef HAVE_AGAR_CORE
   printf("system has agar_core\n");
 #else
@@ -1459,6 +1460,11 @@ int main(void)
   printf("system has sdl_ttf\n");
 #else
   printf("system does not have sdl_ttf\n");
+#endif
+#ifdef HAVE_SILC
+  printf("system has silc\n");
+#else
+  printf("system does not have silc\n");
 #endif
 #ifdef HAVE_SKEL
   printf("system has skel\n");
