@@ -265,6 +265,12 @@ libs-physfs:
 libs-physfs-S:
 	@echo SYSDEPS physfs-libs-S run create libs-physfs-S 
 	@(cd SYSDEPS/modules/physfs-libs-S && ./run)
+flags-plexlog:
+	@echo SYSDEPS plexlog-flags run create flags-plexlog 
+	@(cd SYSDEPS/modules/plexlog-flags && ./run)
+libs-plexlog-S:
+	@echo SYSDEPS plexlog-libs-S run create libs-plexlog-S 
+	@(cd SYSDEPS/modules/plexlog-libs-S && ./run)
 flags-png:
 	@echo SYSDEPS png-flags run create flags-png 
 	@(cd SYSDEPS/modules/png-flags && ./run)
@@ -341,6 +347,10 @@ _sd-ptr_uint.h:
 _sd_select.h:
 	@echo SYSDEPS sd-select run create _sd_select.h 
 	@(cd SYSDEPS/modules/sd-select && ./run)
+_sendfile.h:
+	@echo SYSDEPS sd-sendfile run create libs-sendfile _sendfile.h 
+	@(cd SYSDEPS/modules/sd-sendfile && ./run)
+libs-sendfile: _sendfile.h
 _sig_action.h:
 	@echo SYSDEPS sd-signal run create _sig_pmask.h _sig_action.h 
 	@(cd SYSDEPS/modules/sd-signal && ./run)
@@ -711,6 +721,12 @@ physfs-libs_clean:
 physfs-libs-S_clean:
 	@echo SYSDEPS physfs-libs-S clean libs-physfs-S 
 	@(cd SYSDEPS/modules/physfs-libs-S && ./clean)
+plexlog-flags_clean:
+	@echo SYSDEPS plexlog-flags clean flags-plexlog 
+	@(cd SYSDEPS/modules/plexlog-flags && ./clean)
+plexlog-libs-S_clean:
+	@echo SYSDEPS plexlog-libs-S clean libs-plexlog-S 
+	@(cd SYSDEPS/modules/plexlog-libs-S && ./clean)
 png-flags_clean:
 	@echo SYSDEPS png-flags clean flags-png 
 	@(cd SYSDEPS/modules/png-flags && ./clean)
@@ -777,6 +793,9 @@ sd-ptr_uint_clean:
 sd-select_clean:
 	@echo SYSDEPS sd-select clean _sd_select.h 
 	@(cd SYSDEPS/modules/sd-select && ./clean)
+sd-sendfile_clean:
+	@echo SYSDEPS sd-sendfile clean libs-sendfile _sendfile.h 
+	@(cd SYSDEPS/modules/sd-sendfile && ./clean)
 sd-signal_clean:
 	@echo SYSDEPS sd-signal clean _sig_pmask.h _sig_action.h 
 	@(cd SYSDEPS/modules/sd-signal && ./clean)
@@ -974,6 +993,8 @@ pgada-libs_clean \
 physfs-flags_clean \
 physfs-libs_clean \
 physfs-libs-S_clean \
+plexlog-flags_clean \
+plexlog-libs-S_clean \
 png-flags_clean \
 png-libs_clean \
 pngload-flags_clean \
@@ -996,6 +1017,7 @@ sd-posix_rt_clean \
 sd-pthreads_clean \
 sd-ptr_uint_clean \
 sd-select_clean \
+sd-sendfile_clean \
 sd-signal_clean \
 sd-sockets_clean \
 sdl-ada-flags_clean \
@@ -1074,9 +1096,9 @@ cc-link depchklist.ld depchklist.o
 
 depchklist.o:\
 cc-compile depchklist.c _byteorder.h _ch_flags.h _direntry.h _float32.h \
-_float64.h _int16.h _int32.h _int64.h _io-notice.h _sd_dlopen.h _sd_fcntl.h \
-_sd_fd.h _sd_fork.h _sd_inline.h _sd_longlong.h _sd_math.h _sd_mmap.h \
-_sd_posix_rt.h _sd-ptr_uint.h _sd_select.h _sig_action.h _sig_pmask.h \
+_float64.h _int16.h _int32.h _int64.h _io-notice.h _sd-ptr_uint.h _sd_dlopen.h \
+_sd_fcntl.h _sd_fd.h _sd_fork.h _sd_inline.h _sd_longlong.h _sd_math.h \
+_sd_mmap.h _sd_posix_rt.h _sd_select.h _sendfile.h _sig_action.h _sig_pmask.h \
 _sysinfo.h _uint16.h _uint32.h _uint64.h
 	./cc-compile depchklist.c
 

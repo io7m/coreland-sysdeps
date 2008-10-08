@@ -9,6 +9,7 @@
 #include "_int32.h"
 #include "_int64.h"
 #include "_io-notice.h"
+#include "_sd-ptr_uint.h"
 #include "_sd_dlopen.h"
 #include "_sd_fcntl.h"
 #include "_sd_fd.h"
@@ -18,8 +19,8 @@
 #include "_sd_math.h"
 #include "_sd_mmap.h"
 #include "_sd_posix_rt.h"
-#include "_sd-ptr_uint.h"
 #include "_sd_select.h"
+#include "_sendfile.h"
 #include "_sig_action.h"
 #include "_sig_pmask.h"
 #include "_sysinfo.h"
@@ -29,7 +30,16 @@
 
 int main(void)
 {
-
+#ifdef HAVE_AGAR_CORE
+  printf("system has agar_core\n");
+#else
+  printf("system does not have agar_core\n");
+#endif
+#ifdef HAVE_AGAR_GUI
+  printf("system has agar_gui\n");
+#else
+  printf("system does not have agar_gui\n");
+#endif
 #ifdef HAVE_LIBAIFF
   printf("system has libaiff\n");
 #else
@@ -185,6 +195,11 @@ int main(void)
 #else
   printf("system does not have physfs\n");
 #endif
+#ifdef HAVE_PLEXLOG
+  printf("system has plexlog\n");
+#else
+  printf("system does not have plexlog\n");
+#endif
 #ifdef HAVE_LIBPNG
   printf("system has libpng\n");
 #else
@@ -199,6 +214,11 @@ int main(void)
   printf("system has portaudio\n");
 #else
   printf("system does not have portaudio\n");
+#endif
+#ifdef HAVE_LIBSNDFILE
+  printf("system has libsndfile\n");
+#else
+  printf("system does not have libsndfile\n");
 #endif
 #ifdef HAVE_DLOPEN
   printf("system has dlopen\n");
@@ -1389,6 +1409,26 @@ int main(void)
   printf("system has pthreads_realtime\n");
 #else
   printf("system does not have pthreads_realtime\n");
+#endif
+#ifdef HAVE_SENDFILE
+  printf("system has sendfile\n");
+#else
+  printf("system does not have sendfile\n");
+#endif
+#ifdef HAVE_SENDFILE_BSD
+  printf("system has sendfile_bsd\n");
+#else
+  printf("system does not have sendfile_bsd\n");
+#endif
+#ifdef HAVE_SENDFILE_HPUX
+  printf("system has sendfile_hpux\n");
+#else
+  printf("system does not have sendfile_hpux\n");
+#endif
+#ifdef HAVE_SENDFILE_SYSV
+  printf("system has sendfile_sysv\n");
+#else
+  printf("system does not have sendfile_sysv\n");
 #endif
 #ifdef HAVE_SIGACTION
   printf("system has sigaction\n");
