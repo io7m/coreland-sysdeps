@@ -367,6 +367,12 @@ libs-sdl-ada:
 flags-sdl:
 	@echo SYSDEPS sdl-flags run create flags-sdl 
 	@(cd SYSDEPS/modules/sdl-flags && ./run)
+flags-sdl-gfx:
+	@echo SYSDEPS sdl-gfx-flags run create flags-sdl-gfx 
+	@(cd SYSDEPS/modules/sdl-gfx-flags && ./run)
+libs-sdl-gfx-S:
+	@echo SYSDEPS sdl-gfx-libs-S run create libs-sdl-gfx-S 
+	@(cd SYSDEPS/modules/sdl-gfx-libs-S && ./run)
 flags-sdl-image:
 	@echo SYSDEPS sdl-image-flags run create flags-sdl-image 
 	@(cd SYSDEPS/modules/sdl-image-flags && ./run)
@@ -814,6 +820,12 @@ sdl-ada-libs_clean:
 sdl-flags_clean:
 	@echo SYSDEPS sdl-flags clean flags-sdl 
 	@(cd SYSDEPS/modules/sdl-flags && ./clean)
+sdl-gfx-flags_clean:
+	@echo SYSDEPS sdl-gfx-flags clean flags-sdl-gfx 
+	@(cd SYSDEPS/modules/sdl-gfx-flags && ./clean)
+sdl-gfx-libs-S_clean:
+	@echo SYSDEPS sdl-gfx-libs-S clean libs-sdl-gfx-S 
+	@(cd SYSDEPS/modules/sdl-gfx-libs-S && ./clean)
 sdl-image-flags_clean:
 	@echo SYSDEPS sdl-image-flags clean flags-sdl-image 
 	@(cd SYSDEPS/modules/sdl-image-flags && ./clean)
@@ -1029,6 +1041,8 @@ sd-sockets_clean \
 sdl-ada-flags_clean \
 sdl-ada-libs_clean \
 sdl-flags_clean \
+sdl-gfx-flags_clean \
+sdl-gfx-libs-S_clean \
 sdl-image-flags_clean \
 sdl-image-libs_clean \
 sdl-img-ada-flags_clean \
@@ -1076,10 +1090,10 @@ conf-cc conf-cctype conf-systype conf-cflags conf-ccfflist flags-agar-core-ada \
 	flags-netlib flags-openal flags-opengl flags-pdcgi flags-pgada flags-physfs \
 	flags-plexlog flags-png flags-pngload flags-portaudio flags-samplerate-ada \
 	flags-samplerate flags-fcntl flags-math flags-posix_rt flags-pthreads \
-	flags-pthr_rt flags-sdl-ada flags-sdl flags-sdl-image flags-sdl-img-ada \
-	flags-sdl-mixer flags-sdl-ttf-ada flags-sdl-ttf flags-silc flags-skel \
-	flags-smtplib flags-sndfile-ada flags-sndfile flags-sse flags-sse2 flags-sse3 \
-	flags-tiff flags-vector flags-cc-vector
+	flags-pthr_rt flags-sdl-ada flags-sdl flags-sdl-gfx flags-sdl-image \
+	flags-sdl-img-ada flags-sdl-mixer flags-sdl-ttf-ada flags-sdl-ttf flags-silc \
+	flags-skel flags-smtplib flags-sndfile-ada flags-sndfile flags-sse flags-sse2 \
+	flags-sse3 flags-tiff flags-vector flags-cc-vector
 
 cc-link:\
 conf-ld conf-ldtype conf-systype conf-ldflags
@@ -1105,10 +1119,10 @@ cc-link depchklist.ld depchklist.o
 
 depchklist.o:\
 cc-compile depchklist.c _byteorder.h _ch_flags.h _direntry.h _float32.h \
-_float64.h _int16.h _int32.h _int64.h _io-notice.h _sd-ptr_uint.h _sd_dlopen.h \
-_sd_fcntl.h _sd_fd.h _sd_fork.h _sd_inline.h _sd_longlong.h _sd_math.h \
-_sd_mmap.h _sd_posix_rt.h _sd_select.h _sendfile.h _sig_action.h _sig_pmask.h \
-_sysinfo.h _uint16.h _uint32.h _uint64.h
+_float64.h _int16.h _int32.h _int64.h _io-notice.h _sd_dlopen.h _sd_fcntl.h \
+_sd_fd.h _sd_fork.h _sd_inline.h _sd_longlong.h _sd_math.h _sd_mmap.h \
+_sd_posix_rt.h _sd-ptr_uint.h _sd_select.h _sendfile.h _sig_action.h \
+_sig_pmask.h _sysinfo.h _uint16.h _uint32.h _uint64.h
 	./cc-compile depchklist.c
 
 mk-cctype:\

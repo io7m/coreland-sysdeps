@@ -109,3 +109,5 @@
 20081008 code: be loud about using conf-prefix.
 20081008 code: added sd-sendfile
 20081008 code: added silc-toolkit
+20081008 code: added sdl-gfx-flags
+20081008 code: added sdl-gfx-libs-S

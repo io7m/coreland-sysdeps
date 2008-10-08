@@ -9,7 +9,6 @@
 #include "_int32.h"
 #include "_int64.h"
 #include "_io-notice.h"
-#include "_sd-ptr_uint.h"
 #include "_sd_dlopen.h"
 #include "_sd_fcntl.h"
 #include "_sd_fd.h"
@@ -19,6 +18,7 @@
 #include "_sd_math.h"
 #include "_sd_mmap.h"
 #include "_sd_posix_rt.h"
+#include "_sd-ptr_uint.h"
 #include "_sd_select.h"
 #include "_sendfile.h"
 #include "_sig_action.h"
@@ -27,8 +27,8 @@
 #include "_uint16.h"
 #include "_uint32.h"
 #include "_uint64.h"
-
-int main(void)
+int
+main (void)
 {
 
 #ifdef HAVE_AGAR_CORE
@@ -1446,6 +1446,11 @@ int main(void)
 #else
   printf("system does not have sdl\n");
 #endif
+#ifdef HAVE_SDL_GFX
+  printf("system has sdl_gfx\n");
+#else
+  printf("system does not have sdl_gfx\n");
+#endif
 #ifdef HAVE_SDL_IMAGE
   printf("system has sdl_image\n");
 #else
@@ -1491,5 +1496,6 @@ int main(void)
 #else
   printf("system does not have vector\n");
 #endif
+
   return 0;
 }
