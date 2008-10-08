@@ -106,3 +106,4 @@
 20081001 code: Ada support.
 20081008 code: added plexlog-flags
 20081008 code: added plexlog-libs
+20081008 code: be loud about using conf-prefix.
