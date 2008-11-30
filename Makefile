@@ -433,6 +433,18 @@ flags-sndfile:
 libs-sndfile:
 	@echo SYSDEPS sndfile-libs run create libs-sndfile 
 	@(cd SYSDEPS/modules/sndfile-libs && ./run)
+flags-sqlite3-ada:
+	@echo SYSDEPS sqlite3-ada-flags run create flags-sqlite3-ada 
+	@(cd SYSDEPS/modules/sqlite3-ada-flags && ./run)
+libs-sqlite3-ada:
+	@echo SYSDEPS sqlite3-ada-libs run create libs-sqlite3-ada 
+	@(cd SYSDEPS/modules/sqlite3-ada-libs && ./run)
+flags-sqlite3:
+	@echo SYSDEPS sqlite3-flags run create flags-sqlite3 
+	@(cd SYSDEPS/modules/sqlite3-flags && ./run)
+libs-sqlite3:
+	@echo SYSDEPS sqlite3-libs run create libs-sqlite3 
+	@(cd SYSDEPS/modules/sqlite3-libs && ./run)
 flags-sse:
 	@echo SYSDEPS sse-flags run create flags-sse 
 	@(cd SYSDEPS/modules/sse-flags && ./run)
@@ -442,6 +454,12 @@ flags-sse2:
 flags-sse3:
 	@echo SYSDEPS sse3-flags run create flags-sse3 
 	@(cd SYSDEPS/modules/sse3-flags && ./run)
+flags-stack-ada:
+	@echo SYSDEPS stack-ada-flags run create flags-stack-ada 
+	@(cd SYSDEPS/modules/stack-ada-flags && ./run)
+libs-stack-ada:
+	@echo SYSDEPS stack-ada-libs run create libs-stack-ada 
+	@(cd SYSDEPS/modules/stack-ada-libs && ./run)
 _sysinfo.h:
 	@echo SYSDEPS sysinfo run create _sysinfo.h 
 	@(cd SYSDEPS/modules/sysinfo && ./run)
@@ -886,6 +904,18 @@ sndfile-flags_clean:
 sndfile-libs_clean:
 	@echo SYSDEPS sndfile-libs clean libs-sndfile 
 	@(cd SYSDEPS/modules/sndfile-libs && ./clean)
+sqlite3-ada-flags_clean:
+	@echo SYSDEPS sqlite3-ada-flags clean flags-sqlite3-ada 
+	@(cd SYSDEPS/modules/sqlite3-ada-flags && ./clean)
+sqlite3-ada-libs_clean:
+	@echo SYSDEPS sqlite3-ada-libs clean libs-sqlite3-ada 
+	@(cd SYSDEPS/modules/sqlite3-ada-libs && ./clean)
+sqlite3-flags_clean:
+	@echo SYSDEPS sqlite3-flags clean flags-sqlite3 
+	@(cd SYSDEPS/modules/sqlite3-flags && ./clean)
+sqlite3-libs_clean:
+	@echo SYSDEPS sqlite3-libs clean libs-sqlite3 
+	@(cd SYSDEPS/modules/sqlite3-libs && ./clean)
 sse-flags_clean:
 	@echo SYSDEPS sse-flags clean flags-sse 
 	@(cd SYSDEPS/modules/sse-flags && ./clean)
@@ -895,6 +925,12 @@ sse2-flags_clean:
 sse3-flags_clean:
 	@echo SYSDEPS sse3-flags clean flags-sse3 
 	@(cd SYSDEPS/modules/sse3-flags && ./clean)
+stack-ada-flags_clean:
+	@echo SYSDEPS stack-ada-flags clean flags-stack-ada 
+	@(cd SYSDEPS/modules/stack-ada-flags && ./clean)
+stack-ada-libs_clean:
+	@echo SYSDEPS stack-ada-libs clean libs-stack-ada 
+	@(cd SYSDEPS/modules/stack-ada-libs && ./clean)
 sysinfo_clean:
 	@echo SYSDEPS sysinfo clean _sysinfo.h 
 	@(cd SYSDEPS/modules/sysinfo && ./clean)
@@ -1063,9 +1099,15 @@ sndfile-ada-flags_clean \
 sndfile-ada-libs_clean \
 sndfile-flags_clean \
 sndfile-libs_clean \
+sqlite3-ada-flags_clean \
+sqlite3-ada-libs_clean \
+sqlite3-flags_clean \
+sqlite3-libs_clean \
 sse-flags_clean \
 sse2-flags_clean \
 sse3-flags_clean \
+stack-ada-flags_clean \
+stack-ada-libs_clean \
 sysinfo_clean \
 tiff-flags_clean \
 tiff-libs_clean \

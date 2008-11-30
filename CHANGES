@@ -113,3 +113,5 @@
 20081008 code: added sdl-gfx-libs-S
 20081104 code: added stack-ada-flags
 20081104 code: added stack-ada-libs
+20081114 code: added sqlite3-flags
+20081114 code: added sqlite3-libs
