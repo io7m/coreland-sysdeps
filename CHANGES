@@ -115,3 +115,5 @@
 20081104 code: added stack-ada-libs
 20081114 code: added sqlite3-flags
 20081114 code: added sqlite3-libs
+20081207 code: added physfs-ada-flags
+20081207 code: added physfs-ada-libs
