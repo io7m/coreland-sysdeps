@@ -117,3 +117,8 @@
 20081114 code: added sqlite3-libs
 20081207 code: added physfs-ada-flags
 20081207 code: added physfs-ada-libs
+20081207 code: fixed description for sd-sendfile.
+20081207 code: added lua-physfs-flags
+20081207 code: added lua-physfs-libs
+20081207 code: added lua-physfs-ada-flags
+20081207 code: added lua-physfs-ada-libs
