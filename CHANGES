@@ -124,3 +124,4 @@
 20081207 code: added lua-physfs-ada-libs
 20081207 code: large movement of modules to proper -S naming convention for
                static libraries.
+20081208 code: update 'creates' for all moved modules.
