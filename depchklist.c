@@ -81,6 +81,11 @@ main (void)
 #else
   printf("system does not have fastcgi\n");
 #endif
+#ifdef HAVE_FLAC
+  printf("system has flac\n");
+#else
+  printf("system does not have flac\n");
+#endif
 #ifdef HAVE_FLTK
   printf("system has fltk\n");
 #else
@@ -160,6 +165,11 @@ main (void)
   printf("system has lua\n");
 #else
   printf("system does not have lua\n");
+#endif
+#ifdef HAVE_LUA_PHYSFS
+  printf("system has lua_physfs\n");
+#else
+  printf("system does not have lua_physfs\n");
 #endif
 #ifdef HAVE_CARBON
   printf("system has carbon\n");
@@ -1480,6 +1490,11 @@ main (void)
   printf("system has smtplib\n");
 #else
   printf("system does not have smtplib\n");
+#endif
+#ifdef HAVE_LIBSNDFILE
+  printf("system has libsndfile\n");
+#else
+  printf("system does not have libsndfile\n");
 #endif
 #ifdef HAVE_LIBSNDFILE
   printf("system has libsndfile\n");

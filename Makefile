@@ -9,18 +9,18 @@ depchklist depchklist.o
 flags-agar-core-ada:
 	@echo SYSDEPS agar-core-ada-flags run create flags-agar-core-ada 
 	@(cd SYSDEPS/modules/agar-core-ada-flags && ./run)
-libs-agar-core-ada:
-	@echo SYSDEPS agar-core-ada-libs run create libs-agar-core-ada 
-	@(cd SYSDEPS/modules/agar-core-ada-libs && ./run)
+libs-agar-core-ada-S:
+	@echo SYSDEPS agar-core-ada-libs-S run create libs-agar-core-ada-S 
+	@(cd SYSDEPS/modules/agar-core-ada-libs-S && ./run)
 flags-agar-core:
 	@echo SYSDEPS agar-flags run create flags-agar-core 
 	@(cd SYSDEPS/modules/agar-flags && ./run)
 flags-agar-gui-ada:
 	@echo SYSDEPS agar-gui-ada-flags run create flags-agar-gui-ada 
 	@(cd SYSDEPS/modules/agar-gui-ada-flags && ./run)
-libs-agar-gui-ada:
-	@echo SYSDEPS agar-gui-ada-libs run create libs-agar-gui-ada 
-	@(cd SYSDEPS/modules/agar-gui-ada-libs && ./run)
+libs-agar-gui-ada-S:
+	@echo SYSDEPS agar-gui-ada-libs-S run create libs-agar-gui-ada-S 
+	@(cd SYSDEPS/modules/agar-gui-ada-libs-S && ./run)
 flags-agar-gui:
 	@echo SYSDEPS agar-gui-flags run create flags-agar-gui 
 	@(cd SYSDEPS/modules/agar-gui-flags && ./run)
@@ -93,6 +93,18 @@ flags-fastcgi:
 libs-fastcgi:
 	@echo SYSDEPS fastcgi-libs run create libs-fastcgi 
 	@(cd SYSDEPS/modules/fastcgi-libs && ./run)
+flags-flac-ada:
+	@echo SYSDEPS flac-ada-flags run create flags-flac-ada 
+	@(cd SYSDEPS/modules/flac-ada-flags && ./run)
+libs-flac-ada-S:
+	@echo SYSDEPS flac-ada-libs-S run create libs-flac-ada-S 
+	@(cd SYSDEPS/modules/flac-ada-libs-S && ./run)
+flags-flac:
+	@echo SYSDEPS flac-flags run create flags-flac 
+	@(cd SYSDEPS/modules/flac-flags && ./run)
+libs-flac:
+	@echo SYSDEPS flac-libs run create libs-flac 
+	@(cd SYSDEPS/modules/flac-libs && ./run)
 _float32.h:
 	@echo SYSDEPS float32 run create _float32.h 
 	@(cd SYSDEPS/modules/float32 && ./run)
@@ -120,9 +132,9 @@ libs-fltk2-S:
 flags-getopt-ada:
 	@echo SYSDEPS getopt-ada-flags run create flags-getopt-ada 
 	@(cd SYSDEPS/modules/getopt-ada-flags && ./run)
-libs-getopt-ada:
-	@echo SYSDEPS getopt-ada-libs run create libs-getopt-ada 
-	@(cd SYSDEPS/modules/getopt-ada-libs && ./run)
+libs-getopt-ada-S:
+	@echo SYSDEPS getopt-ada-libs-S run create libs-getopt-ada-S 
+	@(cd SYSDEPS/modules/getopt-ada-libs-S && ./run)
 flags-glsoload:
 	@echo SYSDEPS glsoload-flags run create flags-glsoload 
 	@(cd SYSDEPS/modules/glsoload-flags && ./run)
@@ -186,21 +198,33 @@ libs-loadso-S:
 flags-lua-ada:
 	@echo SYSDEPS lua-ada-flags run create flags-lua-ada 
 	@(cd SYSDEPS/modules/lua-ada-flags && ./run)
-libs-lua-ada:
-	@echo SYSDEPS lua-ada-libs run create libs-lua-ada 
-	@(cd SYSDEPS/modules/lua-ada-libs && ./run)
+libs-lua-ada-S:
+	@echo SYSDEPS lua-ada-libs-S run create libs-lua-ada-S 
+	@(cd SYSDEPS/modules/lua-ada-libs-S && ./run)
 flags-lua-load:
 	@echo SYSDEPS lua-ada-load-flags run create flags-lua-load 
 	@(cd SYSDEPS/modules/lua-ada-load-flags && ./run)
-libs-lua-load:
-	@echo SYSDEPS lua-ada-load-libs run create libs-lua-load 
-	@(cd SYSDEPS/modules/lua-ada-load-libs && ./run)
+libs-lua-load-S:
+	@echo SYSDEPS lua-ada-load-libs-S run create libs-lua-load-S 
+	@(cd SYSDEPS/modules/lua-ada-load-libs-S && ./run)
 flags-lua:
 	@echo SYSDEPS lua-flags run create flags-lua 
 	@(cd SYSDEPS/modules/lua-flags && ./run)
 libs-lua-S:
 	@echo SYSDEPS lua-libs-S run create libs-lua-S 
 	@(cd SYSDEPS/modules/lua-libs-S && ./run)
+flags-lua-physfs-ada:
+	@echo SYSDEPS lua-physfs-ada-flags run create flags-lua-physfs-ada 
+	@(cd SYSDEPS/modules/lua-physfs-ada-flags && ./run)
+libs-lua-physfs-ada-S:
+	@echo SYSDEPS lua-physfs-ada-libs-S run create libs-lua-physfs-ada-S 
+	@(cd SYSDEPS/modules/lua-physfs-ada-libs-S && ./run)
+flags-lua-physfs:
+	@echo SYSDEPS lua-physfs-flags run create flags-lua-physfs 
+	@(cd SYSDEPS/modules/lua-physfs-flags && ./run)
+libs-lua-physfs-S:
+	@echo SYSDEPS lua-physfs-libs-S run create libs-lua-physfs-S 
+	@(cd SYSDEPS/modules/lua-physfs-libs-S && ./run)
 libs-carbon:
 	@echo SYSDEPS mac-carbon run create flags-carbon libs-carbon 
 	@(cd SYSDEPS/modules/mac-carbon && ./run)
@@ -217,9 +241,9 @@ flags-mmx:
 flags-msg-ada:
 	@echo SYSDEPS msg-ada-flags run create flags-msg-ada 
 	@(cd SYSDEPS/modules/msg-ada-flags && ./run)
-libs-msg-ada:
-	@echo SYSDEPS msg-ada-libs run create libs-msg-ada 
-	@(cd SYSDEPS/modules/msg-ada-libs && ./run)
+libs-msg-ada-S:
+	@echo SYSDEPS msg-ada-libs-S run create libs-msg-ada-S 
+	@(cd SYSDEPS/modules/msg-ada-libs-S && ./run)
 flags-netlib:
 	@echo SYSDEPS netlib-flags run create flags-netlib 
 	@(cd SYSDEPS/modules/netlib-flags && ./run)
@@ -253,9 +277,15 @@ libs-pdcgi-S:
 flags-pgada:
 	@echo SYSDEPS pgada-flags run create flags-pgada 
 	@(cd SYSDEPS/modules/pgada-flags && ./run)
-libs-pgada:
-	@echo SYSDEPS pgada-libs run create libs-pgada 
-	@(cd SYSDEPS/modules/pgada-libs && ./run)
+libs-pgada-S:
+	@echo SYSDEPS pgada-libs-S run create libs-pgada-S 
+	@(cd SYSDEPS/modules/pgada-libs-S && ./run)
+flags-physfs-ada:
+	@echo SYSDEPS physfs-ada-flags run create flags-physfs-ada 
+	@(cd SYSDEPS/modules/physfs-ada-flags && ./run)
+libs-physfs-ada-S:
+	@echo SYSDEPS physfs-ada-libs-S run create libs-physfs-ada-S 
+	@(cd SYSDEPS/modules/physfs-ada-libs-S && ./run)
 flags-physfs:
 	@echo SYSDEPS physfs-flags run create flags-physfs 
 	@(cd SYSDEPS/modules/physfs-flags && ./run)
@@ -292,9 +322,9 @@ libs-portaudio:
 flags-samplerate-ada:
 	@echo SYSDEPS samplerate-ada-flags run create flags-samplerate-ada 
 	@(cd SYSDEPS/modules/samplerate-ada-flags && ./run)
-libs-samplerate-ada:
-	@echo SYSDEPS samplerate-ada-libs run create libs-samplerate-ada 
-	@(cd SYSDEPS/modules/samplerate-ada-libs && ./run)
+libs-samplerate-ada-S:
+	@echo SYSDEPS samplerate-ada-libs-S run create libs-samplerate-ada-S 
+	@(cd SYSDEPS/modules/samplerate-ada-libs-S && ./run)
 flags-samplerate:
 	@echo SYSDEPS samplerate-flags run create flags-samplerate 
 	@(cd SYSDEPS/modules/samplerate-flags && ./run)
@@ -361,9 +391,9 @@ libs-sockets:
 flags-sdl-ada:
 	@echo SYSDEPS sdl-ada-flags run create flags-sdl-ada 
 	@(cd SYSDEPS/modules/sdl-ada-flags && ./run)
-libs-sdl-ada:
-	@echo SYSDEPS sdl-ada-libs run create libs-sdl-ada 
-	@(cd SYSDEPS/modules/sdl-ada-libs && ./run)
+libs-sdl-ada-S:
+	@echo SYSDEPS sdl-ada-libs-S run create libs-sdl-ada-S 
+	@(cd SYSDEPS/modules/sdl-ada-libs-S && ./run)
 flags-sdl:
 	@echo SYSDEPS sdl-flags run create flags-sdl 
 	@(cd SYSDEPS/modules/sdl-flags && ./run)
@@ -382,9 +412,9 @@ libs-sdl-image:
 flags-sdl-img-ada:
 	@echo SYSDEPS sdl-img-ada-flags run create flags-sdl-img-ada 
 	@(cd SYSDEPS/modules/sdl-img-ada-flags && ./run)
-libs-sdl-img-ada:
-	@echo SYSDEPS sdl-img-ada-libs run create libs-sdl-img-ada 
-	@(cd SYSDEPS/modules/sdl-img-ada-libs && ./run)
+libs-sdl-img-ada-S:
+	@echo SYSDEPS sdl-img-ada-libs-S run create libs-sdl-img-ada-S 
+	@(cd SYSDEPS/modules/sdl-img-ada-libs-S && ./run)
 libs-sdl:
 	@echo SYSDEPS sdl-libs run create libs-sdl 
 	@(cd SYSDEPS/modules/sdl-libs && ./run)
@@ -397,9 +427,9 @@ libs-sdl-mixer:
 flags-sdl-ttf-ada:
 	@echo SYSDEPS sdl-ttf-ada-flags run create flags-sdl-ttf-ada 
 	@(cd SYSDEPS/modules/sdl-ttf-ada-flags && ./run)
-libs-sdl-ttf-ada:
-	@echo SYSDEPS sdl-ttf-ada-libs run create libs-sdl-ttf-ada 
-	@(cd SYSDEPS/modules/sdl-ttf-ada-libs && ./run)
+libs-sdl-ttf-ada-S:
+	@echo SYSDEPS sdl-ttf-ada-libs-S run create libs-sdl-ttf-ada-S 
+	@(cd SYSDEPS/modules/sdl-ttf-ada-libs-S && ./run)
 flags-sdl-ttf:
 	@echo SYSDEPS sdl-ttf-flags run create flags-sdl-ttf 
 	@(cd SYSDEPS/modules/sdl-ttf-flags && ./run)
@@ -424,9 +454,9 @@ libs-smtplib-S:
 flags-sndfile-ada:
 	@echo SYSDEPS sndfile-ada-flags run create flags-sndfile-ada 
 	@(cd SYSDEPS/modules/sndfile-ada-flags && ./run)
-libs-sndfile-ada:
-	@echo SYSDEPS sndfile-ada-libs run create libs-sndfile-ada 
-	@(cd SYSDEPS/modules/sndfile-ada-libs && ./run)
+libs-sndfile-ada-S:
+	@echo SYSDEPS sndfile-ada-libs-S run create libs-sndfile-ada-S 
+	@(cd SYSDEPS/modules/sndfile-ada-libs-S && ./run)
 flags-sndfile:
 	@echo SYSDEPS sndfile-flags run create flags-sndfile 
 	@(cd SYSDEPS/modules/sndfile-flags && ./run)
@@ -436,9 +466,9 @@ libs-sndfile:
 flags-sqlite3-ada:
 	@echo SYSDEPS sqlite3-ada-flags run create flags-sqlite3-ada 
 	@(cd SYSDEPS/modules/sqlite3-ada-flags && ./run)
-libs-sqlite3-ada:
-	@echo SYSDEPS sqlite3-ada-libs run create libs-sqlite3-ada 
-	@(cd SYSDEPS/modules/sqlite3-ada-libs && ./run)
+libs-sqlite3-ada-S:
+	@echo SYSDEPS sqlite3-ada-libs-S run create libs-sqlite3-ada-S 
+	@(cd SYSDEPS/modules/sqlite3-ada-libs-S && ./run)
 flags-sqlite3:
 	@echo SYSDEPS sqlite3-flags run create flags-sqlite3 
 	@(cd SYSDEPS/modules/sqlite3-flags && ./run)
@@ -457,9 +487,9 @@ flags-sse3:
 flags-stack-ada:
 	@echo SYSDEPS stack-ada-flags run create flags-stack-ada 
 	@(cd SYSDEPS/modules/stack-ada-flags && ./run)
-libs-stack-ada:
-	@echo SYSDEPS stack-ada-libs run create libs-stack-ada 
-	@(cd SYSDEPS/modules/stack-ada-libs && ./run)
+libs-stack-ada-S:
+	@echo SYSDEPS stack-ada-libs-S run create libs-stack-ada-S 
+	@(cd SYSDEPS/modules/stack-ada-libs-S && ./run)
 _sysinfo.h:
 	@echo SYSDEPS sysinfo run create _sysinfo.h 
 	@(cd SYSDEPS/modules/sysinfo && ./run)
@@ -493,18 +523,18 @@ libs-vector-S:
 agar-core-ada-flags_clean:
 	@echo SYSDEPS agar-core-ada-flags clean flags-agar-core-ada 
 	@(cd SYSDEPS/modules/agar-core-ada-flags && ./clean)
-agar-core-ada-libs_clean:
-	@echo SYSDEPS agar-core-ada-libs clean libs-agar-core-ada 
-	@(cd SYSDEPS/modules/agar-core-ada-libs && ./clean)
+agar-core-ada-libs-S_clean:
+	@echo SYSDEPS agar-core-ada-libs-S clean libs-agar-core-ada-S 
+	@(cd SYSDEPS/modules/agar-core-ada-libs-S && ./clean)
 agar-flags_clean:
 	@echo SYSDEPS agar-flags clean flags-agar-core 
 	@(cd SYSDEPS/modules/agar-flags && ./clean)
 agar-gui-ada-flags_clean:
 	@echo SYSDEPS agar-gui-ada-flags clean flags-agar-gui-ada 
 	@(cd SYSDEPS/modules/agar-gui-ada-flags && ./clean)
-agar-gui-ada-libs_clean:
-	@echo SYSDEPS agar-gui-ada-libs clean libs-agar-gui-ada 
-	@(cd SYSDEPS/modules/agar-gui-ada-libs && ./clean)
+agar-gui-ada-libs-S_clean:
+	@echo SYSDEPS agar-gui-ada-libs-S clean libs-agar-gui-ada-S 
+	@(cd SYSDEPS/modules/agar-gui-ada-libs-S && ./clean)
 agar-gui-flags_clean:
 	@echo SYSDEPS agar-gui-flags clean flags-agar-gui 
 	@(cd SYSDEPS/modules/agar-gui-flags && ./clean)
@@ -577,6 +607,18 @@ fastcgi-flags_clean:
 fastcgi-libs_clean:
 	@echo SYSDEPS fastcgi-libs clean libs-fastcgi 
 	@(cd SYSDEPS/modules/fastcgi-libs && ./clean)
+flac-ada-flags_clean:
+	@echo SYSDEPS flac-ada-flags clean flags-flac-ada 
+	@(cd SYSDEPS/modules/flac-ada-flags && ./clean)
+flac-ada-libs-S_clean:
+	@echo SYSDEPS flac-ada-libs-S clean libs-flac-ada-S 
+	@(cd SYSDEPS/modules/flac-ada-libs-S && ./clean)
+flac-flags_clean:
+	@echo SYSDEPS flac-flags clean flags-flac 
+	@(cd SYSDEPS/modules/flac-flags && ./clean)
+flac-libs_clean:
+	@echo SYSDEPS flac-libs clean libs-flac 
+	@(cd SYSDEPS/modules/flac-libs && ./clean)
 float32_clean:
 	@echo SYSDEPS float32 clean _float32.h 
 	@(cd SYSDEPS/modules/float32 && ./clean)
@@ -604,9 +646,9 @@ fltk2-libs-S_clean:
 getopt-ada-flags_clean:
 	@echo SYSDEPS getopt-ada-flags clean flags-getopt-ada 
 	@(cd SYSDEPS/modules/getopt-ada-flags && ./clean)
-getopt-ada-libs_clean:
-	@echo SYSDEPS getopt-ada-libs clean libs-getopt-ada 
-	@(cd SYSDEPS/modules/getopt-ada-libs && ./clean)
+getopt-ada-libs-S_clean:
+	@echo SYSDEPS getopt-ada-libs-S clean libs-getopt-ada-S 
+	@(cd SYSDEPS/modules/getopt-ada-libs-S && ./clean)
 glsoload-flags_clean:
 	@echo SYSDEPS glsoload-flags clean flags-glsoload 
 	@(cd SYSDEPS/modules/glsoload-flags && ./clean)
@@ -670,21 +712,33 @@ loadso-libs-S_clean:
 lua-ada-flags_clean:
 	@echo SYSDEPS lua-ada-flags clean flags-lua-ada 
 	@(cd SYSDEPS/modules/lua-ada-flags && ./clean)
-lua-ada-libs_clean:
-	@echo SYSDEPS lua-ada-libs clean libs-lua-ada 
-	@(cd SYSDEPS/modules/lua-ada-libs && ./clean)
+lua-ada-libs-S_clean:
+	@echo SYSDEPS lua-ada-libs-S clean libs-lua-ada-S 
+	@(cd SYSDEPS/modules/lua-ada-libs-S && ./clean)
 lua-ada-load-flags_clean:
 	@echo SYSDEPS lua-ada-load-flags clean flags-lua-load 
 	@(cd SYSDEPS/modules/lua-ada-load-flags && ./clean)
-lua-ada-load-libs_clean:
-	@echo SYSDEPS lua-ada-load-libs clean libs-lua-load 
-	@(cd SYSDEPS/modules/lua-ada-load-libs && ./clean)
+lua-ada-load-libs-S_clean:
+	@echo SYSDEPS lua-ada-load-libs-S clean libs-lua-load-S 
+	@(cd SYSDEPS/modules/lua-ada-load-libs-S && ./clean)
 lua-flags_clean:
 	@echo SYSDEPS lua-flags clean flags-lua 
 	@(cd SYSDEPS/modules/lua-flags && ./clean)
 lua-libs-S_clean:
 	@echo SYSDEPS lua-libs-S clean libs-lua-S 
 	@(cd SYSDEPS/modules/lua-libs-S && ./clean)
+lua-physfs-ada-flags_clean:
+	@echo SYSDEPS lua-physfs-ada-flags clean flags-lua-physfs-ada 
+	@(cd SYSDEPS/modules/lua-physfs-ada-flags && ./clean)
+lua-physfs-ada-libs-S_clean:
+	@echo SYSDEPS lua-physfs-ada-libs-S clean libs-lua-physfs-ada-S 
+	@(cd SYSDEPS/modules/lua-physfs-ada-libs-S && ./clean)
+lua-physfs-flags_clean:
+	@echo SYSDEPS lua-physfs-flags clean flags-lua-physfs 
+	@(cd SYSDEPS/modules/lua-physfs-flags && ./clean)
+lua-physfs-libs-S_clean:
+	@echo SYSDEPS lua-physfs-libs-S clean libs-lua-physfs-S 
+	@(cd SYSDEPS/modules/lua-physfs-libs-S && ./clean)
 mac-carbon_clean:
 	@echo SYSDEPS mac-carbon clean flags-carbon libs-carbon 
 	@(cd SYSDEPS/modules/mac-carbon && ./clean)
@@ -700,9 +754,9 @@ mmx-flags_clean:
 msg-ada-flags_clean:
 	@echo SYSDEPS msg-ada-flags clean flags-msg-ada 
 	@(cd SYSDEPS/modules/msg-ada-flags && ./clean)
-msg-ada-libs_clean:
-	@echo SYSDEPS msg-ada-libs clean libs-msg-ada 
-	@(cd SYSDEPS/modules/msg-ada-libs && ./clean)
+msg-ada-libs-S_clean:
+	@echo SYSDEPS msg-ada-libs-S clean libs-msg-ada-S 
+	@(cd SYSDEPS/modules/msg-ada-libs-S && ./clean)
 netlib-flags_clean:
 	@echo SYSDEPS netlib-flags clean flags-netlib 
 	@(cd SYSDEPS/modules/netlib-flags && ./clean)
@@ -736,9 +790,15 @@ pdcgi-libs-S_clean:
 pgada-flags_clean:
 	@echo SYSDEPS pgada-flags clean flags-pgada 
 	@(cd SYSDEPS/modules/pgada-flags && ./clean)
-pgada-libs_clean:
-	@echo SYSDEPS pgada-libs clean libs-pgada 
-	@(cd SYSDEPS/modules/pgada-libs && ./clean)
+pgada-libs-S_clean:
+	@echo SYSDEPS pgada-libs-S clean libs-pgada-S 
+	@(cd SYSDEPS/modules/pgada-libs-S && ./clean)
+physfs-ada-flags_clean:
+	@echo SYSDEPS physfs-ada-flags clean flags-physfs-ada 
+	@(cd SYSDEPS/modules/physfs-ada-flags && ./clean)
+physfs-ada-libs-S_clean:
+	@echo SYSDEPS physfs-ada-libs-S clean libs-physfs-ada-S 
+	@(cd SYSDEPS/modules/physfs-ada-libs-S && ./clean)
 physfs-flags_clean:
 	@echo SYSDEPS physfs-flags clean flags-physfs 
 	@(cd SYSDEPS/modules/physfs-flags && ./clean)
@@ -775,9 +835,9 @@ portaudio-libs_clean:
 samplerate-ada-flags_clean:
 	@echo SYSDEPS samplerate-ada-flags clean flags-samplerate-ada 
 	@(cd SYSDEPS/modules/samplerate-ada-flags && ./clean)
-samplerate-ada-libs_clean:
-	@echo SYSDEPS samplerate-ada-libs clean libs-samplerate-ada 
-	@(cd SYSDEPS/modules/samplerate-ada-libs && ./clean)
+samplerate-ada-libs-S_clean:
+	@echo SYSDEPS samplerate-ada-libs-S clean libs-samplerate-ada-S 
+	@(cd SYSDEPS/modules/samplerate-ada-libs-S && ./clean)
 samplerate-flags_clean:
 	@echo SYSDEPS samplerate-flags clean flags-samplerate 
 	@(cd SYSDEPS/modules/samplerate-flags && ./clean)
@@ -832,9 +892,9 @@ sd-sockets_clean:
 sdl-ada-flags_clean:
 	@echo SYSDEPS sdl-ada-flags clean flags-sdl-ada 
 	@(cd SYSDEPS/modules/sdl-ada-flags && ./clean)
-sdl-ada-libs_clean:
-	@echo SYSDEPS sdl-ada-libs clean libs-sdl-ada 
-	@(cd SYSDEPS/modules/sdl-ada-libs && ./clean)
+sdl-ada-libs-S_clean:
+	@echo SYSDEPS sdl-ada-libs-S clean libs-sdl-ada-S 
+	@(cd SYSDEPS/modules/sdl-ada-libs-S && ./clean)
 sdl-flags_clean:
 	@echo SYSDEPS sdl-flags clean flags-sdl 
 	@(cd SYSDEPS/modules/sdl-flags && ./clean)
@@ -853,9 +913,9 @@ sdl-image-libs_clean:
 sdl-img-ada-flags_clean:
 	@echo SYSDEPS sdl-img-ada-flags clean flags-sdl-img-ada 
 	@(cd SYSDEPS/modules/sdl-img-ada-flags && ./clean)
-sdl-img-ada-libs_clean:
-	@echo SYSDEPS sdl-img-ada-libs clean libs-sdl-img-ada 
-	@(cd SYSDEPS/modules/sdl-img-ada-libs && ./clean)
+sdl-img-ada-libs-S_clean:
+	@echo SYSDEPS sdl-img-ada-libs-S clean libs-sdl-img-ada-S 
+	@(cd SYSDEPS/modules/sdl-img-ada-libs-S && ./clean)
 sdl-libs_clean:
 	@echo SYSDEPS sdl-libs clean libs-sdl 
 	@(cd SYSDEPS/modules/sdl-libs && ./clean)
@@ -868,9 +928,9 @@ sdl-mixer-libs_clean:
 sdl-ttf-ada-flags_clean:
 	@echo SYSDEPS sdl-ttf-ada-flags clean flags-sdl-ttf-ada 
 	@(cd SYSDEPS/modules/sdl-ttf-ada-flags && ./clean)
-sdl-ttf-ada-libs_clean:
-	@echo SYSDEPS sdl-ttf-ada-libs clean libs-sdl-ttf-ada 
-	@(cd SYSDEPS/modules/sdl-ttf-ada-libs && ./clean)
+sdl-ttf-ada-libs-S_clean:
+	@echo SYSDEPS sdl-ttf-ada-libs-S clean libs-sdl-ttf-ada-S 
+	@(cd SYSDEPS/modules/sdl-ttf-ada-libs-S && ./clean)
 sdl-ttf-flags_clean:
 	@echo SYSDEPS sdl-ttf-flags clean flags-sdl-ttf 
 	@(cd SYSDEPS/modules/sdl-ttf-flags && ./clean)
@@ -895,9 +955,9 @@ smtplib-libs-S_clean:
 sndfile-ada-flags_clean:
 	@echo SYSDEPS sndfile-ada-flags clean flags-sndfile-ada 
 	@(cd SYSDEPS/modules/sndfile-ada-flags && ./clean)
-sndfile-ada-libs_clean:
-	@echo SYSDEPS sndfile-ada-libs clean libs-sndfile-ada 
-	@(cd SYSDEPS/modules/sndfile-ada-libs && ./clean)
+sndfile-ada-libs-S_clean:
+	@echo SYSDEPS sndfile-ada-libs-S clean libs-sndfile-ada-S 
+	@(cd SYSDEPS/modules/sndfile-ada-libs-S && ./clean)
 sndfile-flags_clean:
 	@echo SYSDEPS sndfile-flags clean flags-sndfile 
 	@(cd SYSDEPS/modules/sndfile-flags && ./clean)
@@ -907,9 +967,9 @@ sndfile-libs_clean:
 sqlite3-ada-flags_clean:
 	@echo SYSDEPS sqlite3-ada-flags clean flags-sqlite3-ada 
 	@(cd SYSDEPS/modules/sqlite3-ada-flags && ./clean)
-sqlite3-ada-libs_clean:
-	@echo SYSDEPS sqlite3-ada-libs clean libs-sqlite3-ada 
-	@(cd SYSDEPS/modules/sqlite3-ada-libs && ./clean)
+sqlite3-ada-libs-S_clean:
+	@echo SYSDEPS sqlite3-ada-libs-S clean libs-sqlite3-ada-S 
+	@(cd SYSDEPS/modules/sqlite3-ada-libs-S && ./clean)
 sqlite3-flags_clean:
 	@echo SYSDEPS sqlite3-flags clean flags-sqlite3 
 	@(cd SYSDEPS/modules/sqlite3-flags && ./clean)
@@ -928,9 +988,9 @@ sse3-flags_clean:
 stack-ada-flags_clean:
 	@echo SYSDEPS stack-ada-flags clean flags-stack-ada 
 	@(cd SYSDEPS/modules/stack-ada-flags && ./clean)
-stack-ada-libs_clean:
-	@echo SYSDEPS stack-ada-libs clean libs-stack-ada 
-	@(cd SYSDEPS/modules/stack-ada-libs && ./clean)
+stack-ada-libs-S_clean:
+	@echo SYSDEPS stack-ada-libs-S clean libs-stack-ada-S 
+	@(cd SYSDEPS/modules/stack-ada-libs-S && ./clean)
 sysinfo_clean:
 	@echo SYSDEPS sysinfo clean _sysinfo.h 
 	@(cd SYSDEPS/modules/sysinfo && ./clean)
@@ -962,10 +1022,10 @@ vector-libs-S_clean:
 
 sysdeps_clean:\
 agar-core-ada-flags_clean \
-agar-core-ada-libs_clean \
+agar-core-ada-libs-S_clean \
 agar-flags_clean \
 agar-gui-ada-flags_clean \
-agar-gui-ada-libs_clean \
+agar-gui-ada-libs-S_clean \
 agar-gui-flags_clean \
 agar-gui-libs_clean \
 agar-libs_clean \
@@ -990,6 +1050,10 @@ enet-flags_clean \
 enet-libs-S_clean \
 fastcgi-flags_clean \
 fastcgi-libs_clean \
+flac-ada-flags_clean \
+flac-ada-libs-S_clean \
+flac-flags_clean \
+flac-libs_clean \
 float32_clean \
 float64_clean \
 fltk11-flags_clean \
@@ -999,7 +1063,7 @@ fltk2-flags_clean \
 fltk2-libs_clean \
 fltk2-libs-S_clean \
 getopt-ada-flags_clean \
-getopt-ada-libs_clean \
+getopt-ada-libs-S_clean \
 glsoload-flags_clean \
 glsoload-libs-S_clean \
 gltxload-flags_clean \
@@ -1021,17 +1085,21 @@ loadso-flags_clean \
 loadso-libs_clean \
 loadso-libs-S_clean \
 lua-ada-flags_clean \
-lua-ada-libs_clean \
+lua-ada-libs-S_clean \
 lua-ada-load-flags_clean \
-lua-ada-load-libs_clean \
+lua-ada-load-libs-S_clean \
 lua-flags_clean \
 lua-libs-S_clean \
+lua-physfs-ada-flags_clean \
+lua-physfs-ada-libs-S_clean \
+lua-physfs-flags_clean \
+lua-physfs-libs-S_clean \
 mac-carbon_clean \
 matrix4-flags_clean \
 matrix4-libs-S_clean \
 mmx-flags_clean \
 msg-ada-flags_clean \
-msg-ada-libs_clean \
+msg-ada-libs-S_clean \
 netlib-flags_clean \
 netlib-libs_clean \
 netlib-libs-S_clean \
@@ -1043,7 +1111,9 @@ opengl-obj_clean \
 pdcgi-flags_clean \
 pdcgi-libs-S_clean \
 pgada-flags_clean \
-pgada-libs_clean \
+pgada-libs-S_clean \
+physfs-ada-flags_clean \
+physfs-ada-libs-S_clean \
 physfs-flags_clean \
 physfs-libs_clean \
 physfs-libs-S_clean \
@@ -1056,7 +1126,7 @@ pngload-libs-S_clean \
 portaudio-flags_clean \
 portaudio-libs_clean \
 samplerate-ada-flags_clean \
-samplerate-ada-libs_clean \
+samplerate-ada-libs-S_clean \
 samplerate-flags_clean \
 samplerate-libs_clean \
 sd-dlopen_clean \
@@ -1075,19 +1145,19 @@ sd-sendfile_clean \
 sd-signal_clean \
 sd-sockets_clean \
 sdl-ada-flags_clean \
-sdl-ada-libs_clean \
+sdl-ada-libs-S_clean \
 sdl-flags_clean \
 sdl-gfx-flags_clean \
 sdl-gfx-libs-S_clean \
 sdl-image-flags_clean \
 sdl-image-libs_clean \
 sdl-img-ada-flags_clean \
-sdl-img-ada-libs_clean \
+sdl-img-ada-libs-S_clean \
 sdl-libs_clean \
 sdl-mixer-flags_clean \
 sdl-mixer-libs_clean \
 sdl-ttf-ada-flags_clean \
-sdl-ttf-ada-libs_clean \
+sdl-ttf-ada-libs-S_clean \
 sdl-ttf-flags_clean \
 sdl-ttf-libs_clean \
 silc-flags_clean \
@@ -1096,18 +1166,18 @@ skel-libs-S_clean \
 smtplib-flags_clean \
 smtplib-libs-S_clean \
 sndfile-ada-flags_clean \
-sndfile-ada-libs_clean \
+sndfile-ada-libs-S_clean \
 sndfile-flags_clean \
 sndfile-libs_clean \
 sqlite3-ada-flags_clean \
-sqlite3-ada-libs_clean \
+sqlite3-ada-libs-S_clean \
 sqlite3-flags_clean \
 sqlite3-libs_clean \
 sse-flags_clean \
 sse2-flags_clean \
 sse3-flags_clean \
 stack-ada-flags_clean \
-stack-ada-libs_clean \
+stack-ada-libs-S_clean \
 sysinfo_clean \
 tiff-flags_clean \
 tiff-libs_clean \
@@ -1144,11 +1214,11 @@ cc-slib:\
 conf-systype
 
 conf-cctype:\
-conf-cc mk-cctype
+conf-cc conf-cc mk-cctype
 	./mk-cctype > conf-cctype.tmp && mv conf-cctype.tmp conf-cctype
 
 conf-ldtype:\
-conf-ld mk-ldtype
+conf-ld conf-ld mk-ldtype
 	./mk-ldtype > conf-ldtype.tmp && mv conf-ldtype.tmp conf-ldtype
 
 conf-systype:\
@@ -1178,10 +1248,10 @@ mk-ldtype:\
 conf-ld conf-systype conf-cctype
 
 mk-mk-ctxt:\
-conf-cc
+conf-cc conf-ld
 
 mk-systype:\
-conf-cc
+conf-cc conf-ld
 
 clean-all: sysdeps_clean obj_clean ext_clean
 clean: obj_clean

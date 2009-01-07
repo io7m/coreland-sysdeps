@@ -125,3 +125,7 @@
 20081207 code: large movement of modules to proper -S naming convention for
                static libraries.
 20081208 code: update 'creates' for all moved modules.
+20090107 code: added flac-flags
+20090107 code: added flac-libs
+20090107 code: added flac-ada-flags
+20090107 code: added flac-ada-libs-S
