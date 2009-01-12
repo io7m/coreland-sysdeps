@@ -268,6 +268,15 @@ libs-opengl:
 _opengl_obj.c:
 	@echo SYSDEPS opengl-obj run create _opengl_obj.c 
 	@(cd SYSDEPS/modules/opengl-obj && ./run)
+flags-openssl:
+	@echo SYSDEPS openssl-flags run create flags-openssl 
+	@(cd SYSDEPS/modules/openssl-flags && ./run)
+libs-openssl:
+	@echo SYSDEPS openssl-libs run create libs-openssl 
+	@(cd SYSDEPS/modules/openssl-libs && ./run)
+libs-openssl-S:
+	@echo SYSDEPS openssl-libs-S run create libs-openssl-S 
+	@(cd SYSDEPS/modules/openssl-libs-S && ./run)
 flags-pdcgi:
 	@echo SYSDEPS pdcgi-flags run create flags-pdcgi 
 	@(cd SYSDEPS/modules/pdcgi-flags && ./run)
@@ -781,6 +790,15 @@ opengl-libs_clean:
 opengl-obj_clean:
 	@echo SYSDEPS opengl-obj clean _opengl_obj.c 
 	@(cd SYSDEPS/modules/opengl-obj && ./clean)
+openssl-flags_clean:
+	@echo SYSDEPS openssl-flags clean flags-openssl 
+	@(cd SYSDEPS/modules/openssl-flags && ./clean)
+openssl-libs_clean:
+	@echo SYSDEPS openssl-libs clean libs-openssl 
+	@(cd SYSDEPS/modules/openssl-libs && ./clean)
+openssl-libs-S_clean:
+	@echo SYSDEPS openssl-libs-S clean libs-openssl-S 
+	@(cd SYSDEPS/modules/openssl-libs-S && ./clean)
 pdcgi-flags_clean:
 	@echo SYSDEPS pdcgi-flags clean flags-pdcgi 
 	@(cd SYSDEPS/modules/pdcgi-flags && ./clean)
@@ -1108,6 +1126,9 @@ openal-libs_clean \
 opengl-flags_clean \
 opengl-libs_clean \
 opengl-obj_clean \
+openssl-flags_clean \
+openssl-libs_clean \
+openssl-libs-S_clean \
 pdcgi-flags_clean \
 pdcgi-libs-S_clean \
 pgada-flags_clean \
@@ -1196,16 +1217,18 @@ cc-compile:\
 conf-cc conf-cctype conf-systype conf-cflags conf-ccfflist flags-agar-core-ada \
 	flags-agar-core flags-agar-gui-ada flags-agar-gui flags-aiff flags-altivec \
 	flags-alut flags-chrono flags-circbuf flags-corelib flags-enet flags-fastcgi \
-	flags-fltk11 flags-fltk2 flags-getopt-ada flags-glsoload flags-gltxload \
-	flags-glut flags-integer flags-io_poll flags-jack flags-loadso flags-lua-ada \
-	flags-lua-load flags-lua flags-carbon flags-matrix4 flags-mmx flags-msg-ada \
-	flags-netlib flags-openal flags-opengl flags-pdcgi flags-pgada flags-physfs \
-	flags-plexlog flags-png flags-pngload flags-portaudio flags-samplerate-ada \
-	flags-samplerate flags-fcntl flags-math flags-posix_rt flags-pthreads \
-	flags-pthr_rt flags-sdl-ada flags-sdl flags-sdl-gfx flags-sdl-image \
-	flags-sdl-img-ada flags-sdl-mixer flags-sdl-ttf-ada flags-sdl-ttf flags-silc \
-	flags-skel flags-smtplib flags-sndfile-ada flags-sndfile flags-sse flags-sse2 \
-	flags-sse3 flags-tiff flags-vector flags-cc-vector
+	flags-flac-ada flags-flac flags-fltk11 flags-fltk2 flags-getopt-ada \
+	flags-glsoload flags-gltxload flags-glut flags-integer flags-io_poll flags-jack \
+	flags-loadso flags-lua-ada flags-lua-load flags-lua flags-lua-physfs-ada \
+	flags-lua-physfs flags-carbon flags-matrix4 flags-mmx flags-msg-ada \
+	flags-netlib flags-openal flags-opengl flags-openssl flags-pdcgi flags-pgada \
+	flags-physfs-ada flags-physfs flags-plexlog flags-png flags-pngload \
+	flags-portaudio flags-samplerate-ada flags-samplerate flags-fcntl flags-math \
+	flags-posix_rt flags-pthreads flags-pthr_rt flags-sdl-ada flags-sdl \
+	flags-sdl-gfx flags-sdl-image flags-sdl-img-ada flags-sdl-mixer \
+	flags-sdl-ttf-ada flags-sdl-ttf flags-silc flags-skel flags-smtplib \
+	flags-sndfile-ada flags-sndfile flags-sqlite3-ada flags-sqlite3 flags-sse \
+	flags-sse2 flags-sse3 flags-stack-ada flags-tiff flags-vector flags-cc-vector
 
 cc-link:\
 conf-ld conf-ldtype conf-systype conf-ldflags
@@ -1214,11 +1237,11 @@ cc-slib:\
 conf-systype
 
 conf-cctype:\
-conf-cc conf-cc mk-cctype
+conf-cc mk-cctype
 	./mk-cctype > conf-cctype.tmp && mv conf-cctype.tmp conf-cctype
 
 conf-ldtype:\
-conf-ld conf-ld mk-ldtype
+conf-ld mk-ldtype
 	./mk-ldtype > conf-ldtype.tmp && mv conf-ldtype.tmp conf-ldtype
 
 conf-systype:\

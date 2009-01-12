@@ -196,6 +196,11 @@ main (void)
 #else
   printf("system does not have opengl\n");
 #endif
+#ifdef HAVE_OPENSSL
+  printf("system has openssl\n");
+#else
+  printf("system does not have openssl\n");
+#endif
 #ifdef HAVE_PDCGI
   printf("system has pdcgi\n");
 #else

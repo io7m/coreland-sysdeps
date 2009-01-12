@@ -10,6 +10,8 @@ flags-circbuf
 flags-corelib
 flags-enet
 flags-fastcgi
+flags-flac-ada
+flags-flac
 flags-fltk11
 flags-fltk2
 flags-getopt-ada
@@ -23,6 +25,8 @@ flags-loadso
 flags-lua-ada
 flags-lua-load
 flags-lua
+flags-lua-physfs-ada
+flags-lua-physfs
 flags-carbon
 flags-matrix4
 flags-mmx
@@ -30,8 +34,10 @@ flags-msg-ada
 flags-netlib
 flags-openal
 flags-opengl
+flags-openssl
 flags-pdcgi
 flags-pgada
+flags-physfs-ada
 flags-physfs
 flags-plexlog
 flags-png
@@ -57,9 +63,12 @@ flags-skel
 flags-smtplib
 flags-sndfile-ada
 flags-sndfile
+flags-sqlite3-ada
+flags-sqlite3
 flags-sse
 flags-sse2
 flags-sse3
+flags-stack-ada
 flags-tiff
 flags-vector
 flags-cc-vector

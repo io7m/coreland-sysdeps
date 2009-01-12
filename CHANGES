@@ -129,3 +129,7 @@
 20090107 code: added flac-libs
 20090107 code: added flac-ada-flags
 20090107 code: added flac-ada-libs-S
+20090112 code: added openssl-flags
+20090112 code: added openssl-libs
+20090112 code: added openssl-libs-S
+20090112 code: fix pkg-config defines bug (missing ${def}).
