@@ -133,3 +133,6 @@
 20090112 code: added openssl-libs
 20090112 code: added openssl-libs-S
 20090112 code: fix pkg-config defines bug (missing ${def}).
+20090214 code: updated ver_gnat.adb
+20090214 code: added c_string-flags
+20090214 code: added c_string-libs
