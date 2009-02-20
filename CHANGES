@@ -136,3 +136,7 @@
 20090214 code: updated ver_gnat.adb
 20090214 code: added c_string-flags
 20090214 code: added c_string-libs
+20090219 code: added chrono-ada-flags
+20090219 code: added chrono-ada-libs-S
+20090220 code: added plexlog-ada-flags
+20090220 code: added plexlog-ada-libs-S
