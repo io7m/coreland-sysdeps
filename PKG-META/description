@@ -1,0 +1,7 @@
+<p>
+This package provides modular compile-time feature detection
+and can be easily hooked into any ordinary Makefile.
+</p>
+<p>
+It is written using ISO C and POSIX sh.
+</p>
