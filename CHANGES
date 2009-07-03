@@ -145,3 +145,5 @@
 20090427 code: added opengl-ada-flags
 20090427 code: added opengl-ada-libs-S
 20090624 code: added sd-streams
+20090704 code: rewrote sd-cpuidx86.c for better x86_64 support and
+               readability/maintainability.
