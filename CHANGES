@@ -147,3 +147,5 @@
 20090624 code: added sd-streams
 20090704 code: rewrote sd-cpuidx86.c for better x86_64 support and
                readability/maintainability.
+20090829 code: added serial_io-flags
+20090829 code: added serial_io-libs-S
