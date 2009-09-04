@@ -3,271 +3,9 @@
 #
 # This file is intended to be called by 'sysdeps-main'
 #
-
+# This file operates under the protection of a global lock, due to
+# compiling and using binaries in the working directory.
 #
-# C compiler and linker
-# sysdeps conf-cc preferred over project conf-cc preferred over 'cc'
-# sysdeps conf-ld preferred over project conf-ld preferred over 'ld'
-#
-
-SYSDEP_CROSS_COMPILE=0
-${SYSDEP_FILE} exists "conf-x-cc"
-if [ $? -eq 1 ]
-then
-  SYSDEP_CROSS_COMPILE=1
-  SYSDEP_INFO "conf-x-cc exists - assuming cross compilation"
-fi
-export SYSDEP_CROSS_COMPILE
-
-if [ $SYSDEP_CROSS_COMPILE -eq 1 ]
-then
-  conf=`${SYSDEP_FILE} show "conf-x-cc"` || SYSDEP_FATAL "could not read conf-x-cc"
-  SYSDEP_CC=`${SYSDEP_LINE} 1 < ${conf}` || SYSDEP_FATAL "could not read conf-x-cc"
-
-  conf=`${SYSDEP_FILE} show "conf-x-ld"` || SYSDEP_FATAL "could not read conf-x-ld"
-  SYSDEP_LD=`${SYSDEP_LINE} 1 < ${conf}` || SYSDEP_FATAL "could not read conf-x-ld"
-
-  if [ -z "${SYSDEP_CC}" ]
-  then
-    SYSDEP_FATAL "cross compiler is not defined, check 'conf-x-cc'"
-  fi
-  if [ -z "${SYSDEP_LD}" ]
-  then
-    SYSDEP_FATAL "cross linker is not defined, check 'conf-x-ld'"
-  fi
-
-  conf=`${SYSDEP_FILE} show "conf-x-cflags"`
-  if [ $? -eq 1 ]
-  then
-    SYSDEP_CFLAGS=`${SYSDEP_LINE} 1 < ${conf}` ||
-      SYSDEP_FATAL "could not read conf-x-cflags"
-  fi
-  conf=`${SYSDEP_FILE} show "conf-x-ldflags"`
-  if [ $? -eq 1 ]
-  then
-    SYSDEP_LDFLAGS=`${SYSDEP_LINE} 1 < ${conf}` ||
-      SYSDEP_FATAL "could not read conf-x-ldflags"
-  fi
-
-  export SYSDEP_CFLAGS
-  export SYSDEP_LDFLAGS
-else
-  SYSDEP_CC="cc"
-
-  conf=`${SYSDEP_FILE} show "conf-cc"`
-  if [ $? -eq 1 ]
-  then
-    SYSDEP_CC=`${SYSDEP_LINE} 1 < ${conf}` ||
-      SYSDEP_FATAL "could not read conf-cc"
-  fi
-
-  conf=`${SYSDEP_FILE} show "conf-ld"`
-  if [ $? -eq 1 ]
-  then
-    SYSDEP_LD=`${SYSDEP_LINE} 1 < ${conf}` ||
-      SYSDEP_FATAL "could not read conf-ld"
-  fi
-
-  if [ -z "${SYSDEP_CC}" ]
-  then
-    SYSDEP_FATAL "C compiler is not defined"
-  fi
-  if [ -z "${SYSDEP_LD}" ]
-  then
-    SYSDEP_FATAL "linker is not defined"
-  fi
-
-  conf=`${SYSDEP_FILE} show "conf-cflags"`
-  if [ $? -eq 1 ]
-  then
-    SYSDEP_CFLAGS=`${SYSDEP_LINE} 1 < ${conf}` ||
-      SYSDEP_FATAL "could not read conf-cflags"
-  fi
-  conf=`${SYSDEP_FILE} show "conf-ldflags"`
-  if [ $? -eq 1 ]
-  then
-    SYSDEP_LDFLAGS=`${SYSDEP_LINE} 1 < ${conf}` ||
-      SYSDEP_FATAL "could not read conf-ldflags"
-  fi
-
-  export SYSDEP_CFLAGS
-  export SYSDEP_LDFLAGS
-
-  #
-  # optional Ada components
-  #
-
-  conf=`${SYSDEP_FILE} show "conf-adacomp"`
-  if [ $? -eq 1 ]
-  then
-    SYSDEP_ADA_COMP=`${SYSDEP_LINE} 1 < ${conf}` ||
-      SYSDEP_FATAL "could not read conf-adacomp"
-    if [ -z "${SYSDEP_ADA_COMP}" ]
-    then
-      SYSDEP_FATAL "Ada compiler undefined, check conf-adacomp"
-    fi
-  fi
-
-  conf=`${SYSDEP_FILE} show "conf-adabind"`
-  if [ $? -eq 1 ]
-  then
-    SYSDEP_ADA_BIND=`${SYSDEP_LINE} 1 < ${conf}` ||
-      SYSDEP_FATAL "could not read conf-adabind"
-    if [ -z "${SYSDEP_ADA_BIND}" ]
-    then
-      SYSDEP_FATAL "Ada binder undefined, check conf-adabind"
-    fi
-  fi
-
-  conf=`${SYSDEP_FILE} show "conf-adalink"`
-  if [ $? -eq 1 ]
-  then
-    SYSDEP_ADA_LINK=`${SYSDEP_LINE} 1 < ${conf}` ||
-      SYSDEP_FATAL "could not read conf-adalink"
-    if [ -z "${SYSDEP_ADA_LINK}" ]
-    then
-      SYSDEP_FATAL "Ada linker undefined, check conf-adalink"
-    fi
-  fi
-
-  export SYSDEP_ADA_COMP
-  export SYSDEP_ADA_BIND
-  export SYSDEP_ADA_LINK
-
-  conf=`${SYSDEP_FILE} show "conf-adacflags"`
-  if [ $? -eq 1 ]
-  then
-    SYSDEP_ADA_CFLAGS=`${SYSDEP_LINE} 1 < ${conf}` ||
-      SYSDEP_FATAL "could not read conf-adacflags"
-  fi
-
-  conf=`${SYSDEP_FILE} show "conf-adabflags"`
-  if [ $? -eq 1 ]
-  then
-    SYSDEP_ADA_BFLAGS=`${SYSDEP_LINE} 1 < ${conf}` ||
-      SYSDEP_FATAL "could not read conf-adabflags"
-  fi
-
-  conf=`${SYSDEP_FILE} show "conf-adaldflags"`
-  if [ $? -eq 1 ]
-  then
-    SYSDEP_ADA_LDFLAGS=`${SYSDEP_LINE} 1 < ${conf}` ||
-      SYSDEP_FATAL "could not read conf-adaldflags"
-  fi
-
-  export SYSDEP_ADA_CFLAGS
-  export SYSDEP_ADA_BFLAGS
-  export SYSDEP_ADA_LDFLAGS
-fi
-
-SYSDEP_DEBUG "SYSDEP_CC          ${SYSDEP_CC}"
-SYSDEP_DEBUG "SYSDEP_CFLAGS      ${SYSDEP_CC}"
-SYSDEP_DEBUG "SYSDEP_LD          ${SYSDEP_LD}"
-SYSDEP_DEBUG "SYSDEP_LDFLAGS     ${SYSDEP_LD}"
-SYSDEP_DEBUG "SYSDEP_ADA_COMP    ${SYSDEP_ADA_COMP}"
-SYSDEP_DEBUG "SYSDEP_ADA_CFLAGS  ${SYSDEP_ADA_CFLAGS}"
-SYSDEP_DEBUG "SYSDEP_ADA_BIND    ${SYSDEP_ADA_BIND}"
-SYSDEP_DEBUG "SYSDEP_ADA_BFLAGS  ${SYSDEP_ADA_BFLAGS}"
-SYSDEP_DEBUG "SYSDEP_ADA_LINK    ${SYSDEP_ADA_LINK}"
-SYSDEP_DEBUG "SYSDEP_ADA_LDFLAGS ${SYSDEP_ADA_LDFLAGS}"
-
-#
-# Check C compiler and linker are usable.
-#
-
-cc_usable=0
-for dir in `echo $PATH | sed -e 's/:/ /g'`
-do
-  if [ -x "${dir}/${SYSDEP_CC}" ]
-  then
-    cc_usable=1
-    SYSDEP_DEBUG "CC ${dir}/${SYSDEP_CC} usable"
-    break
-  else
-    SYSDEP_DEBUG "CC ${dir}/${SYSDEP_CC} not executable"
-  fi
-done
-if [ ${cc_usable} -eq 0 ]
-then
-  SYSDEP_FATAL "could not locate usable C compiler, check PATH and conf-cc"
-fi
-export SYSDEP_CC
-
-ld_usable=0
-for dir in `echo $PATH | sed -e 's/:/ /g'`
-do
-  if [ -x "${dir}/${SYSDEP_LD}" ]
-  then
-    ld_usable=1
-    SYSDEP_DEBUG "LD ${dir}/${SYSDEP_LD} usable"
-    break
-  else
-    SYSDEP_DEBUG "LD ${dir}/${SYSDEP_LD} not executable"
-  fi
-done
-if [ ${ld_usable} -eq 0 ]
-then
-  SYSDEP_FATAL "could not locate usable C linker, check PATH and conf-ld"
-fi
-export SYSDEP_LD
-
-#
-# Check Ada compiler/binder/linker is usable, if defined.
-#
-
-if [ ! -z "${SYSDEP_ADA_COMP}" ]
-then
-  ada_comp_usable=0
-  for dir in `echo $PATH | sed -e 's/:/ /g'`
-  do
-    if [ -x "${dir}/${SYSDEP_ADA_COMP}" ]
-    then
-      ada_comp_usable=1
-      SYSDEP_DEBUG "ADA_COMP ${dir}/${SYSDEP_ADA_COMP} usable"
-      break
-    else
-      SYSDEP_DEBUG "ADA_COMP ${dir}/${SYSDEP_ADA_COMP} not executable"
-    fi
-  done
-  if [ ${ada_comp_usable} -eq 0 ]
-  then
-    SYSDEP_FATAL "could not locate usable Ada compiler, check PATH and conf-adacomp"
-  fi
-
-  ada_bind_usable=0
-  for dir in `echo $PATH | sed -e 's/:/ /g'`
-  do
-    if [ -x "${dir}/${SYSDEP_ADA_BIND}" ]
-    then
-      ada_bind_usable=1
-      SYSDEP_DEBUG "ADA_BIND ${dir}/${SYSDEP_ADA_BIND} usable"
-      break
-    else
-      SYSDEP_DEBUG "ADA_BIND ${dir}/${SYSDEP_ADA_BIND} not executable"
-    fi
-  done
-  if [ ${ada_bind_usable} -eq 0 ]
-  then
-    SYSDEP_FATAL "could not locate usable Ada binder, check PATH and conf-adabind"
-  fi
-
-  ada_link_usable=0
-  for dir in `echo $PATH | sed -e 's/:/ /g'`
-  do
-    if [ -x "${dir}/${SYSDEP_ADA_LINK}" ]
-    then
-      ada_link_usable=1
-      SYSDEP_DEBUG "ADA_LINK ${dir}/${SYSDEP_ADA_LINK} usable"
-      break
-    else
-      SYSDEP_DEBUG "ADA_LINK ${dir}/${SYSDEP_ADA_LINK} not executable"
-    fi
-  done
-  if [ ${ada_link_usable} -eq 0 ]
-  then
-    SYSDEP_FATAL "could not locate usable Ada linker, check PATH and conf-adalink"
-  fi
-fi
 
 #
 # Read configuration files, compiling support programs if necessary.
@@ -485,7 +223,7 @@ else
   export SYSDEP_ADA_VERSION
 fi
 
-# override path prefix
+# Override path prefix.
 PREFIX=`${SYSDEP_FILE} get "conf-prefix" ""`
 for dir in ${PREFIX}
 do
@@ -495,7 +233,7 @@ do
   STDLIB_ADD="${STDLIB_ADD} ${dir}/lib"
 done
 
-# override path prefix for cross compilation
+# Override path prefix for cross compilation.
 if [ ${SYSDEP_CROSS_COMPILE} -eq 1 ]
 then
   PREFIX=`${SYSDEP_FILE} get "conf-x-prefix" ""`
@@ -508,7 +246,7 @@ then
   done
 fi
 
-# standard include path
+# Standard include path.
 SYSDEP_STDINC="/usr/include /usr/local/include"
 case ${SYSDEP_OS} in
   SYSDEP_OS_DARWIN) SYSDEP_STDINC="/opt/local/include /opt/include /sw/include ${SYSDEP_STDINC}";;
@@ -518,7 +256,7 @@ esac
 SYSDEP_STDINC="${STDINC_ADD} ${SYSDEP_STDINC}"
 export SYSDEP_STDINC
 
-# standard library path
+# Standard library path.
 SYSDEP_STDLIB="/usr/lib /usr/local/lib"
 case ${SYSDEP_OS} in
   SYSDEP_OS_DARWIN) SYSDEP_STDLIB="/opt/local/lib /opt/lib /sw/lib ${SYSDEP_STDLIB}";;
@@ -537,4 +275,3 @@ case ${SYSDEP_OS} in
   *) ;;
 esac
 export SYSDEP_LIBSUFFIX
-
