@@ -10,6 +10,41 @@
 #
 
 #
+# Essential subprograms.
+#
+
+SYSDEP_FATAL()
+{
+  if [ ! -z "${SYSDEP_MODULE}" ]
+  then
+    echo "${SYSDEP_MODULE}: fatal: $1" 1>&2
+  else
+    echo "sysdep-main: fatal: $1" 1>&2
+  fi
+  exit 1
+}
+
+SYSDEP_ERROR()
+{
+  if [ ! -z "${SYSDEP_MODULE}" ]
+  then
+    echo "${SYSDEP_MODULE}: error: $1" 1>&2
+  else
+    echo "sysdep-main: error: $1" 1>&2
+  fi
+}
+
+SYSDEP_INFO()
+{
+  if [ ! -z "${SYSDEP_MODULE}" ]
+  then
+    echo "${SYSDEP_MODULE}: info: $1" 1>&2
+  else
+    echo "sysdep-main: info: $1" 1>&2
+  fi
+}
+
+#
 # Path from module to SYSDEPS dir (MUST end with trailing slash)
 #
 SYSDEP_DIR_RELATIVE="../../"
