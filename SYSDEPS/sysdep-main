@@ -107,9 +107,13 @@ export SYSDEP_LINE
 # Support subprograms.
 #
 
-files_move()
+#
+# Move created files out of working directory into output directory.
+#
+
+SDM_files_move()
 {
-  for file in ${CREATES}
+  for file in ${SDM_CREATES}
   do
     if [ "${file}" = "sysdeps.out" ]
     then
@@ -122,15 +126,26 @@ files_move()
   done
 }
 
-files_clean()
+#
+# Remove created files from output directory.
+#
+
+SDM_files_clean()
 {
-  for file in ${CREATES}
+  for file in ${SDM_CREATES}
   do
     rm -f "${file}" "${SYSDEP_OUTDIR}/${file}"
   done
 }
 
-flatten_defines()
+#
+# Convert list of macro names into flattened string with each macro
+# name prefixed with '-D'.
+#
+# XXX: Do all compilers accept -D?
+#
+
+SDM_flatten_defines()
 {
   d=""
   if [ ! -z "$1" ]
@@ -143,13 +158,23 @@ flatten_defines()
   fi
 }
 
-paths_add()
+#
+# Add given list of directories to standard search paths.
+#
+
+SDM_paths_add()
 {
   for p in $1; do SYSDEP_STDINC="$p/include $p ${SYSDEP_STDINC}"; done
   for p in $1; do SYSDEP_STDLIB="$p/lib $p ${SYSDEP_STDLIB}"; done
 }
 
-paths_extend()
+#
+# Concatentate each element of given list of path components
+# to each component of the standard search paths and combine
+# the two resulting lists.
+#
+
+SDM_paths_extend()
 {
   for d in ${SYSDEP_STDINC}
   do
@@ -161,7 +186,12 @@ paths_extend()
   done
 }
 
-os_tolower()
+#
+# Strip leading SYSDEP_OS_ tag from operating system name and
+# convert to lowercase.
+#
+
+SDM_os_tolower()
 {
   echo ${SYSDEP_OS} | sed -e 's/SYSDEP_OS_//g' | tr [A-Z] [a-z]
 }
