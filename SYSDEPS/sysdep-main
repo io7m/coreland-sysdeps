@@ -215,51 +215,61 @@ then
   # Ensure a clean environment.
   #
 
-  rm -f ${CREATES}
-  touch ${CREATES}
+  rm -f ${SDM_CREATES} || SYSDEP_FATAL "could not clean up created files"
+  touch ${SDM_CREATES} || SYSDEP_FATAL "could not create empty files"
 
   #
-  # Execute custom script if present
+  # Execute custom script if present.
   #
 
-  if [ -x custom ]
+  if [ -x "custom" ]
   then
-    ./custom ${CREATES}
-    files_move
+    ./custom ${SDM_CREATES} || SYSDEP_ERROR "custom search reported failure"
+    SDM_files_move
     exit 0
   else
-    if [ -f custom ]
+    if [ -f "custom" ]
     then
-      ${SYSDEP_FATAL} "custom exists but is not executable"
-      exit 112
+      SYSDEP_FATAL "'custom' exists but is not executable"
     fi
   fi
 
   #
-  # create output file
+  # Create output file.
   #
 
-  ofile="`${SYSDEP_LINE} 1 < creates`"
-  touch ${ofile}
+  OUTPUT_FILE="`${SYSDEP_LINE} 1 < creates`" ||
+    SYSDEP_FATAL "could not determine output file"
+  touch ${OUTPUT_FILE} ||
+    SYSDEP_FATAL "could not create '${OUTPUT_FILE}'"
 
-  defines="`cat defines 2>/dev/null`"
-
-  #
-  # read OS specific definitions
-  #
-
-  os_lower=`os_tolower`
-  if [ -f "os_ext/$os_lower/defines" ]
+  if [ -f "defines" ]
   then
-    defines="`cat "os_ext/$os_lower/defines" 2>/dev/null`"
+    DEFINES="`cat defines`" ||
+      SYSDEP_FATAL "could not read 'defines'"
+  fi
+
+  #
+  # Read OS specific definitions.
+  #
+
+  OS_LOWER=`SDM_os_tolower` ||
+    SYSDEP_FATAL "could not convert OS string to lowercase"
+
+  if [ -f "os_ext/${OS_LOWER}/defines" ]
+  then
+    DEFINES="`cat "os_ext/${OS_LOWER}/defines"`" ||
+      SYSDEP_FATAL "could not read 'os_ext/${OS_LOWER}/defines'"
   fi
   if [ -f flags ]
   then
-    xflags="`${SYSDEP_LINE} 1 < flags`";
+    EXTRA_FLAGS="`${SYSDEP_LINE} 1 < flags`" ||
+      SYSDEP_FATAL "could not read 'flags'"
   fi
-  if [ -f "os_ext/$os_lower/flags" ]
+  if [ -f "os_ext/${OS_LOWER}/flags" ]
   then
-    xflags="${xflags} `${SYSDEP_LINE} 1 < os_ext/$os_lower/flags`"
+    EXTRA_FLAGS="${EXTRA_FLAGS} `${SYSDEP_LINE} 1 < os_ext/${OS_LOWER}/flags`" ||
+      SYSDEP_FATAL "could not read 'os_ext/${OS_LOWER}/flags'"
   fi
 
   #
@@ -268,19 +278,27 @@ then
 
   if [ -f "config_bin" ]
   then
-    config_bin="`${SYSDEP_LINE} 1 < config_bin`"
-    config_bin_args="`${SYSDEP_LINE} 1 < config_bin_args`"
-    flags=`${SYSDEP_TRY_CONFIG_BIN} "${config_bin}" "${config_bin_args}" 2>&-`
-    if [ ! -z "${flags}" ]
+    CONFIG_BINARY="`${SYSDEP_LINE} 1 < config_bin`" ||
+      SYSDEP_FATAL "could not read 'config_bin'"
+    CONFIG_BINARY_ARGS="`${SYSDEP_LINE} 1 < config_bin_args`" ||
+      SYSDEP_FATAL "could not read 'config_bin_args'"
+
+    FLAGS=`${SYSDEP_TRY_CONFIG_BIN} "${CONFIG_BINARY}" "${CONFIG_BINARY_ARGS}"` ||
+      SYSDEP_ERROR "config binary '${CONFIG_BINARY}' failed"
+
+    if [ ! -z "${FLAGS}" ]
     then 
-      def=`flatten_defines "${defines}"`
-      str="${flags} ${def} ${xflags}"
-      echo "${str}" >> "${ofile}"
-      echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
-      files_move
+      FINAL_DEFINES=`SDM_flatten_defines "${DEFINES}"` ||
+        SYSDEP_FATAL "error flattening preprocessor defines"
+      FINAL_OUTPUT="${FLAGS} ${FINAL_DEFINES} ${EXTRA_FLAGS}"
+
+      echo "${FINAL_OUTPUT}" >> "${OUTPUT_FILE}" ||
+        SYSDEP_FATAL "could not write ${OUTPUT_FILE}"
+      echo "${SYSDEP_MODULE}: ${FINAL_OUTPUT}" >> "sysdeps.out" ||
+        SYSDEP_FATAL "could not write sysdeps.out"
+
+      SDM_files_move || SYSDEP_FATAL "error moving files"
       exit 0
-    else
-      ${SYSDEP_ERROR} "config binary failed"
     fi
   fi
 
@@ -290,19 +308,27 @@ then
 
   if [ -f "pkg" ]
   then
-    pkg_config_args="`${SYSDEP_LINE} 1 < pkg_config_args`"
-    pkg="`${SYSDEP_LINE} 1 < pkg`"
-    flags=`${SYSDEP_TRY_PKG_CONFIG} "${pkg}" "${pkg_config_args}" 2>&-`
-    if [ ! -z "${flags}" ]
+    PKG_CONFIG_ARGS="`${SYSDEP_LINE} 1 < pkg_config_args`" ||
+      SYSDEP_FATAL "could not read 'pkg_config_args'"
+    PACKAGE="`${SYSDEP_LINE} 1 < pkg`" ||
+      SYSDEP_FATAL "could not read 'pkg'"
+
+    FLAGS=`${SYSDEP_TRY_PKG_CONFIG} "${PACKAGE}" "${PKG_CONFIG_ARGS}"` ||
+      SYSDEP_ERROR "pkg-config failed for '${PACKAGE}'"
+
+    if [ ! -z "${FLAGS}" ]
     then
-      def=`flatten_defines "${defines}"`
-      str="${flags} ${def} ${xflags}"
-      echo "${str}" >> "${ofile}"
-      echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
-      files_move
-      exit 0
-    else
-      ${SYSDEP_ERROR} "pkg-config failed"
+      FINAL_DEFINES=`SDM_flatten_defines "${DEFINES}"` ||
+        SYSDEP_FATAL "error flattening preprocessor defines"
+      FINAL_OUTPUT="${FLAGS} ${FINAL_DEFINES} ${EXTRA_FLAGS}"
+
+      echo "${FINAL_OUTPUT}" >> "${OUTPUT_FILE}" ||
+        SYSDEP_FATAL "could not write ${OUTPUT_FILE}"
+      echo "${SYSDEP_MODULE}: ${FINAL_OUTPUT}" >> "sysdeps.out" ||
+        SYSDEP_FATAL "could not write sysdeps.out"
+
+      SDM_files_move || SYSDEP_FATAL "error moving files"
+      exit 0 
     fi
   fi
 
@@ -312,100 +338,143 @@ then
 
   if [ -f "path_add" ]
   then
-    paths_add "`cat path_add`"
+    SDM_paths_add "`cat path_add`" ||
+      SYSDEP_FATAL "could not read 'path_add'"
   fi
-  if [ -f "os_ext/$os_lower/path_add" ]
+  if [ -f "os_ext/${OS_LOWER}/path_add" ]
   then
-    paths_add "`cat os_ext/$os_lower/path_add`"
+    SDM_paths_add "`cat os_ext/${OS_LOWER}/path_add`" ||
+      SYSDEP_FATAL "could not read 'os_ext/${OS_LOWER}/path_add'"
   fi
   if [ -f "path_ext" ]
   then
-    paths_extend "`cat path_ext`"
+    SDM_paths_extend "`cat path_ext`" ||
+      SYSDEP_FATAL "could not read 'path_ext'"
   fi
-  if [ -f "os_ext/$os_lower/path_ext" ]
+  if [ -f "os_ext/${OS_LOWER}/path_ext" ]
   then
-    paths_extend "`cat os_ext/$os_lower/path_ext`"
+    SDM_paths_extend "`cat os_ext/${OS_LOWER}/path_ext`" ||
+      SYSDEP_FATAL "could not read 'os_ext/${OS_LOWER}/path_ext'"
   fi
 
-  if [ -f header ]
+  #
+  # Header file search.
+  #
+
+  if [ -f "header" ]
   then
-    file="`${SYSDEP_LINE} 1 < header`"
-    if [ -f "os_ext/$os_lower/header" ]
+    HEADER_FILE="`${SYSDEP_LINE} 1 < header`" ||
+      SYSDEP_FATAL "could not read 'header'"
+
+    if [ -f "os_ext/${OS_LOWER}/header" ]
     then
-      file="`${SYSDEP_LINE} 1 < os_ext/$os_lower/header`"
+      HEADER_FILE="`${SYSDEP_LINE} 1 < os_ext/${OS_LOWER}/header`" ||
+        SYSDEP_FATAL "could not read 'os_ext/${OS_LOWER}/header'"
     fi
-    flags=`${SYSDEP_TRY_MANUAL} "${file}" "${SYSDEP_STDINC}" "-I" 2>&-`
-    if [ ! -z "${flags}" ]
+
+    FLAGS=`${SYSDEP_TRY_MANUAL} "${HEADER_FILE}" "${SYSDEP_STDINC}" "-I"` ||
+      SYSDEP_ERROR "manual search for ${HEADER_FILE} failed"
+
+    if [ ! -z "${FLAGS}" ]
     then
-      def=`flatten_defines "${defines}"`
-      str="${flags} ${def} ${xflags}"
-      echo "${str}" >> "${ofile}"
-      echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
-      files_move
+      FINAL_DEFINES=`SDM_flatten_defines "${DEFINES}"` ||
+        SYSDEP_FATAL "error flattening preprocessor defines"
+      FINAL_OUTPUT="${FLAGS} ${FINAL_DEFINES} ${EXTRA_FLAGS}"
+
+      echo "${FINAL_OUTPUT}" >> "${OUTPUT_FILE}" ||
+        SYSDEP_FATAL "could not write ${OUTPUT_FILE}"
+      echo "${SYSDEP_MODULE}: ${FINAL_OUTPUT}" >> "sysdeps.out" ||
+        SYSDEP_FATAL "could not write sysdeps.out"
+
+      SDM_files_move || SYSDEP_FATAL "error moving files"
+      exit 0 
+    fi
+  fi
+
+  #
+  # Dynamic library search.
+  #
+
+  if [ -f "dynlib" ]
+  then
+    DYNAMIC_LIB="`${SYSDEP_LINE} 1 < dynlib`" ||
+      SYSDEP_FATAL "could not read 'dynlib'"
+
+    if [ -f "os_ext/${OS_LOWER}/dynlib" ]
+    then
+      DYNAMIC_LIB="`${SYSDEP_LINE} 1 < os_ext/${OS_LOWER}/dynlib`" ||
+        SYSDEP_FATAL "could not read 'os_ext/${OS_LOWER}/dynlib'"
+    fi
+
+    LIBRARY_FILE="lib${DYNAMIC_LIB}.${SYSDEP_LIBSUFFIX}"
+
+    FLAGS=`${SYSDEP_TRY_MANUAL} "${LIBRARY_FILE}" "${SYSDEP_STDLIB}" "-L"` ||
+      SYSDEP_ERROR "manual search for '${LIBRARY_FILE}' failed"
+
+    if [ ! -z "${FLAGS}" ]
+    then
+      FINAL_OUTPUT="${FLAGS} -l${DYNAMIC_LIB} ${EXTRA_FLAGS}"
+      echo "${FINAL_OUTPUT}" >> "${OUTPUT_FILE}" ||
+        SYSDEP_FATAL "could not write '${OUTPUT_FILE}'"
+      echo "${SYSDEP_MODULE}: ${FINAL_OUTPUT}" >> "sysdeps.out" ||
+        SYSDEP_FATAL "could not write 'sysdeps.out'"
+
+      SDM_files_move || SYSDEP_FATAL "error moving files"
       exit 0
     fi
   fi
 
   #
-  # dynamic lib search
-  #
-
-  if [ -f dynlib ]
-  then
-    lib="`${SYSDEP_LINE} 1 < dynlib`"
-    if [ -f "os_ext/$os_lower/dynlib" ]
-    then
-      lib="`${SYSDEP_LINE} 1 < os_ext/$os_lower/dynlib`"
-    fi
-    file="lib${lib}.${SYSDEP_LIBSUFFIX}"
-    flags=`${SYSDEP_TRY_MANUAL} "${file}" "${SYSDEP_STDLIB}" "-L" 2>&-`
-    if [ ! -z "${flags}" ]
-    then
-      str="${flags} -l${lib} ${xflags}"
-      echo "${str}" >> "${ofile}"
-      echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
-      files_move
-      exit 0
-    fi
-  fi
-
-  #
-  # static lib search
+  # Static library search.
   #
 
   if [ -f slib ]
   then
-    lib="`${SYSDEP_LINE} 1 < slib`"
-    if [ -f "os_ext/$os_lower/slib" ]
+    STATIC_LIBRARY="`${SYSDEP_LINE} 1 < slib`" ||
+      SYSDEP_FATAL "could not read 'slib'"
+
+    if [ -f "os_ext/${OS_LOWER}/slib" ]
     then
-      lib="`${SYSDEP_LINE} 1 < os_ext/$os_lower/slib`"
+      STATIC_LIBRARY="`${SYSDEP_LINE} 1 < os_ext/${OS_LOWER}/slib`" ||
+        SYSDEP_FATAL "could not read 'os_ext/${OS_LOWER}/slib'"
     fi
-    file="lib${lib}.a"
-    flags=`${SYSDEP_TRY_MANUAL} "${file}" "${SYSDEP_STDLIB}" "" 2>&-`
-    if [ ! -z "${flags}" ]
+
+    STATIC_LIBRARY_FILE="lib${STATIC_LIBRARY}.a"
+
+    FLAGS=`${SYSDEP_TRY_MANUAL} "${STATIC_LIBRARY_FILE}" "${SYSDEP_STDLIB}" ""` ||
+      SYSDEP_ERROR "manual search for '${STATIC_LIBRARY_FILE}' failed"
+
+    if [ ! -z "${FLAGS}" ]
     then
-      str=`printf "%s/%s %s" ${flags} "${file}" "${xflags}"`
-      echo "${str}" >> "${ofile}"
-      echo "${SYSDEP_MODULE}: ${str}" >> "sysdeps.out"
-      files_move
+      FINAL_OUTPUT=`printf "%s/%s %s" ${FLAGS} "${STATIC_LIBRARY_FILE}" "${EXTRA_FLAGS}"` ||
+        SYSDEP_FATAL "could not assemble output"
+
+      echo "${FINAL_OUTPUT}" >> "${OUTPUT_FILE}" ||
+        SYSDEP_FATAL "could not write to '${OUTPUT_FILE}'"
+      echo "${SYSDEP_MODULE}: ${FINAL_OUTPUT}" >> "sysdeps.out" ||
+        SYSDEP_FATAL "could not write to 'sysdeps.out'"
+
+      SDM_files_move || SYSDEP_FATAL "error moving files"
       exit 0
     fi
   fi
 
-  ${SYSDEP_ERROR} "manual search failed"
-  files_move
+  SYSDEP_INFO "all search types failed"
+  SDM_files_move || SYSDEP_FATAL "error moving files"
 else
-  rm -f ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86 \
-        ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86.o
-  rm -f ${SYSDEP_DIR_RELATIVE}/sd-arch \
-        ${SYSDEP_DIR_RELATIVE}/sd-arch.o
-  rm -f ${SYSDEP_DIR_RELATIVE}/sd-cctype \
-        ${SYSDEP_DIR_RELATIVE}/sd-cctype.o
-  rm -f ${SYSDEP_DIR_RELATIVE}/sd-ccversion \
-        ${SYSDEP_DIR_RELATIVE}/sd-ccversion.o
-  rm -f ${SYSDEP_DIR_RELATIVE}/sd-adaversion.out
-  rm -f ${SYSDEP_DIR_RELATIVE}/sd-os \
-        ${SYSDEP_DIR_RELATIVE}/sd-os.o
-  rm -f ${SYSDEP_OUTDIR}/sysdeps.out
-  files_clean
+  rm -f ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86       \
+        ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86.o     \
+        ${SYSDEP_DIR_RELATIVE}/sd-arch           \
+        ${SYSDEP_DIR_RELATIVE}/sd-arch.o         \
+        ${SYSDEP_DIR_RELATIVE}/sd-cctype         \
+        ${SYSDEP_DIR_RELATIVE}/sd-cctype.o       \
+        ${SYSDEP_DIR_RELATIVE}/sd-ccversion      \
+        ${SYSDEP_DIR_RELATIVE}/sd-ccversion.o    \
+        ${SYSDEP_DIR_RELATIVE}/sd-adaversion.out \
+        ${SYSDEP_DIR_RELATIVE}/sd-os             \
+        ${SYSDEP_DIR_RELATIVE}/sd-os.o           \
+        ${SYSDEP_OUTDIR}/sysdeps.out ||
+    SYSDEP_FATAL "error removing standard files"
+  SDM_files_clean ||
+    SYSDEP_FATAL "error removing files"
 fi
