@@ -12,42 +12,42 @@
 
 SYSDEP_CROSS_COMPILE=0
 ${SYSDEP_FILE} exists "conf-x-cc"
-if [ $? -eq 1 ]; then SYSDEP_CROSS_COMPILE=1; fi
+if [ $? -eq 1 ]
+then
+  SYSDEP_CROSS_COMPILE=1
+  SYSDEP_INFO "conf-x-cc exists - assuming cross compilation"
+fi
 export SYSDEP_CROSS_COMPILE
 
 if [ $SYSDEP_CROSS_COMPILE -eq 1 ]
 then
-  conf=`${SYSDEP_FILE} show "conf-x-cc"`
-  if [ $? -eq 0 ]
-  then
-    ${SYSDEP_ERROR} "could not read conf-x-cc"
-    exit 112;
-  fi
-  SYSDEP_CC=`${SYSDEP_LINE} 1 < ${conf}`
+  conf=`${SYSDEP_FILE} show "conf-x-cc"` || SYSDEP_FATAL "could not read conf-x-cc"
+  SYSDEP_CC=`${SYSDEP_LINE} 1 < ${conf}` || SYSDEP_FATAL "could not read conf-x-cc"
 
-  conf=`${SYSDEP_FILE} show "conf-x-ld"`
-  if [ $? -eq 0 ]
-  then
-    ${SYSDEP_ERROR} "could not read conf-x-ld"
-    exit 112;
-  fi
-  SYSDEP_LD=`${SYSDEP_LINE} 1 < ${conf}`
+  conf=`${SYSDEP_FILE} show "conf-x-ld"` || SYSDEP_FATAL "could not read conf-x-ld"
+  SYSDEP_LD=`${SYSDEP_LINE} 1 < ${conf}` || SYSDEP_FATAL "could not read conf-x-ld"
 
   if [ -z "${SYSDEP_CC}" ]
   then
-    ${SYSDEP_ERROR} "cross compiler is not defined"
-    exit 112
+    SYSDEP_FATAL "cross compiler is not defined, check 'conf-x-cc'"
   fi
   if [ -z "${SYSDEP_LD}" ]
   then
-    ${SYSDEP_ERROR} "cross linker is not defined"
-    exit 112
+    SYSDEP_FATAL "cross linker is not defined, check 'conf-x-ld'"
   fi
 
   conf=`${SYSDEP_FILE} show "conf-x-cflags"`
-  if [ $? -eq 1 ]; then SYSDEP_CFLAGS=`${SYSDEP_LINE} 1 < ${conf}`; fi
+  if [ $? -eq 1 ]
+  then
+    SYSDEP_CFLAGS=`${SYSDEP_LINE} 1 < ${conf}` ||
+      SYSDEP_FATAL "could not read conf-x-cflags"
+  fi
   conf=`${SYSDEP_FILE} show "conf-x-ldflags"`
-  if [ $? -eq 1 ]; then SYSDEP_LDFLAGS=`${SYSDEP_LINE} 1 < ${conf}`; fi
+  if [ $? -eq 1 ]
+  then
+    SYSDEP_LDFLAGS=`${SYSDEP_LINE} 1 < ${conf}` ||
+      SYSDEP_FATAL "could not read conf-x-ldflags"
+  fi
 
   export SYSDEP_CFLAGS
   export SYSDEP_LDFLAGS
@@ -57,40 +57,39 @@ else
   conf=`${SYSDEP_FILE} show "conf-cc"`
   if [ $? -eq 1 ]
   then
-    SYSDEP_CC=`${SYSDEP_LINE} 1 < ${conf}`
-    if [ $? -ne 0 ]
-    then
-      ${SYSDEP_ERROR} "could not read conf-cc"
-      exit 112;
-    fi
+    SYSDEP_CC=`${SYSDEP_LINE} 1 < ${conf}` ||
+      SYSDEP_FATAL "could not read conf-cc"
   fi
 
   conf=`${SYSDEP_FILE} show "conf-ld"`
   if [ $? -eq 1 ]
   then
-    SYSDEP_LD=`${SYSDEP_LINE} 1 < ${conf}`
-    if [ $? -ne 0 ]
-    then
-      ${SYSDEP_ERROR} "could not read conf-ld"
-      exit 112;
-    fi
+    SYSDEP_LD=`${SYSDEP_LINE} 1 < ${conf}` ||
+      SYSDEP_FATAL "could not read conf-ld"
   fi
 
   if [ -z "${SYSDEP_CC}" ]
   then
-    ${SYSDEP_ERROR} "C compiler is not defined"
-    exit 112
+    SYSDEP_FATAL "C compiler is not defined"
   fi
   if [ -z "${SYSDEP_LD}" ]
   then
-    ${SYSDEP_ERROR} "linker is not defined"
-    exit 112
+    SYSDEP_FATAL "linker is not defined"
   fi
 
   conf=`${SYSDEP_FILE} show "conf-cflags"`
-  if [ $? -eq 1 ]; then SYSDEP_CFLAGS=`${SYSDEP_LINE} 1 < ${conf}`; fi
+  if [ $? -eq 1 ]
+  then
+    SYSDEP_CFLAGS=`${SYSDEP_LINE} 1 < ${conf}` ||
+      SYSDEP_FATAL "could not read conf-cflags"
+  fi
   conf=`${SYSDEP_FILE} show "conf-ldflags"`
-  if [ $? -eq 1 ]; then SYSDEP_LDFLAGS=`${SYSDEP_LINE} 1 < ${conf}`; fi
+  if [ $? -eq 1 ]
+  then
+    SYSDEP_LDFLAGS=`${SYSDEP_LINE} 1 < ${conf}` ||
+      SYSDEP_FATAL "could not read conf-ldflags"
+  fi
+
   export SYSDEP_CFLAGS
   export SYSDEP_LDFLAGS
 
@@ -101,51 +100,33 @@ else
   conf=`${SYSDEP_FILE} show "conf-adacomp"`
   if [ $? -eq 1 ]
   then
-    SYSDEP_ADA_COMP=`${SYSDEP_LINE} 1 < ${conf}`
-    if [ $? -ne 0 ]
+    SYSDEP_ADA_COMP=`${SYSDEP_LINE} 1 < ${conf}` ||
+      SYSDEP_FATAL "could not read conf-adacomp"
+    if [ -z "${SYSDEP_ADA_COMP}" ]
     then
-      ${SYSDEP_ERROR} "could not read conf-adacomp"
-      exit 112;
+      SYSDEP_FATAL "Ada compiler undefined, check conf-adacomp"
     fi
   fi
 
   conf=`${SYSDEP_FILE} show "conf-adabind"`
   if [ $? -eq 1 ]
   then
-    SYSDEP_ADA_BIND=`${SYSDEP_LINE} 1 < ${conf}`
-    if [ $? -ne 0 ]
+    SYSDEP_ADA_BIND=`${SYSDEP_LINE} 1 < ${conf}` ||
+      SYSDEP_FATAL "could not read conf-adabind"
+    if [ -z "${SYSDEP_ADA_BIND}" ]
     then
-      ${SYSDEP_ERROR} "could not read conf-adabind"
-      exit 112;
+      SYSDEP_FATAL "Ada binder undefined, check conf-adabind"
     fi
   fi
 
   conf=`${SYSDEP_FILE} show "conf-adalink"`
   if [ $? -eq 1 ]
   then
-    SYSDEP_ADA_LINK=`${SYSDEP_LINE} 1 < ${conf}`
-    if [ $? -ne 0 ]
-    then
-      ${SYSDEP_ERROR} "could not read conf-adalink"
-      exit 112;
-    fi
-  fi
-
-  #
-  # If Ada compiler was defined, check for presence of binder and linker.
-  #
-
-  if [ ! -z "${SYSDEP_ADA_COMP}" ]
-  then
-    if [ -z "${SYSDEP_ADA_BIND}" ]
-    then
-      ${SYSDEP_ERROR} "Ada binder is not defined"
-      exit 112
-    fi
+    SYSDEP_ADA_LINK=`${SYSDEP_LINE} 1 < ${conf}` ||
+      SYSDEP_FATAL "could not read conf-adalink"
     if [ -z "${SYSDEP_ADA_LINK}" ]
     then
-      ${SYSDEP_ERROR} "Ada linker is not defined"
-      exit 112
+      SYSDEP_FATAL "Ada linker undefined, check conf-adalink"
     fi
   fi
 
@@ -154,15 +135,41 @@ else
   export SYSDEP_ADA_LINK
 
   conf=`${SYSDEP_FILE} show "conf-adacflags"`
-  if [ $? -eq 1 ]; then SYSDEP_ADA_CFLAGS=`${SYSDEP_LINE} 1 < ${conf}`; fi
+  if [ $? -eq 1 ]
+  then
+    SYSDEP_ADA_CFLAGS=`${SYSDEP_LINE} 1 < ${conf}` ||
+      SYSDEP_FATAL "could not read conf-adacflags"
+  fi
+
   conf=`${SYSDEP_FILE} show "conf-adabflags"`
-  if [ $? -eq 1 ]; then SYSDEP_ADA_BFLAGS=`${SYSDEP_LINE} 1 < ${conf}`; fi
+  if [ $? -eq 1 ]
+  then
+    SYSDEP_ADA_BFLAGS=`${SYSDEP_LINE} 1 < ${conf}` ||
+      SYSDEP_FATAL "could not read conf-adabflags"
+  fi
+
   conf=`${SYSDEP_FILE} show "conf-adaldflags"`
-  if [ $? -eq 1 ]; then SYSDEP_ADA_LDFLAGS=`${SYSDEP_LINE} 1 < ${conf}`; fi
+  if [ $? -eq 1 ]
+  then
+    SYSDEP_ADA_LDFLAGS=`${SYSDEP_LINE} 1 < ${conf}` ||
+      SYSDEP_FATAL "could not read conf-adaldflags"
+  fi
+
   export SYSDEP_ADA_CFLAGS
   export SYSDEP_ADA_BFLAGS
   export SYSDEP_ADA_LDFLAGS
 fi
+
+SYSDEP_DEBUG "SYSDEP_CC          ${SYSDEP_CC}"
+SYSDEP_DEBUG "SYSDEP_CFLAGS      ${SYSDEP_CC}"
+SYSDEP_DEBUG "SYSDEP_LD          ${SYSDEP_LD}"
+SYSDEP_DEBUG "SYSDEP_LDFLAGS     ${SYSDEP_LD}"
+SYSDEP_DEBUG "SYSDEP_ADA_COMP    ${SYSDEP_ADA_COMP}"
+SYSDEP_DEBUG "SYSDEP_ADA_CFLAGS  ${SYSDEP_ADA_CFLAGS}"
+SYSDEP_DEBUG "SYSDEP_ADA_BIND    ${SYSDEP_ADA_BIND}"
+SYSDEP_DEBUG "SYSDEP_ADA_BFLAGS  ${SYSDEP_ADA_BFLAGS}"
+SYSDEP_DEBUG "SYSDEP_ADA_LINK    ${SYSDEP_ADA_LINK}"
+SYSDEP_DEBUG "SYSDEP_ADA_LDFLAGS ${SYSDEP_ADA_LDFLAGS}"
 
 #
 # Check C compiler and linker are usable.
@@ -174,12 +181,15 @@ do
   if [ -x "${dir}/${SYSDEP_CC}" ]
   then
     cc_usable=1
+    SYSDEP_DEBUG "CC ${dir}/${SYSDEP_CC} usable"
+    break
+  else
+    SYSDEP_DEBUG "CC ${dir}/${SYSDEP_CC} not executable"
   fi
 done
 if [ ${cc_usable} -eq 0 ]
 then
-  ${SYSDEP_ERROR} "could not locate usable C compiler"
-  exit 112
+  SYSDEP_FATAL "could not locate usable C compiler, check PATH and conf-cc"
 fi
 export SYSDEP_CC
 
@@ -189,12 +199,15 @@ do
   if [ -x "${dir}/${SYSDEP_LD}" ]
   then
     ld_usable=1
+    SYSDEP_DEBUG "LD ${dir}/${SYSDEP_LD} usable"
+    break
+  else
+    SYSDEP_DEBUG "LD ${dir}/${SYSDEP_LD} not executable"
   fi
 done
 if [ ${ld_usable} -eq 0 ]
 then
-  ${SYSDEP_ERROR} "could not locate usable C linker"
-  exit 112
+  SYSDEP_FATAL "could not locate usable C linker, check PATH and conf-ld"
 fi
 export SYSDEP_LD
 
@@ -210,12 +223,15 @@ then
     if [ -x "${dir}/${SYSDEP_ADA_COMP}" ]
     then
       ada_comp_usable=1
+      SYSDEP_DEBUG "ADA_COMP ${dir}/${SYSDEP_ADA_COMP} usable"
+      break
+    else
+      SYSDEP_DEBUG "ADA_COMP ${dir}/${SYSDEP_ADA_COMP} not executable"
     fi
   done
   if [ ${ada_comp_usable} -eq 0 ]
   then
-    ${SYSDEP_ERROR} "could not locate usable Ada compiler"
-    exit 112
+    SYSDEP_FATAL "could not locate usable Ada compiler, check PATH and conf-adacomp"
   fi
 
   ada_bind_usable=0
@@ -224,12 +240,15 @@ then
     if [ -x "${dir}/${SYSDEP_ADA_BIND}" ]
     then
       ada_bind_usable=1
+      SYSDEP_DEBUG "ADA_BIND ${dir}/${SYSDEP_ADA_BIND} usable"
+      break
+    else
+      SYSDEP_DEBUG "ADA_BIND ${dir}/${SYSDEP_ADA_BIND} not executable"
     fi
   done
   if [ ${ada_bind_usable} -eq 0 ]
   then
-    ${SYSDEP_ERROR} "could not locate usable Ada binder"
-    exit 112
+    SYSDEP_FATAL "could not locate usable Ada binder, check PATH and conf-adabind"
   fi
 
   ada_link_usable=0
@@ -238,12 +257,15 @@ then
     if [ -x "${dir}/${SYSDEP_ADA_LINK}" ]
     then
       ada_link_usable=1
+      SYSDEP_DEBUG "ADA_LINK ${dir}/${SYSDEP_ADA_LINK} usable"
+      break
+    else
+      SYSDEP_DEBUG "ADA_LINK ${dir}/${SYSDEP_ADA_LINK} not executable"
     fi
   done
   if [ ${ada_link_usable} -eq 0 ]
   then
-    ${SYSDEP_ERROR} "could not locate usable Ada linker"
-    exit 112
+    SYSDEP_FATAL "could not locate usable Ada linker, check PATH and conf-adalink"
   fi
 fi
 
@@ -253,96 +275,115 @@ fi
 
 if [ ${SYSDEP_CROSS_COMPILE} -eq 0 ]
 then
-  if [ ! -f ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86 ]
+  if [ ! -x ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86 ]
   then
+    SYSDEP_DEBUG "compiling sd-cpuidx86"
     ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86.o \
     ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86.c 2>/dev/null
     ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86 \
     ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86.o 2>/dev/null
   fi
-  if [ ! -f ${SYSDEP_DIR_RELATIVE}/sd-arch ]
+  if [ ! -x ${SYSDEP_DIR_RELATIVE}/sd-arch ]
   then
+    SYSDEP_DEBUG "compiling sd-arch"
     ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o ${SYSDEP_DIR_RELATIVE}/sd-arch.o \
-    ${SYSDEP_DIR_RELATIVE}/sd-arch.c 2>/dev/null
+    ${SYSDEP_DIR_RELATIVE}/sd-arch.c || SYSDEP_ERROR "sd-arch failed to compile"
     ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o ${SYSDEP_DIR_RELATIVE}/sd-arch \
-    ${SYSDEP_DIR_RELATIVE}/sd-arch.o 2>/dev/null
+    ${SYSDEP_DIR_RELATIVE}/sd-arch.o || SYSDEP_ERROR "sd-arch failed to link"
   fi
-  if [ ! -f ${SYSDEP_DIR_RELATIVE}/sd-cctype ]
+  if [ ! -x ${SYSDEP_DIR_RELATIVE}/sd-cctype ]
   then
+    SYSDEP_DEBUG "compiling sd-cctype"
     ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o ${SYSDEP_DIR_RELATIVE}/sd-cctype.o \
-    ${SYSDEP_DIR_RELATIVE}/sd-cctype.c 2>/dev/null
+    ${SYSDEP_DIR_RELATIVE}/sd-cctype.c || SYSDEP_ERROR "sd-cctype failed to compile"
     ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o ${SYSDEP_DIR_RELATIVE}/sd-cctype \
-    ${SYSDEP_DIR_RELATIVE}/sd-cctype.o 2>/dev/null
+    ${SYSDEP_DIR_RELATIVE}/sd-cctype.o || SYSDEP_ERROR "sd-cctype failed to link"
   fi
-  if [ ! -f ${SYSDEP_DIR_RELATIVE}/sd-os ]
+  if [ ! -x ${SYSDEP_DIR_RELATIVE}/sd-os ]
   then
+    SYSDEP_DEBUG "compiling sd-os"
     ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o ${SYSDEP_DIR_RELATIVE}/sd-os.o \
-    ${SYSDEP_DIR_RELATIVE}/sd-os.c 2>/dev/null
+    ${SYSDEP_DIR_RELATIVE}/sd-os.c || SYSDEP_ERROR "sd-os failed to compile"
     ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o ${SYSDEP_DIR_RELATIVE}/sd-os \
-    ${SYSDEP_DIR_RELATIVE}/sd-os.o 2>/dev/null
+    ${SYSDEP_DIR_RELATIVE}/sd-os.o || SYSDEP_ERROR "sd-os failed to link"
   fi
-  if [ ! -f ${SYSDEP_DIR_RELATIVE}/sd-ccversion ]
+  if [ ! -x ${SYSDEP_DIR_RELATIVE}/sd-ccversion ]
   then
+    SYSDEP_DEBUG "compiling sd-ccversion"
     ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o ${SYSDEP_DIR_RELATIVE}/sd-ccversion.o \
-    ${SYSDEP_DIR_RELATIVE}/sd-ccversion.c 2>/dev/null
+    ${SYSDEP_DIR_RELATIVE}/sd-ccversion.c || SYSDEP_ERROR "sd-ccversion failed to compile"
     ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o ${SYSDEP_DIR_RELATIVE}/sd-ccversion \
-    ${SYSDEP_DIR_RELATIVE}/sd-ccversion.o 2>/dev/null
+    ${SYSDEP_DIR_RELATIVE}/sd-ccversion.o || SYSDEP_ERROR "sd-ccversion failed to link"
   fi
 
-  # find system type
-  SYSDEP_OS="`${SYSDEP_DIR_RELATIVE}/sd-os`"
+  # Find system type.
+  SYSDEP_OS="`${SYSDEP_DIR_RELATIVE}/sd-os`" ||
+    SYSDEP_ERROR "sd-os failed - operating system will be marked 'unknown'"
   export SYSDEP_OS
   
-  # find system version
-  SYSDEP_OSVERSION="`${SYSDEP_DIR_RELATIVE}/sd-osversion ${SYSDEP_OS}`"
+  # Find system version.
+  SYSDEP_OSVERSION="`${SYSDEP_DIR_RELATIVE}/sd-osversion ${SYSDEP_OS}`" ||
+    SYSDEP_ERROR "sd-osversion failed - operating system version will be marked '0.0.0'"
   export SYSDEP_OSVERSION
   
-  # find system architecture
-  SYSDEP_ARCH="`${SYSDEP_DIR_RELATIVE}/sd-arch`"
+  # Find system architecture.
+  SYSDEP_ARCH="`${SYSDEP_DIR_RELATIVE}/sd-arch`" ||
+    SYSDEP_ERROR "sd-arch failed - architecture will be marked 'unknown'"
   export SYSDEP_ARCH
   
-  # find compiler type
-  SYSDEP_CCTYPE="`${SYSDEP_DIR_RELATIVE}/sd-cctype`"
+  # Find compiler type.
+  SYSDEP_CCTYPE="`${SYSDEP_DIR_RELATIVE}/sd-cctype`" ||
+    SYSDEP_ERROR "sd-cctype failed - compiler type will be marked 'unknown'"
   export SYSDEP_CCTYPE
   
-  # find compiler version
-  SYSDEP_CCVERSION="`${SYSDEP_DIR_RELATIVE}/sd-ccversion`"
+  # Find compiler version.
+  SYSDEP_CCVERSION="`${SYSDEP_DIR_RELATIVE}/sd-ccversion`" ||
+    SYSDEP_ERROR "sd-ccversion failed - compiler version will be marked '0.0.0'"
   export SYSDEP_CCVERSION
   
-  # find cpu features (altivec, sse etc)
-  SYSDEP_CPU_EXT="`${SYSDEP_DIR_RELATIVE}/sd-cpufeat ${SYSDEP_OS}`"
+  # Find CPU features (Altivec, SSE etc).
+  SYSDEP_CPU_EXT="`${SYSDEP_DIR_RELATIVE}/sd-cpufeat ${SYSDEP_OS}`" ||
+    SYSDEP_ERROR "sd-cpufeat failed - CPU will appear to have no features"
   export SYSDEP_CPU_EXT
   
-  # find number of CPUs
-  SYSDEP_CPU_NUM="`${SYSDEP_DIR_RELATIVE}/sd-cpunum ${SYSDEP_OS}`"
+  # Find number of CPUs.
+  SYSDEP_CPU_NUM="`${SYSDEP_DIR_RELATIVE}/sd-cpunum ${SYSDEP_OS}`" ||
+    SYSDEP_ERROR "sd-cpunum failed - number of CPUs will be zero"
   export SYSDEP_CPU_NUM
   
-  # find CPU model
-  SYSDEP_CPU_MODEL="`${SYSDEP_DIR_RELATIVE}/sd-cpumodel ${SYSDEP_OS}`"
+  # Find CPU model.
+  SYSDEP_CPU_MODEL="`${SYSDEP_DIR_RELATIVE}/sd-cpumodel ${SYSDEP_OS}`" ||
+    SYSDEP_ERROR "sd-cpumodel failed - CPU model will be marked 'unknown'"
   export SYSDEP_CPU_MODEL
   
-  # find CPU frequency
-  SYSDEP_CPU_FREQ="`${SYSDEP_DIR_RELATIVE}/sd-cpufreq ${SYSDEP_OS}`"
+  # Find CPU frequency.
+  SYSDEP_CPU_FREQ="`${SYSDEP_DIR_RELATIVE}/sd-cpufreq ${SYSDEP_OS}`" ||
+    SYSDEP_ERROR "sd-cpufreq failed - CPU frequency will be zero"
   export SYSDEP_CPU_FREQ
   
-  # find CPU L1 instruction cache size
-  SYSDEP_CPU_L1_INST_CACHE_SIZE="`${SYSDEP_DIR_RELATIVE}/sd-cpul1icache ${SYSDEP_OS}`"
+  # Find CPU L1 instruction cache size.
+  SYSDEP_CPU_L1_INST_CACHE_SIZE="`${SYSDEP_DIR_RELATIVE}/sd-cpul1icache ${SYSDEP_OS}`" ||
+    SYSDEP_ERROR "sd-cpul1icache failed - L1 instruction cache size will be zero"
   export SYSDEP_CPU_L1_INST_CACHE_SIZE
   
-  # find CPU L1 data cache size
-  SYSDEP_CPU_L1_DATA_CACHE_SIZE="`${SYSDEP_DIR_RELATIVE}/sd-cpul1dcache ${SYSDEP_OS}`"
+  # Find CPU L1 data cache size.
+  SYSDEP_CPU_L1_DATA_CACHE_SIZE="`${SYSDEP_DIR_RELATIVE}/sd-cpul1dcache ${SYSDEP_OS}`" ||
+    SYSDEP_ERROR "sd-cpul1dcache failed - L1 data cache size will be zero"
   export SYSDEP_CPU_L1_DATA_CACHE_SIZE
   
-  # find CPU L2 cache size
-  SYSDEP_CPU_L2_CACHE_SIZE="`${SYSDEP_DIR_RELATIVE}/sd-cpul2cache ${SYSDEP_OS}`"
+  # Find CPU L2 cache size.
+  SYSDEP_CPU_L2_CACHE_SIZE="`${SYSDEP_DIR_RELATIVE}/sd-cpul2cache ${SYSDEP_OS}`" ||
+    SYSDEP_ERROR "sd-cpul12cache failed - L2 cache size will be zero"
   export SYSDEP_CPU_L2_CACHE_SIZE
   
-  # find CPU L3 cache size
-  SYSDEP_CPU_L3_CACHE_SIZE="`${SYSDEP_DIR_RELATIVE}/sd-cpul3cache ${SYSDEP_OS}`"
+  # Find CPU L3 cache size.
+  SYSDEP_CPU_L3_CACHE_SIZE="`${SYSDEP_DIR_RELATIVE}/sd-cpul3cache ${SYSDEP_OS}`" ||
+    SYSDEP_ERROR "sd-cpul13cache failed - L3 cache size will be zero"
   export SYSDEP_CPU_L3_CACHE_SIZE
   
-  # find CPU cache line size
-  SYSDEP_CPU_CACHE_LINE_SIZE="`${SYSDEP_DIR_RELATIVE}/sd-cpuclinesz ${SYSDEP_OS}`"
+  # Find CPU cache line size.
+  SYSDEP_CPU_CACHE_LINE_SIZE="`${SYSDEP_DIR_RELATIVE}/sd-cpuclinesz ${SYSDEP_OS}`" ||
+    SYSDEP_ERROR "sd-cpuclinesz failed - cache line size will be zero"
   export SYSDEP_CPU_CACHE_LINE_SIZE
 
   #----------------------------------------------------------------------
