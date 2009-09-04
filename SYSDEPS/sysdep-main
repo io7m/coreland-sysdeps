@@ -44,6 +44,20 @@ SYSDEP_INFO()
   fi
 }
 
+SYSDEP_DEBUG()
+{
+  if [ -f "${SYSDEP_DIR_RELATIVE}/conf-debug" ]
+  then
+    if [ ! -z "${SYSDEP_MODULE}" ]
+    then
+      echo "${SYSDEP_MODULE}: debug: $1" 1>&2
+    else
+      echo "sysdep-main: debug: $1" 1>&2
+    fi
+  fi
+}
+
+
 #
 # Path from module to SYSDEPS dir (MUST end with trailing slash)
 #
