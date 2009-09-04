@@ -50,7 +50,7 @@ then
       none)
         no_chflags;;
       *)
-        ${SYSDEP_ERROR} "unexpected value in ${conf}"
+        SYSDEP_ERROR "unexpected value in ${conf}"
         no_chflags;;
     esac
   fi

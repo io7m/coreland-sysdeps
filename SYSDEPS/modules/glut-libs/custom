@@ -36,7 +36,7 @@ then
       ;;
     esac
 else
-  ${SYSDEP_ERROR} "manual search failed"
+  SYSDEP_ERROR "manual search failed"
 fi
 
 exit 0

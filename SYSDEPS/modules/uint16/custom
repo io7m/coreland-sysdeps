@@ -9,7 +9,7 @@ cleanup()
 
 fatal()
 {
-  ${SYSDEP_FATAL} "$1"
+  SYSDEP_FATAL "$1"
   cleanup
   exit 1
 }
@@ -66,7 +66,7 @@ then
 fi
 
 conf=`${SYSDEP_LINE} 1 < CONFIG`
-${SYSDEP_INFO} "falling back to ${conf}"
+SYSDEP_INFO "falling back to ${conf}"
 type=`${SYSDEP_FILE} get "${conf}" ""`
 if [ ! -z ${type} ]
 then

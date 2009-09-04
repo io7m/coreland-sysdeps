@@ -7,7 +7,7 @@ cleanup()
 
 fatal()
 {
-  ${SYSDEP_FATAL} "$1"
+  SYSDEP_FATAL "$1"
   cleanup
   exit 1
 }
