@@ -76,8 +76,7 @@ then
   then
     SYSDEP_OUTDIR="${SYSDEP_DIR_RELATIVE}/${DIR}"
   else
-    ${SYSDEP_FATAL} "conf-outdir exists but could not be read"
-    exit 1
+    SYSDEP_FATAL "conf-outdir exists but could not be read"
   fi
 fi
 export SYSDEP_OUTDIR
@@ -86,23 +85,13 @@ export SYSDEP_OUTDIR
 # Obtain current working directory.
 #
 
-PWD=`pwd`
-if [ $? -ne 0 ]
-then
-  ${SYSDEP_FATAL} "could not obtain current working directory (problem with 'pwd')"
-  exit 1
-fi
+PWD=`pwd` || SYSDEP_FATAL "could not obtain current working directory (problem with 'pwd')"
 
 #
 # Obtain name of module based on current directory.
 #
 
-SYSDEP_MODULE="`basename $PWD`"
-if [ $? -ne 0 ]
-then
-  ${SYSDEP_FATAL} "could not translate current working directory (problem with 'basename')"
-  exit 1
-fi
+SYSDEP_MODULE="`basename $PWD`" || SYSDEP_FATAL "could not translate current working directory (problem with 'basename')"
 
 export SYSDEP_MODULE
 export SYSDEP_TRY_CONFIG_BIN
@@ -178,10 +167,16 @@ os_tolower()
 }
 
 #
-# List of created files.
+# Obtain list of files that the current module creates.
 #
 
-CREATES="`cat creates` sysdeps.out"
+SDM_CREATES=`cat creates` || SYSDEP_FATAL "could not read 'creates' file"
+SDM_CREATES="${SDM_CREATES} sysdeps.out"
+
+#
+# Execute module.
+#
+
 if [ -z "${SYSDEP_CLEAN}" ];
 then
   . ${SYSDEP_DIR_RELATIVE}/sysdep-subs;
