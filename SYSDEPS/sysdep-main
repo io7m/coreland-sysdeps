@@ -62,6 +62,13 @@ SYSDEP_REMOVE()
   return $?
 }
 
+SYSDEP_MOVE()
+{
+  SYSDEP_DEBUG "move $1 $2"
+  mv -f "$1" "$2"
+  return $?
+}
+
 #
 # Path from module to SYSDEPS dir (MUST end with trailing slash)
 #
