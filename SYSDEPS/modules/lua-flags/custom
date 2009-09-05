@@ -4,10 +4,9 @@ temp_f="$1"
 temp_sys="$2"
 
 args=""
-path="${SYSDEP_STDINC}"
 file="lua.h"
 
-FLAGS=`${SYSDEP_TRY_MANUAL} "${file}" "${path}" "-I" 2>&-`
+FLAGS=`${SYSDEP_TRY_MANUAL} "${file}" "${SYSDEP_STDINC}" "-I" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
   echo "${FLAGS} -DHAVE_LUA " >> "${temp_f}"
@@ -19,19 +18,20 @@ fi
 # Lua uses versioned directories.
 #
 
-for dir in ${path}
+for DIRECTORY in ${SYSDEP_STDINC}
 do
-  maybe_dirs=`ls ${dir} | grep lua`
-  for dir_ext in ${maybe_dirs}
-  do
-    if [ -f "${dir}/${dir_ext}/${file}" ]
-    then
-      echo "-I${dir}/${dir_ext} -DHAVE_LUA " >> "${temp_f}"
-      echo "lua-flags: -I${dir}/${dir_ext} -DHAVE_LUA " >> "${temp_sys}"
-      exit 0
-    fi
-  done
+  if [ -d "${DIRECTORY}" ]
+  then
+    MAYBE_DIRECTORIES=`ls ${DIRECTORY} | grep lua`
+    for DIRECTORY_EXT in ${MAYBE_DIRECTORIES}
+    do
+      if [ -f "${DIRECTORY}/${DIRECTORY_EXT}/${file}" ]
+      then
+        echo "-I${DIRECTORY}/${DIRECTORY_EXT} -DHAVE_LUA " >> "${temp_f}"
+        echo "lua-flags: -I${DIRECTORY}/${DIRECTORY_EXT} -DHAVE_LUA " >> "${temp_sys}"
+        exit 0
+      fi
+    done
+  fi
 done
 
-SYSDEP_ERROR "manual/custom search failed"
-exit 0 
