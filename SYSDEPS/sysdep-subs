@@ -90,7 +90,8 @@ export SYSDEP_LINE
 #
 # OUTDIR is below the base directory unless overridden.
 #
-SYSDEP_OUTPUT_DIRECTORY="../"
+
+SYSDEP_OUTPUT_DIRECTORY="${SYSDEP_BASE_DIRECTORY}/../"
 
 #
 # Override with contents of conf-outdir, if it exists.

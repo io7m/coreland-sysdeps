@@ -377,6 +377,5 @@ else
     ${SYSDEP_DIR_RELATIVE}/sd-os.o           \
     ${SYSDEP_OUTPUT_DIRECTORY}/sysdeps.out ||
       SYSDEP_FATAL "error removing standard files"
-  SDM_files_clean ||
-    SYSDEP_FATAL "error removing files"
+  SDM_files_clean || SYSDEP_FATAL "error removing files"
 fi

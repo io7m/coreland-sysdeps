@@ -1,0 +1,47 @@
+#!/bin/sh
+
+#
+# sysdep-mod-exec
+#
+# Clean a module.
+#
+
+#
+# Support subprograms.
+#
+
+#
+# Remove created files from output directory.
+#
+
+SDM_files_clean()
+{
+  for file in ${SDM_CREATES}
+  do
+    SYSDEP_REMOVE "${file}" "${SYSDEP_OUTPUT_DIRECTORY}/${file}"
+  done
+}
+
+#
+# Obtain list of files that the current module creates.
+#
+
+SDM_CREATES=`cat creates` || SYSDEP_FATAL "could not read 'creates' file"
+SDM_CREATES="${SDM_CREATES} sysdeps.out"
+
+SYSDEP_REMOVE \
+  ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86       \
+  ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.o     \
+  ${SYSDEP_BASE_DIRECTORY}/sd-arch           \
+  ${SYSDEP_BASE_DIRECTORY}/sd-arch.o         \
+  ${SYSDEP_BASE_DIRECTORY}/sd-cctype         \
+  ${SYSDEP_BASE_DIRECTORY}/sd-cctype.o       \
+  ${SYSDEP_BASE_DIRECTORY}/sd-ccversion      \
+  ${SYSDEP_BASE_DIRECTORY}/sd-ccversion.o    \
+  ${SYSDEP_BASE_DIRECTORY}/sd-adaversion.out \
+  ${SYSDEP_BASE_DIRECTORY}/sd-os             \
+  ${SYSDEP_BASE_DIRECTORY}/sd-os.o           \
+  ${SYSDEP_OUTPUT_DIRECTORY}/sysdeps.out ||
+    SYSDEP_FATAL "error removing standard files"
+
+SDM_files_clean || SYSDEP_FATAL "error removing files"
