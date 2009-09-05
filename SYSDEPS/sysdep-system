@@ -8,24 +8,9 @@ SDM_lock_and_compile_fail()
   SYSDEP_FATAL "$1"
 }
 
-#
-# Acquire lock on ${LOCK_FILE} and execute ${ARGUMENTS}.
-#
-
-SDM_lock_and_compile()
+SDM_prepare_locker()
 {
-  LOCK_FILE="$1"
-  SOURCE_FILE="$2"
-  OBJECT_FILE="$3"
-  RESULT_FILE="$4"
-
-  SYSDEP_DEBUG "1 ${LOCK_FILE}"
-  SYSDEP_DEBUG "2 ${SOURCE_FILE}"
-  SYSDEP_DEBUG "3 ${OBJECT_FILE}"
-  SYSDEP_DEBUG "4 ${RESULT_FILE}"
-
   PROCESS_ID=$$
-
   TEMP_OBJECT="${SYSDEP_BASE_DIRECTORY}/sd-locker-${PROCESS_ID}.o"
   TEMP_RESULT="${SYSDEP_BASE_DIRECTORY}/sd-locker-${PROCESS_ID}"
 
@@ -40,6 +25,20 @@ SDM_lock_and_compile()
       SDM_lock_and_compile_fail "could not move sd-locker" "${TEMP_RESULT}" "${TEMP_OBJECT}"
     SYSDEP_REMOVE "${TEMP_RESULT}" "${TEMP_OBJECT}"
   fi
+}
+
+#
+# Acquire lock on ${LOCK_FILE} and execute compiler.
+#
+
+SDM_lock_and_compile()
+{
+  LOCK_FILE="$1"
+  SOURCE_FILE="$2"
+  OBJECT_FILE="$3"
+  RESULT_FILE="$4"
+
+  SDM_prepare_locker
 
   ${SYSDEP_BASE_DIRECTORY}/sd-locker \
     "${LOCK_FILE}" \
@@ -87,6 +86,35 @@ SDM_protected_C_compilation()
     *) SYSDEP_FATAL "SDM_protected_C_compilation parameter must be ALLOW_FAIL or DISALLOW_FAIL"
       ;;
   esac
+}
+
+#
+# Call sd-adaversion and save output safely.
+#
+
+SDM_fetch_adaversion()
+{
+  PROCESS_ID=$$
+
+  SDM_prepare_locker
+
+  SYSDEP_ADA_VERSION_TMP="`${SYSDEP_BASE_DIRECTORY}/sd-locker \
+    "${SYSDEP_BASE_DIRECTORY}/sd-adaversion.lock" \
+    "${SYSDEP_BASE_DIRECTORY}/sd-adaversion"      \
+    "${SYSDEP_ADA_COMP}"                          \
+    "${SYSDEP_ADA_CFLAGS}"                        \
+    "${SYSDEP_ADA_BIND}"                          \
+    "${SYSDEP_ADA_BFLAGS}"                        \
+    "${SYSDEP_ADA_LINK}"                          \
+    "${SYSDEP_ADA_LDFLAGS}"`"
+  SYSDEP_ADA_TYPE=`echo "${SYSDEP_ADA_VERSION_TMP}" | awk '{print $1}'`
+  SYSDEP_ADA_VERSION=`echo "${SYSDEP_ADA_VERSION_TMP}" | awk '{print $2}'`
+
+  echo "${SYSDEP_ADA_VERSION_TMP}" > "${SYSDEP_BASE_DIRECTORY}/sd-adaversion.out.${PROCESS_ID}" ||
+    SYSDEP_FATAL "could not write sd-adaversion.out"
+  SYSDEP_MOVE \
+    "${SYSDEP_BASE_DIRECTORY}/sd-adaversion.out.${PROCESS_ID}" \
+    "${SYSDEP_BASE_DIRECTORY}/sd-adaversion.out" || SYSDEP_FATAL "could not write adaversion.out"
 }
 
 #
@@ -216,12 +244,16 @@ then
   then
     if [ ! -f "${SYSDEP_BASE_DIRECTORY}/sd-adaversion.out" ]
     then
-      SYSDEP_ADA_VERSION_TMP="`${SYSDEP_BASE_DIRECTORY}/sd-adaversion \
-        "${SYSDEP_ADA_COMP}"    \
-        "${SYSDEP_ADA_CFLAGS}"  \
-        "${SYSDEP_ADA_BIND}"    \
-        "${SYSDEP_ADA_BFLAGS}"  \
-        "${SYSDEP_ADA_LINK}"    \
+      SDM_prepare_locker
+
+      SYSDEP_ADA_VERSION_TMP="`${SYSDEP_BASE_DIRECTORY}/sd-locker \
+        "${SYSDEP_BASE_DIRECTORY}/sd-adaversion.lock" \
+        "${SYSDEP_BASE_DIRECTORY}/sd-adaversion"      \
+        "${SYSDEP_ADA_COMP}"                          \
+        "${SYSDEP_ADA_CFLAGS}"                        \
+        "${SYSDEP_ADA_BIND}"                          \
+        "${SYSDEP_ADA_BFLAGS}"                        \
+        "${SYSDEP_ADA_LINK}"                          \
         "${SYSDEP_ADA_LDFLAGS}"`"
       SYSDEP_ADA_TYPE=`echo "${SYSDEP_ADA_VERSION_TMP}" | awk '{print $1}'`
       SYSDEP_ADA_VERSION=`echo "${SYSDEP_ADA_VERSION_TMP}" | awk '{print $2}'`
