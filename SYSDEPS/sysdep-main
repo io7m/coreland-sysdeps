@@ -110,13 +110,15 @@ export SYSDEP_OUTDIR
 # Obtain current working directory.
 #
 
-PWD=`pwd` || SYSDEP_FATAL "could not obtain current working directory (problem with 'pwd')"
+PWD=`pwd` ||
+  SYSDEP_FATAL "could not obtain current working directory (problem with 'pwd')"
 
 #
 # Obtain name of module based on current directory.
 #
 
-SYSDEP_MODULE="`basename $PWD`" || SYSDEP_FATAL "could not translate current working directory (problem with 'basename')"
+SYSDEP_MODULE="`basename $PWD`" ||
+  SYSDEP_FATAL "could not translate current working directory (problem with 'basename')"
 
 export SYSDEP_MODULE
 export SYSDEP_TRY_CONFIG_BIN
