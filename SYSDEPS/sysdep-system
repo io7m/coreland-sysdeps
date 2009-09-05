@@ -1,6 +1,37 @@
 #!/bin/sh
 
 #
+# Acquire lock on ${LOCK_FILE} and execute ${ARGUMENTS}.
+#
+
+SDM_lock_and_exec()
+{
+  LOCK_FILE="$1"
+
+  shift
+
+  ARGUMENTS=$@
+  PROCESS_ID=$$
+
+  TEMP_OBJECT="${SYSDEP_BASE_DIRECTORY}/sd-locker-${PROCESS_ID}.o"
+  TEMP_RESULT="${SYSDEP_BASE_DIRECTORY}/sd-locker-${PROCESS_ID}"
+
+  SYSDEP_DEBUG "SDM_lock_and_exec: compiling ${TEMP_RESULT}" 
+
+  if [ ! -x ${SYSDEP_BASE_DIRECTORY}/sd-locker ]
+  then
+    ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o "${TEMP_OBJECT}" "${TEMP_RESULT}" ||
+      SYSDEP_FATAL "could not compile sd-locker.c"
+    ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o "${TEMP_RESULT}" ||
+      SYSDEP_FATAL "could not compile sd-locker"
+    SYSDEP_MOVE "${TEMP_RESULT}" "${SYSDEP_BASE_DIRECTORY}/sd-locker" ||
+      SYSDEP_FATAL "could not move sd-locker"
+  fi
+
+  ${SYSDEP_BASE_DIRECTORY}/sd-locker "${LOCK_FILE}" ${ARGUMENTS}
+}
+
+#
 # Compile ${SOURCE_FILE} into ${RESULT_FILE} using ${OBJECT_FILE} as intermediate
 # object. ${ALLOW_FAIL} specifies whether the compilation is allowed to fail or not.
 #
@@ -17,18 +48,22 @@ SDM_protected_C_compilation()
     SYSDEP_FATAL "incorrect or missing arguments to SDM_protected_C_compilation"
   fi
 
-  SYSDEP_DEBUG "compiling ${RESULT_FILE}" 
+  SYSDEP_DEBUG "SDM_protected_C_compilation: compiling ${RESULT_FILE}" 
 
   case "${ALLOW_FAIL}" in
     ALLOW_FAIL)
-      ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o "${OBJECT_FILE}" "${SOURCE_FILE}" 2>/dev/null
-      ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o "${RESULT_FILE}" "${OBJECT_FILE}" 2>/dev/null
+      SDM_lock_and_exec "${OBJECT_FILE}.lock" \
+        ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o "${OBJECT_FILE}" "${SOURCE_FILE}" 2>/dev/null
+      SDM_lock_and_exec "${RESULT_FILE}.lock" \
+        ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o "${RESULT_FILE}" "${OBJECT_FILE}" 2>/dev/null
       ;;
     DISALLOW_FAIL)
-      ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o "${OBJECT_FILE}" "${SOURCE_FILE}" ||
-        SYSDEP_FATAL "compilation of ${SOURCE_FILE} failed"
-      ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o "${RESULT_FILE}" "${OBJECT_FILE}" ||
-        SYSDEP_FATAL "linkage of ${RESULT_FILE} failed"
+      SDM_lock_and_exec "${OBJECT_FILE}.lock" \
+        ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o "${OBJECT_FILE}" "${SOURCE_FILE}" ||
+          SYSDEP_FATAL "compilation of ${SOURCE_FILE} failed"
+      SDM_lock_and_exec "${RESULT_FILE}.lock" \
+        ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o "${RESULT_FILE}" "${OBJECT_FILE}" ||
+          SYSDEP_FATAL "linkage of ${RESULT_FILE} failed"
       ;;
     *) SYSDEP_FATAL "SDM_protected_C_compilation parameter must be ALLOW_FAIL or DISALLOW_FAIL"
       ;;
