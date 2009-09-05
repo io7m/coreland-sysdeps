@@ -10,7 +10,7 @@ fi
 # Load essential subs and data.
 #
 
-. sysdep-subs "$1" || exit 1
+. ./sysdep-subs "$1" || exit 1
 
 #
 # Clean standard files.
