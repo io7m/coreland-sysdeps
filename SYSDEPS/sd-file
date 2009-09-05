@@ -1,8 +1,8 @@
 #!/bin/sh
 
 FILE_PATH_DIRS="
-${SYSDEP_DIR_RELATIVE}/../
-${SYSDEP_DIR_RELATIVE}/
+${SYSDEP_BASE_DIRECTORY}/../
+${SYSDEP_BASE_DIRECTORY}/
 "
 file_get_by_path()
 {

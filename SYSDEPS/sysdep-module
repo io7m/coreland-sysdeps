@@ -20,10 +20,10 @@ SDM_files_move()
   do
     if [ "${file}" = "sysdeps.out" ]
     then
-      cat "$file" >> "${SYSDEP_OUTDIR}/$file"
+      cat "$file" >> "${SYSDEP_OUTPUT_DIRECTORY}/$file"
       SYSDEP_REMOVE "${file}"
     else
-      cp "$file" "${SYSDEP_OUTDIR}/$file"
+      cp "$file" "${SYSDEP_OUTPUT_DIRECTORY}/$file"
       SYSDEP_REMOVE "${file}"
     fi
   done
@@ -37,7 +37,7 @@ SDM_files_clean()
 {
   for file in ${SDM_CREATES}
   do
-    SYSDEP_REMOVE "${file}" "${SYSDEP_OUTDIR}/${file}"
+    SYSDEP_REMOVE "${file}" "${SYSDEP_OUTPUT_DIRECTORY}/${file}"
   done
 }
 
@@ -375,7 +375,7 @@ else
     ${SYSDEP_DIR_RELATIVE}/sd-adaversion.out \
     ${SYSDEP_DIR_RELATIVE}/sd-os             \
     ${SYSDEP_DIR_RELATIVE}/sd-os.o           \
-    ${SYSDEP_OUTDIR}/sysdeps.out ||
+    ${SYSDEP_OUTPUT_DIRECTORY}/sysdeps.out ||
       SYSDEP_FATAL "error removing standard files"
   SDM_files_clean ||
     SYSDEP_FATAL "error removing files"

@@ -1,11 +1,39 @@
 #!/bin/sh
 
 #
-# This file is intended to be called by 'sysdeps-main'
+# Compile ${SOURCE_FILE} into ${RESULT_FILE} using ${OBJECT_FILE} as intermediate
+# object. ${ALLOW_FAIL} specifies whether the compilation is allowed to fail or not.
 #
-# This file operates under the protection of a global lock, due to
-# compiling and using binaries in the working directory.
-#
+
+SDM_protected_C_compilation()
+{
+  SOURCE_FILE="$1"
+  OBJECT_FILE="$2"
+  RESULT_FILE="$3"
+  ALLOW_FAIL="$4"
+
+  if [ -z "${SOURCE_FILE}" ] || [ -z "${OBJECT_FILE}" ] || [ -z "${RESULT_FILE}" ] || [ -z "${ALLOW_FAIL}" ]
+  then
+    SYSDEP_FATAL "incorrect or missing arguments to SDM_protected_C_compilation"
+  fi
+
+  SYSDEP_DEBUG "compiling ${RESULT_FILE}" 
+
+  case "${ALLOW_FAIL}" in
+    ALLOW_FAIL)
+      ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o "${OBJECT_FILE}" "${SOURCE_FILE}" 2>/dev/null
+      ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o "${RESULT_FILE}" "${OBJECT_FILE}" 2>/dev/null
+      ;;
+    DISALLOW_FAIL)
+      ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o "${OBJECT_FILE}" "${SOURCE_FILE}" ||
+        SYSDEP_FATAL "compilation of ${SOURCE_FILE} failed"
+      ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o "${RESULT_FILE}" "${OBJECT_FILE}" ||
+        SYSDEP_FATAL "linkage of ${RESULT_FILE} failed"
+      ;;
+    *) SYSDEP_FATAL "SDM_protected_C_compilation parameter must be ALLOW_FAIL or DISALLOW_FAIL"
+      ;;
+  esac
+}
 
 #
 # Read configuration files, compiling support programs if necessary.
@@ -13,114 +41,114 @@
 
 if [ ${SYSDEP_CROSS_COMPILE} -eq 0 ]
 then
-  if [ ! -x ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86 ]
+  if [ ! -x ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86 ]
   then
-    SYSDEP_DEBUG "compiling sd-cpuidx86"
-    ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86.o \
-    ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86.c 2>/dev/null
-    ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86 \
-    ${SYSDEP_DIR_RELATIVE}/sd-cpuidx86.o 2>/dev/null
+    SDM_protected_C_compilation \
+      "${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.c" \
+      "${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.o" \
+      "${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86"   \
+      "ALLOW_FAIL"
   fi
-  if [ ! -x ${SYSDEP_DIR_RELATIVE}/sd-arch ]
+  if [ ! -x ${SYSDEP_BASE_DIRECTORY}/sd-arch ]
   then
-    SYSDEP_DEBUG "compiling sd-arch"
-    ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o ${SYSDEP_DIR_RELATIVE}/sd-arch.o \
-    ${SYSDEP_DIR_RELATIVE}/sd-arch.c || SYSDEP_ERROR "sd-arch failed to compile"
-    ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o ${SYSDEP_DIR_RELATIVE}/sd-arch \
-    ${SYSDEP_DIR_RELATIVE}/sd-arch.o || SYSDEP_ERROR "sd-arch failed to link"
+    SDM_protected_C_compilation \
+      "${SYSDEP_BASE_DIRECTORY}/sd-arch.c" \
+      "${SYSDEP_BASE_DIRECTORY}/sd-arch.o" \
+      "${SYSDEP_BASE_DIRECTORY}/sd-arch"   \
+      "DISALLOW_FAIL"
   fi
-  if [ ! -x ${SYSDEP_DIR_RELATIVE}/sd-cctype ]
+  if [ ! -x ${SYSDEP_BASE_DIRECTORY}/sd-cctype ]
   then
-    SYSDEP_DEBUG "compiling sd-cctype"
-    ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o ${SYSDEP_DIR_RELATIVE}/sd-cctype.o \
-    ${SYSDEP_DIR_RELATIVE}/sd-cctype.c || SYSDEP_ERROR "sd-cctype failed to compile"
-    ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o ${SYSDEP_DIR_RELATIVE}/sd-cctype \
-    ${SYSDEP_DIR_RELATIVE}/sd-cctype.o || SYSDEP_ERROR "sd-cctype failed to link"
+    SDM_protected_C_compilation \
+      "${SYSDEP_BASE_DIRECTORY}/sd-cctype.c" \
+      "${SYSDEP_BASE_DIRECTORY}/sd-cctype.o" \
+      "${SYSDEP_BASE_DIRECTORY}/sd-cctype"   \
+      "DISALLOW_FAIL"
   fi
-  if [ ! -x ${SYSDEP_DIR_RELATIVE}/sd-os ]
+  if [ ! -x ${SYSDEP_BASE_DIRECTORY}/sd-os ]
   then
-    SYSDEP_DEBUG "compiling sd-os"
-    ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o ${SYSDEP_DIR_RELATIVE}/sd-os.o \
-    ${SYSDEP_DIR_RELATIVE}/sd-os.c || SYSDEP_ERROR "sd-os failed to compile"
-    ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o ${SYSDEP_DIR_RELATIVE}/sd-os \
-    ${SYSDEP_DIR_RELATIVE}/sd-os.o || SYSDEP_ERROR "sd-os failed to link"
+    SDM_protected_C_compilation \
+      "${SYSDEP_BASE_DIRECTORY}/sd-os.c" \
+      "${SYSDEP_BASE_DIRECTORY}/sd-os.o" \
+      "${SYSDEP_BASE_DIRECTORY}/sd-os"   \
+      "DISALLOW_FAIL"
   fi
-  if [ ! -x ${SYSDEP_DIR_RELATIVE}/sd-ccversion ]
+  if [ ! -x ${SYSDEP_BASE_DIRECTORY}/sd-ccversion ]
   then
-    SYSDEP_DEBUG "compiling sd-ccversion"
-    ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o ${SYSDEP_DIR_RELATIVE}/sd-ccversion.o \
-    ${SYSDEP_DIR_RELATIVE}/sd-ccversion.c || SYSDEP_ERROR "sd-ccversion failed to compile"
-    ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o ${SYSDEP_DIR_RELATIVE}/sd-ccversion \
-    ${SYSDEP_DIR_RELATIVE}/sd-ccversion.o || SYSDEP_ERROR "sd-ccversion failed to link"
+    SDM_protected_C_compilation \
+      "${SYSDEP_BASE_DIRECTORY}/sd-ccversion.c" \
+      "${SYSDEP_BASE_DIRECTORY}/sd-ccversion.o" \
+      "${SYSDEP_BASE_DIRECTORY}/sd-ccversion"   \
+      "DISALLOW_FAIL"
   fi
 
   # Find system type.
-  SYSDEP_OS="`${SYSDEP_DIR_RELATIVE}/sd-os`" ||
+  SYSDEP_OS="`${SYSDEP_BASE_DIRECTORY}/sd-os`" ||
     SYSDEP_ERROR "sd-os failed - operating system will be marked 'unknown'"
   export SYSDEP_OS
   
   # Find system version.
-  SYSDEP_OSVERSION="`${SYSDEP_DIR_RELATIVE}/sd-osversion ${SYSDEP_OS}`" ||
+  SYSDEP_OSVERSION="`${SYSDEP_BASE_DIRECTORY}/sd-osversion ${SYSDEP_OS}`" ||
     SYSDEP_ERROR "sd-osversion failed - operating system version will be marked '0.0.0'"
   export SYSDEP_OSVERSION
   
   # Find system architecture.
-  SYSDEP_ARCH="`${SYSDEP_DIR_RELATIVE}/sd-arch`" ||
+  SYSDEP_ARCH="`${SYSDEP_BASE_DIRECTORY}/sd-arch`" ||
     SYSDEP_ERROR "sd-arch failed - architecture will be marked 'unknown'"
   export SYSDEP_ARCH
   
   # Find compiler type.
-  SYSDEP_CCTYPE="`${SYSDEP_DIR_RELATIVE}/sd-cctype`" ||
+  SYSDEP_CCTYPE="`${SYSDEP_BASE_DIRECTORY}/sd-cctype`" ||
     SYSDEP_ERROR "sd-cctype failed - compiler type will be marked 'unknown'"
   export SYSDEP_CCTYPE
   
   # Find compiler version.
-  SYSDEP_CCVERSION="`${SYSDEP_DIR_RELATIVE}/sd-ccversion`" ||
+  SYSDEP_CCVERSION="`${SYSDEP_BASE_DIRECTORY}/sd-ccversion`" ||
     SYSDEP_ERROR "sd-ccversion failed - compiler version will be marked '0.0.0'"
   export SYSDEP_CCVERSION
   
   # Find CPU features (Altivec, SSE etc).
-  SYSDEP_CPU_EXT="`${SYSDEP_DIR_RELATIVE}/sd-cpufeat ${SYSDEP_OS}`" ||
+  SYSDEP_CPU_EXT="`${SYSDEP_BASE_DIRECTORY}/sd-cpufeat ${SYSDEP_OS}`" ||
     SYSDEP_ERROR "sd-cpufeat failed - CPU will appear to have no features"
   export SYSDEP_CPU_EXT
   
   # Find number of CPUs.
-  SYSDEP_CPU_NUM="`${SYSDEP_DIR_RELATIVE}/sd-cpunum ${SYSDEP_OS}`" ||
+  SYSDEP_CPU_NUM="`${SYSDEP_BASE_DIRECTORY}/sd-cpunum ${SYSDEP_OS}`" ||
     SYSDEP_ERROR "sd-cpunum failed - number of CPUs will be zero"
   export SYSDEP_CPU_NUM
   
   # Find CPU model.
-  SYSDEP_CPU_MODEL="`${SYSDEP_DIR_RELATIVE}/sd-cpumodel ${SYSDEP_OS}`" ||
+  SYSDEP_CPU_MODEL="`${SYSDEP_BASE_DIRECTORY}/sd-cpumodel ${SYSDEP_OS}`" ||
     SYSDEP_ERROR "sd-cpumodel failed - CPU model will be marked 'unknown'"
   export SYSDEP_CPU_MODEL
   
   # Find CPU frequency.
-  SYSDEP_CPU_FREQ="`${SYSDEP_DIR_RELATIVE}/sd-cpufreq ${SYSDEP_OS}`" ||
+  SYSDEP_CPU_FREQ="`${SYSDEP_BASE_DIRECTORY}/sd-cpufreq ${SYSDEP_OS}`" ||
     SYSDEP_ERROR "sd-cpufreq failed - CPU frequency will be zero"
   export SYSDEP_CPU_FREQ
   
   # Find CPU L1 instruction cache size.
-  SYSDEP_CPU_L1_INST_CACHE_SIZE="`${SYSDEP_DIR_RELATIVE}/sd-cpul1icache ${SYSDEP_OS}`" ||
+  SYSDEP_CPU_L1_INST_CACHE_SIZE="`${SYSDEP_BASE_DIRECTORY}/sd-cpul1icache ${SYSDEP_OS}`" ||
     SYSDEP_ERROR "sd-cpul1icache failed - L1 instruction cache size will be zero"
   export SYSDEP_CPU_L1_INST_CACHE_SIZE
   
   # Find CPU L1 data cache size.
-  SYSDEP_CPU_L1_DATA_CACHE_SIZE="`${SYSDEP_DIR_RELATIVE}/sd-cpul1dcache ${SYSDEP_OS}`" ||
+  SYSDEP_CPU_L1_DATA_CACHE_SIZE="`${SYSDEP_BASE_DIRECTORY}/sd-cpul1dcache ${SYSDEP_OS}`" ||
     SYSDEP_ERROR "sd-cpul1dcache failed - L1 data cache size will be zero"
   export SYSDEP_CPU_L1_DATA_CACHE_SIZE
   
   # Find CPU L2 cache size.
-  SYSDEP_CPU_L2_CACHE_SIZE="`${SYSDEP_DIR_RELATIVE}/sd-cpul2cache ${SYSDEP_OS}`" ||
+  SYSDEP_CPU_L2_CACHE_SIZE="`${SYSDEP_BASE_DIRECTORY}/sd-cpul2cache ${SYSDEP_OS}`" ||
     SYSDEP_ERROR "sd-cpul12cache failed - L2 cache size will be zero"
   export SYSDEP_CPU_L2_CACHE_SIZE
   
   # Find CPU L3 cache size.
-  SYSDEP_CPU_L3_CACHE_SIZE="`${SYSDEP_DIR_RELATIVE}/sd-cpul3cache ${SYSDEP_OS}`" ||
+  SYSDEP_CPU_L3_CACHE_SIZE="`${SYSDEP_BASE_DIRECTORY}/sd-cpul3cache ${SYSDEP_OS}`" ||
     SYSDEP_ERROR "sd-cpul13cache failed - L3 cache size will be zero"
   export SYSDEP_CPU_L3_CACHE_SIZE
   
   # Find CPU cache line size.
-  SYSDEP_CPU_CACHE_LINE_SIZE="`${SYSDEP_DIR_RELATIVE}/sd-cpuclinesz ${SYSDEP_OS}`" ||
+  SYSDEP_CPU_CACHE_LINE_SIZE="`${SYSDEP_BASE_DIRECTORY}/sd-cpuclinesz ${SYSDEP_OS}`" ||
     SYSDEP_ERROR "sd-cpuclinesz failed - cache line size will be zero"
   export SYSDEP_CPU_CACHE_LINE_SIZE
 
@@ -132,9 +160,9 @@ then
 
   if [ "${SYSDEP_ADA_COMP}" ]
   then
-    if [ ! -f "${SYSDEP_DIR_RELATIVE}/sd-adaversion.out" ]
+    if [ ! -f "${SYSDEP_BASE_DIRECTORY}/sd-adaversion.out" ]
     then
-      SYSDEP_ADA_VERSION_TMP="`${SYSDEP_DIR_RELATIVE}/sd-adaversion \
+      SYSDEP_ADA_VERSION_TMP="`${SYSDEP_BASE_DIRECTORY}/sd-adaversion \
         "${SYSDEP_ADA_COMP}"    \
         "${SYSDEP_ADA_CFLAGS}"  \
         "${SYSDEP_ADA_BIND}"    \
@@ -143,10 +171,10 @@ then
         "${SYSDEP_ADA_LDFLAGS}"`"
       SYSDEP_ADA_TYPE=`echo "${SYSDEP_ADA_VERSION_TMP}" | awk '{print $1}'`
       SYSDEP_ADA_VERSION=`echo "${SYSDEP_ADA_VERSION_TMP}" | awk '{print $2}'`
-      echo "${SYSDEP_ADA_VERSION_TMP}" > "${SYSDEP_DIR_RELATIVE}/sd-adaversion.out"
+      echo "${SYSDEP_ADA_VERSION_TMP}" > "${SYSDEP_BASE_DIRECTORY}/sd-adaversion.out"
     else
-      SYSDEP_ADA_TYPE=`cat "${SYSDEP_DIR_RELATIVE}/sd-adaversion.out" | awk '{print $1}'`
-      SYSDEP_ADA_VERSION=`cat "${SYSDEP_DIR_RELATIVE}/sd-adaversion.out" | awk '{print $2}'`
+      SYSDEP_ADA_TYPE=`cat "${SYSDEP_BASE_DIRECTORY}/sd-adaversion.out" | awk '{print $1}'`
+      SYSDEP_ADA_VERSION=`cat "${SYSDEP_BASE_DIRECTORY}/sd-adaversion.out" | awk '{print $2}'`
     fi
   fi
 
@@ -154,71 +182,71 @@ then
   export SYSDEP_ADA_VERSION
 
 else
-  # find system type
+  # Find system type.
   SYSDEP_OS="SYSDEP_OS_`${SYSDEP_FILE} get "conf-x-systype" "UNKNOWN"`"
   export SYSDEP_OS
   
-  # find system version
+  # Find system version.
   SYSDEP_OSVERSION=`${SYSDEP_FILE} get "conf-x-sysver" "0.0"`
   export SYSDEP_OSVERSION
   
-  # find system architecture
+  # Find system architecture.
   SYSDEP_ARCH="SYSDEP_ARCH_`${SYSDEP_FILE} get "conf-x-arch" "UNKNOWN"`"
   export SYSDEP_ARCH
   
-  # find compiler type
+  # Find compiler type.
   SYSDEP_CCTYPE="SYSDEP_CCTYPE_`${SYSDEP_FILE} get "conf-x-cctype" "UNKNOWN"`"
   export SYSDEP_CCTYPE
   
-  # find compiler version
+  # Find compiler version.
   SYSDEP_CCVERSION=`${SYSDEP_FILE} get "conf-x-ccver" "0.0.0"`
   export SYSDEP_CCVERSION
   
-  # find cpu features
+  # Find CPU features.
   SYSDEP_CPU_EXT=`${SYSDEP_FILE} get "conf-x-cpufeat" ""`
   export SYSDEP_CPU_EXT
   
-  # find number of CPUs
+  # Find number of CPUs.
   SYSDEP_CPU_NUM=`${SYSDEP_FILE} get "conf-x-cpunum" "0"`
   export SYSDEP_CPU_NUM
   
-  # find CPU model
+  # Find CPU model.
   SYSDEP_CPU_MODEL=`${SYSDEP_FILE} get "conf-x-cpumodel" ""`
   export SYSDEP_CPU_MODEL
   
-  # find CPU frequency
+  # Find CPU frequency.
   SYSDEP_CPU_FREQ=`${SYSDEP_FILE} get "conf-x-cpufreq" "0"`
   export SYSDEP_CPU_FREQ
   
-  # find CPU L1 instruction cache size
+  # Find CPU L1 instruction cache size.
   SYSDEP_CPU_L1_INST_CACHE_SIZE=`${SYSDEP_FILE} get "conf-x-cpul1ic" "0"`
   export SYSDEP_CPU_L1_INST_CACHE_SIZE
   
-  # find CPU L1 data cache size
+  # Find CPU L1 data cache size.
   SYSDEP_CPU_L1_DATA_CACHE_SIZE=`${SYSDEP_FILE} get "conf-x-cpul1dc" "0"`
   export SYSDEP_CPU_L1_DATA_CACHE_SIZE
   
-  # find CPU L2 cache size
+  # Find CPU L2 cache size.
   SYSDEP_CPU_L2_CACHE_SIZE=`${SYSDEP_FILE} get "conf-x-cpul2c" "0"`
   export SYSDEP_CPU_L2_CACHE_SIZE
   
-  # find CPU L3 cache size
+  # Find CPU L3 cache size.
   SYSDEP_CPU_L3_CACHE_SIZE=`${SYSDEP_FILE} get "conf-x-cpul3c" "0"`
   export SYSDEP_CPU_L3_CACHE_SIZE
   
-  # find CPU cache line size
+  # Find CPU cache line size.
   SYSDEP_CPU_CACHE_LINE_SIZE=`${SYSDEP_FILE} get "conf-x-cpucline" "0"`
   export SYSDEP_CPU_CACHE_LINE_SIZE
 
   #
-  # optional Ada components
+  # Optional Ada components.
   #
 
-  # find compiler type
+  # Find compiler type.
   SYSDEP_ADA_TYPE="SYSDEP_ADA_TYPE_`${SYSDEP_FILE} get "conf-x-adatype" "UNKNOWN"`"
   export SYSDEP_ADA_TYPE
   
-  # find compiler version
+  # Find compiler version.
   SYSDEP_ADA_VERSION=`${SYSDEP_FILE} get "conf-x-adaver" "0.0.0"`
   export SYSDEP_ADA_VERSION
 fi
@@ -266,7 +294,7 @@ esac
 SYSDEP_STDLIB="${STDLIB_ADD} ${SYSDEP_STDLIB}"
 export SYSDEP_STDLIB
 
-# find system dynamic library suffix
+# Find system dynamic library suffix.
 SYSDEP_LIBSUFFIX="so"
 case ${SYSDEP_OS} in
   SYSDEP_OS_DARWIN) SYSDEP_LIBSUFFIX="dylib" ;;
