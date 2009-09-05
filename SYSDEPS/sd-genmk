@@ -2,6 +2,7 @@
 
 echo '#----------------------------------------------------------------------'
 echo '# SYSDEPS start'
+echo
 
 for module in `ls modules | sort`
 do
