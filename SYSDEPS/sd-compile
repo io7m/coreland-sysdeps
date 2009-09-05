@@ -1,0 +1,44 @@
+#!/bin/sh
+
+
+cleanup()
+{
+  rm -f "${OBJECT_FILE}" "${RESULT_FILE}".tmp
+}
+
+fail()
+{
+  echo "$1" 1>&2
+  cleanup
+  exit 1
+}
+
+#----------------------------------------------------------------------
+# entry
+
+if [ $# -ne 7 ]
+then
+  echo "usage: source object result cc cflags ld ldflags" 1>&2
+  exit 1
+fi
+
+SOURCE_FILE="$1"
+OBJECT_FILE="$2"
+RESULT_FILE="$3"
+
+shift
+shift
+shift
+
+CC="$1"
+CC_FLAGS="$2"
+LD="$3"
+LD_FLAGS="$4"
+
+#----------------------------------------------------------------------
+# compile/link, etc
+
+${CC} ${CC_FLAGS} -c -o "${OBJECT_FILE}"     "${SOURCE_FILE}" || fail "could not compile ${SOURCE_FILE}"
+${LD} ${LD_FLAGS}    -o "${RESULT_FILE}".tmp "${OBJECT_FILE}" || fail "could not link ${RESULT_FILE}"
+mv "${RESULT_FILE}".tmp "${RESULT_FILE}"                      || fail "could not mv ${RESULT_FILE}.tmp"
+
