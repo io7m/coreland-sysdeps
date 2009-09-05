@@ -22,19 +22,24 @@ SDM_STANDARD_FILES="
   ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.o
   ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.o.lock
   ${SYSDEP_BASE_DIRECTORY}/sd-arch
+  ${SYSDEP_BASE_DIRECTORY}/sd-arch.lock
   ${SYSDEP_BASE_DIRECTORY}/sd-arch.o
   ${SYSDEP_BASE_DIRECTORY}/sd-arch.o.lock
   ${SYSDEP_BASE_DIRECTORY}/sd-cctype
+  ${SYSDEP_BASE_DIRECTORY}/sd-cctype.lock
   ${SYSDEP_BASE_DIRECTORY}/sd-cctype.o
   ${SYSDEP_BASE_DIRECTORY}/sd-cctype.o.lock
   ${SYSDEP_BASE_DIRECTORY}/sd-ccversion
+  ${SYSDEP_BASE_DIRECTORY}/sd-ccversion.lock
   ${SYSDEP_BASE_DIRECTORY}/sd-ccversion.o
   ${SYSDEP_BASE_DIRECTORY}/sd-ccversion.o.lock
   ${SYSDEP_BASE_DIRECTORY}/sd-adaversion.out
   ${SYSDEP_BASE_DIRECTORY}/sd-os
+  ${SYSDEP_BASE_DIRECTORY}/sd-os.lock
   ${SYSDEP_BASE_DIRECTORY}/sd-os.o
   ${SYSDEP_BASE_DIRECTORY}/sd-os.o.lock
   ${SYSDEP_BASE_DIRECTORY}/sd-locker
+  ${SYSDEP_BASE_DIRECTORY}/sd-locker.lock
   ${SYSDEP_BASE_DIRECTORY}/sd-locker.o
   ${SYSDEP_BASE_DIRECTORY}/sd-locker.o.lock
   ${SYSDEP_OUTPUT_DIRECTORY}/sysdeps.out"
