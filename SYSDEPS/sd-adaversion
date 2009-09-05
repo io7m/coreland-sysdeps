@@ -19,7 +19,7 @@ unknown()
 
 error()
 {
-  ${SYSDEP_ERROR} "$1"
+  SYSDEP_ERROR "$1"
   unknown
 }
 
@@ -55,7 +55,7 @@ then
   exit 111
 fi
 
-WORKDIR="${SYSDEP_DIR_RELATIVE}"
+WORKDIR="${SYSDEP_BASE_DIRECTORY}"
 ADA_COMP="$1"
 ADA_CFLAGS="$2"
 ADA_BIND="$3"

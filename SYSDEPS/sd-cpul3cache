@@ -10,9 +10,9 @@ case "$sys" in
     ;; 
 esac
 
-if [ -f ${SYSDEP_DIR_RELATIVE}./sd-cpuidx86 ]
+if [ -f ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86 ]
 then
-  cache="`${SYSDEP_DIR_RELATIVE}./sd-cpuidx86 l3cachesize`"
+  cache="`${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86 l3cachesize`"
 fi
 
 if [ ! -z "${cache}" ]
