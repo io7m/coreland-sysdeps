@@ -1,6 +1,8 @@
 #!/bin/sh
 
-echo '# -- SYSDEPS start'
+echo '#----------------------------------------------------------------------'
+echo '# SYSDEPS start'
+
 for module in `ls modules | sort`
 do
   if [ -f modules/$module/creates ]
@@ -20,7 +22,7 @@ do
         cat <<EOF
 $file:
 	@echo SYSDEPS $module run create $flat_files
-	@(cd SYSDEPS/modules/$module && ./run)
+	@(cd SYSDEPS && ./sd-run modules/$module)
 EOF
       else
 cat <<EOF
@@ -45,7 +47,7 @@ do
     cat <<EOF
 ${module}_clean:
 	@echo SYSDEPS $module clean $flat_files
-	@(cd SYSDEPS/modules/$module && ./clean)
+	@(cd SYSDEPS && ./sd-clean modules/$module)
 EOF
   fi
 done
@@ -62,5 +64,5 @@ do
 done
 echo
 echo
-echo '# -- SYSDEPS end'
-echo
+echo '# SYSDEPS end'
+echo '#----------------------------------------------------------------------'
