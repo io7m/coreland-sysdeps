@@ -127,14 +127,10 @@ export SYSDEP_TRY_MANUAL
 export SYSDEP_FILE
 export SYSDEP_LINE
 
-#
-# Call external modules.
-#
-
 if [ -z "${SYSDEP_CLEAN}" ]
 then
   . ${SYSDEP_DIR_RELATIVE}/sysdep-compilers || exit 1
   . ${SYSDEP_DIR_RELATIVE}/sysdep-system    || exit 1
 fi
 
-. ${SYSDEP_DIR_RELATIVE}/sysdep-module    || exit 1
+. "${SYSDEP_DIR_RELATIVE}/sysdep-module"    || exit 1
