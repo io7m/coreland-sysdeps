@@ -178,7 +178,7 @@ SYSDEP_DEBUG "SYSDEP_ADA_LDFLAGS ${SYSDEP_ADA_LDFLAGS}"
 #
 
 cc_usable=0
-for dir in `echo $PATH | sed -e 's/:/ /g'`
+for dir in `echo $PATH | tr ':' ' '`
 do
   if [ -x "${dir}/${SYSDEP_CC}" ]
   then
@@ -196,7 +196,7 @@ fi
 export SYSDEP_CC
 
 ld_usable=0
-for dir in `echo $PATH | sed -e 's/:/ /g'`
+for dir in `echo $PATH | tr ':' ' '`
 do
   if [ -x "${dir}/${SYSDEP_LD}" ]
   then
@@ -220,7 +220,7 @@ export SYSDEP_LD
 if [ ! -z "${SYSDEP_ADA_COMP}" ]
 then
   ada_comp_usable=0
-  for dir in `echo $PATH | sed -e 's/:/ /g'`
+  for dir in `echo $PATH | tr ':' ' '`
   do
     if [ -x "${dir}/${SYSDEP_ADA_COMP}" ]
     then
@@ -237,7 +237,7 @@ then
   fi
 
   ada_bind_usable=0
-  for dir in `echo $PATH | sed -e 's/:/ /g'`
+  for dir in `echo $PATH | tr ':' ' '`
   do
     if [ -x "${dir}/${SYSDEP_ADA_BIND}" ]
     then
@@ -254,7 +254,7 @@ then
   fi
 
   ada_link_usable=0
-  for dir in `echo $PATH | sed -e 's/:/ /g'`
+  for dir in `echo $PATH | tr ':' ' '`
   do
     if [ -x "${dir}/${SYSDEP_ADA_LINK}" ]
     then
