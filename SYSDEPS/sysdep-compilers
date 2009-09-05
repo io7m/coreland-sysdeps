@@ -177,37 +177,37 @@ SYSDEP_DEBUG "SYSDEP_ADA_LDFLAGS ${SYSDEP_ADA_LDFLAGS}"
 # Check C compiler and linker are usable.
 #
 
-cc_usable=0
+CC_USABLE=0
 for dir in `echo $PATH | tr ':' ' '`
 do
   if [ -x "${dir}/${SYSDEP_CC}" ]
   then
-    cc_usable=1
+    CC_USABLE=1
     SYSDEP_DEBUG "CC ${dir}/${SYSDEP_CC} usable"
     break
   else
     SYSDEP_DEBUG "CC ${dir}/${SYSDEP_CC} not executable"
   fi
 done
-if [ ${cc_usable} -eq 0 ]
+if [ ${CC_USABLE} -eq 0 ]
 then
   SYSDEP_FATAL "could not locate usable C compiler, check PATH and conf-cc"
 fi
 export SYSDEP_CC
 
-ld_usable=0
+LD_USABLE=0
 for dir in `echo $PATH | tr ':' ' '`
 do
   if [ -x "${dir}/${SYSDEP_LD}" ]
   then
-    ld_usable=1
+    LD_USABLE=1
     SYSDEP_DEBUG "LD ${dir}/${SYSDEP_LD} usable"
     break
   else
     SYSDEP_DEBUG "LD ${dir}/${SYSDEP_LD} not executable"
   fi
 done
-if [ ${ld_usable} -eq 0 ]
+if [ ${LD_USABLE} -eq 0 ]
 then
   SYSDEP_FATAL "could not locate usable C linker, check PATH and conf-ld"
 fi
@@ -219,53 +219,53 @@ export SYSDEP_LD
 
 if [ ! -z "${SYSDEP_ADA_COMP}" ]
 then
-  ada_comp_usable=0
+  ADA_COMP_USABLE=0
   for dir in `echo $PATH | tr ':' ' '`
   do
     if [ -x "${dir}/${SYSDEP_ADA_COMP}" ]
     then
-      ada_comp_usable=1
+      ADA_COMP_USABLE=1
       SYSDEP_DEBUG "ADA_COMP ${dir}/${SYSDEP_ADA_COMP} usable"
       break
     else
       SYSDEP_DEBUG "ADA_COMP ${dir}/${SYSDEP_ADA_COMP} not executable"
     fi
   done
-  if [ ${ada_comp_usable} -eq 0 ]
+  if [ ${ADA_COMP_USABLE} -eq 0 ]
   then
     SYSDEP_FATAL "could not locate usable Ada compiler, check PATH and conf-adacomp"
   fi
 
-  ada_bind_usable=0
+  ADA_BIND_USABLE=0
   for dir in `echo $PATH | tr ':' ' '`
   do
     if [ -x "${dir}/${SYSDEP_ADA_BIND}" ]
     then
-      ada_bind_usable=1
+      ADA_BIND_USABLE=1
       SYSDEP_DEBUG "ADA_BIND ${dir}/${SYSDEP_ADA_BIND} usable"
       break
     else
       SYSDEP_DEBUG "ADA_BIND ${dir}/${SYSDEP_ADA_BIND} not executable"
     fi
   done
-  if [ ${ada_bind_usable} -eq 0 ]
+  if [ ${ADA_BIND_USABLE} -eq 0 ]
   then
     SYSDEP_FATAL "could not locate usable Ada binder, check PATH and conf-adabind"
   fi
 
-  ada_link_usable=0
+  ADA_LINK_USABLE=0
   for dir in `echo $PATH | tr ':' ' '`
   do
     if [ -x "${dir}/${SYSDEP_ADA_LINK}" ]
     then
-      ada_link_usable=1
+      ADA_LINK_USABLE=1
       SYSDEP_DEBUG "ADA_LINK ${dir}/${SYSDEP_ADA_LINK} usable"
       break
     else
       SYSDEP_DEBUG "ADA_LINK ${dir}/${SYSDEP_ADA_LINK} not executable"
     fi
   done
-  if [ ${ada_link_usable} -eq 0 ]
+  if [ ${ADA_LINK_USABLE} -eq 0 ]
   then
     SYSDEP_FATAL "could not locate usable Ada linker, check PATH and conf-adalink"
   fi
