@@ -40,5 +40,5 @@ LD_FLAGS="$4"
 
 ${CC} ${CC_FLAGS} -c -o "${OBJECT_FILE}"     "${SOURCE_FILE}" || fail "could not compile ${SOURCE_FILE}"
 ${LD} ${LD_FLAGS}    -o "${RESULT_FILE}".tmp "${OBJECT_FILE}" || fail "could not link ${RESULT_FILE}"
-mv "${RESULT_FILE}".tmp "${RESULT_FILE}"                      || fail "could not mv ${RESULT_FILE}.tmp"
+mv -f "${RESULT_FILE}".tmp "${RESULT_FILE}"                   || fail "could not mv ${RESULT_FILE}.tmp"
 
