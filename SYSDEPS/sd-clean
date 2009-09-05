@@ -33,6 +33,7 @@ SDM_STANDARD_FILES="
   ${SYSDEP_BASE_DIRECTORY}/sd-ccversion.lock
   ${SYSDEP_BASE_DIRECTORY}/sd-ccversion.o
   ${SYSDEP_BASE_DIRECTORY}/sd-ccversion.o.lock
+  ${SYSDEP_BASE_DIRECTORY}/sd-adaversion.lock
   ${SYSDEP_BASE_DIRECTORY}/sd-adaversion.out
   ${SYSDEP_BASE_DIRECTORY}/sd-os
   ${SYSDEP_BASE_DIRECTORY}/sd-os.lock
