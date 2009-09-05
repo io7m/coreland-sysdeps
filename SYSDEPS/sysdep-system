@@ -1,5 +1,13 @@
 #!/bin/sh
 
+SDM_lock_and_exec_fail()
+{
+  MESSAGE=$1
+  shift
+  SYSDEP_REMOVE $@
+  SYSDEP_FATAL "$1"
+}
+
 #
 # Acquire lock on ${LOCK_FILE} and execute ${ARGUMENTS}.
 #
@@ -16,16 +24,16 @@ SDM_lock_and_exec()
   TEMP_OBJECT="${SYSDEP_BASE_DIRECTORY}/sd-locker-${PROCESS_ID}.o"
   TEMP_RESULT="${SYSDEP_BASE_DIRECTORY}/sd-locker-${PROCESS_ID}"
 
-  SYSDEP_DEBUG "SDM_lock_and_exec: compiling ${TEMP_RESULT}" 
-
   if [ ! -x ${SYSDEP_BASE_DIRECTORY}/sd-locker ]
   then
-    ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o "${TEMP_OBJECT}" "${TEMP_RESULT}" ||
-      SYSDEP_FATAL "could not compile sd-locker.c"
-    ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o "${TEMP_RESULT}" ||
-      SYSDEP_FATAL "could not compile sd-locker"
+    SYSDEP_DEBUG "SDM_lock_and_exec: compiling ${TEMP_RESULT}" 
+    ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o "${TEMP_OBJECT}" "${SYSDEP_BASE_DIRECTORY}/sd-locker.c" ||
+      SDM_lock_and_exec_fail "could not compile sd-locker.c" "${TEMP_OBJECT}"
+    ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o "${TEMP_RESULT}" "${TEMP_OBJECT}" ||
+      SDM_lock_and_exec_fail "could not compile sd-locker" "${TEMP_RESULT}" "${TEMP_OBJECT}"
     SYSDEP_MOVE "${TEMP_RESULT}" "${SYSDEP_BASE_DIRECTORY}/sd-locker" ||
-      SYSDEP_FATAL "could not move sd-locker"
+      SDM_lock_and_exec_fail "could not move sd-locker" "${TEMP_RESULT}" "${TEMP_OBJECT}"
+    SYSDEP_REMOVE "${TEMP_RESULT}" "${TEMP_OBJECT}"
   fi
 
   ${SYSDEP_BASE_DIRECTORY}/sd-locker "${LOCK_FILE}" ${ARGUMENTS}
@@ -53,9 +61,9 @@ SDM_protected_C_compilation()
   case "${ALLOW_FAIL}" in
     ALLOW_FAIL)
       SDM_lock_and_exec "${OBJECT_FILE}.lock" \
-        ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o "${OBJECT_FILE}" "${SOURCE_FILE}" 2>/dev/null
+        ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o "${OBJECT_FILE}" "${SOURCE_FILE}"
       SDM_lock_and_exec "${RESULT_FILE}.lock" \
-        ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o "${RESULT_FILE}" "${OBJECT_FILE}" 2>/dev/null
+        ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o "${RESULT_FILE}" "${OBJECT_FILE}"
       ;;
     DISALLOW_FAIL)
       SDM_lock_and_exec "${OBJECT_FILE}.lock" \
