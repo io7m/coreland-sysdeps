@@ -1,1 +1,14 @@
 http://predef.sourceforge.net/index.php
+
+----------------------------------------------------------------------
+
+Some platforms most likely just can't support parallel builds due to
+a lack of file locking.
+
+Perhaps:
+
+  $ (cd SYSDEPS && ./sd-parallel)
+  Supported
+  $ (cd SYSDEPS && ./sd-parallel)
+  Unsupported
+
