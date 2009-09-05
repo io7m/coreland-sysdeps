@@ -7,10 +7,16 @@ then
 fi
 
 #
-# Load essential subs and data.
+# Load essential subs.
 #
 
 . ./sysdep-subs "$1" || exit 1
+
+#
+# Load essential subroutines (not passed through shell executions).
+#
+
+. ./sysdep-boot "$1" || exit 1
 
 #
 # Load compiler data.
