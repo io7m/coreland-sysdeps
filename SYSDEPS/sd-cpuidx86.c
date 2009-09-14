@@ -604,15 +604,15 @@ main (int argc, char *argv[])
 
   /* Various cache sizes. */
   if (strcmp (argv[1], "l1icachesize") == 0)
-    return !!printf("%u\n", cpu.cache_L1_instruction << 10);
+    return !!printf("%lu\n", (unsigned long) cpu.cache_L1_instruction << 10);
   if (strcmp (argv[1], "l1dcachesize") == 0)
-    return !!printf("%u\n", cpu.cache_L1_data << 10);
+    return !!printf("%lu\n", (unsigned long) cpu.cache_L1_data << 10);
   if (strcmp (argv[1], "l2cachesize") == 0)
-    return !!printf("%u\n", cpu.cache_L2 << 10);
+    return !!printf("%lu\n", (unsigned long) cpu.cache_L2 << 10);
   if (strcmp (argv[1], "l3cachesize") == 0)
-    return !!printf("%u\n", cpu.cache_L3 << 10);
+    return !!printf("%lu\n", (unsigned long) cpu.cache_L3 << 10);
   if (strcmp (argv[1], "cacheline") == 0)
-    return !!printf("%u\n", cpu.cacheline);
+    return !!printf("%lu\n", (unsigned long) cpu.cacheline);
  
   printf("0\n");
   return 0;
