@@ -2,18 +2,18 @@
  * Win32 version.
  */
 
-#include <assert.h>
-#include <errno.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 /* Require >= Windows 2000 */
 #ifndef WINVER
 #  define WINVER 0x0500
 #endif
 
 #include <windows.h>
+
+#include <assert.h>
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 static BOOL
 fd_lock_w (HANDLE file)
@@ -71,7 +71,7 @@ die_unlock (int code, const char *message)
   exit (code);
 }
 
-#define POSIX_SHELL_PREFIX "sh -c "
+#define POSIX_SHELL_PREFIX "sh -c \""
 
 static char *
 convert_command (int argc, char *argv[])
@@ -85,7 +85,7 @@ convert_command (int argc, char *argv[])
 
   /* Calculate required command line length. */
   length_used  = 0;
-  length_total = sizeof (POSIX_SHELL_PREFIX);
+  length_total = sizeof (POSIX_SHELL_PREFIX) + sizeof ('"');
   for (index = 0; index < argc; ++index)
     length_total += strlen (argv [index]) + 1;
 
@@ -110,14 +110,18 @@ convert_command (int argc, char *argv[])
     length_used += 1;
   }
 
+  /* End quoting. */
+  *ptr         = '"';
+  ptr         += 1;
+  length_used += 1;
+
   /* Null terminate. */
   *ptr         = 0;
   length_used += 1;
 
   /* Various buffer assertions. */
   assert (buffer [length_used - 1] == 0);
-  assert (length_used == length_total);
-  assert (ptr - buffer + 1 == (ptrdiff_t) length_total);
+  assert (length_used <= length_total);
 
   return buffer;
 }
