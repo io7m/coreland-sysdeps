@@ -21,9 +21,11 @@ SDM_prepare_locker()
       SDM_lock_and_compile_fail "could not compile sd-locker.c" "${TEMP_OBJECT}"
     ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o "${TEMP_RESULT}" "${TEMP_OBJECT}" ||
       SDM_lock_and_compile_fail "could not compile sd-locker" "${TEMP_RESULT}" "${TEMP_OBJECT}"
-    SYSDEP_MOVE "${TEMP_RESULT}" "${SYSDEP_BASE_DIRECTORY}/sd-locker" ||
-      SDM_lock_and_compile_fail "could not move sd-locker" "${TEMP_RESULT}" "${TEMP_OBJECT}"
-    SYSDEP_REMOVE "${TEMP_RESULT}" "${TEMP_OBJECT}"
+
+    # Specifically do not check if this operation is successful - it may not be on some
+    # operating systems during parallel builds. Check existence before use.
+
+    SYSDEP_MOVE "${TEMP_RESULT}" "${SYSDEP_BASE_DIRECTORY}/sd-locker" 2>/dev/null
   fi
 }
 
@@ -39,6 +41,11 @@ SDM_lock_and_compile()
   RESULT_FILE="$4"
 
   SDM_prepare_locker
+
+  if [ ! -x "${SYSDEP_BASE_DIRECTORY}/sd-locker" ]
+  then
+    SYSDEP_FATAL "sd-locker does not exist and could not be created"
+  fi
 
   ${SYSDEP_BASE_DIRECTORY}/sd-locker \
     "${LOCK_FILE}" \
