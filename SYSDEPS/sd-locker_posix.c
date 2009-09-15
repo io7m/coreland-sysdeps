@@ -46,7 +46,7 @@ sd_locker_posix_lock_acquire
   fl.l_len    = 0;
   fl.l_pid    = getpid();
 
-  if (fcntl (state->lock_fd, F_SETLKW, &fl) == -1);
+  if (fcntl (posix_state.lock_fd, F_SETLKW, &fl) == -1)
     sd_locker_fatal (state, "fcntl");
 }
 
@@ -55,7 +55,7 @@ sd_locker_posix_lock_acquire
  */
 
 static void
-sd_locker_win32_lock_release
+sd_locker_posix_lock_release
   (struct sd_locker_state_t *state)
 {
   struct flock fl;
@@ -71,7 +71,7 @@ sd_locker_win32_lock_release
   fl.l_len    = 0;
   fl.l_pid    = getpid();
 
-  if (fcntl (state->lock_fd, F_SETLKW, &fl) == -1)
+  if (fcntl (posix_state.lock_fd, F_SETLKW, &fl) == -1)
     sd_locker_fatal (state, "fcntl");
 }
 
@@ -80,14 +80,14 @@ sd_locker_win32_lock_release
  */
 
 static void
-sd_locker_win32_lock_file_open
+sd_locker_posix_lock_file_open
   (struct sd_locker_state_t *state)
 {
   assert (state            != NULL);
   assert (state->lock_file != NULL);
 
-  state->lock_fd = open (state->lock_file, O_WRONLY | O_TRUNC | O_CREAT, 0600);
-  if (state->lock_fd == -1)
+  posix_state.lock_fd = open (state->lock_file, O_WRONLY | O_TRUNC | O_CREAT, 0600);
+  if (posix_state.lock_fd == -1)
     sd_locker_fatal (state, "open");
 }
 
@@ -96,20 +96,20 @@ sd_locker_win32_lock_file_open
  */
 
 static void
-sd_locker_win32_lock_file_close
+sd_locker_posix_lock_file_close
   (struct sd_locker_state_t *state)
 {
   assert (state               != NULL);
   assert (state->lock_file    != NULL);
   assert (posix_state.lock_fd != -1);
 
-  if (close (state->lock_fd) == -1)
+  if (close (posix_state.lock_fd) == -1)
     sd_locker_fatal (state, "close");
 }
 
 static void
 sd_locker_posix_execute
-  (const struct sd_locker_state_t *state, int argc, char *argv[])
+  (struct sd_locker_state_t *state, int argc, char *argv[])
 {
   pid_t process_id;
   int status;
@@ -125,7 +125,7 @@ sd_locker_posix_execute
   if (process_id == 0) {
     ++argv;
     ++argv;
-    if (close (state->lock_fd) == -1)
+    if (close (posix_state.lock_fd) == -1)
       sd_locker_fatal (state, "close");
     if (execvp (*argv, argv) == -1)
       sd_locker_fatal (state, "execve");

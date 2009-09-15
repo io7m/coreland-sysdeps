@@ -134,7 +134,7 @@ sd_locker_lock_release (struct sd_locker_state_t *state)
 
 static void
 sd_locker_execute
-  (const struct sd_locker_state_t *state, int argc, char *argv[])
+  (struct sd_locker_state_t *state, int argc, char *argv[])
 {
   assert (state         != NULL);
   assert (state->locked == 1);

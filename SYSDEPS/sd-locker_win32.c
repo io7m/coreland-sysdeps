@@ -239,7 +239,7 @@ sd_locker_win32_convert_command
 
 static void
 sd_locker_win32_execute
-  (const struct sd_locker_state_t *state, int argc, char *argv[])
+  (struct sd_locker_state_t *state, int argc, char *argv[])
 {
   STARTUPINFO         info_startup;
   PROCESS_INFORMATION info_process;
