@@ -71,7 +71,30 @@ die_unlock (int code, const char *message)
   exit (code);
 }
 
-#define POSIX_SHELL_PREFIX "sh -c \""
+#ifdef SYSDEPS_DEBUGGING
+static void
+dump_arguments (int argc, char *argv[])
+{
+  int index;
+
+  for (index = 0; index < argc; ++index)
+    (void) fprintf (stderr, "[%d] %s\n", index, argv [index]);
+}
+#else
+static void
+dump_arguments (int argc, char *argv[])
+{
+  int index;
+
+  for (index = 0; index < argc; ++index)
+    assert (argv [index] != NULL);
+}
+#endif
+
+#define POSIX_SHELL_PREFIX      "sh -c \""
+#define POSIX_SHELL_PREFIX_SIZE (sizeof (POSIX_SHELL_PREFIX) - 1)
+#define POSIX_SHELL_QUOTE       "'"
+#define POSIX_SHELL_QUOTE_SIZE  (sizeof (POSIX_SHELL_QUOTE) - 1)
 
 static char *
 convert_command (int argc, char *argv[])
@@ -85,26 +108,42 @@ convert_command (int argc, char *argv[])
 
   /* Calculate required command line length. */
   length_used  = 0;
-  length_total = sizeof (POSIX_SHELL_PREFIX) + sizeof ('"');
+  length_total = POSIX_SHELL_PREFIX_SIZE + POSIX_SHELL_QUOTE_SIZE;
+
+  /* Storage required for each parameter includes two quotes and a space */
   for (index = 0; index < argc; ++index)
-    length_total += strlen (argv [index]) + 1;
+    length_total += POSIX_SHELL_QUOTE_SIZE + strlen (argv [index]) + POSIX_SHELL_QUOTE_SIZE + sizeof (' ');
 
   /* Allocate space for command line. */
-  assert (length_total > sizeof (POSIX_SHELL_PREFIX));
+  assert (length_total > POSIX_SHELL_PREFIX_SIZE);
   buffer = malloc (length_total);
   if (buffer == NULL) return NULL;
 
   /* Copy POSIX shell prefix to command line. */
-  memcpy (buffer, POSIX_SHELL_PREFIX, sizeof (POSIX_SHELL_PREFIX) - 1);
-  ptr         = buffer + sizeof (POSIX_SHELL_PREFIX) - 1;
-  length_used = sizeof (POSIX_SHELL_PREFIX) - 1;
+  memcpy (buffer, POSIX_SHELL_PREFIX, POSIX_SHELL_PREFIX_SIZE);
+  ptr         = buffer + POSIX_SHELL_PREFIX_SIZE;
+  length_used = POSIX_SHELL_PREFIX_SIZE;
 
   /* Copy each string into buffer from argument vector. */
   for (index = 0; index < argc; ++index) {
     length_param = strlen (argv [index]);
+
+    /* Open quote. */
+    memcpy (ptr, POSIX_SHELL_QUOTE, POSIX_SHELL_QUOTE_SIZE);
+    ptr         += POSIX_SHELL_QUOTE_SIZE;
+    length_used += POSIX_SHELL_QUOTE_SIZE;
+
+    /* Copy argument. */
     memcpy (ptr, argv [index], length_param);
     ptr         += length_param;
     length_used += length_param;
+
+    /* Close quote. */
+    memcpy (ptr, POSIX_SHELL_QUOTE, POSIX_SHELL_QUOTE_SIZE);
+    ptr         += POSIX_SHELL_QUOTE_SIZE;
+    length_used += POSIX_SHELL_QUOTE_SIZE;
+
+    /* Terminating space. */
     *ptr         = ' ';
     ptr         += 1;
     length_used += 1;
@@ -140,6 +179,8 @@ execute (int argc, char *argv[])
   ZeroMemory (&info_startup, sizeof (info_startup));
   ZeroMemory (&info_process, sizeof (info_process));
   info_startup.cb = sizeof (info_startup);
+
+  dump_arguments (argc, argv);
 
   command = convert_command (argc, argv);
 
