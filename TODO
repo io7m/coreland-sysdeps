@@ -12,3 +12,9 @@ Perhaps:
   $ (cd SYSDEPS && ./sd-parallel)
   Unsupported
 
+------------------------------------------------------------------------
+
+Unify posix and win32 sd-locker.
+
+Check architecture before compiling sd-cpuidx86 so that "unexpected failure"
+can be detected.
