@@ -1,3 +1,5 @@
 freebsd 7.2-release-p2 gcc 4.3.4 x86_64
 freebsd 7.2-release-p2 gcc 4.4.0 x86_64 gnat_fsf 4.4.0
 ms_windows 5.1 mingw32 3.16.0 x86 gnat_fsf 4.4.1
+sunos 5.11-snv_110 sun_c 5.9.0 x86 gnat_gpl 2008.5.21
+sunos 5.11-snv_110 gcc 4.1.3 x86 gnat_gpl 2008.5.21
