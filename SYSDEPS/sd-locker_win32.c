@@ -9,93 +9,19 @@
 
 #include <windows.h>
 
-#include <assert.h>
-#include <errno.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+struct sd_locker_win32_state_t {
+  OVERLAPPED lock_overlap;
+  HANDLE     lock_handle;
+};
 
-static OVERLAPPED  lock_overlap;
-static const char *lock_file;
-static HANDLE      lock_handle;
-static DWORD       exit_code = EXIT_SUCCESS;
-
-#ifdef SYSDEPS_DEBUGGING
-static void
-lock_announce (const char *message)
-{
-  assert (message != NULL);
-  assert (lock_file != NULL);
-
-  (void) fprintf (stderr, "sd-locker: %s - %s\n", lock_file, message);
-  (void) fflush (stderr);
-}
-#else
-static void
-lock_announce (const char *message)
-{
-  assert (message != NULL);
-}
-#endif
+static struct sd_locker_win32_state_t win32_state;
 
 /*
- * Lock handle, wait indefinitely to acquire lock.
- */
-
-static BOOL
-file_wait_lock (HANDLE file)
-{
-  BOOL lock_result;
-
-  lock_announce ("acquiring");
-
-  lock_overlap.hEvent = file;
-  lock_result = LockFileEx
-   (file,
-    LOCKFILE_EXCLUSIVE_LOCK, /* Exclusive lock, wait for lock to succeed. */
-    0,                       /* Reserved. */
-    0,                       /* Low 32 bits of range to lock. */
-    0xffffffff,              /* High 32 bits of range to lock. */
-    &lock_overlap);
-
-  lock_announce ("acquired");
-  return lock_result;
-}
-
-/*
- * Unlock handle.
- */
-
-static BOOL
-file_wait_unlock (HANDLE file)
-{
-  BOOL unlock_result;
-
-  lock_announce ("releasing");
-  unlock_result = UnlockFileEx
-   (file,
-    0,              /* Reserved. */
-    0,              /* Low 32 bits of range to lock. */
-    0xffffffff,     /* High 32 bits of range to unlock. */
-    &lock_overlap);
-
-  lock_announce ("released");
-  return unlock_result;
-}
-
-static void
-usage (void)
-{
-  (void) fprintf (stderr, "sd-locker: usage: lock-file command [args]\n");
-  exit (EXIT_FAILURE);
-}
-
-/*
- * Fetch current error message.
+ * Acquire current error message.
  */
 
 static const char *
-error_message (void)
+sd_locker_win32_error_message (void)
 {
   char *buffer = NULL;
   DWORD error_code = GetLastError ();
@@ -113,53 +39,134 @@ error_message (void)
   return buffer;
 }
 
-static void
-die (const char *message)
-{
-  (void) fprintf (stderr, "sd-locker: fatal: %s - %s\n", message, error_message ());
-  exit (EXIT_FAILURE);
-}
+/*
+ * Lock handle, wait indefinitely to acquire lock.
+ */
 
 static void
-die_unlock (const char *message)
+sd_locker_win32_lock_acquire 
+  (struct sd_locker_state_t *state)
 {
-  (void) fprintf (stderr, "sd-locker: fatal: %s - %s\n", message, error_message ());
-  (void) file_wait_unlock (lock_handle);
-  (void) CloseHandle (lock_handle);
-  exit (EXIT_FAILURE);
+  BOOL lock_result;
+
+  assert (state         != NULL);
+  assert (state->locked == 0);
+
+  win32_state.lock_overlap.hEvent = win32_state.lock_handle;
+
+  lock_result = LockFileEx
+   (win32_state.lock_handle,
+    LOCKFILE_EXCLUSIVE_LOCK,    /* Exclusive lock, wait for lock to succeed. */
+    0,                          /* Reserved. */
+    0,                          /* Low 32 bits of range to lock. */
+    0xffffffff,                 /* High 32 bits of range to lock. */
+    &win32_state.lock_overlap);
+
+  if (lock_result != TRUE) sd_locker_fatal (state, "lock_file_ex");
 }
 
-#ifdef SYSDEPS_DEBUGGING
+/*
+ * Unlock handle.
+ */
+
 static void
-dump_arguments (int argc, char *argv[])
+sd_locker_win32_lock_release
+  (struct sd_locker_state_t *state)
+{
+  BOOL unlock_result;
+
+  assert (state         != NULL);
+  assert (state->locked == 1);
+
+  unlock_result = UnlockFileEx
+   (win32_state.lock_handle,
+    0,                          /* Reserved. */
+    0,                          /* Low 32 bits of range to lock. */
+    0xffffffff,                 /* High 32 bits of range to unlock. */
+    &win32_state.lock_overlap);
+
+  if (unlock_result != TRUE) sd_locker_fatal (state, "unlock_file_ex");
+}
+
+/*
+ * Create/open lock file.
+ */
+
+static void
+sd_locker_win32_lock_file_open
+  (struct sd_locker_state_t *state)
+{
+  assert (state            != NULL);
+  assert (state->lock_file != NULL);
+
+  win32_state.lock_handle = CreateFile
+    (state->lock_file,
+     GENERIC_READ | GENERIC_WRITE,
+     FILE_SHARE_READ | FILE_SHARE_WRITE,
+     NULL,
+     OPEN_ALWAYS,
+     FILE_ATTRIBUTE_NORMAL,
+     NULL);
+
+  if (win32_state.lock_handle == INVALID_HANDLE_VALUE)
+    sd_locker_fatal (state, "create_file");
+}
+
+/*
+ * Close lock file.
+ */
+
+static void
+sd_locker_win32_lock_file_close
+  (struct sd_locker_state_t *state)
+{
+  assert (state            != NULL);
+  assert (state->lock_file != NULL);
+  assert (win32_state.lock_handle != NULL);
+
+  if (CloseHandle (win32_state.lock_handle) == FALSE)
+    sd_locker_fatal (state, "close_handle");
+}
+
+#ifdef SD_LOCKER_DEBUGGING
+static void
+sd_locker_win32_dump_arguments
+  (const struct sd_locker_state_t *state, int argc, char *argv[])
 {
   int index;
 
-  assert (lock_file != NULL);
+  assert (state != NULL);
+  assert (state->lock_file != NULL);
 
   for (index = 0; index < argc; ++index)
-    (void) fprintf (stderr, "sd-locker: %s - [%d] %s\n", lock_file, index, argv [index]);
+    (void) fprintf (stderr, "sd-locker: %d: %s - [%d] %s\n",
+      state->id, state->lock_file, index, argv [index]);
 
   (void) fflush (stderr);
 }
 #else
 static void
-dump_arguments (int argc, char *argv[])
+sd_locker_win32_dump_arguments
+  (const struct sd_locker_state_t *state, int argc, char *argv[])
 {
   int index;
+
+  assert (state != NULL);
+  assert (state->lock_file != NULL);
 
   for (index = 0; index < argc; ++index)
     assert (argv [index] != NULL);
 }
 #endif
 
-#define POSIX_SHELL_PREFIX      "sh -c \""
-#define POSIX_SHELL_PREFIX_SIZE (sizeof (POSIX_SHELL_PREFIX) - 1)
-#define POSIX_SHELL_QUOTE       "'"
-#define POSIX_SHELL_QUOTE_SIZE  (sizeof (POSIX_SHELL_QUOTE) - 1)
+#define SD_LOCKER_WIN32_POSIX_SHELL_PREFIX      "sh -c \""
+#define SD_LOCKER_WIN32_POSIX_SHELL_PREFIX_SIZE (sizeof (SD_LOCKER_WIN32_POSIX_SHELL_PREFIX) - 1)
+#define SD_LOCKER_WIN32_POSIX_SHELL_QUOTE       "'"
+#define SD_LOCKER_WIN32_POSIX_SHELL_QUOTE_SIZE  (sizeof (SD_LOCKER_WIN32_POSIX_SHELL_QUOTE) - 1)
 
 static char *
-convert_command (int argc, char *argv[])
+sd_locker_win32_convert_command
+  (int argc, char *argv[])
 {
   size_t length_total;
   size_t length_param;
@@ -170,30 +177,33 @@ convert_command (int argc, char *argv[])
 
   /* Calculate required command line length. */
   length_used  = 0;
-  length_total = POSIX_SHELL_PREFIX_SIZE + POSIX_SHELL_QUOTE_SIZE;
+  length_total = SD_LOCKER_WIN32_POSIX_SHELL_PREFIX_SIZE + SD_LOCKER_WIN32_POSIX_SHELL_QUOTE_SIZE;
 
   /* Storage required for each parameter includes two quotes and a space */
   for (index = 0; index < argc; ++index)
-    length_total += POSIX_SHELL_QUOTE_SIZE + strlen (argv [index]) + POSIX_SHELL_QUOTE_SIZE + sizeof (' ');
+    length_total += SD_LOCKER_WIN32_POSIX_SHELL_QUOTE_SIZE
+      + strlen (argv [index])
+      + SD_LOCKER_WIN32_POSIX_SHELL_QUOTE_SIZE
+      + sizeof (' ');
 
   /* Allocate space for command line. */
-  assert (length_total > POSIX_SHELL_PREFIX_SIZE);
+  assert (length_total > SD_LOCKER_WIN32_POSIX_SHELL_PREFIX_SIZE);
   buffer = malloc (length_total);
   if (buffer == NULL) return NULL;
 
   /* Copy POSIX shell prefix to command line. */
-  memcpy (buffer, POSIX_SHELL_PREFIX, POSIX_SHELL_PREFIX_SIZE);
-  ptr         = buffer + POSIX_SHELL_PREFIX_SIZE;
-  length_used = POSIX_SHELL_PREFIX_SIZE;
+  memcpy (buffer, SD_LOCKER_WIN32_POSIX_SHELL_PREFIX, SD_LOCKER_WIN32_POSIX_SHELL_PREFIX_SIZE);
+  ptr         = buffer + SD_LOCKER_WIN32_POSIX_SHELL_PREFIX_SIZE;
+  length_used = SD_LOCKER_WIN32_POSIX_SHELL_PREFIX_SIZE;
 
   /* Copy each string into buffer from argument vector. */
   for (index = 0; index < argc; ++index) {
     length_param = strlen (argv [index]);
 
     /* Open quote. */
-    memcpy (ptr, POSIX_SHELL_QUOTE, POSIX_SHELL_QUOTE_SIZE);
-    ptr         += POSIX_SHELL_QUOTE_SIZE;
-    length_used += POSIX_SHELL_QUOTE_SIZE;
+    memcpy (ptr, SD_LOCKER_WIN32_POSIX_SHELL_QUOTE, SD_LOCKER_WIN32_POSIX_SHELL_QUOTE_SIZE);
+    ptr         += SD_LOCKER_WIN32_POSIX_SHELL_QUOTE_SIZE;
+    length_used += SD_LOCKER_WIN32_POSIX_SHELL_QUOTE_SIZE;
 
     /* Copy argument. */
     memcpy (ptr, argv [index], length_param);
@@ -201,9 +211,9 @@ convert_command (int argc, char *argv[])
     length_used += length_param;
 
     /* Close quote. */
-    memcpy (ptr, POSIX_SHELL_QUOTE, POSIX_SHELL_QUOTE_SIZE);
-    ptr         += POSIX_SHELL_QUOTE_SIZE;
-    length_used += POSIX_SHELL_QUOTE_SIZE;
+    memcpy (ptr, SD_LOCKER_WIN32_POSIX_SHELL_QUOTE, SD_LOCKER_WIN32_POSIX_SHELL_QUOTE_SIZE);
+    ptr         += SD_LOCKER_WIN32_POSIX_SHELL_QUOTE_SIZE;
+    length_used += SD_LOCKER_WIN32_POSIX_SHELL_QUOTE_SIZE;
 
     /* Terminating space. */
     *ptr         = ' ';
@@ -228,7 +238,8 @@ convert_command (int argc, char *argv[])
 }
 
 static void
-execute (int argc, char *argv[])
+sd_locker_win32_execute
+  (const struct sd_locker_state_t *state, int argc, char *argv[])
 {
   STARTUPINFO         info_startup;
   PROCESS_INFORMATION info_process;
@@ -236,57 +247,43 @@ execute (int argc, char *argv[])
   BOOL exec_result;
   DWORD wait_result;
 
+  assert (state != NULL);
+  assert (argc > 0);
+  assert (argv != NULL);
+
   ZeroMemory (&info_startup, sizeof (info_startup));
   ZeroMemory (&info_process, sizeof (info_process));
   info_startup.cb = sizeof (info_startup);
 
-  dump_arguments (argc, argv);
+  sd_locker_win32_dump_arguments (state, argc, argv);
 
-  command = convert_command (argc, argv);
+  /* Transform command into flattened copy for win32 command line. */
+  command = sd_locker_win32_convert_command (argc, argv);
+  if (command == NULL) sd_locker_fatal (state, "malloc");
 
+  /* Execute shell to execute command and arguments. */
   exec_result = CreateProcess
-    (NULL,                  /* Command name. NULL == Use command line. */
-     command,               /* Command line. */
-     NULL,                  /* Process security attributes. */
-     NULL,                  /* Thread security attributes. */
-     TRUE,                  /* Inherit file handles. */
-     0,                     /* Creation flags. */
-     NULL,                  /* Environment. */
-     NULL,                  /* Current directory. */
+    (NULL,           /* Command name. NULL == Use command line. */
+     command,        /* Command line. */
+     NULL,           /* Process security attributes. */
+     NULL,           /* Thread security attributes. */
+     TRUE,           /* Inherit file handles. */
+     0,              /* Creation flags. */
+     NULL,           /* Environment. */
+     NULL,           /* Current directory. */
      &info_startup,
      &info_process);
-  if (exec_result == FALSE) die_unlock ("create_process");
+
+  if (exec_result == FALSE)
+    sd_locker_fatal (state, "create_process");
 
   wait_result = WaitForSingleObject (info_process.hProcess, INFINITE);
   /* XXX: Do something with wait_result here? */
 
-  if (GetExitCodeProcess (info_process.hProcess, &exit_code) == FALSE) die_unlock ("exit_code");
-  if (CloseHandle (info_process.hProcess) == FALSE) die_unlock ("close_process");
-  if (CloseHandle (info_process.hThread) == FALSE) die_unlock ("close_thread");
-}
-
-int
-main (int argc, char *argv[])
-{
-  if (argc < 3) usage ();
-
-  lock_file = argv[1];
-  lock_handle = CreateFile
-    (lock_file,
-     GENERIC_READ | GENERIC_WRITE,
-     FILE_SHARE_READ | FILE_SHARE_WRITE,
-     NULL,
-     OPEN_ALWAYS,
-     FILE_ATTRIBUTE_NORMAL,
-     NULL);
-
-  if (lock_handle == INVALID_HANDLE_VALUE) die ("create_file");
-  if (file_wait_lock (lock_handle) == FALSE) die ("lock");
-
-  execute (argc - 2, argv + 2);
-
-  if (file_wait_unlock (lock_handle) == FALSE) die_unlock ("unlock");
-  if (CloseHandle (lock_handle) == FALSE) die_unlock ("close_handle");
-
-  return exit_code;
+  if (GetExitCodeProcess (info_process.hProcess, (PDWORD) &state->exit_code) == FALSE)
+    sd_locker_fatal (state, "exit_code");
+  if (CloseHandle (info_process.hProcess) == FALSE)
+    sd_locker_fatal (state, "close_process");
+  if (CloseHandle (info_process.hThread) == FALSE)
+    sd_locker_fatal (state, "close_thread");
 }

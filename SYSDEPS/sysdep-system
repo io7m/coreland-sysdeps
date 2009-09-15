@@ -47,7 +47,8 @@ SDM_lock_and_exec()
   fi
 
   ${SYSDEP_BASE_DIRECTORY}/sd-locker \
-    "${LOCK_FILE}" \
+    "$$"                             \
+    "${LOCK_FILE}"                   \
      $@
 }
 
@@ -69,15 +70,16 @@ SDM_lock_and_compile()
     SYSDEP_FATAL "sd-locker does not exist and could not be created"
   fi
 
-  ${SYSDEP_BASE_DIRECTORY}/sd-locker \
-    "${LOCK_FILE}" \
+  ${SYSDEP_BASE_DIRECTORY}/sd-locker      \
+    "$$"                                  \
+    "${LOCK_FILE}"                        \
     "${SYSDEP_BASE_DIRECTORY}/sd-compile" \
-    "${SOURCE_FILE}" \
-    "${OBJECT_FILE}" \
-    "${RESULT_FILE}" \
-    "${SYSDEP_CC}" \
-    "${SYSDEP_CFLAGS}" \
-    "${SYSDEP_LD}" \
+    "${SOURCE_FILE}"                      \
+    "${OBJECT_FILE}"                      \
+    "${RESULT_FILE}"                      \
+    "${SYSDEP_CC}"                        \
+    "${SYSDEP_CFLAGS}"                    \
+    "${SYSDEP_LD}"                        \
     "${SYSDEP_LDFLAGS}"
 }
 
@@ -126,6 +128,7 @@ SDM_fetch_adaversion()
   SDM_prepare_locker
 
   SYSDEP_ADA_VERSION_TMP="`${SYSDEP_BASE_DIRECTORY}/sd-locker \
+    "$$"                                          \
     "${SYSDEP_BASE_DIRECTORY}/sd-adaversion.lock" \
     "${SYSDEP_BASE_DIRECTORY}/sd-adaversion"      \
     "${SYSDEP_ADA_COMP}"                          \
@@ -303,6 +306,7 @@ then
       SDM_prepare_locker
 
       SYSDEP_ADA_VERSION_TMP="`${SYSDEP_BASE_DIRECTORY}/sd-locker \
+        "$$"                                          \
         "${SYSDEP_BASE_DIRECTORY}/sd-adaversion.lock" \
         "${SYSDEP_BASE_DIRECTORY}/sd-adaversion"      \
         "${SYSDEP_ADA_COMP}"                          \
