@@ -21,6 +21,7 @@ static struct sd_locker_posix_state_t posix_state;
 
 static const char *
 sd_locker_posix_error_message (void)
+  /*@globals errno @*/
 {
   return strerror (errno);
 }
@@ -32,6 +33,8 @@ sd_locker_posix_error_message (void)
 static void
 sd_locker_posix_lock_acquire 
   (struct sd_locker_state_t *state)
+  /*@globals errno, posix_state @*/
+  /*@modifies errno, posix_state @*/
 {
   struct flock fl;
 
@@ -57,6 +60,8 @@ sd_locker_posix_lock_acquire
 static void
 sd_locker_posix_lock_release
   (struct sd_locker_state_t *state)
+  /*@globals errno, posix_state @*/
+  /*@modifies errno, posix_state @*/
 {
   struct flock fl;
 
@@ -82,6 +87,8 @@ sd_locker_posix_lock_release
 static void
 sd_locker_posix_lock_file_open
   (struct sd_locker_state_t *state)
+  /*@globals errno, posix_state @*/
+  /*@modifies errno, posix_state @*/
 {
   assert (state            != NULL);
   assert (state->lock_file != NULL);
@@ -98,6 +105,8 @@ sd_locker_posix_lock_file_open
 static void
 sd_locker_posix_lock_file_close
   (struct sd_locker_state_t *state)
+  /*@globals errno, posix_state @*/
+  /*@modifies errno, posix_state @*/
 {
   assert (state               != NULL);
   assert (state->lock_file    != NULL);
@@ -110,6 +119,8 @@ sd_locker_posix_lock_file_close
 static void
 sd_locker_posix_execute
   (struct sd_locker_state_t *state, int argc, char *argv[])
+  /*@globals errno, posix_state @*/
+  /*@modifies errno, posix_state @*/
 {
   pid_t process_id;
   int status;
