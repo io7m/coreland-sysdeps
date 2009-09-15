@@ -150,46 +150,41 @@ SDM_fetch_adaversion()
 
 if [ ${SYSDEP_CROSS_COMPILE} -eq 0 ]
 then
-  if [ ! -x ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86 ]
-  then
-    SDM_protected_C_compilation \
-      "${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.c" \
-      "${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.o" \
-      "${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86"   \
-      "ALLOW_FAIL"
-  fi
-  if [ ! -x ${SYSDEP_BASE_DIRECTORY}/sd-arch ]
-  then
-    SDM_protected_C_compilation \
-      "${SYSDEP_BASE_DIRECTORY}/sd-arch.c" \
-      "${SYSDEP_BASE_DIRECTORY}/sd-arch.o" \
-      "${SYSDEP_BASE_DIRECTORY}/sd-arch"   \
-      "DISALLOW_FAIL"
-  fi
-  if [ ! -x ${SYSDEP_BASE_DIRECTORY}/sd-cctype ]
-  then
-    SDM_protected_C_compilation \
-      "${SYSDEP_BASE_DIRECTORY}/sd-cctype.c" \
-      "${SYSDEP_BASE_DIRECTORY}/sd-cctype.o" \
-      "${SYSDEP_BASE_DIRECTORY}/sd-cctype"   \
-      "DISALLOW_FAIL"
-  fi
-  if [ ! -x ${SYSDEP_BASE_DIRECTORY}/sd-os ]
-  then
-    SDM_protected_C_compilation \
-      "${SYSDEP_BASE_DIRECTORY}/sd-os.c" \
-      "${SYSDEP_BASE_DIRECTORY}/sd-os.o" \
-      "${SYSDEP_BASE_DIRECTORY}/sd-os"   \
-      "DISALLOW_FAIL"
-  fi
-  if [ ! -x ${SYSDEP_BASE_DIRECTORY}/sd-ccversion ]
-  then
-    SDM_protected_C_compilation \
-      "${SYSDEP_BASE_DIRECTORY}/sd-ccversion.c" \
-      "${SYSDEP_BASE_DIRECTORY}/sd-ccversion.o" \
-      "${SYSDEP_BASE_DIRECTORY}/sd-ccversion"   \
-      "DISALLOW_FAIL"
-  fi
+
+  #
+  # Acquire locks on and compile support programs. They will not be
+  # compiled if they already exist.
+  #
+
+  SDM_protected_C_compilation \
+    "${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.c" \
+    "${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.o" \
+    "${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86"   \
+    "ALLOW_FAIL"
+
+  SDM_protected_C_compilation \
+    "${SYSDEP_BASE_DIRECTORY}/sd-arch.c" \
+    "${SYSDEP_BASE_DIRECTORY}/sd-arch.o" \
+    "${SYSDEP_BASE_DIRECTORY}/sd-arch"   \
+    "DISALLOW_FAIL"
+
+  SDM_protected_C_compilation \
+    "${SYSDEP_BASE_DIRECTORY}/sd-cctype.c" \
+    "${SYSDEP_BASE_DIRECTORY}/sd-cctype.o" \
+    "${SYSDEP_BASE_DIRECTORY}/sd-cctype"   \
+    "DISALLOW_FAIL"
+
+  SDM_protected_C_compilation \
+    "${SYSDEP_BASE_DIRECTORY}/sd-os.c" \
+    "${SYSDEP_BASE_DIRECTORY}/sd-os.o" \
+    "${SYSDEP_BASE_DIRECTORY}/sd-os"   \
+    "DISALLOW_FAIL"
+
+  SDM_protected_C_compilation \
+    "${SYSDEP_BASE_DIRECTORY}/sd-ccversion.c" \
+    "${SYSDEP_BASE_DIRECTORY}/sd-ccversion.o" \
+    "${SYSDEP_BASE_DIRECTORY}/sd-ccversion"   \
+    "DISALLOW_FAIL"
 
   #
   # Each of these programs acquire a lock before use as another process in a
