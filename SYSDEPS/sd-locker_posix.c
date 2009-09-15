@@ -134,12 +134,10 @@ sd_locker_posix_execute
     sd_locker_fatal (state, "fork");
 
   if (process_id == 0) {
-    ++argv;
-    ++argv;
     if (close (posix_state.lock_fd) == -1)
       sd_locker_fatal (state, "close");
     if (execvp (*argv, argv) == -1)
-      sd_locker_fatal (state, "execve");
+      sd_locker_fatal (state, "execvp");
   } else {
     if (waitpid (process_id, &status, 0) == (pid_t) -1)
       sd_locker_fatal (state, "waitpid");
