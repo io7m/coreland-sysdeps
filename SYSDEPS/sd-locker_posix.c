@@ -7,17 +7,36 @@
 
 #include <errno.h>
 #include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 
-static int
-fd_lock_w (int fd)
-  /*@globals  errno @*/
-  /*@modifies errno @*/
+struct sd_locker_posix_state_t {
+  int lock_fd;
+};
+
+static struct sd_locker_posix_state_t posix_state;
+
+/*
+ * Acquire current error message.
+ */
+
+static const char *
+sd_locker_posix_error_message (void)
+{
+  return strerror (errno);
+}
+
+/*
+ * Lock handle, wait indefinitely to acquire lock.
+ */
+
+static void
+sd_locker_posix_lock_acquire 
+  (struct sd_locker_state_t *state)
 {
   struct flock fl;
+
+  assert (state         != NULL);
+  assert (state->locked == 0);
 
   memset (&fl, 0, sizeof (fl));
 
@@ -27,15 +46,22 @@ fd_lock_w (int fd)
   fl.l_len    = 0;
   fl.l_pid    = getpid();
 
-  return fcntl (fd, F_SETLKW, &fl);
+  if (fcntl (state->lock_fd, F_SETLKW, &fl) == -1);
+    sd_locker_fatal (state, "fcntl");
 }
 
-static int
-fd_unlock_w (int fd)
-  /*@globals  errno @*/
-  /*@modifies errno @*/
+/*
+ * Unlock handle.
+ */
+
+static void
+sd_locker_win32_lock_release
+  (struct sd_locker_state_t *state)
 {
   struct flock fl;
+
+  assert (state         != NULL);
+  assert (state->locked == 1);
 
   memset (&fl, 0, sizeof (fl));
 
@@ -45,72 +71,68 @@ fd_unlock_w (int fd)
   fl.l_len    = 0;
   fl.l_pid    = getpid();
 
-  return fcntl (fd, F_SETLKW, &fl);
+  if (fcntl (state->lock_fd, F_SETLKW, &fl) == -1)
+    sd_locker_fatal (state, "fcntl");
+}
+
+/*
+ * Create/open lock file.
+ */
+
+static void
+sd_locker_win32_lock_file_open
+  (struct sd_locker_state_t *state)
+{
+  assert (state            != NULL);
+  assert (state->lock_file != NULL);
+
+  state->lock_fd = open (state->lock_file, O_WRONLY | O_TRUNC | O_CREAT, 0600);
+  if (state->lock_fd == -1)
+    sd_locker_fatal (state, "open");
+}
+
+/*
+ * Close lock file.
+ */
+
+static void
+sd_locker_win32_lock_file_close
+  (struct sd_locker_state_t *state)
+{
+  assert (state               != NULL);
+  assert (state->lock_file    != NULL);
+  assert (posix_state.lock_fd != -1);
+
+  if (close (state->lock_fd) == -1)
+    sd_locker_fatal (state, "close");
 }
 
 static void
-usage (void)
+sd_locker_posix_execute
+  (const struct sd_locker_state_t *state, int argc, char *argv[])
 {
-  (void) fprintf (stderr, "sd-locker: usage: lock-file command [args]\n");
-  exit (EXIT_FAILURE);
-}
-
-static const char *lock_file;
-static int         lock_fd;
-
-static void
-die (int code, const char *message)
-  /*@globals  errno, stderr @*/
-  /*@modifies errno, stderr @*/
-{
-  (void) fprintf (stderr, "sd-locker: fatal: %s - %s\n", message, strerror (errno));
-  exit (code);
-}
-
-static void
-die_unlock (int code, const char *message)
-  /*@globals  errno, lock_fd, lock_file, stderr @*/
-  /*@modifies errno, stderr                     @*/
-{
-  (void) fprintf (stderr, "sd-locker: fatal: %s - %s\n", message, strerror (errno));
-
-  (void) unlink      (lock_file);
-  (void) fd_unlock_w (lock_fd);
-  (void) close       (lock_fd);
-
-  exit (code);
-}
-
-int
-main (int argc, char *argv[])
-  /*@globals  errno, lock_fd, lock_file, stderr @*/
-  /*@modifies errno, lock_fd, lock_file, stderr @*/
-{
-  int status;
-  int code = 0;
   pid_t process_id;
+  int status;
 
-  if (argc < 3) usage ();
-
-  lock_file = argv[1];
-  lock_fd   = open (lock_file, O_WRONLY | O_TRUNC | O_CREAT, 0600);
-
-  if (lock_fd == -1)             die (EXIT_FAILURE, "open");
-  if (fd_lock_w (lock_fd) == -1) die (EXIT_FAILURE, "lock");
+  assert (state != NULL);
+  assert (argc > 0);
+  assert (argv != NULL);
 
   process_id = fork ();
-  if (process_id == (pid_t) -1) die_unlock (EXIT_FAILURE, "fork");
+  if (process_id == (pid_t) -1)
+    sd_locker_fatal (state, "fork");
+
   if (process_id == 0) {
     ++argv;
     ++argv;
-    if (close (lock_fd) == -1)      die (EXIT_FAILURE, "close");
-    if (execvp (*argv, argv) == -1) die (EXIT_FAILURE, "execve");
+    if (close (state->lock_fd) == -1)
+      sd_locker_fatal (state, "close");
+    if (execvp (*argv, argv) == -1)
+      sd_locker_fatal (state, "execve");
   } else {
-    if (waitpid (process_id, &status, 0) == (pid_t) -1) die_unlock (EXIT_FAILURE, "waitpid");
-    code = WEXITSTATUS (status);
+    if (waitpid (process_id, &status, 0) == (pid_t) -1)
+      sd_locker_fatal (state, "waitpid");
+    state->exit_code = WEXITSTATUS (status);
   }
-
-  if (fd_unlock_w (lock_fd) == -1) die_unlock (EXIT_FAILURE, "unlock");
-  if (close (lock_fd) == -1)       die_unlock (EXIT_FAILURE, "close");
-  return code;
 }
+
