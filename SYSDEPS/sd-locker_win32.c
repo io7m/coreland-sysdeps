@@ -24,10 +24,10 @@ file_wait_lock (HANDLE file)
 
   return LockFileEx
    (file,
-    0,     /* Shared lock, wait for lock to succeed. */
-    0,     /* Reserved. */
-    0,     /* Low 32 bits of range to lock. */
-    0,     /* High 32 bits of range to lock. */
+    LOCKFILE_EXCLUSIVE_LOCK, /* Exclusive lock, wait for lock to succeed. */
+    0,                       /* Reserved. */
+    0,                       /* Low 32 bits of range to lock. */
+    0,                       /* High 32 bits of range to lock. */
     &lock_overlap);
 }
 
