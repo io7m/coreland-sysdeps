@@ -30,6 +30,28 @@ SDM_prepare_locker()
 }
 
 #
+# Acquire lock on ${LOCK_FILE} and execute program.
+#
+
+SDM_lock_and_exec()
+{
+  LOCK_FILE="$1"
+
+  shift
+
+  SDM_prepare_locker
+
+  if [ ! -x "${SYSDEP_BASE_DIRECTORY}/sd-locker" ]
+  then
+    SYSDEP_FATAL "sd-locker does not exist and could not be created"
+  fi
+
+  ${SYSDEP_BASE_DIRECTORY}/sd-locker \
+    "${LOCK_FILE}" \
+     $@
+}
+
+#
 # Acquire lock on ${LOCK_FILE} and execute compiler.
 #
 
@@ -81,18 +103,16 @@ SDM_protected_C_compilation()
   SDM_lock_and_compile "${OBJECT_FILE}.lock" "${SOURCE_FILE}" "${OBJECT_FILE}" "${RESULT_FILE}"
   RESULT_CODE=$?
 
-  case "${ALLOW_FAIL}" in
-    ALLOW_FAIL)
-      ;;
-    DISALLOW_FAIL)
-      if [ ${RESULT_CODE} -ne 0 ]
-      then
-        SYSDEP_FATAL "compilation of ${RESULT_FILE} failed"
-      fi
-      ;;
-    *) SYSDEP_FATAL "SDM_protected_C_compilation parameter must be ALLOW_FAIL or DISALLOW_FAIL"
-      ;;
-  esac
+  if [ ${RESULT_CODE} -ne 0 ]
+  then
+    case "${ALLOW_FAIL}" in
+      ALLOW_FAIL)    SYSDEP_DEBUG "failed to compile ${RESULT_FILE}" ;;
+      DISALLOW_FAIL) SYSDEP_FATAL "compilation of ${RESULT_FILE} failed" ;;
+      *)             SYSDEP_FATAL "SDM_protected_C_compilation parameter must be ALLOW_FAIL or DISALLOW_FAIL" ;;
+    esac
+  else
+    SYSDEP_DEBUG "compiled ${RESULT_FILE}"
+  fi
 }
 
 #
@@ -171,74 +191,108 @@ then
       "DISALLOW_FAIL"
   fi
 
+  #
+  # Each of these programs acquire a lock before use as another process in a
+  # parallel build might attempt to replace them at any moment, resulting in
+  # errors on systems with unusual semantics (win32).
+  #
+
   # Find system type.
-  SYSDEP_OS="`${SYSDEP_BASE_DIRECTORY}/sd-os`" ||
-    SYSDEP_ERROR "sd-os failed - operating system will be marked 'unknown'"
+  SYSDEP_OS="`SDM_lock_and_exec \
+    ${SYSDEP_BASE_DIRECTORY}/sd-os.lock \
+    ${SYSDEP_BASE_DIRECTORY}/sd-os`" ||
+      SYSDEP_ERROR "sd-os failed - operating system will be marked 'unknown'"
   export SYSDEP_OS
 
   # Find system version.
-  SYSDEP_OSVERSION="`${SYSDEP_BASE_DIRECTORY}/sd-osversion ${SYSDEP_OS}`" ||
-    SYSDEP_ERROR "sd-osversion failed - operating system version will be marked '0.0.0'"
+  SYSDEP_OSVERSION="`SDM_lock_and_exec \
+    ${SYSDEP_BASE_DIRECTORY}/sd-osversion.lock \
+    ${SYSDEP_BASE_DIRECTORY}/sd-osversion ${SYSDEP_OS}`" ||
+      SYSDEP_ERROR "sd-osversion failed - operating system version will be marked '0.0.0'"
   export SYSDEP_OSVERSION
 
   # Find system architecture.
-  SYSDEP_ARCH="`${SYSDEP_BASE_DIRECTORY}/sd-arch`" ||
-    SYSDEP_ERROR "sd-arch failed - architecture will be marked 'unknown'"
+  SYSDEP_ARCH="`SDM_lock_and_exec \
+    ${SYSDEP_BASE_DIRECTORY}/sd-arch.lock \
+    ${SYSDEP_BASE_DIRECTORY}/sd-arch`" ||
+      SYSDEP_ERROR "sd-arch failed - architecture will be marked 'unknown'"
   export SYSDEP_ARCH
 
   # Find compiler type.
-  SYSDEP_CCTYPE="`${SYSDEP_BASE_DIRECTORY}/sd-cctype`" ||
-    SYSDEP_ERROR "sd-cctype failed - compiler type will be marked 'unknown'"
+  SYSDEP_CCTYPE="`SDM_lock_and_exec \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cctype.lock \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cctype`" ||
+      SYSDEP_ERROR "sd-cctype failed - compiler type will be marked 'unknown'"
   export SYSDEP_CCTYPE
 
   # Find compiler version.
-  SYSDEP_CCVERSION="`${SYSDEP_BASE_DIRECTORY}/sd-ccversion`" ||
-    SYSDEP_ERROR "sd-ccversion failed - compiler version will be marked '0.0.0'"
+  SYSDEP_CCVERSION="`SDM_lock_and_exec \
+    ${SYSDEP_BASE_DIRECTORY}/sd-ccversion.lock \
+    ${SYSDEP_BASE_DIRECTORY}/sd-ccversion`" ||
+      SYSDEP_ERROR "sd-ccversion failed - compiler version will be marked '0.0.0'"
   export SYSDEP_CCVERSION
 
   # Find CPU features (Altivec, SSE etc).
-  SYSDEP_CPU_EXT="`${SYSDEP_BASE_DIRECTORY}/sd-cpufeat ${SYSDEP_OS}`" ||
-    SYSDEP_ERROR "sd-cpufeat failed - CPU will appear to have no features"
+  SYSDEP_CPU_EXT="`SDM_lock_and_exec \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpufeat ${SYSDEP_OS}`" ||
+      SYSDEP_ERROR "sd-cpufeat failed - CPU will appear to have no features"
   export SYSDEP_CPU_EXT
 
   # Find number of CPUs.
-  SYSDEP_CPU_NUM="`${SYSDEP_BASE_DIRECTORY}/sd-cpunum ${SYSDEP_OS}`" ||
-    SYSDEP_ERROR "sd-cpunum failed - number of CPUs will be zero"
+  SYSDEP_CPU_NUM="`SDM_lock_and_exec \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpunum ${SYSDEP_OS}`" ||
+      SYSDEP_ERROR "sd-cpunum failed - number of CPUs will be zero"
   export SYSDEP_CPU_NUM
 
   # Find CPU model.
-  SYSDEP_CPU_MODEL="`${SYSDEP_BASE_DIRECTORY}/sd-cpumodel ${SYSDEP_OS}`" ||
-    SYSDEP_ERROR "sd-cpumodel failed - CPU model will be marked 'unknown'"
+  SYSDEP_CPU_MODEL="`SDM_lock_and_exec \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpumodel ${SYSDEP_OS}`" ||
+      SYSDEP_ERROR "sd-cpumodel failed - CPU model will be marked 'unknown'"
   export SYSDEP_CPU_MODEL
 
   # Find CPU frequency.
-  SYSDEP_CPU_FREQ="`${SYSDEP_BASE_DIRECTORY}/sd-cpufreq ${SYSDEP_OS}`" ||
-    SYSDEP_ERROR "sd-cpufreq failed - CPU frequency will be zero"
+  SYSDEP_CPU_FREQ="`SDM_lock_and_exec \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpufreq ${SYSDEP_OS}`" ||
+      SYSDEP_ERROR "sd-cpufreq failed - CPU frequency will be zero"
   export SYSDEP_CPU_FREQ
 
   # Find CPU L1 instruction cache size.
-  SYSDEP_CPU_L1_INST_CACHE_SIZE="`${SYSDEP_BASE_DIRECTORY}/sd-cpul1icache ${SYSDEP_OS}`" ||
-    SYSDEP_ERROR "sd-cpul1icache failed - L1 instruction cache size will be zero"
+  SYSDEP_CPU_L1_INST_CACHE_SIZE="`SDM_lock_and_exec \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpul1icache ${SYSDEP_OS}`" ||
+      SYSDEP_ERROR "sd-cpul1icache failed - L1 instruction cache size will be zero"
   export SYSDEP_CPU_L1_INST_CACHE_SIZE
 
   # Find CPU L1 data cache size.
-  SYSDEP_CPU_L1_DATA_CACHE_SIZE="`${SYSDEP_BASE_DIRECTORY}/sd-cpul1dcache ${SYSDEP_OS}`" ||
-    SYSDEP_ERROR "sd-cpul1dcache failed - L1 data cache size will be zero"
+  SYSDEP_CPU_L1_DATA_CACHE_SIZE="`SDM_lock_and_exec \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpul1dcache ${SYSDEP_OS}`" ||
+      SYSDEP_ERROR "sd-cpul1dcache failed - L1 data cache size will be zero"
   export SYSDEP_CPU_L1_DATA_CACHE_SIZE
 
   # Find CPU L2 cache size.
-  SYSDEP_CPU_L2_CACHE_SIZE="`${SYSDEP_BASE_DIRECTORY}/sd-cpul2cache ${SYSDEP_OS}`" ||
-    SYSDEP_ERROR "sd-cpul12cache failed - L2 cache size will be zero"
+  SYSDEP_CPU_L2_CACHE_SIZE="`SDM_lock_and_exec \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpul2cache ${SYSDEP_OS}`" ||
+      SYSDEP_ERROR "sd-cpul12cache failed - L2 cache size will be zero"
   export SYSDEP_CPU_L2_CACHE_SIZE
 
   # Find CPU L3 cache size.
-  SYSDEP_CPU_L3_CACHE_SIZE="`${SYSDEP_BASE_DIRECTORY}/sd-cpul3cache ${SYSDEP_OS}`" ||
-    SYSDEP_ERROR "sd-cpul13cache failed - L3 cache size will be zero"
+  SYSDEP_CPU_L3_CACHE_SIZE="`SDM_lock_and_exec \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpul3cache ${SYSDEP_OS}`" ||
+      SYSDEP_ERROR "sd-cpul13cache failed - L3 cache size will be zero"
   export SYSDEP_CPU_L3_CACHE_SIZE
 
   # Find CPU cache line size.
-  SYSDEP_CPU_CACHE_LINE_SIZE="`${SYSDEP_BASE_DIRECTORY}/sd-cpuclinesz ${SYSDEP_OS}`" ||
-    SYSDEP_ERROR "sd-cpuclinesz failed - cache line size will be zero"
+  SYSDEP_CPU_CACHE_LINE_SIZE="`SDM_lock_and_exec \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpuclinesz ${SYSDEP_OS}`" ||
+      SYSDEP_ERROR "sd-cpuclinesz failed - cache line size will be zero"
   export SYSDEP_CPU_CACHE_LINE_SIZE
 
   #----------------------------------------------------------------------
