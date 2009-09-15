@@ -132,6 +132,37 @@ sd_locker_lock_release (struct sd_locker_state_t *state)
   sd_locker_lock_announce (state, "released");
 }
 
+#ifdef SD_LOCKER_DEBUGGING
+static void
+sd_locker_dump_arguments
+  (const struct sd_locker_state_t *state, int argc, char *argv[])
+{
+  int index;
+
+  assert (state != NULL);
+  assert (state->lock_file != NULL);
+
+  for (index = 0; index < argc; ++index)
+    (void) fprintf (stderr, "sd-locker: %d: %s - [%d] %s\n",
+      state->id, state->lock_file, index, argv [index]);
+
+  (void) fflush (stderr);
+}
+#else
+static void
+sd_locker_dump_arguments
+  (const struct sd_locker_state_t *state, int argc, char *argv[])
+{
+  int index;
+
+  assert (state != NULL);
+  assert (state->lock_file != NULL);
+
+  for (index = 0; index < argc; ++index)
+    assert (argv [index] != NULL);
+}
+#endif
+
 static void
 sd_locker_execute
   (struct sd_locker_state_t *state, int argc, char *argv[])
@@ -140,6 +171,8 @@ sd_locker_execute
   assert (state->locked == 1);
   assert (argc          > 0);
   assert (argv          != NULL);
+
+  sd_locker_dump_arguments (state, argc, argv);
 
 #if SD_LOCKER_OS_TYPE == SD_LOCKER_OS_WIN32
   sd_locker_win32_execute (state, argc, argv);
