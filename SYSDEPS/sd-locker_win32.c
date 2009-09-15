@@ -17,6 +17,10 @@
 
 static OVERLAPPED lock_overlap;
 
+/*
+ * Lock handle, wait indefinitely to acquire lock.
+ */
+
 static BOOL
 file_wait_lock (HANDLE file)
 {
@@ -27,18 +31,22 @@ file_wait_lock (HANDLE file)
     LOCKFILE_EXCLUSIVE_LOCK, /* Exclusive lock, wait for lock to succeed. */
     0,                       /* Reserved. */
     0,                       /* Low 32 bits of range to lock. */
-    0,                       /* High 32 bits of range to lock. */
+    0xffffffff,              /* High 32 bits of range to lock. */
     &lock_overlap);
 }
+
+/*
+ * Unlock handle.
+ */
 
 static BOOL
 file_wait_unlock (HANDLE file)
 {
   return UnlockFileEx
    (file,
-    0,     /* Reserved. */
-    0,     /* Low 32 bits of range to lock. */
-    0,     /* High 32 bits of range to lock. */
+    0,              /* Reserved. */
+    0,              /* Low 32 bits of range to lock. */
+    0xffffffff,     /* High 32 bits of range to unlock. */
     &lock_overlap);
 }
 
@@ -51,6 +59,10 @@ usage (void)
 
 static const char *lock_file;
 static HANDLE      lock_handle;
+
+/*
+ * Fetch current error message.
+ */
 
 static const char *
 error_message (void)
@@ -83,6 +95,7 @@ die_unlock (const char *message)
 {
   (void) fprintf (stderr, "sd-locker: fatal: %s - %s\n", message, error_message ());
   (void) file_wait_unlock (lock_handle);
+  (void) CloseHandle (lock_handle);
   exit (EXIT_FAILURE);
 }
 
