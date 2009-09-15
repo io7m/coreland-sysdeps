@@ -15,7 +15,28 @@
 #include <stdlib.h>
 #include <string.h>
 
-static OVERLAPPED lock_overlap;
+static OVERLAPPED  lock_overlap;
+static const char *lock_file;
+static HANDLE      lock_handle;
+static DWORD       exit_code = EXIT_SUCCESS;
+
+#ifdef SYSDEPS_DEBUGGING
+static void
+lock_announce (const char *message)
+{
+  assert (message != NULL);
+  assert (lock_file != NULL);
+
+  (void) fprintf (stderr, "sd-locker: %s - %s\n", lock_file, message);
+  (void) fflush (stderr);
+}
+#else
+static void
+lock_announce (const char *message)
+{
+  assert (message != NULL);
+}
+#endif
 
 /*
  * Lock handle, wait indefinitely to acquire lock.
@@ -24,15 +45,21 @@ static OVERLAPPED lock_overlap;
 static BOOL
 file_wait_lock (HANDLE file)
 {
-  lock_overlap.hEvent = file;
+  BOOL lock_result;
 
-  return LockFileEx
+  lock_announce ("acquiring");
+
+  lock_overlap.hEvent = file;
+  lock_result = LockFileEx
    (file,
     LOCKFILE_EXCLUSIVE_LOCK, /* Exclusive lock, wait for lock to succeed. */
     0,                       /* Reserved. */
     0,                       /* Low 32 bits of range to lock. */
     0xffffffff,              /* High 32 bits of range to lock. */
     &lock_overlap);
+
+  lock_announce ("acquired");
+  return lock_result;
 }
 
 /*
@@ -42,12 +69,18 @@ file_wait_lock (HANDLE file)
 static BOOL
 file_wait_unlock (HANDLE file)
 {
-  return UnlockFileEx
+  BOOL unlock_result;
+
+  lock_announce ("releasing");
+  unlock_result = UnlockFileEx
    (file,
     0,              /* Reserved. */
     0,              /* Low 32 bits of range to lock. */
     0xffffffff,     /* High 32 bits of range to unlock. */
     &lock_overlap);
+
+  lock_announce ("released");
+  return unlock_result;
 }
 
 static void
@@ -56,9 +89,6 @@ usage (void)
   (void) fprintf (stderr, "sd-locker: usage: lock-file command [args]\n");
   exit (EXIT_FAILURE);
 }
-
-static const char *lock_file;
-static HANDLE      lock_handle;
 
 /*
  * Fetch current error message.
@@ -105,8 +135,12 @@ dump_arguments (int argc, char *argv[])
 {
   int index;
 
+  assert (lock_file != NULL);
+
   for (index = 0; index < argc; ++index)
-    (void) fprintf (stderr, "[%d] %s\n", index, argv [index]);
+    (void) fprintf (stderr, "sd-locker: %s - [%d] %s\n", lock_file, index, argv [index]);
+
+  (void) fflush (stderr);
 }
 #else
 static void
@@ -193,8 +227,6 @@ convert_command (int argc, char *argv[])
   return buffer;
 }
 
-static DWORD exit_code = EXIT_SUCCESS;
-
 static void
 execute (int argc, char *argv[])
 {
@@ -249,7 +281,7 @@ main (int argc, char *argv[])
      NULL);
 
   if (lock_handle == INVALID_HANDLE_VALUE) die ("create_file");
-  if (file_wait_lock (lock_handle) == FALSE)    die ("lock");
+  if (file_wait_lock (lock_handle) == FALSE) die ("lock");
 
   execute (argc - 2, argv + 2);
 
