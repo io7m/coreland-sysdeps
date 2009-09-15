@@ -41,9 +41,9 @@ SYSDEP_DEBUG()
   then
     if [ ! -z "${SYSDEP_MODULE}" ]
     then
-      echo "${SYSDEP_MODULE}: debug: $1" 1>&2
+      echo "${SYSDEP_MODULE}: debug: $$: $1" 1>&2
     else
-      echo "sysdep-main: debug: $1" 1>&2
+      echo "sysdep-main: debug: $$: $1" 1>&2
     fi
   fi
 }
