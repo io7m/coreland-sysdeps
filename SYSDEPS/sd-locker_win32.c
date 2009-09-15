@@ -128,37 +128,6 @@ sd_locker_win32_lock_file_close
     sd_locker_fatal (state, "close_handle");
 }
 
-#ifdef SD_LOCKER_DEBUGGING
-static void
-sd_locker_win32_dump_arguments
-  (const struct sd_locker_state_t *state, int argc, char *argv[])
-{
-  int index;
-
-  assert (state != NULL);
-  assert (state->lock_file != NULL);
-
-  for (index = 0; index < argc; ++index)
-    (void) fprintf (stderr, "sd-locker: %d: %s - [%d] %s\n",
-      state->id, state->lock_file, index, argv [index]);
-
-  (void) fflush (stderr);
-}
-#else
-static void
-sd_locker_win32_dump_arguments
-  (const struct sd_locker_state_t *state, int argc, char *argv[])
-{
-  int index;
-
-  assert (state != NULL);
-  assert (state->lock_file != NULL);
-
-  for (index = 0; index < argc; ++index)
-    assert (argv [index] != NULL);
-}
-#endif
-
 #define SD_LOCKER_WIN32_POSIX_SHELL_PREFIX      "sh -c \""
 #define SD_LOCKER_WIN32_POSIX_SHELL_PREFIX_SIZE (sizeof (SD_LOCKER_WIN32_POSIX_SHELL_PREFIX) - 1)
 #define SD_LOCKER_WIN32_POSIX_SHELL_QUOTE       "'"
@@ -254,8 +223,6 @@ sd_locker_win32_execute
   ZeroMemory (&info_startup, sizeof (info_startup));
   ZeroMemory (&info_process, sizeof (info_process));
   info_startup.cb = sizeof (info_startup);
-
-  sd_locker_win32_dump_arguments (state, argc, argv);
 
   /* Transform command into flattened copy for win32 command line. */
   command = sd_locker_win32_convert_command (argc, argv);
