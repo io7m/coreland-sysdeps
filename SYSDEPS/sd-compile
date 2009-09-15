@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 cleanup()
 {
   rm -f "${OBJECT_FILE}" "${RESULT_FILE}".tmp
@@ -37,6 +36,11 @@ LD_FLAGS="$4"
 
 #----------------------------------------------------------------------
 # compile/link, etc
+
+if [ -x "${RESULT_FILE}" ]
+then
+  exit 0
+fi
 
 ${CC} ${CC_FLAGS} -c -o "${OBJECT_FILE}" "${SOURCE_FILE}" || fail "could not compile ${SOURCE_FILE}"
 ${LD} ${LD_FLAGS}    -o "${RESULT_FILE}" "${OBJECT_FILE}" || fail "could not link ${RESULT_FILE}"
