@@ -27,7 +27,6 @@ SDM_STANDARD_FILES="
   ${SYSDEP_BASE_DIRECTORY}/sd-arch
   ${SYSDEP_BASE_DIRECTORY}/sd-cctype
   ${SYSDEP_BASE_DIRECTORY}/sd-ccversion
-  ${SYSDEP_BASE_DIRECTORY}/sd-adaversion
   ${SYSDEP_BASE_DIRECTORY}/sd-adaversion.out
   ${SYSDEP_BASE_DIRECTORY}/sd-os
   ${SYSDEP_BASE_DIRECTORY}/sd-locker
