@@ -15,16 +15,31 @@
 #include <stdlib.h>
 #include <string.h>
 
+static OVERLAPPED lock_overlap;
+
 static BOOL
-fd_lock_w (HANDLE file)
+file_wait_lock (HANDLE file)
 {
-  return LockFile (file, 0, 0, 0, 0);
+  lock_overlap.hEvent = file;
+
+  return LockFileEx
+   (file,
+    0,     /* Shared lock, wait for lock to succeed. */
+    0,     /* Reserved. */
+    0,     /* Low 32 bits of range to lock. */
+    0,     /* High 32 bits of range to lock. */
+    &lock_overlap);
 }
 
 static BOOL
-fd_unlock_w (HANDLE file)
+file_wait_unlock (HANDLE file)
 {
-  return UnlockFile (file, 0, 0, 0, 0);
+  return UnlockFileEx
+   (file,
+    0,     /* Reserved. */
+    0,     /* Low 32 bits of range to lock. */
+    0,     /* High 32 bits of range to lock. */
+    &lock_overlap);
 }
 
 static void
@@ -57,18 +72,18 @@ error_message (void)
 }
 
 static void
-die (int code, const char *message)
+die (const char *message)
 {
   (void) fprintf (stderr, "sd-locker: fatal: %s - %s\n", message, error_message ());
-  exit (code);
+  exit (EXIT_FAILURE);
 }
 
 static void
-die_unlock (int code, const char *message)
+die_unlock (const char *message)
 {
   (void) fprintf (stderr, "sd-locker: fatal: %s - %s\n", message, error_message ());
-  (void) fd_unlock_w (lock_handle);
-  exit (code);
+  (void) file_wait_unlock (lock_handle);
+  exit (EXIT_FAILURE);
 }
 
 #ifdef SYSDEPS_DEBUGGING
@@ -195,14 +210,14 @@ execute (int argc, char *argv[])
      NULL,                  /* Current directory. */
      &info_startup,
      &info_process);
-  if (exec_result == FALSE) die_unlock (EXIT_FAILURE, "create_process");
+  if (exec_result == FALSE) die_unlock ("create_process");
 
   wait_result = WaitForSingleObject (info_process.hProcess, INFINITE);
   /* XXX: Do something with wait_result here? */
 
-  if (GetExitCodeProcess (info_process.hProcess, &exit_code) == FALSE) die_unlock (EXIT_FAILURE, "exit_code");
-  if (CloseHandle (info_process.hProcess) == FALSE) die_unlock (EXIT_FAILURE, "close_handle");
-  if (CloseHandle (info_process.hThread) == FALSE) die_unlock (EXIT_FAILURE, "close_handle");
+  if (GetExitCodeProcess (info_process.hProcess, &exit_code) == FALSE) die_unlock ("exit_code");
+  if (CloseHandle (info_process.hProcess) == FALSE) die_unlock ("close_process");
+  if (CloseHandle (info_process.hThread) == FALSE) die_unlock ("close_thread");
 }
 
 int
@@ -212,16 +227,21 @@ main (int argc, char *argv[])
 
   lock_file = argv[1];
   lock_handle = CreateFile
-    (lock_file, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ, NULL, OPEN_ALWAYS,
-     FILE_ATTRIBUTE_NORMAL, NULL);
+    (lock_file,
+     GENERIC_READ | GENERIC_WRITE,
+     FILE_SHARE_READ | FILE_SHARE_WRITE,
+     NULL,
+     OPEN_ALWAYS,
+     FILE_ATTRIBUTE_NORMAL,
+     NULL);
 
-  if (lock_handle == INVALID_HANDLE_VALUE) die (EXIT_FAILURE, "close");
-  if (fd_lock_w (lock_handle) == FALSE)    die (EXIT_FAILURE, "lock");
+  if (lock_handle == INVALID_HANDLE_VALUE) die ("create_file");
+  if (file_wait_lock (lock_handle) == FALSE)    die ("lock");
 
   execute (argc - 2, argv + 2);
 
-  if (fd_unlock_w (lock_handle) == FALSE) die_unlock (EXIT_FAILURE, "unlock");
-  if (CloseHandle (lock_handle) == FALSE) die_unlock (EXIT_FAILURE, "close");
+  if (file_wait_unlock (lock_handle) == FALSE) die_unlock ("unlock");
+  if (CloseHandle (lock_handle) == FALSE) die_unlock ("close_handle");
 
   return exit_code;
 }
