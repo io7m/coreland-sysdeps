@@ -8,7 +8,7 @@ cleanup()
 
 fail()
 {
-  echo "$1" 1>&2
+  echo "sd-compile: $1" 1>&2
   cleanup
   exit 1
 }
@@ -18,7 +18,7 @@ fail()
 
 if [ $# -ne 7 ]
 then
-  echo "usage: source object result cc cflags ld ldflags" 1>&2
+  echo "sd-compile: usage: source object result cc cflags ld ldflags" 1>&2
   exit 1
 fi
 
@@ -38,7 +38,5 @@ LD_FLAGS="$4"
 #----------------------------------------------------------------------
 # compile/link, etc
 
-${CC} ${CC_FLAGS} -c -o "${OBJECT_FILE}"     "${SOURCE_FILE}" || fail "could not compile ${SOURCE_FILE}"
-${LD} ${LD_FLAGS}    -o "${RESULT_FILE}".tmp "${OBJECT_FILE}" || fail "could not link ${RESULT_FILE}"
-mv -f "${RESULT_FILE}".tmp "${RESULT_FILE}"                   || fail "could not mv ${RESULT_FILE}.tmp"
-
+${CC} ${CC_FLAGS} -c -o "${OBJECT_FILE}" "${SOURCE_FILE}" || fail "could not compile ${SOURCE_FILE}"
+${LD} ${LD_FLAGS}    -o "${RESULT_FILE}" "${OBJECT_FILE}" || fail "could not link ${RESULT_FILE}"
