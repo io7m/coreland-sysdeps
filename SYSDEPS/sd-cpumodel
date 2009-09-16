@@ -16,6 +16,9 @@ case "$sys" in
   SD_SYSINFO_OS_VMS)
     model=""
     ;;
+  SD_SYSINFO_OS_SUNOS)
+    model=""
+    ;;
   *)
     model_raw=`sysctl hw.model 2>/dev/null`
     model="`echo ${model_raw} | tr [A-Z] [a-z]`"
