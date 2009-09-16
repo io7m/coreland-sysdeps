@@ -21,6 +21,9 @@ case "$sys" in
   SD_SYSINFO_OS_SUNOS)
     ncpu="`psrinfo -v | grep "Status of" | wc -l`"
     ;;
+  SD_SYSINFO_OS_MS_WINDOWS)
+    ncpu="${NUMBER_OF_PROCESSORS}"
+    ;;
   SD_SYSINFO_OS_VMS)
     ncpu="`SHOW CPU /BRIEF | grep CPU | wc -l | tr -d ' '`"
     ;;
