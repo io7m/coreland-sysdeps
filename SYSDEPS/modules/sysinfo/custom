@@ -5,7 +5,7 @@ sysdeps="$2"
 
 define()
 {
-  echo "#define $1 $2" | sed -e 's/SYSDEP/SYS/g' >> "${fout}"
+  echo "#define $1 $2" >> "${fout}"
 }
 
 cat >> "${fout}" <<EOF
