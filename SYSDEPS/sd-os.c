@@ -1,3 +1,7 @@
+/*
+ * Auto generated - do not edit.
+ */
+
 #include <stdio.h>
 
 const char *var = "UNKNOWN";
@@ -114,6 +118,6 @@ int main()
   var = "Z_OS_OS390";
 #endif
 
-  printf("SYSDEP_OS_%s\n", var);
+  printf("SD_SYSINFO_OS_%s\n", var);
   return 0;
 }

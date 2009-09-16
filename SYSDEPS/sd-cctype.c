@@ -1,3 +1,7 @@
+/*
+ * Auto generated - do not edit.
+ */
+
 #include <stdio.h>
 
 const char *var;
@@ -149,6 +153,6 @@ int main()
 #if defined(__WATCOMC__)
   var = "WATCOM";
 #endif
-  printf("SYSDEP_CCTYPE_%s\n", var);
+  printf("SD_SYSINFO_CCTYPE_%s\n", var);
   return 0;
 }

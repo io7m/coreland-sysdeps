@@ -1,3 +1,7 @@
+/*
+ * Auto generated - do not edit.
+ */
+
 #include <stdio.h>
 
 const char *var = "UNKNOWN";
@@ -62,6 +66,6 @@ int main()
   var = "Z_ARCHITECTURE";
 #endif
 
-  printf("SYSDEP_ARCH_%s\n", var);
+  printf("SD_SYSINFO_ARCH_%s\n", var);
   return 0;
 }
