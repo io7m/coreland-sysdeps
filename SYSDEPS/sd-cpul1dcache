@@ -17,7 +17,7 @@ esac
 
 if [ -f ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86 ]
 then
-  cache=`${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86 l1dcachesize`
+  cache=`${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86 l1dcachesize 2>/dev/null`
 fi
 
 if [ ! -z "${cache}" ]
