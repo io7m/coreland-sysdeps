@@ -1,11 +1,16 @@
 #!/bin/sh
 
-exec 2>/dev/null
+if [ $# -ne 1 ]
+then
+  echo "sd-cpul3cache: usage: os" 1>&2
+  exit 1
+fi
+
 sys="$1"
 cache=0
 
 case "$sys" in
-  SYSDEP_OS_DARWIN)
+  SD_SYSINFO_OS_DARWIN)
     cache="`sysctl hw.l3cachesize | awk '{print $2}'`"
     ;; 
 esac

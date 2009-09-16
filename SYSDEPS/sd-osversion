@@ -4,16 +4,16 @@ exec 2>/dev/null
 sys="$1"
 
 case "$sys" in
-  SYSDEP_OS_IRIX)
+  SD_SYSINFO_OS_IRIX)
     ver=`uname -R | awk '{print $NF}'`
     ;;
-  SYSDEP_OS_SUNOS)
+  SD_SYSINFO_OS_SUNOS)
     ver=`uname -r`-`uname -v`
     ;;
-  SYSDEP_OS_VMS)
+  SD_SYSINFO_OS_VMS)
     ver=`uname -v`
     ;;
-  SYSDEP_OS_MS_WINDOWS)
+  SD_SYSINFO_OS_MS_WINDOWS)
     ver=`uname -s | awk -F- '{print $NF}'`
     ;;
   *)

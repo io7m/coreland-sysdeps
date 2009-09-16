@@ -1,11 +1,16 @@
 #!/bin/sh
 
-exec 2>/dev/null
+if [ $# -ne 1 ]
+then
+  echo "sd-cpufeat: usage: os" 1>&2
+  exit 1
+fi
+
 sys="$1"
 feat=""
 
 case "$sys" in
-  SYSDEP_OS_DARWIN)
+  SD_SYSINFO_OS_DARWIN)
     alti="`sysctl hw.optional.altivec | awk '{print $2}'`"
     if [ "${alti}" = "1" ]
     then

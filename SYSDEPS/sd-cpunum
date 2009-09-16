@@ -1,22 +1,27 @@
 #!/bin/sh
 
-exec 2>/dev/null
+if [ $# -ne 1 ]
+then
+  echo "sd-cpunum: usage: os" 1>&2
+  exit 1
+fi
+
 sys="$1"
 
 case "$sys" in
-  SYSDEP_OS_LINUX)
+  SD_SYSINFO_OS_LINUX)
     ncpu="`grep -i '^processor' /proc/cpuinfo | wc -l`"
     ;;
-  SYSDEP_OS_CRAY_UNICOS)
+  SD_SYSINFO_OS_CRAY_UNICOS)
     ncpu="`getconf CRAY_NCPU`"
     ;;
-  SYSDEP_OS_IRIX)
+  SD_SYSINFO_OS_IRIX)
     ncpu="`getconf NUM_PROCESSORS`"
     ;;
-  SYSDEP_OS_SUNOS)
+  SD_SYSINFO_OS_SUNOS)
     ncpu="`psrinfo -v | grep "Status of" | wc -l`"
     ;;
-  SYSDEP_OS_VMS)
+  SD_SYSINFO_OS_VMS)
     ncpu="`SHOW CPU /BRIEF | grep CPU | wc -l | tr -d ' '`"
     ;;
   *)
