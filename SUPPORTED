@@ -1,1 +1,3 @@
 freebsd 7.2-release-p2 gcc 4.4.0 x86_64 gnat_fsf 4.4.0
+linux 2.6.26-2-686 gcc 4.3.3 x86 gnat_gpl 2009.5.19
+netbsd 5.0.1 gcc 4.1.3 sparc
