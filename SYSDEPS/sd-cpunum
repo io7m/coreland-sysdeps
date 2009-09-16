@@ -23,7 +23,7 @@ case "$sys" in
     ncpu="`sysctl hw.ncpu`"
     if [ $? -eq 0 ]
     then
-      ncpu="`echo ${ncpu} | awk '{print $2}'`"
+      ncpu="`echo ${ncpu} | awk '{print $NF}'`"
     else
       ncpu=0
     fi
