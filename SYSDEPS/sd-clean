@@ -24,6 +24,7 @@ fi
 
 SDM_STANDARD_FILES="
   ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86
+  ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.h
   ${SYSDEP_BASE_DIRECTORY}/sd-arch
   ${SYSDEP_BASE_DIRECTORY}/sd-cctype
   ${SYSDEP_BASE_DIRECTORY}/sd-ccversion

@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "sd-cpuidx86.h"
+
 /*
  * Based on x86info by Dave Jones but sharing no code.
  */
@@ -224,17 +226,29 @@ cpu_check_features (const char *name)
  * Check CPUID support.
  */
 
+#if SD_CPUIDX86_ARCH == SD_SYSINFO_ARCH_X86_64
+#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_GCC
 static int
-cpuid_check_support (void)
+cpuid_check_support_x86_64_gcc (void)
+{
+  /* Assume all 64 bit CPUs support CPUID. */
+  return 1;
+}
+#endif /* SD_SYSINFO_CCTYPE_GCC */
+#endif /* SD_SYSINFO_ARCH_X86_64 */
+
+#if SD_CPUIDX86_ARCH == SD_SYSINFO_ARCH_X86
+#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_GCC
+static int
+cpuid_check_support_x86_gcc (void)
 {
   uint32_t eax = 0;
   uint32_t ecx = 0;
 
-#ifdef __GNUC__
   __asm__ __volatile__(
     /* Place copies of EFLAGS into eax, ecx. */
     "pushf\n\t"
-    "pop %0\n\t"
+    "popl %0\n\t"
     "mov %0, %1\n\t"
 
     /* Toggle ID bit in eax and store to EFLAGS register. */
@@ -249,8 +263,18 @@ cpuid_check_support (void)
     :
     : "cc" 
   );
-#else
-#ifdef __SUNPRO_C
+
+  return eax != ecx;
+}
+#endif /* SD_SYSINFO_CCTYPE_GCC */
+
+#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_SUN_C
+static int
+cpuid_check_support_x86_sun (void)
+{
+  uint32_t eax = 0;
+  uint32_t ecx = 0;
+
   asm("pushf");
   asm("pop %eax");
   asm("movl %eax, -12(%ebp)");
@@ -260,12 +284,33 @@ cpuid_check_support (void)
   asm("pushf");
   asm("pop %eax");
   asm("movl %eax, -8(%ebp)");
-#endif /* __SUNPRO_C */
-#endif /* __GNUC__ */
 
-  (void) fprintf (stderr, "cpuid_check:               %.8u          %.8u\n", eax, ecx);
+  return eax != ecx;
+}
+#endif /* SD_SYSINFO_CCTYPE_SUN_C */
+#endif /* SD_SYSINFO_ARCH_X86 */
 
-  if (eax == ecx) {
+static int
+cpuid_check_support (void)
+{
+  int supported = 0;
+
+#if SD_CPUIDX86_ARCH == SD_SYSINFO_ARCH_X86_64
+#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_GCC
+  supported = cpuid_check_support_x86_64_gcc ();
+#endif /* SD_SYSINFO_CCTYPE_GCC */
+#endif /* SD_SYSINFO_ARCH_X86 */
+
+#if SD_CPUIDX86_ARCH == SD_SYSINFO_ARCH_X86
+#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_GCC
+  supported = cpuid_check_support_x86_gcc ();
+#endif /* SD_SYSINFO_CCTYPE_GCC */
+#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_SUN_C
+  supported = cpuid_check_support_x86_sun ();
+#endif /* SD_SYSINFO_CCTYPE_SUN_C */
+#endif /* SD_SYSINFO_ARCH_X86 */
+
+  if (supported == 0) {
     (void) fprintf (stderr, "cpuid_check:      cpuid not supported\n");
     return 0;
   } else {
@@ -278,8 +323,8 @@ cpuid_check_support (void)
  * Execute CPUID instruction.
  */
 
-#ifdef __GNUC__
-#ifdef __x86_64__
+#if SD_CPUIDX86_ARCH == SD_SYSINFO_ARCH_X86_64
+#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_GCC
 static void
 cpuid_exec_gcc_x86_64 (uint32_t val,  uint32_t *eax, uint32_t *ebx,
                        uint32_t *ecx, uint32_t *edx)
@@ -293,7 +338,11 @@ cpuid_exec_gcc_x86_64 (uint32_t val,  uint32_t *eax, uint32_t *ebx,
     : "0" (val)
   );
 }
-#else
+#endif /* SD_SYSINFO_CCTYPE_GCC */
+#endif /* SD_SYSINFO_ARCH_X86_64 */
+
+#if SD_CPUIDX86_ARCH == SD_SYSINFO_ARCH_X86
+#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_GCC
 static void
 cpuid_exec_gcc_x86 (uint32_t val,  uint32_t *eax, uint32_t *ebx,
                     uint32_t *ecx, uint32_t *edx)
@@ -307,10 +356,8 @@ cpuid_exec_gcc_x86 (uint32_t val,  uint32_t *eax, uint32_t *ebx,
     : "0" (val)
   );
 }
-#endif /* __x86_64__ */
-#endif /* __GNUC__ */
-
-#ifdef __SUNPRO_C
+#endif /* SD_SYSINFO_CCTYPE_GCC */
+#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_SUN_C
 static void
 cpuid_exec_x86_sun (uint32_t val,  uint32_t *eax, uint32_t *ebx,
                     uint32_t *ecx, uint32_t *edx)
@@ -326,23 +373,27 @@ cpuid_exec_x86_sun (uint32_t val,  uint32_t *eax, uint32_t *ebx,
   asm ("movl 24(%ebp), %esp");
   asm ("movl %edx, 0(%esp)");
 }
-#endif /* __SUNPRO_C */
+#endif /* SD_SYSINFO_CCTYPE_SUN_C */
+#endif /* SD_SYSINFO_ARCH_X86 */
 
 static void
 cpuid_exec (uint32_t val,  uint32_t *eax, uint32_t *ebx,
             uint32_t *ecx, uint32_t *edx)
 {
-#ifdef __GNUC__
-#ifdef __x86_64__
+#if SD_CPUIDX86_ARCH == SD_SYSINFO_ARCH_X86_64
+#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_GCC
   cpuid_exec_gcc_x86_64 (val, eax, ebx, ecx, edx);
-#else
-  cpuid_exec_gcc_x86 (val, eax, ebx, ecx, edx);
-#endif /* __x86_64__ */
-#endif /* __GNUC__ */
+#endif /* SD_SYSINFO_CCTYPE_GCC */
+#endif /* SD_SYSINFO_ARCH_X86_64 */
 
-#ifdef __SUNPRO_C
+#if SD_CPUIDX86_ARCH == SD_SYSINFO_ARCH_X86
+#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_GCC
+  cpuid_exec_gcc_x86 (val, eax, ebx, ecx, edx);
+#endif /* SD_SYSINFO_CCTYPE_GCC */
+#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_SUN_C
   cpuid_exec_x86_sun (val, eax, ebx, ecx, edx);
-#endif /* __SUNPRO_C */
+#endif /* SD_SYSINFO_CCTYPE_SUN_C */
+#endif /* SD_SYSINFO_ARCH_X86 */
 }
 
 static void
