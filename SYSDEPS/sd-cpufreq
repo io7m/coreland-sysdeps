@@ -1,22 +1,26 @@
 #!/bin/sh
 
-exec 2>/dev/null
+if [ $# -ne 1 ]
+then
+  echo "sd-cpufreq: usage: os" 1>&2
+  exit 1
+fi
+
 freq=0
 
 sys="$1"
 case "$sys" in
-  SYSDEP_OS_DARWIN)
+  SD_SYSINFO_OS_DARWIN)
     freq="`sysctl hw.cpufrequency | awk '{print $2}'`"
     let freq=freq/1000000
     ;;
-  SYSDEP_OS_FREEBSD)
+  SD_SYSINFO_OS_FREEBSD)
     freq="`sysctl dev.cpu.0.freq | awk '{print $2}'`"
     ;; 
-  SYSDEP_OS_LINUX)
-    freq="`grep -i 'cpu MHz' /proc/cpuinfo | awk -F. '{print $1'}`"
-    freq="`echo ${freq} | awk '{print $NF}'`"
+  SD_SYSINFO_OS_LINUX)
+    freq="`grep -i 'cpu MHz' /proc/cpuinfo | awk '{print $NF}' | head -n 1`"
     ;;
-  SYSDEP_OS_VMS)
+  SD_SYSINFO_OS_VMS)
     freq="`SHOW CPU /FULL | grep Speed | awk '{print $2}' | head -1`"
     ;;
 esac
