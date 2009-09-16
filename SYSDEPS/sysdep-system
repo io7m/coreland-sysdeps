@@ -173,101 +173,106 @@ then
   # Acquire locks on and compile support programs. They will not be
   # compiled if they already exist.
   #
-
-  SDM_protected_C_compilation \
-    "${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.c" \
-    "${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.o" \
-    "${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86"   \
-    "ALLOW_FAIL"
-
-  SDM_protected_C_compilation \
-    "${SYSDEP_BASE_DIRECTORY}/sd-arch.c" \
-    "${SYSDEP_BASE_DIRECTORY}/sd-arch.o" \
-    "${SYSDEP_BASE_DIRECTORY}/sd-arch"   \
-    "DISALLOW_FAIL"
-
-  SDM_protected_C_compilation \
-    "${SYSDEP_BASE_DIRECTORY}/sd-cctype.c" \
-    "${SYSDEP_BASE_DIRECTORY}/sd-cctype.o" \
-    "${SYSDEP_BASE_DIRECTORY}/sd-cctype"   \
-    "DISALLOW_FAIL"
-
-  SDM_protected_C_compilation \
-    "${SYSDEP_BASE_DIRECTORY}/sd-os.c" \
-    "${SYSDEP_BASE_DIRECTORY}/sd-os.o" \
-    "${SYSDEP_BASE_DIRECTORY}/sd-os"   \
-    "DISALLOW_FAIL"
-
-  SDM_protected_C_compilation \
-    "${SYSDEP_BASE_DIRECTORY}/sd-ccversion.c" \
-    "${SYSDEP_BASE_DIRECTORY}/sd-ccversion.o" \
-    "${SYSDEP_BASE_DIRECTORY}/sd-ccversion"   \
-    "DISALLOW_FAIL"
-
-  #
   # Each of these programs acquire a lock before use as another process in a
   # parallel build might attempt to replace them at any moment, resulting in
   # errors on systems with unusual semantics (win32).
   #
 
-  # Find system type.
-  SYSDEP_OS="`SDM_lock_and_exec \
-    ${SYSDEP_BASE_DIRECTORY}/sd-os.lock \
-    ${SYSDEP_BASE_DIRECTORY}/sd-os`" ||
-      SYSDEP_ERROR "sd-os failed - operating system will be marked 'unknown'"
-  export SYSDEP_OS
+  SDM_protected_C_compilation            \
+    "${SYSDEP_BASE_DIRECTORY}/sd-arch.c" \
+    "${SYSDEP_BASE_DIRECTORY}/sd-arch.o" \
+    "${SYSDEP_BASE_DIRECTORY}/sd-arch"   \
+    "DISALLOW_FAIL"
 
-  # Find system version.
-  SYSDEP_OSVERSION="`SDM_lock_and_exec \
-    ${SYSDEP_BASE_DIRECTORY}/sd-osversion.lock \
-    ${SYSDEP_BASE_DIRECTORY}/sd-osversion ${SYSDEP_OS}`" ||
-      SYSDEP_ERROR "sd-osversion failed - operating system version will be marked '0.0.0'"
-  export SYSDEP_OSVERSION
+  SDM_protected_C_compilation              \
+    "${SYSDEP_BASE_DIRECTORY}/sd-cctype.c" \
+    "${SYSDEP_BASE_DIRECTORY}/sd-cctype.o" \
+    "${SYSDEP_BASE_DIRECTORY}/sd-cctype"   \
+    "DISALLOW_FAIL"
+
+  SDM_protected_C_compilation          \
+    "${SYSDEP_BASE_DIRECTORY}/sd-os.c" \
+    "${SYSDEP_BASE_DIRECTORY}/sd-os.o" \
+    "${SYSDEP_BASE_DIRECTORY}/sd-os"   \
+    "DISALLOW_FAIL"
+
+  SDM_protected_C_compilation                 \
+    "${SYSDEP_BASE_DIRECTORY}/sd-ccversion.c" \
+    "${SYSDEP_BASE_DIRECTORY}/sd-ccversion.o" \
+    "${SYSDEP_BASE_DIRECTORY}/sd-ccversion"   \
+    "DISALLOW_FAIL"
 
   # Find system architecture.
-  SYSDEP_ARCH="`SDM_lock_and_exec \
+  SYSDEP_ARCH="`SDM_lock_and_exec         \
     ${SYSDEP_BASE_DIRECTORY}/sd-arch.lock \
     ${SYSDEP_BASE_DIRECTORY}/sd-arch`" ||
       SYSDEP_ERROR "sd-arch failed - architecture will be marked 'unknown'"
   export SYSDEP_ARCH
 
   # Find compiler type.
-  SYSDEP_CCTYPE="`SDM_lock_and_exec \
+  SYSDEP_CCTYPE="`SDM_lock_and_exec         \
     ${SYSDEP_BASE_DIRECTORY}/sd-cctype.lock \
     ${SYSDEP_BASE_DIRECTORY}/sd-cctype`" ||
       SYSDEP_ERROR "sd-cctype failed - compiler type will be marked 'unknown'"
   export SYSDEP_CCTYPE
 
+  # Create header for sd-cpuidx86
+  SDM_lock_and_exec                                 \
+    "${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.h.lock"   \
+    "${SYSDEP_BASE_DIRECTORY}/sd-mk-cpuidx86-h"     \
+    "${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.h" ||
+      SYSDEP_FATAL "could not create sd-cpuidx86.h"
+
+  SDM_protected_C_compilation                \
+    "${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.c" \
+    "${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.o" \
+    "${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86"   \
+    "DISALLOW_FAIL"
+
+  # Find system type.
+  SYSDEP_OS="`SDM_lock_and_exec         \
+    ${SYSDEP_BASE_DIRECTORY}/sd-os.lock \
+    ${SYSDEP_BASE_DIRECTORY}/sd-os`" ||
+      SYSDEP_ERROR "sd-os failed - operating system will be marked 'unknown'"
+  export SYSDEP_OS
+
+  # Find system version.
+  SYSDEP_OSVERSION="`SDM_lock_and_exec         \
+    ${SYSDEP_BASE_DIRECTORY}/sd-osversion.lock \
+    ${SYSDEP_BASE_DIRECTORY}/sd-osversion ${SYSDEP_OS}`" ||
+      SYSDEP_ERROR "sd-osversion failed - operating system version will be marked '0.0.0'"
+  export SYSDEP_OSVERSION
+
   # Find compiler version.
-  SYSDEP_CCVERSION="`SDM_lock_and_exec \
+  SYSDEP_CCVERSION="`SDM_lock_and_exec         \
     ${SYSDEP_BASE_DIRECTORY}/sd-ccversion.lock \
     ${SYSDEP_BASE_DIRECTORY}/sd-ccversion`" ||
       SYSDEP_ERROR "sd-ccversion failed - compiler version will be marked '0.0.0'"
   export SYSDEP_CCVERSION
 
   # Find CPU features (Altivec, SSE etc).
-  SYSDEP_CPU_EXT="`SDM_lock_and_exec \
+  SYSDEP_CPU_EXT="`SDM_lock_and_exec          \
     ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock \
     ${SYSDEP_BASE_DIRECTORY}/sd-cpufeat ${SYSDEP_OS}`" ||
       SYSDEP_ERROR "sd-cpufeat failed - CPU will appear to have no features"
   export SYSDEP_CPU_EXT
 
   # Find number of CPUs.
-  SYSDEP_CPU_NUM="`SDM_lock_and_exec \
+  SYSDEP_CPU_NUM="`SDM_lock_and_exec          \
     ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock \
     ${SYSDEP_BASE_DIRECTORY}/sd-cpunum ${SYSDEP_OS}`" ||
       SYSDEP_ERROR "sd-cpunum failed - number of CPUs will be zero"
   export SYSDEP_CPU_NUM
 
   # Find CPU model.
-  SYSDEP_CPU_MODEL="`SDM_lock_and_exec \
+  SYSDEP_CPU_MODEL="`SDM_lock_and_exec        \
     ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock \
     ${SYSDEP_BASE_DIRECTORY}/sd-cpumodel ${SYSDEP_OS}`" ||
       SYSDEP_ERROR "sd-cpumodel failed - CPU model will be marked 'unknown'"
   export SYSDEP_CPU_MODEL
 
   # Find CPU frequency.
-  SYSDEP_CPU_FREQ="`SDM_lock_and_exec \
+  SYSDEP_CPU_FREQ="`SDM_lock_and_exec         \
     ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock \
     ${SYSDEP_BASE_DIRECTORY}/sd-cpufreq ${SYSDEP_OS}`" ||
       SYSDEP_ERROR "sd-cpufreq failed - CPU frequency will be zero"
@@ -275,35 +280,35 @@ then
 
   # Find CPU L1 instruction cache size.
   SYSDEP_CPU_L1_INST_CACHE_SIZE="`SDM_lock_and_exec \
-    ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock       \
     ${SYSDEP_BASE_DIRECTORY}/sd-cpul1icache ${SYSDEP_OS}`" ||
       SYSDEP_ERROR "sd-cpul1icache failed - L1 instruction cache size will be zero"
   export SYSDEP_CPU_L1_INST_CACHE_SIZE
 
   # Find CPU L1 data cache size.
   SYSDEP_CPU_L1_DATA_CACHE_SIZE="`SDM_lock_and_exec \
-    ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock       \
     ${SYSDEP_BASE_DIRECTORY}/sd-cpul1dcache ${SYSDEP_OS}`" ||
       SYSDEP_ERROR "sd-cpul1dcache failed - L1 data cache size will be zero"
   export SYSDEP_CPU_L1_DATA_CACHE_SIZE
 
   # Find CPU L2 cache size.
   SYSDEP_CPU_L2_CACHE_SIZE="`SDM_lock_and_exec \
-    ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock  \
     ${SYSDEP_BASE_DIRECTORY}/sd-cpul2cache ${SYSDEP_OS}`" ||
       SYSDEP_ERROR "sd-cpul12cache failed - L2 cache size will be zero"
   export SYSDEP_CPU_L2_CACHE_SIZE
 
   # Find CPU L3 cache size.
   SYSDEP_CPU_L3_CACHE_SIZE="`SDM_lock_and_exec \
-    ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock  \
     ${SYSDEP_BASE_DIRECTORY}/sd-cpul3cache ${SYSDEP_OS}`" ||
       SYSDEP_ERROR "sd-cpul13cache failed - L3 cache size will be zero"
   export SYSDEP_CPU_L3_CACHE_SIZE
 
   # Find CPU cache line size.
   SYSDEP_CPU_CACHE_LINE_SIZE="`SDM_lock_and_exec \
-    ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock \
+    ${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.lock    \
     ${SYSDEP_BASE_DIRECTORY}/sd-cpuclinesz ${SYSDEP_OS}`" ||
       SYSDEP_ERROR "sd-cpuclinesz failed - cache line size will be zero"
   export SYSDEP_CPU_CACHE_LINE_SIZE
@@ -344,7 +349,7 @@ then
 
 else
   # Find system type.
-  SYSDEP_OS="SYSDEP_OS_`${SYSDEP_FILE} get "conf-x-systype" "UNKNOWN"`"
+  SYSDEP_OS="SD_SYSINFO_OS_`${SYSDEP_FILE} get "conf-x-systype" "UNKNOWN"`"
   export SYSDEP_OS
 
   # Find system version.
@@ -352,11 +357,11 @@ else
   export SYSDEP_OSVERSION
 
   # Find system architecture.
-  SYSDEP_ARCH="SYSDEP_ARCH_`${SYSDEP_FILE} get "conf-x-arch" "UNKNOWN"`"
+  SYSDEP_ARCH="SD_SYSINFO_ARCH_`${SYSDEP_FILE} get "conf-x-arch" "UNKNOWN"`"
   export SYSDEP_ARCH
 
   # Find compiler type.
-  SYSDEP_CCTYPE="SYSDEP_CCTYPE_`${SYSDEP_FILE} get "conf-x-cctype" "UNKNOWN"`"
+  SYSDEP_CCTYPE="SD_SYSINFO_CCTYPE_`${SYSDEP_FILE} get "conf-x-cctype" "UNKNOWN"`"
   export SYSDEP_CCTYPE
 
   # Find compiler version.
@@ -404,7 +409,7 @@ else
   #
 
   # Find compiler type.
-  SYSDEP_ADA_TYPE="SYSDEP_ADA_TYPE_`${SYSDEP_FILE} get "conf-x-adatype" "UNKNOWN"`"
+  SYSDEP_ADA_TYPE="SD_SYSINFO_ADA_TYPE_`${SYSDEP_FILE} get "conf-x-adatype" "UNKNOWN"`"
   export SYSDEP_ADA_TYPE
 
   # Find compiler version.
@@ -438,8 +443,8 @@ fi
 # Standard include path.
 SYSDEP_STDINC="/usr/include /usr/local/include"
 case ${SYSDEP_OS} in
-  SYSDEP_OS_DARWIN) SYSDEP_STDINC="/opt/local/include /opt/include /sw/include ${SYSDEP_STDINC}";;
-  SYSDEP_OS_SUNOS) SYSDEP_STDINC="/opt/csw/include /usr/sfw/include ${SYSDEP_STDINC}";;
+  SD_SYSINFO_OS_DARWIN) SYSDEP_STDINC="/opt/local/include /opt/include /sw/include ${SYSDEP_STDINC}";;
+  SD_SYSINFO_OS_SUNOS) SYSDEP_STDINC="/opt/csw/include /usr/sfw/include ${SYSDEP_STDINC}";;
   *)
 esac
 SYSDEP_STDINC="${STDINC_ADD} ${SYSDEP_STDINC}"
@@ -448,8 +453,8 @@ export SYSDEP_STDINC
 # Standard library path.
 SYSDEP_STDLIB="/usr/lib /usr/local/lib"
 case ${SYSDEP_OS} in
-  SYSDEP_OS_DARWIN) SYSDEP_STDLIB="/opt/local/lib /opt/lib /sw/lib ${SYSDEP_STDLIB}";;
-  SYSDEP_OS_SUNOS) SYSDEP_STDLIB="/opt/csw/lib /usr/sfw/lib ${SYSDEP_STDLIB}";;
+  SD_SYSINFO_OS_DARWIN) SYSDEP_STDLIB="/opt/local/lib /opt/lib /sw/lib ${SYSDEP_STDLIB}";;
+  SD_SYSINFO_OS_SUNOS) SYSDEP_STDLIB="/opt/csw/lib /usr/sfw/lib ${SYSDEP_STDLIB}";;
   *)
 esac
 SYSDEP_STDLIB="${STDLIB_ADD} ${SYSDEP_STDLIB}"
@@ -458,9 +463,9 @@ export SYSDEP_STDLIB
 # Find system dynamic library suffix.
 SYSDEP_LIBSUFFIX="so"
 case ${SYSDEP_OS} in
-  SYSDEP_OS_DARWIN) SYSDEP_LIBSUFFIX="dylib" ;;
-  SYSDEP_OS_HPUX) SYSDEP_LIBSUFFIX="sl";;
-  SYSDEP_OS_MS_WINDOWS) SYSDEP_LIBSUFFIX="dll";;
+  SD_SYSINFO_OS_DARWIN) SYSDEP_LIBSUFFIX="dylib" ;;
+  SD_SYSINFO_OS_HPUX) SYSDEP_LIBSUFFIX="sl";;
+  SD_SYSINFO_OS_MS_WINDOWS) SYSDEP_LIBSUFFIX="dll";;
   *) ;;
 esac
 export SYSDEP_LIBSUFFIX
