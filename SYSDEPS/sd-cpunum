@@ -19,7 +19,7 @@ case "$sys" in
     ncpu="`getconf NUM_PROCESSORS`"
     ;;
   SD_SYSINFO_OS_SUNOS)
-    ncpu="`psrinfo -v | grep "Status of" | wc -l`"
+    ncpu="`psrinfo | wc -l | tr -d ' '`"
     ;;
   SD_SYSINFO_OS_MS_WINDOWS)
     ncpu="${NUMBER_OF_PROCESSORS}"
