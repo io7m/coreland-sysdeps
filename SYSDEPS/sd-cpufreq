@@ -23,6 +23,9 @@ case "$sys" in
   SD_SYSINFO_OS_VMS)
     freq="`SHOW CPU /FULL | grep Speed | awk '{print $2}' | head -1`"
     ;;
+  SD_SYSINFO_OS_SUNOS)
+    freq="`psrinfo -v 0 | grep MHz | tr -d 'A-Za-z,' | awk '{print $NF}'`"
+    ;;
 esac
 
 echo "$freq"
