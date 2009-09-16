@@ -1,3 +1,7 @@
+/*
+ * Auto generated - do not edit.
+ */
+
 #include <stdio.h>
 
 #include "_byteorder.h"
