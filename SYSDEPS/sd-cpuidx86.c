@@ -595,7 +595,10 @@ main (int argc, char *argv[])
 {
   if (argc < 2) exit (EXIT_FAILURE);
 
-  if (!cpuid_check_support()) exit (EXIT_FAILURE);
+  if (!cpuid_check_support()) {
+    (void) printf ("0\n");
+    exit (EXIT_SUCCESS);
+  }
   cpu_registers ();
 
   /* Check highest basic calling parameter. */
