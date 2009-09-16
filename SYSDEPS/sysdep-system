@@ -102,7 +102,22 @@ SDM_protected_C_compilation()
 
   SYSDEP_DEBUG "SDM_protected_C_compilation: compiling ${RESULT_FILE}"
 
-  SDM_lock_and_compile "${OBJECT_FILE}.lock" "${SOURCE_FILE}" "${OBJECT_FILE}" "${RESULT_FILE}"
+  #
+  # Mute error output if compilation is allowed to fail.
+  #
+
+  case "${ALLOW_FAIL}" in
+    ALLOW_FAIL)
+      SDM_lock_and_compile "${OBJECT_FILE}.lock" "${SOURCE_FILE}" "${OBJECT_FILE}" "${RESULT_FILE}" 2>/dev/null
+      ;;
+    DISALLOW_FAIL)
+      SDM_lock_and_compile "${OBJECT_FILE}.lock" "${SOURCE_FILE}" "${OBJECT_FILE}" "${RESULT_FILE}" 2>/dev/null
+      ;;
+    *)
+      SYSDEP_FATAL "SDM_protected_C_compilation parameter must be ALLOW_FAIL or DISALLOW_FAIL"
+      ;;
+  esac
+
   RESULT_CODE=$?
 
   if [ ${RESULT_CODE} -ne 0 ]
