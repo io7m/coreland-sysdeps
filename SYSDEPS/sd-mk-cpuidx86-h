@@ -1,0 +1,49 @@
+#!/bin/sh
+
+cleanup()
+{
+  rm -f "${OUTPUT_FILE_TMP}"
+}
+
+fail()
+{
+  echo "sd-mk-cpuid86-h: $1" 1>&2
+  exit 1
+}
+
+#----------------------------------------------------------------------
+# entry
+
+if [ $# -ne 1 ]
+then
+  echo "sd-mk-cpuidx86-h: usage: output" 1>&2
+  exit 1
+fi
+
+OUTPUT_FILE="$1"
+OUTPUT_FILE_TMP="${OUTPUT_FILE}.tmp"
+
+shift
+
+if [ -z "${SYSDEP_ARCH}" ]; then fail "SYSDEP_ARCH not defined"; fi
+if [ -z "${SYSDEP_CCTYPE}" ]; then fail "SYSDEP_CCTYPE not defined"; fi
+
+(
+cat > ${OUTPUT_FILE_TMP} <<EOF
+#ifndef SD_CPUIDX86_H
+#define SD_CPUIDX86_H
+
+#include "sd-sysinfo.h"
+
+#define SD_CPUIDX86_ARCH   ${SYSDEP_ARCH}
+#define SD_CPUIDX86_CCTYPE ${SYSDEP_CCTYPE}
+
+#endif
+EOF
+) || fail "could not write ${OUTPUT_FILE_TMP}"
+
+mv "${OUTPUT_FILE_TMP}" "${OUTPUT_FILE}" ||
+  fail "could not replace ${OUTPUT_FILE}"
+
+cleanup
+exit 0
