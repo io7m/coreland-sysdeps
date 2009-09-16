@@ -12,3 +12,5 @@ Fix sd-cpuidx86 on x86_64:
   sd-cpuidx86.c:238: Error: suffix or operands invalid for `push'
   sd-cpuidx86.c:241: Error: suffix or operands invalid for `pop'
 
+Compile sd-arch, sd-cctype and sd-ccversion first and use the results
+to attempt to compile sd-cpuidx86.c.
