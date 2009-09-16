@@ -540,12 +540,15 @@ flags-stack-ada:
 libs-stack-ada-S:
 	@echo SYSDEPS stack-ada-libs-S run create libs-stack-ada-S 
 	@(cd SYSDEPS && ./sd-run modules/stack-ada-libs-S)
-_sysinfo.h:
-	@echo SYSDEPS sysinfo run create _sysinfo.h 
+_sd_sysinfo.h:
+	@echo SYSDEPS sysinfo run create _sd_sysinfo.h 
 	@(cd SYSDEPS && ./sd-run modules/sysinfo)
 flags-test:
 	@echo SYSDEPS test run create flags-test 
 	@(cd SYSDEPS && ./sd-run modules/test)
+flags-test-custom:
+	@echo SYSDEPS test-custom run create flags-test-custom 
+	@(cd SYSDEPS && ./sd-run modules/test-custom)
 flags-tiff:
 	@echo SYSDEPS tiff-flags run create flags-tiff 
 	@(cd SYSDEPS && ./sd-run modules/tiff-flags)
@@ -1093,11 +1096,14 @@ stack-ada-libs-S_clean:
 	@echo SYSDEPS stack-ada-libs-S clean libs-stack-ada-S 
 	@(cd SYSDEPS && ./sd-clean modules/stack-ada-libs-S)
 sysinfo_clean:
-	@echo SYSDEPS sysinfo clean _sysinfo.h 
+	@echo SYSDEPS sysinfo clean _sd_sysinfo.h 
 	@(cd SYSDEPS && ./sd-clean modules/sysinfo)
 test_clean:
 	@echo SYSDEPS test clean flags-test 
 	@(cd SYSDEPS && ./sd-clean modules/test)
+test-custom_clean:
+	@echo SYSDEPS test-custom clean flags-test-custom 
+	@(cd SYSDEPS && ./sd-clean modules/test-custom)
 tiff-flags_clean:
 	@echo SYSDEPS tiff-flags clean flags-tiff 
 	@(cd SYSDEPS && ./sd-clean modules/tiff-flags)
@@ -1300,6 +1306,7 @@ stack-ada-flags_clean \
 stack-ada-libs-S_clean \
 sysinfo_clean \
 test_clean \
+test-custom_clean \
 tiff-flags_clean \
 tiff-libs_clean \
 uint16_clean \
@@ -1357,7 +1364,7 @@ cc-compile depchklist.c _byteorder.h _ch_flags.h _direntry.h _float32.h \
 _float64.h _int16.h _int32.h _int64.h _io-notice.h _sd_dlopen.h _sd_fcntl.h \
 _sd_fd.h _sd_fork.h _sd_inline.h _sd_longlong.h _sd_math.h _sd_mmap.h \
 _sd_posix_rt.h _sd-ptr_uint.h _sd_select.h _sendfile.h _sig_action.h \
-_sig_pmask.h _sysinfo.h _uint16.h _uint32.h _uint64.h
+_sig_pmask.h _sd_sysinfo.h _uint16.h _uint32.h _uint64.h
 	./cc-compile depchklist.c
 
 mk-cctype:\
