@@ -51,17 +51,6 @@
 #define CPU_ID_APM_INFO              0x80000007u
 #define CPU_ID_ADDRESS_SIZE          0x80000008u
 
-#define SYSDEP_CPU_EXT_MMX      0x0001
-#define SYSDEP_CPU_EXT_MMX2     0x0002
-#define SYSDEP_CPU_EXT_3DNOW    0x0004
-#define SYSDEP_CPU_EXT_3DNOWEXT 0x0008
-#define SYSDEP_CPU_EXT_SSE      0x0010
-#define SYSDEP_CPU_EXT_SSE2     0x0020
-#define SYSDEP_CPU_EXT_SSE3     0x0040
-#define SYSDEP_CPU_EXT_SSE4_1   0x0080
-#define SYSDEP_CPU_EXT_SSE4_2   0x0100
-#define SYSDEP_CPU_EXT_ALTIVEC  0x0200
-
 struct cpu_info {
   uint32_t number;
   uint32_t vendor;
@@ -190,15 +179,15 @@ static const struct vendor_description vendors[] = {
  */
 
 static const struct feature features[] = {
-  { "mmx",      SYSDEP_CPU_EXT_MMX,     },
-  { "mmx2",     SYSDEP_CPU_EXT_MMX2,    },
-  { "3dnow",    SYSDEP_CPU_EXT_3DNOW    },
-  { "3dnowext", SYSDEP_CPU_EXT_3DNOWEXT },
-  { "sse",      SYSDEP_CPU_EXT_SSE,     },
-  { "sse2",     SYSDEP_CPU_EXT_SSE2,    },
-  { "sse3",     SYSDEP_CPU_EXT_SSE3,    },
-  { "sse4.1",   SYSDEP_CPU_EXT_SSE4_1,  },
-  { "sse4.2",   SYSDEP_CPU_EXT_SSE4_2,  },
+  { "mmx",      SD_SYSINFO_CPU_EXT_MMX,     },
+  { "mmx2",     SD_SYSINFO_CPU_EXT_MMX2,    },
+  { "3dnow",    SD_SYSINFO_CPU_EXT_3DNOW    },
+  { "3dnowext", SD_SYSINFO_CPU_EXT_3DNOWEXT },
+  { "sse",      SD_SYSINFO_CPU_EXT_SSE,     },
+  { "sse2",     SD_SYSINFO_CPU_EXT_SSE2,    },
+  { "sse3",     SD_SYSINFO_CPU_EXT_SSE3,    },
+  { "sse4.1",   SD_SYSINFO_CPU_EXT_SSE4_1,  },
+  { "sse4.2",   SD_SYSINFO_CPU_EXT_SSE4_2,  },
 };
 
 static int
@@ -555,13 +544,13 @@ cpu_vendor_intel (void)
   cpu.type   = (eax >> 12) & 0x0003u;
   cpu.brand  =  ebx        & 0x000fu;
 
-  if (edx & CPU_INTEL_MMX_BIT_MASK)    cpu.flags |= SYSDEP_CPU_EXT_MMX;
-  if (edx & CPU_INTEL_MMX2_BIT_MASK)   cpu.flags |= SYSDEP_CPU_EXT_MMX2;
-  if (edx & CPU_INTEL_SSE_BIT_MASK)    cpu.flags |= SYSDEP_CPU_EXT_SSE;
-  if (edx & CPU_INTEL_SSE2_BIT_MASK)   cpu.flags |= SYSDEP_CPU_EXT_SSE2;
-  if (ecx & CPU_INTEL_SSE3_BIT_MASK)   cpu.flags |= SYSDEP_CPU_EXT_SSE3;
-  if (ecx & CPU_INTEL_SSE4_1_BIT_MASK) cpu.flags |= SYSDEP_CPU_EXT_SSE4_1;
-  if (ecx & CPU_INTEL_SSE4_2_BIT_MASK) cpu.flags |= SYSDEP_CPU_EXT_SSE4_2;
+  if (edx & CPU_INTEL_MMX_BIT_MASK)    cpu.flags |= SD_SYSINFO_CPU_EXT_MMX;
+  if (edx & CPU_INTEL_MMX2_BIT_MASK)   cpu.flags |= SD_SYSINFO_CPU_EXT_MMX2;
+  if (edx & CPU_INTEL_SSE_BIT_MASK)    cpu.flags |= SD_SYSINFO_CPU_EXT_SSE;
+  if (edx & CPU_INTEL_SSE2_BIT_MASK)   cpu.flags |= SD_SYSINFO_CPU_EXT_SSE2;
+  if (ecx & CPU_INTEL_SSE3_BIT_MASK)   cpu.flags |= SD_SYSINFO_CPU_EXT_SSE3;
+  if (ecx & CPU_INTEL_SSE4_1_BIT_MASK) cpu.flags |= SD_SYSINFO_CPU_EXT_SSE4_1;
+  if (ecx & CPU_INTEL_SSE4_2_BIT_MASK) cpu.flags |= SD_SYSINFO_CPU_EXT_SSE4_2;
 
   cpu_cache_size (intel_L1i_caches, &cpu.cache_L1_instruction, &cpu.cacheline);
   cpu_cache_size (intel_L1d_caches, &cpu.cache_L1_data, &cpu.cacheline);
@@ -644,10 +633,10 @@ main (int argc, char *argv[])
   cpuid (CPU_ID_GET_MAX_EXT_PARAM, &eax, &ebx, &ecx, &edx);
   if (eax >= 0x80000001u) {
     cpuid (0x80000001, &eax, &ebx, &ecx, &edx);
-    if (edx & 0x00800000u) cpu.flags |= SYSDEP_CPU_EXT_MMX;
-    if (edx & 0x00400000u) cpu.flags |= SYSDEP_CPU_EXT_MMX2;
-    if (edx & 0x80000000u) cpu.flags |= SYSDEP_CPU_EXT_3DNOW;
-    if (edx & 0x40000000u) cpu.flags |= SYSDEP_CPU_EXT_3DNOWEXT;
+    if (edx & 0x00800000u) cpu.flags |= SD_SYSINFO_CPU_EXT_MMX;
+    if (edx & 0x00400000u) cpu.flags |= SD_SYSINFO_CPU_EXT_MMX2;
+    if (edx & 0x80000000u) cpu.flags |= SD_SYSINFO_CPU_EXT_3DNOW;
+    if (edx & 0x40000000u) cpu.flags |= SD_SYSINFO_CPU_EXT_3DNOWEXT;
   }
 
   /* Exit if name was consumed. */
