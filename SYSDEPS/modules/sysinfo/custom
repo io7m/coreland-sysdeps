@@ -90,7 +90,7 @@ define SD_SYSINFO_CPU_EXT "${ext}"
 
 for f in ${SYSDEP_CPU_EXT}
 do
-  have=`echo "${f}" | sed -e 's/SYSDEP_/SD_SYSINFO_HAVE_/g'` ||
+  have=`echo "${f}" | sed -e 's/SD_SYSINFO_/SD_SYSINFO_HAVE_/g'` ||
     SYSDEP_FATAL "could not convert \"$f\" to SYSINFO form"
   define "${have}"
 done
