@@ -17,7 +17,8 @@ case "$sys" in
     model=""
     ;;
   *)
-    model="`sysctl hw.model | tr [A-Z] [a-z]`"
+    model_raw=`sysctl hw.model 2>/dev/null`
+    model="`echo ${model_raw} | tr [A-Z] [a-z]`"
     ;;
 esac
 
