@@ -29,6 +29,10 @@ case "$sys" in
     model=""
     res=$?
     ;;
+  SD_SYSINFO_OS_MINIX)
+    model=""
+    res=$?
+    ;;
   *)
     model_raw=`sysctl hw.model`
     res=$?
