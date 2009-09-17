@@ -16,6 +16,11 @@
 
 SDM_files_clean()
 {
+  for file in *.o *.exe
+  do
+    SYSDEP_REMOVE "${file}"
+  done
+
   for file in ${SDM_CREATES}
   do
     SYSDEP_REMOVE "${file}" "${SYSDEP_OUTPUT_DIRECTORY}/${file}"
