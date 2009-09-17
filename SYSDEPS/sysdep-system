@@ -85,7 +85,7 @@ SDM_lock_and_compile()
 
 #
 # Compile ${SOURCE_FILE} into ${RESULT_FILE} using ${OBJECT_FILE} as intermediate
-# object. ${ALLOW_FAIL} specifies whether the compilation is allowed to fail or not.
+# object.
 #
 
 SDM_protected_C_compilation()
@@ -93,43 +93,17 @@ SDM_protected_C_compilation()
   SOURCE_FILE="$1"
   OBJECT_FILE="$2"
   RESULT_FILE="$3"
-  ALLOW_FAIL="$4"
 
-  if [ -z "${SOURCE_FILE}" ] || [ -z "${OBJECT_FILE}" ] || [ -z "${RESULT_FILE}" ] || [ -z "${ALLOW_FAIL}" ]
+  if [ -z "${SOURCE_FILE}" ] || [ -z "${OBJECT_FILE}" ] || [ -z "${RESULT_FILE}" ]
   then
     SYSDEP_FATAL "incorrect or missing arguments to SDM_protected_C_compilation"
   fi
 
   SYSDEP_DEBUG "SDM_protected_C_compilation: compiling ${RESULT_FILE}"
+  SDM_lock_and_compile "${OBJECT_FILE}.lock" "${SOURCE_FILE}" "${OBJECT_FILE}" "${RESULT_FILE}" ||
+    SYSDEP_FATAL "compilation of ${RESULT_FILE} failed" ;;
 
-  #
-  # Mute error output if compilation is allowed to fail.
-  #
-
-  case "${ALLOW_FAIL}" in
-    ALLOW_FAIL)
-      SDM_lock_and_compile "${OBJECT_FILE}.lock" "${SOURCE_FILE}" "${OBJECT_FILE}" "${RESULT_FILE}" 2>/dev/null
-      ;;
-    DISALLOW_FAIL)
-      SDM_lock_and_compile "${OBJECT_FILE}.lock" "${SOURCE_FILE}" "${OBJECT_FILE}" "${RESULT_FILE}" 2>/dev/null
-      ;;
-    *)
-      SYSDEP_FATAL "SDM_protected_C_compilation parameter must be ALLOW_FAIL or DISALLOW_FAIL"
-      ;;
-  esac
-
-  RESULT_CODE=$?
-
-  if [ ${RESULT_CODE} -ne 0 ]
-  then
-    case "${ALLOW_FAIL}" in
-      ALLOW_FAIL)    SYSDEP_DEBUG "failed to compile ${RESULT_FILE}" ;;
-      DISALLOW_FAIL) SYSDEP_FATAL "compilation of ${RESULT_FILE} failed" ;;
-      *)             SYSDEP_FATAL "SDM_protected_C_compilation parameter must be ALLOW_FAIL or DISALLOW_FAIL" ;;
-    esac
-  else
-    SYSDEP_DEBUG "compiled ${RESULT_FILE}"
-  fi
+  SYSDEP_DEBUG "compiled ${RESULT_FILE}"
 }
 
 #
@@ -181,26 +155,22 @@ then
   SDM_protected_C_compilation            \
     "${SYSDEP_BASE_DIRECTORY}/sd-arch.c" \
     "${SYSDEP_BASE_DIRECTORY}/sd-arch.o" \
-    "${SYSDEP_BASE_DIRECTORY}/sd-arch"   \
-    "DISALLOW_FAIL"
+    "${SYSDEP_BASE_DIRECTORY}/sd-arch"
 
   SDM_protected_C_compilation              \
     "${SYSDEP_BASE_DIRECTORY}/sd-cctype.c" \
     "${SYSDEP_BASE_DIRECTORY}/sd-cctype.o" \
-    "${SYSDEP_BASE_DIRECTORY}/sd-cctype"   \
-    "DISALLOW_FAIL"
+    "${SYSDEP_BASE_DIRECTORY}/sd-cctype"
 
   SDM_protected_C_compilation          \
     "${SYSDEP_BASE_DIRECTORY}/sd-os.c" \
     "${SYSDEP_BASE_DIRECTORY}/sd-os.o" \
-    "${SYSDEP_BASE_DIRECTORY}/sd-os"   \
-    "DISALLOW_FAIL"
+    "${SYSDEP_BASE_DIRECTORY}/sd-os"
 
   SDM_protected_C_compilation                 \
     "${SYSDEP_BASE_DIRECTORY}/sd-ccversion.c" \
     "${SYSDEP_BASE_DIRECTORY}/sd-ccversion.o" \
-    "${SYSDEP_BASE_DIRECTORY}/sd-ccversion"   \
-    "DISALLOW_FAIL"
+    "${SYSDEP_BASE_DIRECTORY}/sd-ccversion"
 
   # Find system architecture.
   SYSDEP_ARCH="`SDM_lock_and_exec         \
@@ -226,8 +196,7 @@ then
   SDM_protected_C_compilation                \
     "${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.c" \
     "${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86.o" \
-    "${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86"   \
-    "DISALLOW_FAIL"
+    "${SYSDEP_BASE_DIRECTORY}/sd-cpuidx86"
 
   # Find system type.
   SYSDEP_OS="`SDM_lock_and_exec         \
