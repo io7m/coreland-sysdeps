@@ -1,5 +1,10 @@
 #!/bin/sh
 
+warn()
+{
+  echo "sd-cpunum: warn: $1" 1>&2
+}
+
 if [ $# -ne 1 ]
 then
   echo "sd-cpumodel: usage: os" 1>&2
@@ -12,15 +17,19 @@ model=""
 case "$sys" in
   SD_SYSINFO_OS_DARWIN)
     model=`machine`
+    res=$?
     ;;
   SD_SYSINFO_OS_VMS)
     model=""
+    res=$?
     ;;
   SD_SYSINFO_OS_SUNOS)
     model=""
+    res=$?
     ;;
   *)
-    model_raw=`sysctl hw.model 2>/dev/null`
+    model_raw=`sysctl hw.model`
+    res=$?
     model="`echo ${model_raw} | tr [A-Z] [a-z]`"
     ;;
 esac
@@ -30,3 +39,8 @@ case "$model" in
   ppc7450) echo 'SD_SYSINFO_CPU_MODEL_PPC_7450' ;;
   *)       echo 'SD_SYSINFO_CPU_MODEL_UNKNOWN' ;;
 esac
+
+if [ $res -ne 0 ]
+then
+  warn "CPU model detection failed - CPU model defaulted to unknown"
+fi
