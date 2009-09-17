@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main()
+int main (void)
 {
   int i;
   char b;
@@ -9,9 +9,9 @@ int main()
   b = * (char *) &i;
   
   if (b == i)
-    printf("little\n");
+    printf ("little\n");
   else
-    printf("big\n");
+    printf ("big\n");
 
   return 0;
 }
