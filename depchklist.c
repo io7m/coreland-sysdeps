@@ -22,7 +22,7 @@
 #include "_sd_math.h"
 #include "_sd_mmap.h"
 #include "_sd_posix_rt.h"
-#include "_sd-ptr_uint.h"
+#include "_sd_ptr_uint.h"
 #include "_sd_select.h"
 #include "_sendfile.h"
 #include "_sig_action.h"
