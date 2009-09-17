@@ -1,8 +1,10 @@
 #!/bin/sh
 
+. ${SYSDEP_BASE_DIRECTORY}/sysdep-subs || exit 1
+
 warn()
 {
-  echo "sd-cpunum: warn: $1" 1>&2
+  SYSDEP_DEBUG "sd-cpunum: $1"
 }
 
 if [ $# -ne 1 ]
