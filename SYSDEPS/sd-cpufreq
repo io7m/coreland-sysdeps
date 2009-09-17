@@ -21,6 +21,13 @@ case "$sys" in
     freq="`sysctl hw.cpufrequency | awk '{print $2}'`"
     let freq=freq/1000000
     ;;
+  SD_SYSINFO_OS_DRAGONFLY)
+    freq=`sysctl hw.tsc_frequency | awk '{print $NF}'`
+    if [ $? -eq 0 ]
+    then
+      freq=`expr ${freq} / 1000000`
+    fi
+    ;;
   SD_SYSINFO_OS_FREEBSD)
     freq="`sysctl dev.cpu.0.freq | awk '{print $2}'`"
     ;; 
@@ -35,9 +42,15 @@ case "$sys" in
     ;;
 esac
 
+if [ -z "${freq}" ]
+then
+  freq=0
+fi
+
 if [ $freq -eq 0 ]
 then
   warn "CPU frequency detection failed - defaulting to 0"
+  freq=0
 fi
 
 echo "$freq"
