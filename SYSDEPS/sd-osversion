@@ -21,6 +21,11 @@ case "$sys" in
   SD_SYSINFO_OS_MS_WINDOWS)
     ver=`uname -s | awk -F- '{print $NF}'`
     ;;
+  SD_SYSINFO_OS_MINIX)
+    ver_r=`uname -r`
+    ver_v=`uname -v | tr -d [a-z]`
+    ver="${ver_r}.${ver_v}"
+    ;;
   *)
     ver=`uname -r`
     if [ $? -ne 0 ]
