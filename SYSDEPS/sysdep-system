@@ -101,7 +101,7 @@ SDM_protected_C_compilation()
 
   SYSDEP_DEBUG "SDM_protected_C_compilation: compiling ${RESULT_FILE}"
   SDM_lock_and_compile "${OBJECT_FILE}.lock" "${SOURCE_FILE}" "${OBJECT_FILE}" "${RESULT_FILE}" ||
-    SYSDEP_FATAL "compilation of ${RESULT_FILE} failed" ;;
+    SYSDEP_FATAL "compilation of ${RESULT_FILE} failed"
 
   SYSDEP_DEBUG "compiled ${RESULT_FILE}"
 }
