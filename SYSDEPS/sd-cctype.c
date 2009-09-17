@@ -6,7 +6,7 @@
 
 const char *var;
 
-int main()
+int main (void)
 {
   var = "UNKNOWN";
 #if defined(__BORLANDC__)

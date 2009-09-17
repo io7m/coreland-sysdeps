@@ -6,7 +6,7 @@
 
 const char *var = "UNKNOWN";
 
-int main()
+int main(void)
 {
 
 #if defined(___TOS_AIX__)

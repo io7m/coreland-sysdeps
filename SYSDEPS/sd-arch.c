@@ -6,7 +6,7 @@
 
 const char *var = "UNKNOWN";
 
-int main()
+int main (void)
 {
 #if defined(__alpha__) || defined(__alpha) || defined(_M_ALPHA)
   var = "ALPHA";
