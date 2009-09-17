@@ -1,6 +1,11 @@
 #!/bin/sh
 
-exec 2>/dev/null
+if [ $# -ne 1 ]
+then
+  echo "sd-cpufeat: usage: os" 1>&2
+  exit 1
+fi
+
 sys="$1"
 
 case "$sys" in
