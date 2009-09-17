@@ -1,5 +1,10 @@
 #!/bin/sh
 
+warn()
+{
+  echo "sd-cpufreq: warn: $1" 1>&2
+}
+
 if [ $# -ne 1 ]
 then
   echo "sd-cpufreq: usage: os" 1>&2
@@ -27,5 +32,10 @@ case "$sys" in
     freq="`psrinfo -v 0 | grep MHz | tr -d 'A-Za-z,' | awk '{print $NF}'`"
     ;;
 esac
+
+if [ $freq -eq 0 ]
+then
+  warn "could not detect CPU frequency - defaulting to 0"
+fi
 
 echo "$freq"
