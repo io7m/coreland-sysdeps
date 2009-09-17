@@ -5,7 +5,7 @@ SDM_lock_and_compile_fail()
   MESSAGE=$1
   shift
   SYSDEP_REMOVE $@
-  SYSDEP_FATAL "$1"
+  SYSDEP_FATAL "${MESSAGE}"
 }
 
 SDM_prepare_locker()
