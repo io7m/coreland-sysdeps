@@ -102,8 +102,11 @@ static uint32_t edx;
 static void
 cpu_registers_local (uint32_t eax, uint32_t ebx, uint32_t ecx, uint32_t edx)
 {
-  (void) fprintf (stderr, "cpu_registers:             %.8x %.8x %.8x %.8x\n",
-    eax, ebx, ecx, edx);
+  (void) fprintf (stderr, "cpu_registers:             %.8lx %.8lx %.8lx %.8lx\n",
+    (unsigned long) eax,
+    (unsigned long) ebx,
+    (unsigned long) ecx,
+    (unsigned long) edx);
 }
 
 static void
@@ -389,13 +392,21 @@ static void
 cpuid (uint32_t val,  uint32_t *eax, uint32_t *ebx,
        uint32_t *ecx, uint32_t *edx)
 {
-  (void) fprintf (stderr, "cpuid_pre:        %.8x %.8x %.8x %.8x %.8x\n",
-    val, *eax, *ebx, *ecx, *edx);
+  (void) fprintf (stderr, "cpuid_pre:        %.8lx %.8lx %.8lx %.8lx %.8lx\n",
+    (unsigned long) val,
+    (unsigned long) *eax,
+    (unsigned long) *ebx,
+    (unsigned long) *ecx,
+    (unsigned long) *edx);
 
   cpuid_exec (val, eax, ebx, ecx, edx);
 
-  (void) fprintf (stderr, "cpuid_post:       %.8x %.8x %.8x %.8x %.8x\n",
-    val, *eax, *ebx, *ecx, *edx);
+  (void) fprintf (stderr, "cpuid_post:       %.8lx %.8lx %.8lx %.8lx %.8lx\n",
+    (unsigned long) val,
+    (unsigned long) *eax,
+    (unsigned long) *ebx,
+    (unsigned long) *ecx,
+    (unsigned long) *edx);
 }
 
 /*
