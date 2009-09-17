@@ -9,6 +9,9 @@ const char *var;
 int main (void)
 {
   var = "UNKNOWN";
+#if defined(__ACK__)
+  var = "AMSTERDAM_KIT";
+#endif
 #if defined(__BORLANDC__)
   var = "BORLAND_CXX";
 #endif
