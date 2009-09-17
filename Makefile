@@ -406,8 +406,8 @@ libs-pthreads:
 flags-pthreads: libs-pthreads
 libs-pthr_rt: libs-pthreads
 flags-pthr_rt: libs-pthreads
-_sd-ptr_uint.h:
-	@echo SYSDEPS sd-ptr_uint run create _sd-ptr_uint.h 
+_sd_ptr_uint.h:
+	@echo SYSDEPS sd-ptr_uint run create _sd_ptr_uint.h 
 	@(cd SYSDEPS && ./sd-run modules/sd-ptr_uint)
 _sd_select.h:
 	@echo SYSDEPS sd-select run create _sd_select.h 
@@ -964,7 +964,7 @@ sd-pthreads_clean:
 	@echo SYSDEPS sd-pthreads clean flags-pthr_rt libs-pthr_rt flags-pthreads libs-pthreads 
 	@(cd SYSDEPS && ./sd-clean modules/sd-pthreads)
 sd-ptr_uint_clean:
-	@echo SYSDEPS sd-ptr_uint clean _sd-ptr_uint.h 
+	@echo SYSDEPS sd-ptr_uint clean _sd_ptr_uint.h 
 	@(cd SYSDEPS && ./sd-clean modules/sd-ptr_uint)
 sd-select_clean:
 	@echo SYSDEPS sd-select clean _sd_select.h 
@@ -1363,7 +1363,7 @@ depchklist.o:\
 cc-compile depchklist.c _byteorder.h _ch_flags.h _direntry.h _float32.h \
 _float64.h _int16.h _int32.h _int64.h _io-notice.h _sd_dlopen.h _sd_fcntl.h \
 _sd_fd.h _sd_fork.h _sd_inline.h _sd_longlong.h _sd_math.h _sd_mmap.h \
-_sd_posix_rt.h _sd-ptr_uint.h _sd_select.h _sendfile.h _sig_action.h \
+_sd_posix_rt.h _sd_ptr_uint.h _sd_select.h _sendfile.h _sig_action.h \
 _sig_pmask.h _sd_sysinfo.h _uint16.h _uint32.h _uint64.h
 	./cc-compile depchklist.c
 
