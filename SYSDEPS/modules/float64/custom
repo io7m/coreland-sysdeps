@@ -45,7 +45,7 @@ fi
 
 if [ -z "${type}" ]
 then
-  conf=`${SYSDEP_LINE} 1 < CONFIG`
+  conf=`${SYSDEP_LINE} 1 < config`
   type=`${SYSDEP_FILE} get "${conf}" ""`
   if [ -z "${type}" ]
   then

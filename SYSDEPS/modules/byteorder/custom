@@ -34,7 +34,7 @@ fi
 
 if [ -z "${order}" ]
 then
-  conf=`${SYSDEP_LINE} 1 < CONFIG`
+  conf=`${SYSDEP_LINE} 1 < config`
   order=`${SYSDEP_FILE} get "${conf}" ""`
   if [ -z "${order}" ]
   then

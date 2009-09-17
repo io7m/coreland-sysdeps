@@ -67,7 +67,7 @@ then
   fi
 fi
 
-conf=`${SYSDEP_LINE} 1 < CONFIG`
+conf=`${SYSDEP_LINE} 1 < config`
 SYSDEP_INFO "falling back to ${conf}"
 type=`${SYSDEP_FILE} get "${conf}" ""`
 if [ ! -z ${type} ]
