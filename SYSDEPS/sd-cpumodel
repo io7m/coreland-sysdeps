@@ -2,7 +2,7 @@
 
 warn()
 {
-  echo "sd-cpunum: warn: $1" 1>&2
+  echo "sd-cpumodel: warn: $1" 1>&2
 }
 
 if [ $# -ne 1 ]
