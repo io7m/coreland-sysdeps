@@ -18,9 +18,9 @@ SDM_prepare_locker()
   then
     SYSDEP_DEBUG "SDM_lock_and_compile: compiling ${TEMP_RESULT}"
     ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o "${TEMP_OBJECT}" "${SYSDEP_BASE_DIRECTORY}/sd-locker.c" ||
-      SDM_lock_and_compile_fail "could not compile sd-locker.c" "${TEMP_OBJECT}"
+      SDM_lock_and_compile_fail "could not compile sd-locker.c - check C compiler configuration" "${TEMP_OBJECT}"
     ${SYSDEP_LD} ${SYSDEP_LDFLAGS} -o "${TEMP_RESULT}" "${TEMP_OBJECT}" ||
-      SDM_lock_and_compile_fail "could not compile sd-locker" "${TEMP_RESULT}" "${TEMP_OBJECT}"
+      SDM_lock_and_compile_fail "could not compile sd-locker - check C linker configuration" "${TEMP_RESULT}" "${TEMP_OBJECT}"
 
     # Specifically do not check if this operation is successful - it may not be on some
     # operating systems during parallel builds. Check existence before use.
@@ -101,7 +101,7 @@ SDM_protected_C_compilation()
 
   SYSDEP_DEBUG "SDM_protected_C_compilation: compiling ${RESULT_FILE}"
   SDM_lock_and_compile "${OBJECT_FILE}.lock" "${SOURCE_FILE}" "${OBJECT_FILE}" "${RESULT_FILE}" ||
-    SYSDEP_FATAL "compilation of ${RESULT_FILE} failed"
+    SYSDEP_FATAL "compilation of ${RESULT_FILE} failed - check C compiler configuration"
 
   SYSDEP_DEBUG "compiled ${RESULT_FILE}"
 }
