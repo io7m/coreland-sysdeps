@@ -1,5 +1,10 @@
 #!/bin/sh
 
+warn()
+{
+  echo "sd-cpunum: warn: $1" 1>&2
+}
+
 if [ $# -ne 1 ]
 then
   echo "sd-cpunum: usage: os" 1>&2
@@ -11,25 +16,33 @@ sys="$1"
 case "$sys" in
   SD_SYSINFO_OS_LINUX)
     ncpu="`grep -i '^processor' /proc/cpuinfo | wc -l`"
+    res=$?
     ;;
   SD_SYSINFO_OS_CRAY_UNICOS)
     ncpu="`getconf CRAY_NCPU`"
+    res=$?
     ;;
   SD_SYSINFO_OS_IRIX)
     ncpu="`getconf NUM_PROCESSORS`"
+    res=$?
     ;;
   SD_SYSINFO_OS_SUNOS)
     ncpu="`psrinfo | wc -l | tr -d ' '`"
+    res=$?
     ;;
   SD_SYSINFO_OS_MS_WINDOWS)
     ncpu="${NUMBER_OF_PROCESSORS}"
+    res=$?
     ;;
   SD_SYSINFO_OS_VMS)
     ncpu="`SHOW CPU /BRIEF | grep CPU | wc -l | tr -d ' '`"
+    res=$?
     ;;
   *)
-    ncpu="`sysctl hw.ncpu`"
-    if [ $? -eq 0 ]
+    ncpu=`sysctl hw.ncpu`
+    res=$?
+
+    if [ ${res} -eq 0 ]
     then
       ncpu="`echo ${ncpu} | awk '{print $NF}'`"
     else
@@ -37,5 +50,10 @@ case "$sys" in
     fi
     ;;
 esac
+
+if [ $res -ne 0 ]
+then
+  warn "CPU enumeration failed - number of CPUs defaulted to 0"
+fi
 
 echo "${ncpu}"
