@@ -35,7 +35,7 @@ esac
 
 if [ $freq -eq 0 ]
 then
-  warn "could not detect CPU frequency - defaulting to 0"
+  warn "CPU frequency detection failed - defaulting to 0"
 fi
 
 echo "$freq"
