@@ -38,6 +38,10 @@ case "$sys" in
     ncpu="`SHOW CPU /BRIEF | grep CPU | wc -l | tr -d ' '`"
     res=$?
     ;;
+  SD_SYSINFO_OS_MINIX)
+    ncpu=1
+    res=0
+    ;;
   *)
     ncpu=`sysctl hw.ncpu`
     res=$?
