@@ -44,6 +44,10 @@ case "$sys" in
     ncpu=1
     res=0
     ;;
+  SD_SYSINFO_OS_OPENBSD)
+    ncpu="`sysctl hw.ncpu | awk -F= '{print $NF}'`"
+    res=$?
+    ;;
   *)
     ncpu=`sysctl hw.ncpu`
     res=$?
