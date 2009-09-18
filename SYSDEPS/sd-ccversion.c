@@ -99,7 +99,11 @@ int main(void)
 #if defined(__GNUC__)
   ver_major = __GNUC__;
   ver_minor = __GNUC_MINOR__;
+#if defined (__GNUC_PATCHLEVEL__)
   ver_patch = __GNUC_PATCHLEVEL__;
+#else
+  ver_patch = 0;
+#endif
 #endif
 
   /* Green Hill C/C++ */
