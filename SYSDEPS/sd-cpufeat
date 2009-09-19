@@ -11,10 +11,14 @@ feat=""
 
 case "$sys" in
   SD_SYSINFO_OS_DARWIN)
-    alti="`sysctl hw.optional.altivec | awk '{print $2}'`"
-    if [ "${alti}" = "1" ]
+    alti_raw=`sysctl hw.optional.altivec 2>/dev/null`
+    if [ $? -eq 0 ]
     then
-      feat="${feat} SD_SYSINFO_CPU_EXT_ALTIVEC";
+      alti="`echo ${alti_raw} | awk '{print $2}'`"
+      if [ "${alti}" = "1" ]
+      then
+        feat="${feat} SD_SYSINFO_CPU_EXT_ALTIVEC";
+      fi
     fi
   ;;
 esac
