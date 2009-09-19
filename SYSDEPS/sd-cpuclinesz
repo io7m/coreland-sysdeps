@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. ${SYSDEP_BASE_DIRECTORY}/sysdep-subs || exit 1
+
 if [ $# -ne 1 ]
 then
   echo "sd-cpuclinesz: usage: os" 1>&2
@@ -11,7 +13,17 @@ cache=0
 sys="$1"
 case "$sys" in
   SD_SYSINFO_OS_DARWIN)
-    cache="`sysctl hw.cacheline | awk '{print $2}'`"
+    cache_raw=`sysctl hw.cachelinesize 2>/dev/null`
+    if [ $? -eq 0 ]
+    then
+      cache=`echo ${cache_raw} | awk '{print $NF}'`
+    else
+      cache_raw="`sysctl hw.cacheline 2>/dev/null`"
+      if [ $? -eq 0 ]
+      then
+        cache=`echo ${cache_raw} | awk '{print $NF}'`
+      fi
+    fi
     ;; 
 esac
 
