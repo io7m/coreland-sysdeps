@@ -1,10 +1,12 @@
 #include <math.h>
 
+/* Hack: use argv to suppress 'unused parameter' warning on old compilers. */
+
 int main(int argc, char *argv[])
 {
-  float x;
-  int i;
+  float x = 0.0;
+  int i = 0;
 
-  x = remquof((float) argc, (float) argc, &i);
+  if (argv) x = remquof((float) argc, (float) argc, &i);
   return 0;
 }

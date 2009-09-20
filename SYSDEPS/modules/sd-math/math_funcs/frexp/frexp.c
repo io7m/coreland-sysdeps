@@ -1,10 +1,12 @@
 #include <math.h>
 
+/* Hack: use argv to suppress 'unused parameter' warning on old compilers. */
+
 int main(int argc, char *argv[])
 {
-  double x;
-  int i;
+  double x = 0.0;
+  int i = 0;
 
-  x = frexp((double) argc, &i);
+  if (argv) x = frexp((double) argc, &i);
   return 0;
 }

@@ -1,8 +1,10 @@
 #include <math.h>
 
+/* Hack: use argv to suppress 'unused parameter' warning on old compilers. */
+
 int main(int argc, char *argv[])
 {
-  double x;
-  x = llrint((double) argc);
+  double x = 0.0;
+  if (argv) x = llrint((double) argc);
   return 0;
 }

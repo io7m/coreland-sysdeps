@@ -2,8 +2,9 @@
 
 int main(int argc, char *argv[])
 {
-  if (finite((float) argc))
-    return 112;
-  else
-    return 0;
+  if (finite((float) argc)) {
+    if (argv) {
+      return 112;
+    } else return 113;
+  } else return 0;
 }
