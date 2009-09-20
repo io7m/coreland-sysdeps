@@ -48,6 +48,11 @@ case "$sys" in
     ncpu="`sysctl hw.ncpu | awk -F= '{print $NF}'`"
     res=$?
     ;;
+  SD_SYSINFO_OS_HAIKU)
+    # Haiku just doesn't appear to export this information.
+    ncpu=0
+    res=1
+    ;;
   *)
     ncpu=`sysctl hw.ncpu`
     res=$?
