@@ -1,37 +1,37 @@
-AIX _AIX __TOS_AIX__
-AMIGAOS AMIGA __amigaos__
-BEOS __BEOS__
-BSD_OS __bsdi__
-CRAY_UNICOS _UNICOS
-DARWIN __APPLE__ __MACH__
-DG_UX DGUX __DGUX__ __dgux__
-DRAGONFLY __DragonFly__
-DYNIX_PTX _SEQUENT_ sequent
-FREEBSD __FreeBSD__
-GNU_HURD __GNU__
-HAIKU __HAIKU__
-HI_UX_MPP __hiuxmpp
-HPUX _hpux hpux __hpux
-IRIX sgi __sgi
-LINUX linux __linux
-LYNXOS __Lynx__
-MACOS macintosh Macintosh
-MICROWARE_OS_9 __OS9000 _OSK
-MINIX __minix
-MPE_IX mpeix __mpexl
-MSDOS MSDOS __MSDOS__ _MSDOS __DOS__
-MS_WINDOWS _WIN32 _WIN64 __WIN32__ __WIN64__ __TOS_WIN__
-NETBSD __NetBSD__
-OPENBSD __OpenBSD__
-OS2 OS2 _OS2 __OS2__ __TOS_OS2__
-PYRAMID_DC_OS pyr
-QNX __QNX__ __QNXNTO__
-RELIANT_UNIX sinux
-SCO_OPENSERVER M_XENIX _SCO_DS
-SUNOS sun __sun
-SYMBIAN_OS __SYMBIAN32__
-TRU64_OSF_1 __osf__ __osf
-ULTRIX ultrix __ultrix __ultrix__
-UNIXWARE sco _UNIXWARE7
-VMS VMS __VMS __VMS_VER
-Z_OS_OS390 __MVS__ __HOS_MVS__ __TOS_MVS__
+0001 AIX            _AIX          __TOS_AIX__
+0002 AMIGAOS        AMIGA         __amigaos__
+0003 BEOS           __BEOS__
+0004 BSD_OS         __bsdi__
+0005 CRAY_UNICOS    _UNICOS
+0006 DARWIN         __APPLE__     __MACH__
+0007 DG_UX          DGUX          __DGUX__    __dgux__
+0008 DRAGONFLY      __DragonFly__
+0009 DYNIX_PTX      _SEQUENT_     sequent
+000A FREEBSD        __FreeBSD__
+000B GNU_HURD       __GNU__
+000C HAIKU          __HAIKU__
+000D HI_UX_MPP      __hiuxmpp
+000E HPUX           _hpux         hpux        __hpux
+000F IRIX           sgi           __sgi
+0010 LINUX          linux         __linux
+0011 LYNXOS         __Lynx__
+0012 MACOS          macintosh     Macintosh
+0013 MICROWARE_OS_9 __OS9000      _OSK
+0014 MINIX          __minix
+0015 MPE_IX         mpeix         __mpexl
+0016 MSDOS          MSDOS         __MSDOS__   _MSDOS      __DOS__
+0017 MS_WINDOWS     _WIN32        _WIN64      __WIN32__   __WIN64__   __TOS_WIN__
+0018 NETBSD         __NetBSD__
+0019 OPENBSD        __OpenBSD__
+001A OS2            OS2           _OS2        __OS2__     __TOS_OS2__
+001B PYRAMID_DC_OS  pyr
+001C QNX            __QNX__       __QNXNTO__
+001D RELIANT_UNIX   sinux
+001E SCO_OPENSERVER M_XENIX       _SCO_DS
+001F SUNOS          sun           __sun
+0020 SYMBIAN_OS     __SYMBIAN32__
+0021 TRU64_OSF_1    __osf__       __osf
+0022 ULTRIX         ultrix        __ultrix    __ultrix__
+0023 UNIXWARE       sco           _UNIXWARE7
+0024 VMS            VMS           __VMS       __VMS_VER
+0025 Z_OS_OS390     __MVS__       __HOS_MVS__ __TOS_MVS__
