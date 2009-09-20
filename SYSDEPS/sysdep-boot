@@ -4,7 +4,7 @@
 # Obtain current working directory.
 #
 
-SYSDEP_BASE_DIRECTORY=`pwd` ||
+SYSDEP_BASE_DIRECTORY=`${SYSDEP_UTIL_PWD}` ||
   SYSDEP_FATAL "could not obtain current working directory (problem with 'pwd')"
 export SYSDEP_BASE_DIRECTORY
 SYSDEP_DEBUG "SYSDEP_BASE_DIRECTORY ${SYSDEP_BASE_DIRECTORY}"
@@ -39,7 +39,7 @@ SYSDEP_OUTPUT_DIRECTORY="${SYSDEP_BASE_DIRECTORY}/../"
 
 if [ -f "conf-outdir" ]
 then
-  DIRECTORY=`head -n 1 "conf-outdir"`
+  DIRECTORY=`${SYSDEP_UTIL_HEAD} -n 1 "conf-outdir"`
   if [ $? -eq 0 ]
   then
     SYSDEP_OUTPUT_DIRECTORY="${DIRECTORY}"
@@ -60,7 +60,7 @@ then
 fi
 
 SYSDEP_MODULE_PATH="$1"
-SYSDEP_MODULE="`basename ${SYSDEP_MODULE_PATH}`" ||
+SYSDEP_MODULE="`${SYSDEP_UTIL_BASENAME} ${SYSDEP_MODULE_PATH}`" ||
   SYSDEP_FATAL "could not translate current working directory (problem with 'basename')"
 export SYSDEP_MODULE_PATH
 export SYSDEP_MODULE

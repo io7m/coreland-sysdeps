@@ -6,4 +6,4 @@ then
   exit 111
 fi
 
-sed -e "${1}q;d"
+${SYSDEP_UTIL_SED} -e "${1}q;d"

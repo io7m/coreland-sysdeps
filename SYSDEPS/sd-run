@@ -30,7 +30,7 @@ fi
 
 . ./sysdep-system || exit 1
 
-cd "${SYSDEP_MODULE_PATH}" ||
+${SYSDEP_UTIL_CD} "${SYSDEP_MODULE_PATH}" ||
   SYSDEP_FATAL "could not change directory to '${SYSDEP_MODULE_PATH}'"
 
 SYSDEP_DEBUG "moved to ${SYSDEP_BASE_DIRECTORY}/${SYSDEP_MODULE_PATH}"

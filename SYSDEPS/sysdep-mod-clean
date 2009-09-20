@@ -31,7 +31,7 @@ SDM_files_clean()
 # Obtain list of files that the current module creates.
 #
 
-SDM_CREATES=`cat creates` || SYSDEP_FATAL "could not read 'creates' file"
+SDM_CREATES=`${SYSDEP_UTIL_CAT} creates` || SYSDEP_FATAL "could not read 'creates' file"
 SDM_CREATES="${SDM_CREATES} sysdeps.out"
 
 SDM_files_clean || SYSDEP_FATAL "error removing files"

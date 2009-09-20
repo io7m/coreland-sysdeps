@@ -20,7 +20,7 @@ SDM_files_move()
   do
     if [ "${file}" = "sysdeps.out" ]
     then
-      cat "$file" >> "${SYSDEP_OUTPUT_DIRECTORY}/$file"
+      ${SYSDEP_UTIL_CAT} "$file" >> "${SYSDEP_OUTPUT_DIRECTORY}/$file"
       SYSDEP_REMOVE "${file}"
     else
       cp "$file" "${SYSDEP_OUTPUT_DIRECTORY}/$file"
@@ -45,7 +45,7 @@ SDM_flatten_defines()
     do
       d="-D${tag} ${d}"
     done
-    echo "$d"
+    ${SYSDEP_UTIL_ECHO} "$d"
   fi
 }
 
@@ -84,14 +84,14 @@ SDM_paths_extend()
 
 SDM_os_tolower()
 {
-  echo ${SYSDEP_OS} | sed -e 's/SYSDEP_OS_//g' | tr [A-Z] [a-z]
+  ${SYSDEP_UTIL_ECHO} ${SYSDEP_OS} | sed -e 's/SYSDEP_OS_//g' | tr [A-Z] [a-z]
 }
 
 #
 # Obtain list of files that the current module creates.
 #
 
-SDM_CREATES=`cat creates` || SYSDEP_FATAL "could not read 'creates' file"
+SDM_CREATES=`${SYSDEP_UTIL_CAT} creates` || SYSDEP_FATAL "could not read 'creates' file"
 SDM_CREATES="${SDM_CREATES} sysdeps.out"
 
 #
@@ -132,7 +132,7 @@ touch ${OUTPUT_FILE} ||
 
 if [ -f "defines" ]
 then
-  DEFINES="`cat defines`" ||
+  DEFINES="`${SYSDEP_UTIL_CAT} defines`" ||
     SYSDEP_FATAL "could not read 'defines'"
 fi
 
@@ -145,7 +145,7 @@ OS_LOWER=`SDM_os_tolower` ||
 
 if [ -f "os_ext/${OS_LOWER}/defines" ]
 then
-  DEFINES="`cat "os_ext/${OS_LOWER}/defines"`" ||
+  DEFINES="`${SYSDEP_UTIL_CAT} "os_ext/${OS_LOWER}/defines"`" ||
     SYSDEP_FATAL "could not read 'os_ext/${OS_LOWER}/defines'"
 fi
 if [ -f flags ]
@@ -179,9 +179,9 @@ then
       SYSDEP_FATAL "error flattening preprocessor defines"
     FINAL_OUTPUT="${FLAGS} ${FINAL_DEFINES} ${EXTRA_FLAGS}"
 
-    echo "${FINAL_OUTPUT}" >> "${OUTPUT_FILE}" ||
+    ${SYSDEP_UTIL_ECHO} "${FINAL_OUTPUT}" >> "${OUTPUT_FILE}" ||
       SYSDEP_FATAL "could not write ${OUTPUT_FILE}"
-    echo "${SYSDEP_MODULE}: ${FINAL_OUTPUT}" >> "sysdeps.out" ||
+    ${SYSDEP_UTIL_ECHO} "${SYSDEP_MODULE}: ${FINAL_OUTPUT}" >> "sysdeps.out" ||
       SYSDEP_FATAL "could not write sysdeps.out"
 
     SDM_files_move || SYSDEP_FATAL "error moving files"
@@ -209,9 +209,9 @@ then
       SYSDEP_FATAL "error flattening preprocessor defines"
     FINAL_OUTPUT="${FLAGS} ${FINAL_DEFINES} ${EXTRA_FLAGS}"
 
-    echo "${FINAL_OUTPUT}" >> "${OUTPUT_FILE}" ||
+    ${SYSDEP_UTIL_ECHO} "${FINAL_OUTPUT}" >> "${OUTPUT_FILE}" ||
       SYSDEP_FATAL "could not write ${OUTPUT_FILE}"
-    echo "${SYSDEP_MODULE}: ${FINAL_OUTPUT}" >> "sysdeps.out" ||
+    ${SYSDEP_UTIL_ECHO} "${SYSDEP_MODULE}: ${FINAL_OUTPUT}" >> "sysdeps.out" ||
       SYSDEP_FATAL "could not write sysdeps.out"
 
     SDM_files_move || SYSDEP_FATAL "error moving files"
@@ -225,22 +225,22 @@ fi
 
 if [ -f "path_add" ]
 then
-  SDM_paths_add "`cat path_add`" ||
+  SDM_paths_add "`${SYSDEP_UTIL_CAT} path_add`" ||
     SYSDEP_FATAL "could not read 'path_add'"
 fi
 if [ -f "os_ext/${OS_LOWER}/path_add" ]
 then
-  SDM_paths_add "`cat os_ext/${OS_LOWER}/path_add`" ||
+  SDM_paths_add "`${SYSDEP_UTIL_CAT} os_ext/${OS_LOWER}/path_add`" ||
     SYSDEP_FATAL "could not read 'os_ext/${OS_LOWER}/path_add'"
 fi
 if [ -f "path_ext" ]
 then
-  SDM_paths_extend "`cat path_ext`" ||
+  SDM_paths_extend "`${SYSDEP_UTIL_CAT} path_ext`" ||
     SYSDEP_FATAL "could not read 'path_ext'"
 fi
 if [ -f "os_ext/${OS_LOWER}/path_ext" ]
 then
-  SDM_paths_extend "`cat os_ext/${OS_LOWER}/path_ext`" ||
+  SDM_paths_extend "`${SYSDEP_UTIL_CAT} os_ext/${OS_LOWER}/path_ext`" ||
     SYSDEP_FATAL "could not read 'os_ext/${OS_LOWER}/path_ext'"
 fi
 
@@ -268,9 +268,9 @@ then
       SYSDEP_FATAL "error flattening preprocessor defines"
     FINAL_OUTPUT="${FLAGS} ${FINAL_DEFINES} ${EXTRA_FLAGS}"
 
-    echo "${FINAL_OUTPUT}" >> "${OUTPUT_FILE}" ||
+    ${SYSDEP_UTIL_ECHO} "${FINAL_OUTPUT}" >> "${OUTPUT_FILE}" ||
       SYSDEP_FATAL "could not write ${OUTPUT_FILE}"
-    echo "${SYSDEP_MODULE}: ${FINAL_OUTPUT}" >> "sysdeps.out" ||
+    ${SYSDEP_UTIL_ECHO} "${SYSDEP_MODULE}: ${FINAL_OUTPUT}" >> "sysdeps.out" ||
       SYSDEP_FATAL "could not write sysdeps.out"
 
     SDM_files_move || SYSDEP_FATAL "error moving files"
@@ -301,9 +301,9 @@ then
   if [ ! -z "${FLAGS}" ]
   then
     FINAL_OUTPUT="${FLAGS} -l${DYNAMIC_LIB} ${EXTRA_FLAGS}"
-    echo "${FINAL_OUTPUT}" >> "${OUTPUT_FILE}" ||
+    ${SYSDEP_UTIL_ECHO} "${FINAL_OUTPUT}" >> "${OUTPUT_FILE}" ||
       SYSDEP_FATAL "could not write '${OUTPUT_FILE}'"
-    echo "${SYSDEP_MODULE}: ${FINAL_OUTPUT}" >> "sysdeps.out" ||
+    ${SYSDEP_UTIL_ECHO} "${SYSDEP_MODULE}: ${FINAL_OUTPUT}" >> "sysdeps.out" ||
       SYSDEP_FATAL "could not write 'sysdeps.out'"
 
     SDM_files_move || SYSDEP_FATAL "error moving files"
@@ -336,9 +336,9 @@ then
     FINAL_OUTPUT=`printf "%s/%s %s" ${FLAGS} "${STATIC_LIBRARY_FILE}" "${EXTRA_FLAGS}"` ||
       SYSDEP_FATAL "could not assemble output"
 
-    echo "${FINAL_OUTPUT}" >> "${OUTPUT_FILE}" ||
+    ${SYSDEP_UTIL_ECHO} "${FINAL_OUTPUT}" >> "${OUTPUT_FILE}" ||
       SYSDEP_FATAL "could not write to '${OUTPUT_FILE}'"
-    echo "${SYSDEP_MODULE}: ${FINAL_OUTPUT}" >> "sysdeps.out" ||
+    ${SYSDEP_UTIL_ECHO} "${SYSDEP_MODULE}: ${FINAL_OUTPUT}" >> "sysdeps.out" ||
       SYSDEP_FATAL "could not write to 'sysdeps.out'"
 
     SDM_files_move || SYSDEP_FATAL "error moving files"
