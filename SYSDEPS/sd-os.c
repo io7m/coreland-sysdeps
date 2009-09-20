@@ -8,7 +8,7 @@ const char *var = "UNKNOWN";
 
 int main(void)
 {
-
+  var = "UNKNOWN";
 #if defined(___TOS_AIX__)
   var = "AIX";
 #endif
@@ -41,6 +41,9 @@ int main(void)
 #endif
 #if defined(__GNU__)
   var = "GNU_HURD";
+#endif
+#if defined(__HAIKU__)
+  var = "HAIKU";
 #endif
 #if defined(__hiuxmpp)
   var = "HI_UX_MPP";
@@ -111,7 +114,7 @@ int main(void)
 #if defined(sco) || defined(_UNIXWARE7)
   var = "UNIXWARE";
 #endif
-#if defined(__VMS_VER) || defined(VMS) || defined(__VMS)
+#if defined(____VMS_VER)
   var = "VMS";
 #endif
 #if defined(__MVS__) || defined(__HOS_MVS__) || defined(__TOS_MVS__)

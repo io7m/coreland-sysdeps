@@ -9,6 +9,7 @@ DRAGONFLY __DragonFly__
 DYNIX_PTX _SEQUENT_ sequent
 FREEBSD __FreeBSD__
 GNU_HURD __GNU__
+HAIKU __HAIKU__
 HI_UX_MPP __hiuxmpp
 HPUX _hpux hpux __hpux
 IRIX sgi __sgi
