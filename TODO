@@ -11,3 +11,13 @@ Standardize module naming.
 ----------------------------------------------------------------------
 
 Standardize module termination properties - never fail?
+
+----------------------------------------------------------------------
+
+Improve module metadata.
+
+  URL of module author
+  Email of module author
+  URL of package the module detects (if appropriate)
+  List of platforms module is known to work on?
+    Combinatorial explosion.
