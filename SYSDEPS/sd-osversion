@@ -2,7 +2,7 @@
 
 if [ $# -ne 1 ]
 then
-  echo "sd-cpufeat: usage: os" 1>&2
+  echo "sd-osversion: usage: os" 1>&2
   exit 1
 fi
 
