@@ -2,7 +2,7 @@
 
 if [ $# -ne 1 ]
 then
-  echo "sd-run: usage: modules/module" 1>&2
+  echo "sd-clean: usage: modules/module" 1>&2
   exit 1
 fi
 
