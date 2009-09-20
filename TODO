@@ -6,6 +6,11 @@ Standardize module naming.
 
 ----------------------------------------------------------------------
 
+Standardize module prelude, compiler use, etc.
+  Provide template for custom modules?
+
+----------------------------------------------------------------------
+
 Improve module metadata.
 
   URL of module author
