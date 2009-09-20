@@ -33,6 +33,11 @@ case "$sys" in
     model=""
     res=$?
     ;;
+  SD_SYSINFO_OS_HAIKU)
+    # Haiku just doesn't appear to export this information.
+    model=""
+    res=1
+    ;;
   *)
     model_raw=`sysctl hw.model`
     res=$?
