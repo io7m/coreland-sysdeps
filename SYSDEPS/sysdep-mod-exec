@@ -84,7 +84,7 @@ SDM_paths_extend()
 
 SDM_os_tolower()
 {
-  ${SYSDEP_UTIL_ECHO} ${SYSDEP_OS} | sed -e 's/SYSDEP_OS_//g' | tr [A-Z] [a-z]
+  ${SYSDEP_UTIL_ECHO} ${SYSDEP_OS} | ${SYSDEP_UTIL_SED} -e 's/SYSDEP_OS_//g' | tr [A-Z] [a-z]
 }
 
 #
