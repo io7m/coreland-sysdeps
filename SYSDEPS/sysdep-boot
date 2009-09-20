@@ -39,7 +39,7 @@ SYSDEP_OUTPUT_DIRECTORY="${SYSDEP_BASE_DIRECTORY}/../"
 
 if [ -f "conf-outdir" ]
 then
-  DIRECTORY=`${SYSDEP_UTIL_HEAD} -n 1 "conf-outdir"`
+  DIRECTORY=`${SYSDEP_LINE} 1 < "conf-outdir"`
   if [ $? -eq 0 ]
   then
     SYSDEP_OUTPUT_DIRECTORY="${DIRECTORY}"
