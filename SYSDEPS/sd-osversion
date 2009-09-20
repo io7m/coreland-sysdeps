@@ -26,6 +26,11 @@ case "$sys" in
     ver_v=`uname -v | tr -d [a-z]`
     ver="${ver_r}.${ver_v}"
     ;;
+  SD_SYSINFO_OS_HAIKU)
+    ver_r=`uname -r`
+    ver_v=`uname -v | awk '{print $1}'`
+    ver="${ver_r}.${ver_v}"
+    ;;
   *)
     ver=`uname -r`
     if [ $? -ne 0 ]
