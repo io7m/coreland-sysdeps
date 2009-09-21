@@ -26,6 +26,7 @@ SYSDEP_UTIL_RM="rm"
 SYSDEP_UTIL_SED="sed"
 SYSDEP_UTIL_TOUCH="touch"
 SYSDEP_UTIL_TR="tr"
+SYSDEP_UTIL_WC="wc"
 
 export SYSDEP_UTIL_AWK
 export SYSDEP_UTIL_BASENAME
@@ -42,6 +43,7 @@ export SYSDEP_UTIL_RM
 export SYSDEP_UTIL_SED
 export SYSDEP_UTIL_TOUCH
 export SYSDEP_UTIL_TR
+export SYSDEP_UTIL_WC
 
 #
 # Essential subprograms.
