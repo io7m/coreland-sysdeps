@@ -1,0 +1,49 @@
+AMSTERDAM_KIT   | The Amsterdam Compiler Kit      | http://tack.sourceforge.net/
+BORLAND_CXX     | Borland C++                     | http://www.borland.com/
+BORLAND_TURBO_C | Borland Turbo C                 | http://www.borland.com/
+CODEWARRIOR     | Codewarrior C                   | http://www2.metrowerks.com/
+COMEAU_CXX      | Comeau C++                      | http://www.comeaucomputing.com/
+COMPAQ_C        | Compaq C                        | http://h30097.www3.hp.com/linux/compaq_c/index.html
+COMPAQ_CXX      | Compaq C++                      | http://h30097.www3.hp.com/linux/compaq_cxx/
+CRAY_C          | Cray C                          | http://www.cray.com/
+DIAB            | Wind River Compiler             | http://www.windriver.com/products/development_suite/wind_river_compiler/
+DIGITAL_MARS    | Digital Mars                    | http://www.digitalmars.com/
+DJGPP           | DJGPP                           | http://www.delorie.com/djgpp/
+EKOPATH         | EKOPath Compiler Suite          | n/a
+GCC             | GNU C Compiler                  | http://gcc.gnu.org
+GREENHILL       | Greenhills C                    | http://www.ghs.com/products/optimizingC++EC++Compilers.html
+HP_ACC          | HP aCC C++                      | http://www.hp.com/go/c++
+HP_C            | HP C                            | http://www.hp.com
+IAR             | IAR C Compiler                  | http://iar.com/website1/1.0.1.0/50/1/
+IBM_XL          | IBM XL C                        | http://www-01.ibm.com/software/awdtools/xlc/aix/
+INTEL           | Intel C                         | http://software.intel.com/en-us/intel-compilers/
+KAI             | Kai C/C++                       | http://www.kai.com/
+KEIL_C166       | Keil C166 C Compiler            | http://www.keil.com/c166/
+KEIL_C51        | Keil C51 C Compiler             | http://www.keil.com/c51
+KEIL_CARM       | Keil CARM C Compiler            | http://www.keil.com/arm/carm.asp
+LCC             | LCC                             | http://www.cs.princeton.edu/software/lcc/
+LLVM            | LLVM                            | http://llvm.org/
+METAWARE        | MetaWare Compiler               | http://www.arc.com/software/development/metawarecompiler.html
+MICROTEC        | Microtec C Compiler             | http://www.mentor.com/products/embedded_software/microtec
+MINGW32         | MinGW                           | http://www.mingw.org/
+MIPSPRO         | MIPSpro C                       | http://www.sgi.com/products/software/irix/tools/c++.html
+MPW             | Macintosh Programmer's Workshop | http://developer.apple.com/tools/mpw-tools/
+NORCROFT        | Norcroft C                      | n/a
+PACIFIC         | Pacific C Compiler              | http://www.htsoft.com/products/compilers/PACIFICc.php
+PALM            | Palm C                          | n/a
+PCC             | PCC Portable C Compiler         | http://pcc.ludd.ltu.se/
+PELLES          | Pelles C Compiler               | http://www.christian-heffner.de/
+PORTLAND        | Portland C Compiler             | http://www.pgroup.com/
+REALVIEW        | Realview C Compiler             | http://www.keil.com/arm/realview.asp
+SAS             | SAS/C Compiler                  | http://www.sas.com/products/sasc/index.html
+SCO             | SCO C Compiler                  | http://www.sco.com/developers/products/devkits.html
+SMALLDEV        | SDCC Small Device C Compiler    | http://sdcc.sourceforge.net/
+SUN_C           | Sun C (Sun Studio)              | http://developers.sun.com/sunstudio/
+SUN_CXX         | Sun C++ (Sun Studio)            | http://developers.sun.com/sunstudio/
+SYSTEMS         | Systems/C Compiler              | http://www.dignus.com/dcc/
+TENDRA          | TenDRA C                        | http://www.tendra.org/
+TINYC           | Tiny C                          | http://bellard.org/tcc/
+ULTIMATE        | Ultimate C                      | n/a
+USL_C           | USL C/C++                       | n/a
+VISUAL_CXX      | Visual C++                      | http://www.microsoft.com/express/vc/
+WATCOM          | Watcom C                        | http://www.openwatcom.org/
