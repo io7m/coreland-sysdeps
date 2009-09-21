@@ -1,9 +1,11 @@
 #!/bin/sh
 
+. ${SYSDEP_BASE_DIRECTORY}/sysdep-subs || exit 1
+
 if [ $# -ne 1 ]
 then
-  echo "sd-cpul1dcache: usage: os" 1>&2
-  exit 1
+  ${SYSDEP_UTIL_ECHO} "sd-cpul1dcache: usage: os" 1>&2
+  ${SYSDEP_UTIL_EXIT} 1
 fi
 
 sys="$1"
@@ -11,7 +13,8 @@ cache=0
 
 case "$sys" in
   SD_SYSINFO_OS_DARWIN)
-    cache="`sysctl hw.l1dcachesize | awk '{print $2}'`"
+    cache="`sysctl hw.l1dcachesize |
+      ${SYSDEP_UTIL_AWK} '{print $2}'`"
     ;; 
 esac
 
@@ -22,7 +25,7 @@ fi
 
 if [ ! -z "${cache}" ]
 then
-  echo "$cache"
+  ${SYSDEP_UTIL_ECHO} "$cache"
 else
-  echo 0
+  ${SYSDEP_UTIL_ECHO} 0
 fi
