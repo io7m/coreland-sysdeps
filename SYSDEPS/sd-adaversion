@@ -1,19 +1,21 @@
 #!/bin/sh
 
+. ${SYSDEP_BASE_DIRECTORY}/sysdep-subs || exit 1
+
 cleanup()
 {
-  rm -f "${WORKDIR}/ver_gnat.ali" "${WORKDIR}/ver_gnat.o" "${WORKDIR}/ver_gnat"
+  ${SYSDEP_UTIL_RM} -f "${WORKDIR}/ver_gnat.ali" "${WORKDIR}/ver_gnat.o" "${WORKDIR}/ver_gnat"
 }
 
 cleanup_exit()
 {
   cleanup
-  exit 0
+  ${SYSDEP_UTIL_EXIT} 0
 }
 
 unknown()
 {
-  echo "UNKNOWN 0.0.0"
+  ${SYSDEP_UTIL_ECHO} "UNKNOWN 0.0.0"
   cleanup_exit
 }
 
@@ -51,8 +53,8 @@ try_gnat()
 
 if [ $# -ne 6 ]
 then
-  echo "usage: ada-comp ada-cflags ada-binder ada-bflags ada-link ada-ldflags" 1>&2
-  exit 111
+  ${SYSDEP_UTIL_ECHO} "usage: ada-comp ada-cflags ada-binder ada-bflags ada-link ada-ldflags" 1>&2
+  ${SYSDEP_UTIL_EXIT} 1
 fi
 
 WORKDIR="${SYSDEP_BASE_DIRECTORY}"
