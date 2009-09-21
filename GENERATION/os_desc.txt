@@ -1,0 +1,37 @@
+AIX            | IBM AIX           | http://www.ibm.com/aix
+AMIGAOS        | Amiga OS          | http://os.amiga.com/
+BEOS           | BeOS              | http://www.beincorporated.com/
+BSD_OS         | BSDOS             | n/a
+CRAY_UNICOS    | Cray UNICOS       | http://cray.com
+DARWIN         | Darwin            | http://developer.apple.com/Darwin/
+DG_UX          | DG/UX             | n/a
+DRAGONFLY      | DragonFly BSD     | http://www.dragonflybsd.org/
+DYNIX_PTX      | Sequent Dynix/ptx | n/a
+FREEBSD        | FreeBSD           | http://freebsd.org
+GNU_HURD       | GNU Hurd          | http://www.gnu.org/software/hurd/hurd.html
+HAIKU          | Haiku             | http://www.haiku-os.org/
+HI_UX_MPP      | Hitachi HI-UX/MPP | http://www.hitachi.co.jp/Prod/comp/soft1/sr8000/index-e.html
+HPUX           | HPUX              | http://www.hp.com/products1/unix/
+IRIX           | IRIX              | http://www.sgi.com/products/software/irix/
+LINUX          | Linux             | http://www.kernel.org/
+LYNXOS         | Lynx OS           | http://www.lynuxworks.com/
+MACOS          | Mac OS            | http://www.apple.com/support/macos9/
+MICROWARE_OS_9 | Microware OS-9    | http://www.radisys.com.cn/
+MINIX          | MINIX             | http://www.minix3.org/
+MPE_IX         | HP MPE/iX         | http://www.hp.com/products1/evolution/e3000/mpeix/
+MSDOS          | MS DOS            | http://www.microsoft.com/
+MS_WINDOWS     | MS Windows        | http://www.microsoft.com/
+NETBSD         | NetBSD            | http://www.netbsd.org/
+OPENBSD        | OpenBSD           | http://www.openbsd.org/
+OS2            | IBM OS/2          | http://www.ibm.com/software/os/warp/
+PYRAMID_DC_OS  | Pyramid DC/OS     | n/a
+QNX            | QNX               | http://www.qnx.com/
+RELIANT_UNIX   | Reliant UNIX      | n/a
+SCO_OPENSERVER | SCO OpenServer    | http://www.sco.com/products/openserver507/
+SUNOS          | SunOS / Solaris   | http://www.sun.com/software/solaris/
+SYMBIAN_OS     | Symbian OS        | http://www.symbian.org/
+TRU64_OSF_1    | HP Tru64 UNIX     | http://h30097.www3.hp.com/
+ULTRIX         | DEC ULTRIX        | n/a
+UNIXWARE       | SCO UnixWare      | http://www.sco.com/products/unixware714/
+VMS            | OpenVMS           | http://h71000.www7.hp.com/
+Z_OS_OS390     | IBM z/OS          | http://www.ibm.com/servers/eserver/zseries/zos/
