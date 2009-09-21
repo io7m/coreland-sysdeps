@@ -1,10 +1,10 @@
-0001 MMX
-0002 MMX2
-0004 3DNOW
-0008 3DNOWEXT
-0010 SSE
-0020 SSE2
-0040 SSE3
-0080 SSE4_1
-0100 SSE4_2
-0200 ALTIVEC
+0001 MMX       | Intel multimedia meaningless initialism extensions
+0002 MMX2      | Intel multimedia meaningless initialism extensions 2 (SSE)
+0004 3DNOW     | AMD 3DNow! extensions
+0008 3DNOWEXT  | Enhanced AMD 3DNow! extensions
+0010 SSE       | Intel Streaming SIMD extensions
+0020 SSE2      | Intel Streaming SIMD extensions, version 2
+0040 SSE3      | Intel Streaming SIMD extensions, version 3
+0080 SSE4_1    | Intel Streaming SIMD extensions, version 4.1
+0100 SSE4_2    | Intel Streaming SIMD extensions, version 4.2
+0200 ALTIVEC   | Freescale AltiVec extensions
