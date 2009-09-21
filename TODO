@@ -30,3 +30,9 @@ Consider making SPARC into SPARC and SPARC64:
 
   SPARC __sparc __sparcv8
   SPARC64 __sparcv9
+
+------------------------------------------------------------------------
+
+Overhaul all architectures?
+
+Be more granular?
