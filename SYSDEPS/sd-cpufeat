@@ -1,9 +1,11 @@
 #!/bin/sh
 
+. ${SYSDEP_BASE_DIRECTORY}/sysdep-subs || exit 1
+
 if [ $# -ne 1 ]
 then
-  echo "sd-cpufeat: usage: os" 1>&2
-  exit 1
+  ${SYSDEP_UTIL_ECHO} "sd-cpufeat: usage: os" 1>&2
+  ${SYSDEP_UTIL_EXIT} 1
 fi
 
 sys="$1"
@@ -14,7 +16,7 @@ case "$sys" in
     alti_raw=`sysctl hw.optional.altivec 2>/dev/null`
     if [ $? -eq 0 ]
     then
-      alti="`echo ${alti_raw} | awk '{print $2}'`"
+      alti="`${SYSDEP_UTIL_ECHO} ${alti_raw} | ${SYSDEP_UTIL_AWK} '{print $2}'`"
       if [ "${alti}" = "1" ]
       then
         feat="${feat} SD_SYSINFO_CPU_EXT_ALTIVEC";
@@ -45,4 +47,4 @@ then
   if [ $f -eq 1 ]; then feat="${feat} SD_SYSINFO_CPU_EXT_SSE4_2"; fi
 fi
  
-echo "${feat}"
+${SYSDEP_UTIL_ECHO} "${feat}"
