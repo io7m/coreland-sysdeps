@@ -11,7 +11,7 @@ PPC              | PowerPC               | http://www.freescale.com/powerpc
 PPC64            | PowerPC 64            | http://www.freescale.com/powerpc
 RS6000           | RS6000                | n/a
 SPARC            | SPARC                 | http://www.sparc.org/
-SUPERH           | Hitachi Super-H       | n/a
+SUPERH           | Hitachi Super-H       | http://www.superh.com/
 SYSTEM_370       | IBM System/370        | n/a
 SYSTEM_390       | IBM System/390        | n/a
 X86              | x86 (IA-32)           | http://developer.intel.com/products/processor/manuals/index.htm
