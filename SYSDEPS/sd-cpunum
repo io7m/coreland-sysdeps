@@ -9,15 +9,16 @@ warn()
 
 if [ $# -ne 1 ]
 then
-  echo "sd-cpunum: usage: os" 1>&2
-  exit 1
+  ${SYSDEP_UTIL_ECHO} "sd-cpunum: usage: os" 1>&2
+  ${SYSDEP_UTIL_EXIT} 1
 fi
 
 sys="$1"
 
 case "$sys" in
   SD_SYSINFO_OS_LINUX)
-    ncpu="`grep -i '^processor' /proc/cpuinfo | wc -l`"
+    ncpu="`${SYSDEP_UTIL_GREP} -i '^processor' /proc/cpuinfo |
+      ${SYSDEP_UTIL_WC} -l`"
     res=$?
     ;;
   SD_SYSINFO_OS_CRAY_UNICOS)
@@ -29,7 +30,9 @@ case "$sys" in
     res=$?
     ;;
   SD_SYSINFO_OS_SUNOS)
-    ncpu="`psrinfo | wc -l | tr -d ' '`"
+    ncpu="`psrinfo |
+      ${SYSDEP_UTIL_WC} -l |
+      ${SYSDEP_UTIL_TR} -d ' '`"
     res=$?
     ;;
   SD_SYSINFO_OS_MS_WINDOWS)
@@ -37,7 +40,10 @@ case "$sys" in
     res=$?
     ;;
   SD_SYSINFO_OS_VMS)
-    ncpu="`SHOW CPU /BRIEF | grep CPU | wc -l | tr -d ' '`"
+    ncpu="`SHOW CPU /BRIEF |
+      ${SYSDEP_UTIL_GREP} CPU |
+      ${SYSDEP_UTIL_WC} -l |
+      ${SYSDEP_UTIL_TR} -d ' '`"
     res=$?
     ;;
   SD_SYSINFO_OS_MINIX)
@@ -45,7 +51,8 @@ case "$sys" in
     res=0
     ;;
   SD_SYSINFO_OS_OPENBSD)
-    ncpu="`sysctl hw.ncpu | awk -F= '{print $NF}'`"
+    ncpu="`sysctl hw.ncpu |
+      ${SYSDEP_UTIL_AWK} -F= '{print $NF}'`"
     res=$?
     ;;
   SD_SYSINFO_OS_HAIKU)
@@ -59,7 +66,8 @@ case "$sys" in
 
     if [ ${res} -eq 0 ]
     then
-      ncpu="`echo ${ncpu} | awk '{print $NF}'`"
+      ncpu="`${SYSDEP_UTIL_ECHO} ${ncpu} |
+        ${SYSDEP_UTIL_AWK} '{print $NF}'`"
     else
       ncpu=0
     fi
@@ -71,4 +79,4 @@ then
   warn "CPU enumeration failed - number of CPUs defaulted to 0"
 fi
 
-echo "${ncpu}"
+${SYSDEP_UTIL_ECHO} "${ncpu}"
