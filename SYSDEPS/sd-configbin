@@ -1,11 +1,16 @@
 #!/bin/sh
 
+. ${SYSDEP_BASE_DIRECTORY}/sysdep-subs || exit 1
+
 if [ $# -ne 2 ]
 then
-  echo 'usage: bin flags'
+  ${SYSDEP_UTIL_ECHO} 'sd-configbin: usage: bin flags' 1>&2
+  ${SYSDEP_UTIL_EXIT} 1
 fi
 
 config="$1"
 flags="$2"
+
 ${config} ${flags} 2>/dev/null
-exit $?
+
+${SYSDEP_UTIL_EXIT} $?

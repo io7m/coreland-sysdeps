@@ -1,11 +1,16 @@
 #!/bin/sh
 
+. ${SYSDEP_BASE_DIRECTORY}/sysdep-subs || exit 1
+
 if [ $# -ne 2 ]
 then
-  echo 'usage: pkg flags'
+  ${SYSDEP_UTIL_ECHO} 'sd-configpkg: usage: pkg flags'
+  ${SYSDEP_UTIL_EXIT} 1
 fi
 
 pkgname="$1"
 flags="$2"
+
 pkg-config ${flags} ${pkgname} 2>/dev/null
-exit $?
+
+${SYSDEP_UTIL_EXIT} $?

@@ -1,21 +1,24 @@
 #!/bin/sh
 
+. ${SYSDEP_BASE_DIRECTORY}/sysdep-subs || exit 1
+
 if [ $# -lt 3 ]
 then
-  echo 'usage: file path prefix'
-  exit 111
+  ${SYSDEP_UTIL_ECHO} 'sd-configman: usage: file path prefix'
+  ${SYSDEP_UTIL_EXIT} 111
 fi
 
 file="$1"
 path="$2"
 prefix="$3"
 
-for f in ${path}
+for path_element in ${path}
 do
-  if [ -f "${f}/${file}" ]
+  if [ -f "${path_element}/${file}" ]
   then
-    echo "${prefix}${f} "
-    exit 0
+    ${SYSDEP_UTIL_ECHO} "${prefix}${path_element} "
+    ${SYSDEP_UTIL_EXIT} 0
   fi
 done
-exit 1
+
+${SYSDEP_UTIL_EXIT} 1
