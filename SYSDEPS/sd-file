@@ -1,47 +1,69 @@
 #!/bin/sh
 
+. ${SYSDEP_BASE_DIRECTORY}/sysdep-subs || exit 1
+
 FILE_PATH_DIRS="
-${SYSDEP_BASE_DIRECTORY}/../
+${SYSDEP_OUTPUT_DIRECTORY}/
 ${SYSDEP_BASE_DIRECTORY}/
 "
+
 file_get_by_path()
 {
   targ_file="$1"
   orig_text="$2"
+
   for dir in ${FILE_PATH_DIRS}
   do
     if [ -f "${dir}/${targ_file}" ]
     then
-      tmp=`head -n 1 "${dir}/${targ_file}"`
-      if [ ! -z "${tmp}" ]; then echo "${tmp}"; return 0; fi
+      tmp=`${SYSDEP_UTIL_HEAD} -n 1 "${dir}/${targ_file}"`
+      if [ ! -z "${tmp}" ]
+      then
+        ${SYSDEP_UTIL_ECHO} "${tmp}"
+        return 0
+      fi
     fi
   done
-  echo "${orig_text}"
+
+  ${SYSDEP_UTIL_ECHO} "${orig_text}"
   return 1
 }
+
 file_exists_by_path()
 {
   targ_file="$1"
+
   for dir in ${FILE_PATH_DIRS}
   do
-    if [ -f "${dir}/${targ_file}" ]; then return 1; fi
+    if [ -f "${dir}/${targ_file}" ]
+    then
+      return 1
+    fi
   done
+
   return 0
 }
+
 file_show_by_path()
 {
   targ_file="$1"
+
   for dir in ${FILE_PATH_DIRS}
   do
-    if [ -f "${dir}/${targ_file}" ]; then echo "${dir}/${targ_file}"; return 1; fi
+    if [ -f "${dir}/${targ_file}" ]
+    then
+      ${SYSDEP_UTIL_ECHO} "${dir}/${targ_file}"
+      return 1
+    fi
   done
+
   return 0
 }
 
 if [ $# -lt 2 ]
 then
-  echo "usage: command file [...]"
-  exit 111
+  ${SYSDEP_UTIL_ECHO} "sd-file: usage: command file [...]"
+  ${SYSDEP_UTIL_EXIT} 1
 fi
 
 command=$1
@@ -51,18 +73,18 @@ origtext=$3
 case "${command}" in
   get)
     file_get_by_path "${file}" "${origtext}"
-    exit $?
+    ${SYSDEP_UTIL_EXIT} $?
     ;;
   exists)
     file_exists_by_path "${file}"
-    exit $?
+    ${SYSDEP_UTIL_EXIT} $?
     ;;
   show)
     file_show_by_path "${file}"
-    exit $?
+    ${SYSDEP_UTIL_EXIT} $?
     ;;
   *)
-    echo '${SYSDEP_MODULE}: fatal: unknown command'
-    exit 111
+    ${SYSDEP_UTIL_ECHO} '${SYSDEP_MODULE}: fatal: unknown command'
+    ${SYSDEP_UTIL_EXIT} 1
     ;;
 esac
