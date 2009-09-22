@@ -137,6 +137,7 @@ static const struct cache_description intel_L1d_caches[] = {
   {       0,  0,  0 },
 };
 static const struct cache_description intel_L2_caches[] = {
+  { 0x0021u,  256, 64 },
   { 0x0039u,  128, 64 },
   { 0x003au,  192, 64 },
   { 0x003bu,  128, 64 },
