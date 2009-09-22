@@ -36,3 +36,7 @@ Consider making SPARC into SPARC and SPARC64:
 Overhaul all architectures?
 
 Be more granular?
+
+------------------------------------------------------------------------
+
+Should sysdeps even do anything when cross-compiling?
