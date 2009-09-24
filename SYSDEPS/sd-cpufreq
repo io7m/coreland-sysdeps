@@ -37,6 +37,7 @@ case "$sys" in
   SD_SYSINFO_OS_LINUX)
     freq="`${SYSDEP_UTIL_GREP} -i 'cpu MHz' /proc/cpuinfo |
       ${SYSDEP_UTIL_AWK} '{print $NF}' |
+      ${SYSDEP_UTIL_AWK} -F. '{print $1}' |
       ${SYSDEP_UTIL_HEAD} -n 1`"
     ;;
   SD_SYSINFO_OS_VMS)
