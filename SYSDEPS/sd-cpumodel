@@ -38,6 +38,11 @@ case "$sys" in
     model=""
     res=1
     ;;
+  SD_SYSINFO_OS_LINUX)
+    # Read /proc/cpuinfo or use sd-cpuidx86.
+    model=""
+    res=1
+    ;;
   *)
     model_raw=`sysctl hw.model`
     res=$?
