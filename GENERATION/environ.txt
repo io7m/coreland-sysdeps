@@ -21,7 +21,7 @@ SYSDEP_CPU_L2_CACHE_SIZE           | number       | 2048                        
 SYSDEP_CPU_L3_CACHE_SIZE           | number       | 16777216                                       | Host system CPU L3 cache size in bytes
 SYSDEP_CPU_MODEL                   | string       | i386                                           | Host system CPU model
 SYSDEP_CPU_NUM                     | number       | 16                                             | Number of CPUs in host system
-SYSDEP_CROSS_COMPILE               | number       | 1                                              | Currently cross compiling?
+SYSDEP_CROSS_COMPILE               | number       | 1                                              | Currently cross compiling
 SYSDEP_FILE                        | string       | /u/coreland/symbex/SYSDEPS/sd-file             | sd-file program
 SYSDEP_LD                          | string       | gcc                                            | C linker
 SYSDEP_LDFLAGS                     | string       | -v                                             | C linker flags
