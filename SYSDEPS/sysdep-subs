@@ -57,7 +57,7 @@ SYSDEP_FATAL()
   else
     ${SYSDEP_UTIL_ECHO} "sysdep-main: fatal: $1" 1>&2
   fi
-  exit 1
+  ${SYSDEP_UTIL_EXIT} 1
 }
 
 SYSDEP_ERROR()
