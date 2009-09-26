@@ -116,7 +116,7 @@ SDM_fetch_adaversion()
 
   SDM_prepare_locker
 
-  SYSDEP_ADA_VERSION_TMP="`${SYSDEP_BASE_DIRECTORY}/sd-locker \
+  SD_ADA_VERSION_TMP="`${SYSDEP_BASE_DIRECTORY}/sd-locker \
     "$$"                                          \
     "${SYSDEP_BASE_DIRECTORY}/sd-adaversion.lock" \
     "${SYSDEP_BASE_DIRECTORY}/sd-adaversion"      \
@@ -126,10 +126,10 @@ SDM_fetch_adaversion()
     "${SYSDEP_ADA_BFLAGS}"                        \
     "${SYSDEP_ADA_LINK}"                          \
     "${SYSDEP_ADA_LDFLAGS}"`"
-  SYSDEP_ADA_TYPE=`${SYSDEP_UTIL_ECHO} "${SYSDEP_ADA_VERSION_TMP}" | ${SYSDEP_UTIL_AWK} '{print $1}'`
-  SYSDEP_ADA_VERSION=`${SYSDEP_UTIL_ECHO} "${SYSDEP_ADA_VERSION_TMP}" | ${SYSDEP_UTIL_AWK} '{print $2}'`
+  SYSDEP_ADA_TYPE=`${SYSDEP_UTIL_ECHO} "${SD_ADA_VERSION_TMP}" | ${SYSDEP_UTIL_AWK} '{print $1}'`
+  SYSDEP_ADA_VERSION=`${SYSDEP_UTIL_ECHO} "${SD_ADA_VERSION_TMP}" | ${SYSDEP_UTIL_AWK} '{print $2}'`
 
-  ${SYSDEP_UTIL_ECHO} "${SYSDEP_ADA_VERSION_TMP}" > "${SYSDEP_BASE_DIRECTORY}/sd-adaversion.out.${PROCESS_ID}" ||
+  ${SYSDEP_UTIL_ECHO} "${SD_ADA_VERSION_TMP}" > "${SYSDEP_BASE_DIRECTORY}/sd-adaversion.out.${PROCESS_ID}" ||
     SYSDEP_FATAL "could not write sd-adaversion.out"
   SYSDEP_MOVE \
     "${SYSDEP_BASE_DIRECTORY}/sd-adaversion.out.${PROCESS_ID}" \
@@ -294,7 +294,7 @@ then
     then
       SDM_prepare_locker
 
-      SYSDEP_ADA_VERSION_TMP="`${SYSDEP_BASE_DIRECTORY}/sd-locker \
+      SD_ADA_VERSION_TMP="`${SYSDEP_BASE_DIRECTORY}/sd-locker \
         "$$"                                          \
         "${SYSDEP_BASE_DIRECTORY}/sd-adaversion.lock" \
         "${SYSDEP_BASE_DIRECTORY}/sd-adaversion"      \
@@ -304,9 +304,9 @@ then
         "${SYSDEP_ADA_BFLAGS}"                        \
         "${SYSDEP_ADA_LINK}"                          \
         "${SYSDEP_ADA_LDFLAGS}"`"
-      SYSDEP_ADA_TYPE=`${SYSDEP_UTIL_ECHO} "${SYSDEP_ADA_VERSION_TMP}" | ${SYSDEP_UTIL_AWK} '{print $1}'`
-      SYSDEP_ADA_VERSION=`${SYSDEP_UTIL_ECHO} "${SYSDEP_ADA_VERSION_TMP}" | ${SYSDEP_UTIL_AWK} '{print $2}'`
-      ${SYSDEP_UTIL_ECHO} "${SYSDEP_ADA_VERSION_TMP}" > "${SYSDEP_BASE_DIRECTORY}/sd-adaversion.out"
+      SYSDEP_ADA_TYPE=`${SYSDEP_UTIL_ECHO} "${SD_ADA_VERSION_TMP}" | ${SYSDEP_UTIL_AWK} '{print $1}'`
+      SYSDEP_ADA_VERSION=`${SYSDEP_UTIL_ECHO} "${SD_ADA_VERSION_TMP}" | ${SYSDEP_UTIL_AWK} '{print $2}'`
+      ${SYSDEP_UTIL_ECHO} "${SD_ADA_VERSION_TMP}" > "${SYSDEP_BASE_DIRECTORY}/sd-adaversion.out"
     else
       SYSDEP_ADA_TYPE=`${SYSDEP_UTIL_CAT} "${SYSDEP_BASE_DIRECTORY}/sd-adaversion.out" | ${SYSDEP_UTIL_AWK} '{print $1}'`
       SYSDEP_ADA_VERSION=`${SYSDEP_UTIL_CAT} "${SYSDEP_BASE_DIRECTORY}/sd-adaversion.out" | ${SYSDEP_UTIL_AWK} '{print $2}'`
