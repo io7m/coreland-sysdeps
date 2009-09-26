@@ -1,56 +1,56 @@
-SYSDEP_ADA_BFLAGS                  | string           | Ada binder flags
-SYSDEP_ADA_BIND                    | string           | Ada binder
-SYSDEP_ADA_CFLAGS                  | string           | Ada compiler flags
-SYSDEP_ADA_COMP                    | string           | Ada compiler
-SYSDEP_ADA_LDFLAGS                 | string           | Ada linker flags
-SYSDEP_ADA_LINK                    | string           | Ada linker
-SYSDEP_ADA_TYPE                    | string           | Ada compiler type (GNAT, etc)
-SYSDEP_ADA_VERSION                 | version          | Ada compiler version
-SYSDEP_ARCH                        | string           | Host system architecture
-SYSDEP_BASE_DIRECTORY              | string           | Path to SYSDEPS directory
-SYSDEP_CC                          | string           | C compiler
-SYSDEP_CCTYPE                      | string           | C compiler type
-SYSDEP_CCVERSION                   | version          | C compiler version
-SYSDEP_CFLAGS                      | string           | C compiler flags
-SYSDEP_CPU_CACHE_LINE_SIZE         | number           | Host system CPU cache line size in bytes
-SYSDEP_CPU_EXT                     | string-list      | Host system CPU extensions supported
-SYSDEP_CPU_FREQ                    | number           | Host system CPU frequency in MHz
-SYSDEP_CPU_L1_DATA_CACHE_SIZE      | number           | Host system CPU L1 data cache size in bytes
-SYSDEP_CPU_L1_INST_CACHE_SIZE      | number           | Host system CPU L1 instruction cache size in bytes
-SYSDEP_CPU_L2_CACHE_SIZE           | number           | Host system CPU L2 cache size in bytes
-SYSDEP_CPU_L3_CACHE_SIZE           | number           | Host system CPU L3 cache size in bytes
-SYSDEP_CPU_MODEL                   | string           | Host system CPU model
-SYSDEP_CPU_NUM                     | number           | Number of CPUs in host system
-SYSDEP_CROSS_COMPILE               | number           | Currently cross compiling?
-SYSDEP_FILE                        | string           | sd-file program
-SYSDEP_LD                          | string           | C linker
-SYSDEP_LDFLAGS                     | string           | C linker flags
-SYSDEP_LIBSUFFIX                   | string           | Host system dynamic library suffix (.so, etc)
-SYSDEP_LINE                        | string           | sd-line program
-SYSDEP_MODULE                      | string           | Name of current module
-SYSDEP_MODULE_PATH                 | string           | Path to current module from base directory
-SYSDEP_OS                          | os-type          | Host operating system
-SYSDEP_OSVERSION                   | string           | Host operating system version
-SYSDEP_OUTPUT_DIRECTORY            | string           | Path to directory where output files shall be written
-SYSDEP_STDINC                      | string-list      | Standard C header include paths
-SYSDEP_STDLIB                      | string-list      | Standard C library include paths
-SYSDEP_SUBS_FILE                   | string           | Name/full path to sysdep-subs file
-SYSDEP_TRY_CONFIG_BIN              | string           | sd-configbin program
-SYSDEP_TRY_MANUAL                  | string           | sd-configman program
-SYSDEP_TRY_PKG_CONFIG              | string           | sd-configpkg program
-SYSDEP_UTIL_AWK                    | string           | POSIX awk utility
-SYSDEP_UTIL_BASENAME               | string           | POSIX basename utility
-SYSDEP_UTIL_CAT                    | string           | POSIX cat utility
-SYSDEP_UTIL_CD                     | string           | POSIX cd utility
-SYSDEP_UTIL_CP                     | string           | POSIX cp utility
-SYSDEP_UTIL_ECHO                   | string           | POSIX echo utility
-SYSDEP_UTIL_EXIT                   | string           | POSIX exit utility
-SYSDEP_UTIL_GREP                   | string           | POSIX grep utility
-SYSDEP_UTIL_HEAD                   | string           | POSIX head utility
-SYSDEP_UTIL_MV                     | string           | POSIX mv utility
-SYSDEP_UTIL_PWD                    | string           | POSIX pwd utility
-SYSDEP_UTIL_RM                     | string           | POSIX rm utility
-SYSDEP_UTIL_SED                    | string           | POSIX sed utility
-SYSDEP_UTIL_TOUCH                  | string           | POSIX touch utility
-SYSDEP_UTIL_TR                     | string           | POSIX tr utility
-SYSDEP_UTIL_WC                     | string           | POSIX wc utility
+SYSDEP_ADA_BFLAGS                  | string       | -static                                        | Ada binder flags
+SYSDEP_ADA_BIND                    | string       | gnatbind                                       | Ada binder
+SYSDEP_ADA_CFLAGS                  | string       | -O2 -g -fstack-check                           | Ada compiler flags
+SYSDEP_ADA_COMP                    | string       | gcc                                            | Ada compiler
+SYSDEP_ADA_LDFLAGS                 | string       | -v                                             | Ada linker flags
+SYSDEP_ADA_LINK                    | string       | gnatlink                                       | Ada linker
+SYSDEP_ADA_TYPE                    | string       | SD_SYSINFO_ADATYPE_GNAT_PRO                    | Ada compiler type (GNAT, etc)
+SYSDEP_ADA_VERSION                 | version      | 4.4.0                                          | Ada compiler version
+SYSDEP_ARCH                        | arch         | SD_SYSINFO_ARCH_SPARC                          | Host system architecture
+SYSDEP_BASE_DIRECTORY              | string       | /u/coreland/symbex/SYSDEPS                     | Path to SYSDEPS directory
+SYSDEP_CC                          | string       | gcc                                            | C compiler
+SYSDEP_CCTYPE                      | cc-type      | SD_SYSINFO_CCTYPE_SUN_C                        | C compiler type
+SYSDEP_CCVERSION                   | version      | 4.3.0                                          | C compiler version
+SYSDEP_CFLAGS                      | string       | -g -O2 -W -Wall                                | C compiler flags
+SYSDEP_CPU_CACHE_LINE_SIZE         | number       | 64                                             | Host system CPU cache line size in bytes
+SYSDEP_CPU_EXT                     | string-list  | SD_SYSINFO_CPU_EXT_SSE SD_SYSINFO_CPU_EXT_SSE2 | Host system CPU extensions supported
+SYSDEP_CPU_FREQ                    | number       | 2800                                           | Host system CPU frequency in MHz
+SYSDEP_CPU_L1_DATA_CACHE_SIZE      | number       | 2097152                                        | Host system CPU L1 data cache size in bytes
+SYSDEP_CPU_L1_INST_CACHE_SIZE      | number       | 2097152                                        | Host system CPU L1 instruction cache size in bytes
+SYSDEP_CPU_L2_CACHE_SIZE           | number       | 2048                                           | Host system CPU L2 cache size in bytes
+SYSDEP_CPU_L3_CACHE_SIZE           | number       | 16777216                                       | Host system CPU L3 cache size in bytes
+SYSDEP_CPU_MODEL                   | string       | i386                                           | Host system CPU model
+SYSDEP_CPU_NUM                     | number       | 16                                             | Number of CPUs in host system
+SYSDEP_CROSS_COMPILE               | number       | 1                                              | Currently cross compiling?
+SYSDEP_FILE                        | string       | /u/coreland/symbex/SYSDEPS/sd-file             | sd-file program
+SYSDEP_LD                          | string       | gcc                                            | C linker
+SYSDEP_LDFLAGS                     | string       | -v                                             | C linker flags
+SYSDEP_LIBSUFFIX                   | string       | sl                                             | Host system dynamic library suffix (.so, etc)
+SYSDEP_LINE                        | string       | /u/coreland/symbex/SYSDEPS/sd-line             | sd-line program
+SYSDEP_MODULE                      | string       | sd-math                                        | Name of current module
+SYSDEP_MODULE_PATH                 | string       | modules/sd-math                                | Path to current module from base directory
+SYSDEP_OS                          | os-type      | SD_SYSINFO_OS_VMS                              | Host operating system
+SYSDEP_OSVERSION                   | string       | 7.2-release-p1                                 | Host operating system version
+SYSDEP_OUTPUT_DIRECTORY            | string       | /u/coreland/symbex                             | Path to directory where output files shall be written
+SYSDEP_STDINC                      | string-list  | /usr/include /usr/local/include                | Standard C header include paths
+SYSDEP_STDLIB                      | string-list  | /usr/lib /usr/local/lib                        | Standard C library include paths
+SYSDEP_SUBS_FILE                   | string       | /u/coreland/symbex/SYSDEPS/sysdep-subs         | Name/full path to sysdep-subs file
+SYSDEP_TRY_CONFIG_BIN              | string       | /u/coreland/symbex/SYSDEPS/sd-configbin        | sd-configbin program
+SYSDEP_TRY_MANUAL                  | string       | /u/coreland/symbex/SYSDEPS/sd-configman        | sd-configman program
+SYSDEP_TRY_PKG_CONFIG              | string       | /u/coreland/symbex/SYSDEPS/sd-configpkg        | sd-configpkg program
+SYSDEP_UTIL_AWK                    | string       | awk                                            | POSIX awk utility
+SYSDEP_UTIL_BASENAME               | string       | basename                                       | POSIX basename utility
+SYSDEP_UTIL_CAT                    | string       | cat                                            | POSIX cat utility
+SYSDEP_UTIL_CD                     | string       | cd                                             | POSIX cd utility
+SYSDEP_UTIL_CP                     | string       | cp                                             | POSIX cp utility
+SYSDEP_UTIL_ECHO                   | string       | echo                                           | POSIX echo utility
+SYSDEP_UTIL_EXIT                   | string       | exit                                           | POSIX exit utility
+SYSDEP_UTIL_GREP                   | string       | grep                                           | POSIX grep utility
+SYSDEP_UTIL_HEAD                   | string       | head                                           | POSIX head utility
+SYSDEP_UTIL_MV                     | string       | mv                                             | POSIX mv utility
+SYSDEP_UTIL_PWD                    | string       | pwd                                            | POSIX pwd utility
+SYSDEP_UTIL_RM                     | string       | rm                                             | POSIX rm utility
+SYSDEP_UTIL_SED                    | string       | sed                                            | POSIX sed utility
+SYSDEP_UTIL_TOUCH                  | string       | touch                                          | POSIX touch utility
+SYSDEP_UTIL_TR                     | string       | tr                                             | POSIX tr utility
+SYSDEP_UTIL_WC                     | string       | wc                                             | POSIX wc utility
