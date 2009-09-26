@@ -1,0 +1,56 @@
+SYSDEP_ADA_BFLAGS                | Ada binder flags
+SYSDEP_ADA_BIND                  | Ada binder
+SYSDEP_ADA_CFLAGS                | Ada compiler flags
+SYSDEP_ADA_COMP                  | Ada compiler
+SYSDEP_ADA_LDFLAGS               | Ada linker flags
+SYSDEP_ADA_LINK                  | Ada linker
+SYSDEP_ADA_TYPE                  | Ada compiler type (GNAT, etc)
+SYSDEP_ADA_VERSION               | Ada compiler version
+SYSDEP_ARCH                      | Host system architecture
+SYSDEP_BASE_DIRECTORY            | Path to SYSDEPS directory
+SYSDEP_CC                        | C compiler
+SYSDEP_CCTYPE                    | C compiler type
+SYSDEP_CCVERSION                 | C compiler version
+SYSDEP_CFLAGS                    | C compiler flags
+SYSDEP_CPU_CACHE_LINE_SIZE       | Host system CPU cache line size in bytes
+SYSDEP_CPU_EXT                   | Host system CPU extensions supported
+SYSDEP_CPU_FREQ                  | Host system CPU frequency in MHz
+SYSDEP_CPU_L1_DATA_CACHE_SIZE    | Host system CPU L1 data cache size in bytes
+SYSDEP_CPU_L1_INST_CACHE_SIZE    | Host system CPU L1 instruction cache size in bytes
+SYSDEP_CPU_L2_CACHE_SIZE         | Host system CPU L2 cache size in bytes
+SYSDEP_CPU_L3_CACHE_SIZE         | Host system CPU L3 cache size in bytes
+SYSDEP_CPU_MODEL                 | Host system CPU model
+SYSDEP_CPU_NUM                   | Number of CPUs in host system
+SYSDEP_CROSS_COMPILE             | Currently cross compiling?
+SYSDEP_FILE                      | sd-file program
+SYSDEP_LD                        | C linker
+SYSDEP_LDFLAGS                   | C linker flags
+SYSDEP_LIBSUFFIX                 | Host system dynamic library suffix (.so, etc)
+SYSDEP_LINE                      | sd-line program
+SYSDEP_MODULE                    | Name of current module
+SYSDEP_MODULE_PATH               | Path to current module from base directory
+SYSDEP_OS                        | Host operating system
+SYSDEP_OSVERSION                 | Host operating system version
+SYSDEP_OUTPUT_DIRECTORY          | Path to directory where output files shall be written
+SYSDEP_STDINC                    | Standard C header include path
+SYSDEP_STDLIB                    | Standard C library include path
+SYSDEP_SUBS_FILE                 | Name/full path to sysdep-subs file
+SYSDEP_TRY_CONFIG_BIN            | sd-configbin program
+SYSDEP_TRY_MANUAL                | sd-configman program
+SYSDEP_TRY_PKG_CONFIG            | sd-configpkg program
+SYSDEP_UTIL_AWK                  | POSIX awk utility
+SYSDEP_UTIL_BASENAME             | POSIX basename utility
+SYSDEP_UTIL_CAT                  | POSIX cat utility
+SYSDEP_UTIL_CD                   | POSIX cd utility
+SYSDEP_UTIL_CP                   | POSIX cp utility
+SYSDEP_UTIL_ECHO                 | POSIX echo utility
+SYSDEP_UTIL_EXIT                 | POSIX exit utility
+SYSDEP_UTIL_GREP                 | POSIX grep utility
+SYSDEP_UTIL_HEAD                 | POSIX head utility
+SYSDEP_UTIL_MV                   | POSIX mv utility
+SYSDEP_UTIL_PWD                  | POSIX pwd utility
+SYSDEP_UTIL_RM                   | POSIX rm utility
+SYSDEP_UTIL_SED                  | POSIX sed utility
+SYSDEP_UTIL_TOUCH                | POSIX touch utility
+SYSDEP_UTIL_TR                   | POSIX tr utility
+SYSDEP_UTIL_WC                   | POSIX wc utility
