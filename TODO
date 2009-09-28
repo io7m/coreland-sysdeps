@@ -2,8 +2,7 @@ http://predef.sourceforge.net/index.php
 
 ------------------------------------------------------------------------
 
-Define ALL uses of POSIX shell utilities as macros in order to easily
-detect the subset of POSIX used.
+Update modules to use POSIX variables.
 
 ------------------------------------------------------------------------
 
@@ -40,3 +39,7 @@ Be more granular?
 ------------------------------------------------------------------------
 
 Should sysdeps even do anything when cross-compiling?
+
+------------------------------------------------------------------------
+
+Intel CPU model table.
