@@ -1,4 +1,4 @@
-(para "Some older systems use " (item struct_name "struct direct")
-" as opposed to the more usual " (item struct_name "struct dirent")
+(para "Some older systems use " (item struct "struct direct")
+" as opposed to the more usual " (item struct "struct dirent")
 ". This modules detects which the system has and writes the appropriate
 typedef, including the required headers, to a header file.")
