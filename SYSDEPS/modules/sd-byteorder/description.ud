@@ -1,0 +1,19 @@
+(para "This module creates the appropriate typedef for the "
+  (item file_name "_sd_byteorder.h") " header file.")
+
+(para "It does a simple pointer check to see if integers stored in
+  memory are in little endian or big endian format. There are no plans to
+  support middle endian byte ordering at this time.")
+
+(para "Example output:")
+
+(para-verbatim example
+"#ifndef _SD_BYTEORDER_H
+#define _SD_BYTEORDER_H
+
+#define SD_BYTEORDER_BIG    0
+#define SD_BYTEORDER_LITTLE 1
+
+#define SD_BYTEORDER SD_BYTEORDER_LITTLE
+#endif
+")
