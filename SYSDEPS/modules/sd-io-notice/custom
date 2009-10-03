@@ -6,8 +6,8 @@ fout="$1"
 sysdeps="$2"
 
 ${SYSDEP_UTIL_CAT} >> "${fout}" <<EOF
-#ifndef _IO_NOTICE_H
-#define _IO_NOTICE_H
+#ifndef _SD_IO_NOTICE_H
+#define _SD_IO_NOTICE_H
 EOF
 
 #
@@ -25,7 +25,7 @@ then
   ret=$?
   if [ ${ret} -eq 0 ]
   then
-    ${SYSDEP_UTIL_ECHO} '#define HAVE_KQUEUE' >> "${fout}" 
+    ${SYSDEP_UTIL_ECHO} '#define SD_IO_NOTICE_SUPPORTED_KQUEUE' >> "${fout}" 
     mechs="${mechs} kqueue"
   fi
 fi
@@ -40,7 +40,7 @@ then
   ret=$?
   if [ ${ret} -eq 0 ]
   then
-    ${SYSDEP_UTIL_ECHO} '#define HAVE_EPOLL' >> "${fout}"
+    ${SYSDEP_UTIL_ECHO} '#define SD_IO_NOTICE_SUPPORTED_EPOLL' >> "${fout}"
     mechs="${mechs} epoll"
   fi
 fi
@@ -49,7 +49,7 @@ ${SYSDEP_CC} -c -o trypoll.o trypoll.c >/dev/null 2>&1
 ${SYSDEP_LD} -o trypoll trypoll.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  ${SYSDEP_UTIL_ECHO} '#define HAVE_POLL' >> "${fout}"
+  ${SYSDEP_UTIL_ECHO} '#define SD_IO_NOTICE_SUPPORTED_POLL' >> "${fout}"
   mechs="${mechs} poll"
 fi
 
@@ -57,21 +57,21 @@ ${SYSDEP_CC} -c -o tryselect1.o tryselect1.c >/dev/null 2>&1
 ${SYSDEP_LD} -o tryselect1 tryselect1.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  ${SYSDEP_UTIL_ECHO} '#define HAVE_SELECT' >> "${fout}"
+  ${SYSDEP_UTIL_ECHO} '#define SD_IO_NOTICE_SUPPORTED_SELECT' >> "${fout}"
   mechs="${mechs} select"
 else
   ${SYSDEP_CC} -c -o tryselect2.o tryselect2.c >/dev/null 2>&1
   ${SYSDEP_LD} -o tryselect2 tryselect2.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
   if [ $? -eq 0 ]
   then
-    ${SYSDEP_UTIL_ECHO} '#define HAVE_SELECT' >> "${fout}"
+    ${SYSDEP_UTIL_ECHO} '#define SD_IO_NOTICE_SUPPORTED_SELECT' >> "${fout}"
     mechs="${mechs} select"
   else
     ${SYSDEP_CC} -c -o tryselect3.o tryselect3.c >/dev/null 2>&1
     ${SYSDEP_LD} -o tryselect3 tryselect3.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
     if [ $? -eq 0 ]
     then
-      ${SYSDEP_UTIL_ECHO} '#define HAVE_SELECT' >> "${fout}"
+      ${SYSDEP_UTIL_ECHO} '#define SD_IO_NOTICE_SUPPORTED_SELECT' >> "${fout}"
       mechs="${mechs} select"
     fi
   fi
