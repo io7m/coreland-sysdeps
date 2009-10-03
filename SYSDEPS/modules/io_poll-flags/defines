@@ -1,1 +1,1 @@
-HAVE_IO_POLL
+SD_HAVE_IO_POLL : integer 1 .. 1 : optional

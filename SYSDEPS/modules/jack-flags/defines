@@ -1,1 +1,1 @@
-HAVE_JACK
+SD_HAVE_JACK : integer 1 .. 1 : optional

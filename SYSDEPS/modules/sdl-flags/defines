@@ -1,1 +1,1 @@
-HAVE_SDL
+SD_HAVE_SDL : integer 1 .. 1 : optional

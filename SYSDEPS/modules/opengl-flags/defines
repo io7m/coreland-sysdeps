@@ -1,1 +1,1 @@
-HAVE_OPENGL
+SD_HAVE_OPENGL : integer 1 .. 1 : optional

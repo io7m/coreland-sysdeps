@@ -1,1 +1,1 @@
-HAVE_GLSOLOAD
+SD_HAVE_GLSOLOAD : integer 1 .. 1 : optional

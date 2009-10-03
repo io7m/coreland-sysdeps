@@ -1,1 +1,1 @@
-HAVE_VECTOR
+SD_HAVE_VECTOR : integer 1 .. 1 : optional

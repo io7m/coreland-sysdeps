@@ -1,1 +1,1 @@
-HAVE_MATRIX4
+SD_HAVE_MATRIX4 : integer 1 .. 1 : optional

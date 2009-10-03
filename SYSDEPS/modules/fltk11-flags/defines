@@ -1,2 +1,2 @@
-HAVE_FLTK
-HAVE_FLTK11
+SD_HAVE_FLTK   : integer 1 .. 1 : optional
+SD_HAVE_FLTK11 : integer 1 .. 1 : optional

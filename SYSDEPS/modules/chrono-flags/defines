@@ -1,1 +1,1 @@
-HAVE_CHRONO
+SD_HAVE_CHRONO : integer 1 .. 1 : optional

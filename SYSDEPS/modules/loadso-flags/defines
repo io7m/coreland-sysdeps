@@ -1,1 +1,1 @@
-HAVE_LOADSO
+SD_HAVE_LOADSO : integer 1 .. 1 : optional

@@ -1,1 +1,1 @@
-HAVE_SKEL
+SD_HAVE_SKEL : integer 1 .. 1 : optional

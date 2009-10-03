@@ -1,1 +1,1 @@
-HAVE_LIBPNG
+SD_HAVE_LIBPNG : integer 1 .. 1 : optional

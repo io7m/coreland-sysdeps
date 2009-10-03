@@ -1,1 +1,1 @@
-HAVE_SMTPLIB
+SD_HAVE_SMTPLIB : integer 1 .. 1 : optional

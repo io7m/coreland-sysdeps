@@ -1,1 +1,1 @@
-HAVE_LIBSNDFILE
+SD_HAVE_SQLITE3 : integer 1 .. 1 : optional

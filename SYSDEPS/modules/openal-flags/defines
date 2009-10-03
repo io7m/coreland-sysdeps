@@ -1,1 +1,1 @@
-HAVE_OPENAL
+SD_HAVE_OPENAL : integer 1 .. 1 : optional

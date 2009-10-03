@@ -1,1 +1,1 @@
-HAVE_CORELIB
+SD_HAVE_CORELIB : integer 1 .. 1 : optional

@@ -1,1 +1,1 @@
-HAVE_PNGLOAD
+SD_HAVE_PNGLOAD : integer 1 .. 1 : optional

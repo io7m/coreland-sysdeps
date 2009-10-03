@@ -1,1 +1,1 @@
-HAVE_PLEXLOG
+SD_HAVE_PLEXLOG : integer 1 .. 1 : optional

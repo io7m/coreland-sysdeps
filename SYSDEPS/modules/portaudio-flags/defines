@@ -1,1 +1,1 @@
-HAVE_PORTAUDIO
+SD_HAVE_PORTAUDIO : integer 1 .. 1 : optional

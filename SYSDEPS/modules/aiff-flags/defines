@@ -1,1 +1,1 @@
-HAVE_LIBAIFF
+SD_HAVE_LIBAIFF : integer 1 .. 1 : optional
