@@ -1,1 +1,1 @@
-HAVE_DUP2
+SD_HAVE_DUP2 : integer 1 .. 1 : optional

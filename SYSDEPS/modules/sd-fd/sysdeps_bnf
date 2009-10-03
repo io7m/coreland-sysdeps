@@ -1,0 +1,2 @@
+<sd-dup2>      ::= "dup2" | "none"
+<sd-dup2-spec> ::= "sd-dup2:" <sd-dup2>
