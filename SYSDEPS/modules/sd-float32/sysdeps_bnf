@@ -1,0 +1,2 @@
+<float32>      ::= "float" | "double" | "long double" | "none"
+<float32-spec> ::= "sd-float32:" <float32>

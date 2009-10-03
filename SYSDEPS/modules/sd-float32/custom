@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. "${SYSDEP_SUBS_FILE}" || exit 1
+
 cleanup()
 {
   rm -f float32_make float32_make.o
@@ -7,25 +9,39 @@ cleanup()
 
 fatal()
 {
-  echo "fatal: $1" 1>&2
   cleanup
-  exit 1
+  SYSDEP_FATAL "$1"
 }
 
 have_it()
 {
   type="$1"
-  cat >> ${temp32} << EOF
-#ifndef _FLOAT32_H
-#define _FLOAT32_H
+  ${SYSDEP_UTIL_CAT} >> ${temp32} << EOF
+#ifndef _SD_FLOAT32_H
+#define _SD_FLOAT32_H
 
-typedef ${type} float32;
+#define SD_FLOAT32_SUPPORTED 1
+
+typedef ${type} sd_float32;
 
 #endif
 EOF
-  echo "float32: ${type}" >> "${tempsys}"
+  ${SYSDEP_UTIL_ECHO} "sd-float32: ${type}" >> "${tempsys}"
   cleanup
-  exit 0
+  ${SYSDEP_UTIL_EXIT} 0
+}
+
+unsupported()
+{
+  ${SYSDEP_UTIL_CAT} >> ${temp32} << EOF
+#ifndef _SD_FLOAT32_H
+#define _SD_FLOAT32_H
+
+#endif
+EOF
+  ${SYSDEP_UTIL_ECHO} "sd-float32: none" >> "${tempsys}"
+  cleanup
+  ${SYSDEP_UTIL_EXIT} 0
 }
 
 temp32="$1"
@@ -35,7 +51,11 @@ if [ ${SYSDEP_CROSS_COMPILE} -eq 0 ]
 then
   ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o float32_make.o float32_make.c
   ${SYSDEP_LD} -o float32_make float32_make.o ${SYSDEP_LDFLAGS}
-  if [ $? -ne 0 ]; then fatal "error compiling float32_make"; fi
+  if [ $? -ne 0 ]
+  then
+    unsupported
+    fatal "error compiling float32_make"
+  fi
   type=`./float32_make`
   if [ $? -eq 0 ];
   then
@@ -51,8 +71,10 @@ then
   then
     if [ ${SYSDEP_CROSS_COMPILE} -eq 1 ]
     then
+      unsupported
       fatal "cross compiling and unable to read ${conf}"
     else
+      unsupported
       fatal "unable to find appropriate float32 type and unable to read ${conf}"
     fi
   else
@@ -61,4 +83,4 @@ then
 fi
 
 cleanup
-exit 0
+${SYSDEP_UTIL_EXIT} 0

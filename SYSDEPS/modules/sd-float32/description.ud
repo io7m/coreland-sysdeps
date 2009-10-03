@@ -1,0 +1,3 @@
+(para "This module does some checks with sizeof() to see which C float
+declarations are 32 bits in size on this platform.")
+
