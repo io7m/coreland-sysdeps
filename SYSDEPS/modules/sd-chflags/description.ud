@@ -1,5 +1,5 @@
 (para "This module does a simple compile-time check to see if
-  the " (item function "chflags") " system call is implemented.")
+  the " (item c_function "chflags()") " system call is implemented.")
 
 (para "Example output:")
 
