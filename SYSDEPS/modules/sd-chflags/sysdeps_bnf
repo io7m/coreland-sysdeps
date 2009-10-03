@@ -1,2 +1,2 @@
-<ch_flags>      ::= "chflags" | "none"
-<ch_flags-spec> ::= "sd-ch_flags:" <ch_flags>
+<chflags>      ::= "chflags" | "none"
+<chflags-spec> ::= "sd-chflags:" <chflags>
