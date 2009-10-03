@@ -1,0 +1,8 @@
+(para "This module performs a simple compile-time check to see if the
+  POSIX " (item c_function "dup2()") " system call is supported.")
+(para "Example output:")
+(para-verbatim example
+"#ifndef _SD_DUP2_H
+#define _SD_DUP2_H
+#define SD_HAVE_DUP2
+#endif")
