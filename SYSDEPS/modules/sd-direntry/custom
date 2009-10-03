@@ -1,0 +1,36 @@
+#!/bin/sh
+
+. "${SYSDEP_SUBS_FILE}" || exit 1
+
+fout="$1"
+sysdeps="$2"
+
+${SYSDEP_CC} ${SYSDEP_CFLAGS} -o trydirent.o -c trydirent.c >/dev/null 2>&1
+if [ $? -eq 0 ]
+then
+  ${SYSDEP_UTIL_CAT} > "${fout}" <<EOF
+#ifndef _SD_DIRENTRY_H
+#define _SD_DIRENTRY_H
+
+#include <sys/types.h>
+#include <dirent.h>
+#define sd_direntry struct dirent
+
+#endif
+EOF
+  ${SYSDEP_UTIL_ECHO} "sd-direntry: struct dirent" >> "${sysdeps}"
+else
+  ${SYSDEP_UTIL_CAT} > "${fout}" <<EOF
+#ifndef _SD_DIRENTRY_H
+#define _SD_DIRENTRY_H
+
+#include <sys/types.h>
+#include <sys/dir.h>
+#define sd_direntry struct direct
+
+#endif
+EOF
+  ${SYSDEP_UTIL_ECHO} "sd-direntry: struct direct" >> "${sysdeps}"
+fi
+
+${SYSDEP_UTIL_RM} -f trydirent.o
