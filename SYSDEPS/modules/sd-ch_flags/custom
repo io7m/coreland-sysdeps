@@ -13,30 +13,30 @@ cleanup()
 have_chflags()
 {
   define=`${SYSDEP_LINE} 1 < defines`
-  cat > "${fout}" <<EOF
-#ifndef _CH_FLAGS_H
-#define _CH_FLAGS_H
+  ${SYSDEP_UTIL_CAT} > "${fout}" <<EOF
+#ifndef _SD_CH_FLAGS_H
+#define _SD_CH_FLAGS_H
 
 #define $define
 
 #endif
 EOF
-  echo "ch_flags: chflags" >> "${sysdep}"
+  ${SYSDEP_UTIL_ECHO} "sd-ch_flags: chflags" >> "${sysdep}"
   cleanup
-  exit 0
+  ${SYSDEP_UTIL_EXIT} 0
 }
 
 no_chflags()
 {
-  cat > "${fout}" <<EOF
-#ifndef _CH_FLAGS_H
-#define _CH_FLAGS_H
+  ${SYSDEP_UTIL_CAT} > "${fout}" <<EOF
+#ifndef _SD_CH_FLAGS_H
+#define _SD_CH_FLAGS_H
 
 #endif
 EOF
-  echo "ch_flags: none" >> "${sysdep}"
+  ${SYSDEP_UTIL_ECHO} "sd-ch_flags: none" >> "${sysdep}"
   cleanup
-  exit 0
+  ${SYSDEP_UTIL_EXIT} 0
 }
 
 conf=`${SYSDEP_LINE} 1 < config`
