@@ -1,0 +1,1 @@
+<getopt-ada-flags-spec> ::= "getopt-ada-flags:" <implementation-defined>

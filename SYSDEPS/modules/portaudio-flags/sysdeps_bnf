@@ -1,0 +1,1 @@
+<portaudio-flags-spec> ::= "portaudio-flags:" <implementation-defined>

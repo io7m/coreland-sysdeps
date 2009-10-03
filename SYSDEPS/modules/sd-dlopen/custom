@@ -47,16 +47,16 @@ try_dlopen()
   ${SYSDEP_LD} -o trydlopen trydlopen.o ${SYSDEP_LDFLAGS} ${DL_LIBS} 1>/dev/null 2>&1
   if [ $? -eq 0 ]
   then
-    echo "dlopen-libs: ${DL_LIBS}" >> "${sysd_out}"
+    echo "sd-dlopen-libs: ${DL_LIBS}" >> "${sysd_out}"
     echo "${DL_LIBS}" >> "${flag_out}"
-    echo "#define HAVE_DLOPEN" >> "${head_out}"
+    echo "#define SD_HAVE_DLOPEN" >> "${head_out}"
     try_dlfunc
     if [ $? -eq 1 ]
     then
-      echo "#define HAVE_DLFUNC" >> "${head_out}"
-      echo "dlopen: dlopen dlfunc" >> "${sysd_out}"
+      echo "#define SD_HAVE_DLFUNC" >> "${head_out}"
+      echo "sd-dlopen: dlopen dlfunc" >> "${sysd_out}"
     else
-      echo "dlopen: dlopen" >> "${sysd_out}"
+      echo "sd-dlopen: dlopen" >> "${sysd_out}"
     fi
     return 1
   else

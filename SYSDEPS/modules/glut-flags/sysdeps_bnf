@@ -1,0 +1,1 @@
+<glut-flags-spec> ::= "glut-flags:" <implementation-defined>

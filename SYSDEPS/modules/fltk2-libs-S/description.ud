@@ -1,0 +1,2 @@
+(para "This module determines the linker flags required to statically link against "
+  (link-ext "http://www.fltk.org" "FLTK 2.0.*"))

@@ -1,0 +1,5 @@
+(para "This module generates a C source file is created that can be
+#include'd. The file contains an array of 0-terminated strings, named
+'opengl_obj'.  The strings contain the full paths to any library files
+that appear to be OpenGL libraries. The paths can be used to dynamically
+load OpenGL shared objects.")

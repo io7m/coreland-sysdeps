@@ -1,0 +1,2 @@
+<filename>        ::= <implementation-defined>
+<opengl-obj-spec> ::= "opengl-obj:" { <filename> }

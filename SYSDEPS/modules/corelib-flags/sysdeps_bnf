@@ -1,0 +1,1 @@
+<corelib-flags-spec> ::= "corelib-flags:" <implementation-defined>

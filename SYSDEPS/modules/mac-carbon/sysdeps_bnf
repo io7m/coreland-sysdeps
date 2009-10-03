@@ -1,0 +1,3 @@
+<carbon-libs-spec> ::= "carbon-libs:" <implementation-defined>
+<carbon-boolean>   ::= "yes" | "no"
+<carbon-spec>      ::= "carbon:" <carbon-boolean>

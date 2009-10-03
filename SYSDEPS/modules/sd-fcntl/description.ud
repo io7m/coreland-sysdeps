@@ -1,0 +1,14 @@
+(para-verbatim example
+"#ifndef _SD_FCNTL_H
+#define _SD_FCNTL_H
+
+#include <fcntl.h>
+#define SD_HAVE_FCNTL
+
+#ifndef O_NONBLOCK
+  #ifdef O_NDELAY
+    #define O_NONBLOCK O_NDELAY
+  #else
+    #define O_NONBLOCK 0
+  #endif
+#endif")

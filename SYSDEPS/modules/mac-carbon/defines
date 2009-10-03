@@ -1,1 +1,1 @@
-HAVE_CARBON
+SD_HAVE_CARBON : integer 1 .. 1 : optional

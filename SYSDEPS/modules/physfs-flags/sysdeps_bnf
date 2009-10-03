@@ -1,0 +1,1 @@
+<physfs-flags-spec> ::= "physfs-flags:" <implementation-defined>

@@ -1,1 +1,1 @@
-HAVE_FCNTL
+SD_HAVE_FCNTL : integer 1 .. 1 : optional

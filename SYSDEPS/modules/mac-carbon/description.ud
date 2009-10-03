@@ -1,0 +1,2 @@
+(para "This module attempts to determine the required compiler and linker flags
+  to use the Darwin Carbon framework if it is supported on the current platform.")

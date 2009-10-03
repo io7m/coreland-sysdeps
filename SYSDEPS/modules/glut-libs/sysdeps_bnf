@@ -1,0 +1,1 @@
+<glut-libs-spec> ::= "glut-libs:" <implementation-defined>

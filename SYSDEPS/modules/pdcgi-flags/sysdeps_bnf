@@ -1,0 +1,1 @@
+<pdcgi-flags-spec> ::= "pdcgi-flags:" <implementation-defined>

@@ -1,0 +1,1 @@
+<physfs-libs-spec> ::= "physfs-libs:" <implementation-defined>
