@@ -1,0 +1,2 @@
+<int32>      ::= "signed char" | "signed short" | "signed int" | "signed long" | "signed long long" | "int32_t" | "none"
+<int32-spec> ::= "sd-int32:" <int32>
