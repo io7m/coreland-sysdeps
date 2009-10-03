@@ -1,1 +1,1 @@
-SD_CHFLAGS_SUPPORTED : number 0 .. 1 : optional
+SD_CHFLAGS_SUPPORTED : integer 0 .. 1 : optional
