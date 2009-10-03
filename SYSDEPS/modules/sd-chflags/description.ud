@@ -4,7 +4,7 @@
 (para "Example output:")
 
 (para-verbatim example
-#ifndef _SD_CHFLAGS_H
+"#ifndef _SD_CHFLAGS_H
 #define _SD_CHFLAGS_H
 
 #define SD_CHFLAGS_SUPPORTED 1
