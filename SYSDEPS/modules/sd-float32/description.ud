@@ -1,3 +1,18 @@
-(para "This module does some checks with sizeof() to see which C float
-declarations are 32 bits in size on this platform.")
+(para "This modules determines which of the built-in C floating point types
+  are 32 bits in size on the host platform. If one of the types is 32 bits
+  in size, the module writes a typedef " (item c_type "sd_float32") " which
+  is equivalent to the given type and defines "
+  (item constant "SD_FLOAT32_SUPPORTED") ". If none of the built-in types are
+  32 bits in size, the module does nothing.")
 
+(para "Example output:")
+
+(para-verbatim example
+"#ifndef _SD_FLOAT32_H
+#define _SD_FLOAT32_H
+
+#define SD_FLOAT32_SUPPORTED 1
+
+typedef float sd_float32;
+
+#endif")
