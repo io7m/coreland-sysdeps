@@ -2,3 +2,13 @@
 " as opposed to the more usual " (item struct "struct dirent")
 ". This modules detects which the system has and writes the appropriate
 typedef, including the required headers, to a header file.")
+
+(para-verbatim example
+"#ifndef _SD_DIRENTRY_H
+#define _SD_DIRENTRY_H
+
+#include <sys/types.h>
+#include <dirent.h>
+#define sd_direntry struct dirent
+
+#endif")
