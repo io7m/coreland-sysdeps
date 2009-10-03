@@ -1,0 +1,72 @@
+#!/bin/sh
+
+. "${SYSDEP_SUBS_FILE}" || exit 1
+
+cleanup()
+{
+  rm -f byteorder byteorder.o
+}
+
+fatal()
+{
+  SYSDEP_FATAL "$1"
+  cleanup
+  ${SYSDEP_UTIL_EXIT} 1
+}
+
+temph="$1"
+tempsys="$2"
+
+${SYSDEP_UTIL_CAT} >> "${temph}" << EOF
+#ifndef _SD_BYTEORDER_H
+#define _SD_BYTEORDER_H
+
+#define SD_BYTEORDER_BIG    0
+#define SD_BYTEORDER_LITTLE 1
+
+EOF
+
+if [ ${SYSDEP_CROSS_COMPILE} -eq 0 ]
+then
+  ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o byteorder.o byteorder.c
+  ${SYSDEP_LD} -o byteorder byteorder.o ${SYSDEP_LDFLAGS}
+  if [ $? -ne 0 ]
+  then
+    fatal "error compiling byteorder"
+  fi
+  order=`./byteorder`
+fi
+
+if [ -z "${order}" ]
+then
+  conf=`${SYSDEP_LINE} 1 < config`
+  order=`${SYSDEP_FILE} get "${conf}" ""`
+  if [ -z "${order}" ]
+  then
+    if [ ${SYSDEP_CROSS_COMPILE} -eq 1 ]
+    then
+      fatal "cross compiling and unable to read ${conf}"
+    else
+      fatal "unable to determine byte order and unable to read ${conf}"
+    fi
+  fi
+fi
+
+case "${order}" in
+  little)
+    ${SYSDEP_UTIL_ECHO} '#define SD_BYTEORDER SD_BYTEORDER_LITTLE' >> "${temph}"
+    ${SYSDEP_UTIL_ECHO} 'sd-byteorder: little' >> "${tempsys}"
+    ;;
+  big)
+    ${SYSDEP_UTIL_ECHO} '#define SD_BYTEORDER SD_BYTEORDER_BIG' >> "${temph}"
+    ${SYSDEP_UTIL_ECHO} 'sd-byteorder: big' >> "${tempsys}"
+    ;;
+  *)
+    fatal "unknown byte ordering"
+    ;;
+esac
+
+${SYSDEP_UTIL_ECHO} '#endif' >> "${temph}"
+
+cleanup
+${SYSDEP_UTIL_EXIT} 0
