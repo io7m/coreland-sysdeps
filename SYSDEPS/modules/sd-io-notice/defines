@@ -1,0 +1,4 @@
+SD_IO_NOTICE_SUPPORT_KQUEUE : integer 1 .. 1 : optional
+SD_IO_NOTICE_SUPPORT_EPOLL  : integer 1 .. 1 : optional
+SD_IO_NOTICE_SUPPORT_POLL   : integer 1 .. 1 : optional
+SD_IO_NOTICE_SUPPORT_SELECT : integer 1 .. 1 : optional

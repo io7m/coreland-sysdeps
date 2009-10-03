@@ -1,0 +1,11 @@
+(para "This module tests the availability of various IO notification
+mechanisms.")
+
+(para "The module can currently detect:")
+
+(para
+  (list
+    (item "System-V poll()")
+    (item "UNIX select()")
+    (item "BSD kqueue")
+    (item "Linux epoll")))
