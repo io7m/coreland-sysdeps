@@ -1,2 +1,2 @@
-(para "This module determines the linker flags required to link
-  against " (link-ext "http://libagar.org/" "agar-core-ada") ".")
+(para "This module determines the linker flags required to statically
+  link against " (link-ext "http://libagar.org/" "agar-core-ada") ".")
