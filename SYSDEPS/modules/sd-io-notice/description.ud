@@ -9,3 +9,13 @@ mechanisms.")
     (item "UNIX select()")
     (item "BSD kqueue")
     (item "Linux epoll")))
+
+(para "Example output:")
+
+(para-verbatim example
+"#ifndef _SD_IO_NOTICE_H
+#define _SD_IO_NOTICE_H
+#define SD_IO_NOTICE_SUPPORTED_KQUEUE 1
+#define SD_IO_NOTICE_SUPPORTED_POLL 1
+#define SD_IO_NOTICE_SUPPORTED_SELECT 1
+#endif")
