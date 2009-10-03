@@ -1,0 +1,18 @@
+(para "This modules determines which of the built-in C floating point types
+  are 64 bits in size on the host platform. If one of the types is 64 bits
+  in size, the module writes a typedef " (item c_type "sd_float64") " which
+  is equivalent to the given type and defines "
+  (item constant "SD_FLOAT64_SUPPORTED") ". If none of the built-in types are
+  64 bits in size, the module does nothing.")
+
+(para "Example output:")
+
+(para-verbatim example
+"#ifndef _SD_FLOAT64_H
+#define _SD_FLOAT64_H
+
+#define SD_FLOAT64_SUPPORTED 1
+
+typedef double sd_float64;
+
+#endif")
