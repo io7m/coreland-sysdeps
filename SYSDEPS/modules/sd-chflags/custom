@@ -10,9 +10,17 @@ cleanup()
   rm -f trychflags trychflags.o
 }
 
+fatal()
+{
+  cleanup
+  SYSDEP_FATAL "$1"
+}
+
 have_chflags()
 {
-  define=`${SYSDEP_LINE} 1 < defines`
+  define=`${SYSDEP_LINE} 1 < defines |
+    ${SYSDEP_UTIL_AWK} -F: '{print $1}'` || fatal "could not read defines"
+
   ${SYSDEP_UTIL_CAT} > "${fout}" <<EOF
 #ifndef _SD_CHFLAGS_H
 #define _SD_CHFLAGS_H
@@ -39,7 +47,7 @@ EOF
   ${SYSDEP_UTIL_EXIT} 0
 }
 
-conf=`${SYSDEP_LINE} 1 < config`
+conf=`${SYSDEP_LINE} 1 < config` || fatal "could not read config"
 
 if [ ${SYSDEP_CROSS_COMPILE} -eq 1 ]
 then
