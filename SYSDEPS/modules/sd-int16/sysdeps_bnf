@@ -1,0 +1,2 @@
+<int16>      ::= "signed char" | "signed short" | "signed int" | "signed long" | "signed long long" | "int16_t" | "none"
+<int16-spec> ::= "sd-int16:" <int16>
