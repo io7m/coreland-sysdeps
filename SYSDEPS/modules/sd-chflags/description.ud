@@ -1,0 +1,13 @@
+(para "This module does a simple compile-time check to see if
+  the " (item function "chflags") " system call is implemented.")
+
+(para "Example output:")
+
+(para-verbatim example
+#ifndef _SD_CHFLAGS_H
+#define _SD_CHFLAGS_H
+
+#define SD_CHFLAGS_SUPPORTED 1
+
+#endif
+")
