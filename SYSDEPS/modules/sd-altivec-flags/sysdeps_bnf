@@ -1,0 +1,1 @@
+<altivec-spec> ::= "sd-altivec:" <implementation-defined>
