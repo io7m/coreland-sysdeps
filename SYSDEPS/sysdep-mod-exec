@@ -132,7 +132,9 @@ touch ${OUTPUT_FILE} ||
 
 if [ -f "defines" ]
 then
-  DEFINES="`${SYSDEP_UTIL_CAT} defines`" ||
+  DEFINES="`${SYSDEP_UTIL_CAT} defines |
+    ${SYSDEP_UTIL_AWK} -F: '{print $1}' |
+    ${SYSDEP_UTIL_TR} -d ' '`" ||
     SYSDEP_FATAL "could not read 'defines'"
 fi
 
@@ -145,7 +147,9 @@ OS_LOWER=`SDM_os_tolower` ||
 
 if [ -f "os_ext/${OS_LOWER}/defines" ]
 then
-  DEFINES="`${SYSDEP_UTIL_CAT} "os_ext/${OS_LOWER}/defines"`" ||
+  DEFINES="`${SYSDEP_UTIL_CAT} os_ext/${OS_LOWER}/defines |
+    ${SYSDEP_UTIL_AWK} -F: '{print $1}' |
+    ${SYSDEP_UTIL_TR} -d ' '`" ||
     SYSDEP_FATAL "could not read 'os_ext/${OS_LOWER}/defines'"
 fi
 if [ -f flags ]
