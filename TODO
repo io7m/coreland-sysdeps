@@ -2,26 +2,8 @@ http://predef.sourceforge.net/index.php
 
 ------------------------------------------------------------------------
 
-Update modules to use POSIX variables.
-
-------------------------------------------------------------------------
-
-Standardize module naming.
-
-------------------------------------------------------------------------
-
 Standardize module prelude, compiler use, etc.
   Provide template for custom modules?
-
-------------------------------------------------------------------------
-
-Improve module metadata.
-
-  URL of module author
-  Email of module author
-  URL of package the module detects (if appropriate)
-  List of platforms module is known to work on?
-    Combinatorial explosion.
 
 ------------------------------------------------------------------------
 
