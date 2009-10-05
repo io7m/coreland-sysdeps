@@ -48,6 +48,7 @@ SYSDEP_UTIL_EXIT                   | string       | exit                        
 SYSDEP_UTIL_GREP                   | string       | grep                                           | POSIX grep utility
 SYSDEP_UTIL_HEAD                   | string       | head                                           | POSIX head utility
 SYSDEP_UTIL_MV                     | string       | mv                                             | POSIX mv utility
+SYSDEP_UTIL_MKDIR                  | string       | mkdir                                          | POSIX mkdir utility
 SYSDEP_UTIL_PWD                    | string       | pwd                                            | POSIX pwd utility
 SYSDEP_UTIL_RM                     | string       | rm                                             | POSIX rm utility
 SYSDEP_UTIL_SED                    | string       | sed                                            | POSIX sed utility
