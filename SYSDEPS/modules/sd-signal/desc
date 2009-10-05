@@ -1,1 +1,0 @@
-determines whether a system has sigprogmask() and/or sigaction()

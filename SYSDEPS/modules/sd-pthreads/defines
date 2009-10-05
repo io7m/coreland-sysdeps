@@ -1,2 +1,2 @@
-HAVE_PTHREADS
-HAVE_PTHREADS_REALTIME
+SD_HAVE_PTHREADS          : integer 1 .. 1 : optional
+SD_HAVE_PTHREADS_REALTIME : integer 1 .. 1 : optional

@@ -1,0 +1,3 @@
+<sd-sendfile-version>   ::= "bsd" | "sysv" | "hpux" | "none"
+<sd-sendfile-spec>      ::= "sd-sendfile:" <sd-sendfile-version>
+<sd-sendfile-libs-spec> ::= "sd-sendfile-libs:" <implementation-defined>

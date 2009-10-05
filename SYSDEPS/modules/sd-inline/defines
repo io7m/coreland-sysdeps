@@ -1,1 +1,1 @@
-HAVE_INLINE
+SD_HAVE_INLINE : integer 1 .. 1 : optional

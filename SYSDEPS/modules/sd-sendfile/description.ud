@@ -1,0 +1,13 @@
+(para "This module attempts to determine which of the many incompatible
+  implementations of " (item c_function "sendfile()") " the current
+  host system is using. It also attempts to determine the linker flags
+  required to use the implementation.")
+
+(para "Example output:")
+
+(para-verbatim example
+"#ifndef _SD_SENDFILE_H
+#define _SD_SENDFILE_H
+#define SD_HAVE_SENDFILE 1
+#define SD_HAVE_SENDFILE_BSD 1
+#endif")

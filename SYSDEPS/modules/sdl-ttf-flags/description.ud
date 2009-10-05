@@ -1,0 +1,2 @@
+(para "This module determines the compiler flags required to compile against "
+  (link-ext "http://www.libsdl.org/projects/SDL_ttf/" "SDL_ttf"))

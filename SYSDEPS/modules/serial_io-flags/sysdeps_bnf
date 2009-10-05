@@ -1,0 +1,1 @@
+<serial_io-flags-spec> ::= "serial_io-flags:" <implementation-defined>

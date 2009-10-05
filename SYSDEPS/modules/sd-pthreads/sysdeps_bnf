@@ -1,0 +1,4 @@
+<sd-pthr-realtime-flags-spec> ::= "sd-pthr-realtime-flags:" <implementation-defined>
+<sd-pthr-realtime-libs-spec>  ::= "sd-pthr-realtime-libs:" <implementation-defined>
+<sd-pthreads-flags>           ::= "sd-pthreads-flags:" <implementation-defined>
+<sd-pthreads-libs>            ::= "sd-pthreads-libs:" <implementation-defined>

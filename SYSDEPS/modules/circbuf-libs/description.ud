@@ -1,2 +1,2 @@
 (para "This module determines the linker flags required to link against "
-  (link-ext "" "circbuf"))
+  (link-ext "http://coreland.ath.cx/code/circbuf" "circbuf"))

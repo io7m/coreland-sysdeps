@@ -1,4 +1,4 @@
-HAVE_SENDFILE
-HAVE_SENDFILE_BSD
-HAVE_SENDFILE_HPUX
-HAVE_SENDFILE_SYSV
+SD_HAVE_SENDFILE      : integer 1 .. 1 : optional
+SD_HAVE_SENDFILE_BSD  : integer 1 .. 1 : optional
+SD_HAVE_SENDFILE_HPUX : integer 1 .. 1 : optional
+SD_HAVE_SENDFILE_SYSV : integer 1 .. 1 : optional

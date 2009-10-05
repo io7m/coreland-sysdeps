@@ -1,31 +1,37 @@
 #!/bin/sh
 
+. "${SYSDEP_SUBS_FILE}" || exit 1
+
 fout="$1"
 sd_out="$2"
 
 cleanup()
 {
-  rm -f trysocket trysocket.o
-  exit 0
+  ${SYSDEP_UTIL_RM} -f trysocket trysocket.o
 }
 
 ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trysocket.o trysocket.c 1>/dev/null 2>&1
 ${SYSDEP_LD} -o trysocket trysocket.o ${SYSDEP_LDFLAGS} 1>/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  echo >> "${fout}"
-  echo "socket-libs: " >> "${sd_out}"
+  ${SYSDEP_UTIL_ECHO} >> "${fout}"
+  ${SYSDEP_UTIL_ECHO} "sd-socket-libs: " >> "${sd_out}"
   cleanup
+  ${SYSDEP_UTIL_EXIT} 0
 fi
 
 ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trysocket.o trysocket.c 1>/dev/null 2>&1
 ${SYSDEP_LD} -o trysocket trysocket.c -lsocket ${SYSDEP_LDFLAGS} 1>/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  echo '-lsocket' >> "${fout}"
-  echo "socket-libs: -lsocket" >> "${sd_out}"
+  ${SYSDEP_UTIL_ECHO} '-lsocket' >> "${fout}"
+  ${SYSDEP_UTIL_ECHO} "sd-socket-libs: -lsocket" >> "${sd_out}"
   cleanup
+  ${SYSDEP_UTIL_EXIT} 0
 fi
 
-touch "${sd_out}"
-touch "${fout}"
+${SYSDEP_UTIL_ECHO} >> "${fout}"
+${SYSDEP_UTIL_ECHO} "sd-socket-libs:" >> "${sd_out}"
+
+cleanup
+SYSDEP_FATAL "could not determine socket linker flags"

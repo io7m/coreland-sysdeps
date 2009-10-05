@@ -1,0 +1,1 @@
+SD_UINT32_SUPPORTED : integer 1 .. 1 : optional

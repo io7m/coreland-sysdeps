@@ -1,16 +1,18 @@
 #!/bin/sh
 
+. "${SYSDEP_SUBS_FILE}" || exit 1
+
 fout="$1"
 sysdeps="$2"
 
-cat >> "${fout}" <<EOF
+${SYSDEP_UTIL_CAT} >> "${fout}" <<EOF
 #ifndef _SD_FORK_H
 #define _SD_FORK_H
 
 EOF
 
-HAVE_FORK=0
-HAVE_VFORK=0
+SD_HAVE_FORK=0
+SD_HAVE_VFORK=0
 
 ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o tryfork.o tryfork.c  1>/dev/null 2>&1
 ${SYSDEP_LD} -o tryfork tryfork.o ${SYSDEP_LDFLAGS} 1>/dev/null 2>&1
@@ -19,7 +21,7 @@ then
   ./tryfork
   if [ $? -eq 0 ]
   then
-    HAVE_FORK=1
+    SD_HAVE_FORK=1
   fi
 fi
 
@@ -30,27 +32,27 @@ then
   ./tryvfork
   if [ $? -eq 0 ]
   then
-    HAVE_VFORK=1
+    SD_HAVE_VFORK=1
   fi
 fi
 
-if [ $HAVE_FORK -eq 1 ]
+if [ $SD_HAVE_FORK -eq 1 ]
 then
-  echo '#define HAVE_FORK' >> "${fout}"
-  if [ $HAVE_VFORK -eq 1 ]
+  ${SYSDEP_UTIL_ECHO} '#define SD_HAVE_FORK 1' >> "${fout}"
+  if [ $SD_HAVE_VFORK -eq 1 ]
   then
-    echo '#define HAVE_VFORK' >> "${fout}"
-    echo 'fork: fork vfork' >> "${sysdeps}"
+    ${SYSDEP_UTIL_ECHO} '#define SD_HAVE_VFORK 1' >> "${fout}"
+    ${SYSDEP_UTIL_ECHO} 'sd-fork: fork vfork' >> "${sysdeps}"
   else
-    echo 'fork: fork' >> "${sysdeps}"
+    ${SYSDEP_UTIL_ECHO} 'sd-fork: fork' >> "${sysdeps}"
   fi
 else
-  echo 'fork: ' >> "${sysdeps}"
+  ${SYSDEP_UTIL_ECHO} 'sd-fork: ' >> "${sysdeps}"
 fi
 
-cat >> "${fout}" <<EOF
+${SYSDEP_UTIL_CAT} >> "${fout}" <<EOF
 
 #endif
 EOF
 
-rm -f tryfork tryfork.o tryvfork tryvfork.o
+${SYSDEP_UTIL_RM} -f tryfork tryfork.o tryvfork tryvfork.o

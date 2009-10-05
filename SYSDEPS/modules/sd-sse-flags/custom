@@ -1,0 +1,19 @@
+#!/bin/sh
+
+. "${SYSDEP_SUBS_FILE}" || exit 1
+
+fout="$1"
+
+${SYSDEP_UTIL_ECHO} ${SYSDEP_CPU_EXT} |
+  ${SYSDEP_UTIL_GREP} 'SYSDEP_CPU_EXT_SSE' 1>/dev/null 2>&1
+
+if [ $? -eq 0 ]
+then
+  case ${SYSDEP_CCTYPE} in
+    SYSDEP_CCTYPE_GCC)   ${SYSDEP_UTIL_ECHO} '-msse' > "${fout}";;
+    SYSDEP_CCTYPE_INTEL) ${SYSDEP_UTIL_ECHO} '-msse' > "${fout}";;
+    *)                   ${SYSDEP_UTIL_ECHO} > "${fout}";;
+  esac
+else
+  ${SYSDEP_UTIL_ECHO} > "${fout}"
+fi

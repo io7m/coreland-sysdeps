@@ -1,1 +1,1 @@
-HAVE_LONGLONG
+SD_HAVE_LONGLONG : integer 1 .. 1 : optional

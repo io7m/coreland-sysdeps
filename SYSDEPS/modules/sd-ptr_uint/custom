@@ -1,17 +1,19 @@
 #!/bin/sh
 
+. "${SYSDEP_SUBS_FILE}" || exit 1
+
 cleanup()
 {
-  rm -f try_ptr_uint1 try_ptr_uint1.o \
-        try_ptr_uint2 try_ptr_uint2.o \
-        try_stdint try_stdint.o
+  ${SYSDEP_UTIL_RM} -f \
+    try_ptr_uint1 try_ptr_uint1.o \
+    try_ptr_uint2 try_ptr_uint2.o \
+    try_stdint try_stdint.o
 }
 
 fatal()
 {
-  echo "fatal: $1" 1>&2
   cleanup
-  exit 1
+  SYSDEP_FATAL "$1"
 }
 
 have_it()
@@ -19,18 +21,18 @@ have_it()
   type="$1"
   extra="$2"
 
-  cat >> "${temp_f}" <<EOF
-#ifndef _PTR_UINT_H
-#define _PTR_UINT_H
+  ${SYSDEP_UTIL_CAT} >> "${temp_f}" <<EOF
+#ifndef _SD_PTR_UINT_H
+#define _SD_PTR_UINT_H
 
 $extra
-typedef $type ptr_uint;
+typedef $type sd_ptr_uint;
 
 #endif
 EOF
-  echo "ptr_uint: ${type}" >> "${temp_sys}"
+  ${SYSDEP_UTIL_ECHO} "sd-ptr_uint: ${type}" >> "${temp_sys}"
   cleanup
-  exit 0
+  ${SYSDEP_UTIL_EXIT} 0
 }
 
 temp_f="$1"
@@ -67,4 +69,4 @@ fi
 
 fatal "could not get integer type equal in size to pointer"
 cleanup
-exit 0
+${SYSDEP_UTIL_EXIT} 0

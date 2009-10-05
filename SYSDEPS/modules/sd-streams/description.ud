@@ -1,0 +1,10 @@
+(para "This module attempts to determine the availability of the XSI STREAMS
+  (IEEE Std 1003.1 2008) on the current system.")
+(para "Example output:")
+(para-verbatim example
+"#ifndef _SD_STREAMS_H
+#define _SD_STREAMS_H
+
+#define SD_HAVE_STREAMS 1
+
+#endif")

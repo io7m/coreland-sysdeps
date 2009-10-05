@@ -1,0 +1,1 @@
+<sd-socket-spec> ::= "sd-socket-libs:" <implementation-defined>

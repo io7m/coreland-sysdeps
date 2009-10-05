@@ -1,0 +1,10 @@
+(para "This module executes compile-time checks to determine the availability
+  of the " (item c_function "mmap") " system call.")
+(para "Example output:")
+(para-verbatim example
+"#ifndef _SD_MMAP_H
+#define _SD_MMAP_H
+
+#define SD_HAVE_MMAP 1
+
+#endif")

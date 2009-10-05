@@ -1,4 +1,4 @@
-(para "This modules determines which of the built-in C integer types
+(para "This module determines which of the built-in C integer types
   are 64 bits in size on the host platform. If one of the types is 64 bits
   in size, the module writes a typedef " (item c_type "sd_int64") " which
   is equivalent to the given type and defines "

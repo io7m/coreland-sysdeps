@@ -1,0 +1,3 @@
+<sd-fork>      ::= "fork"
+<sd-vfork>     ::= "vfork"
+<sd-fork-spec> ::= "sd-fork:" { <sd-fork> } { <sd-vfork> }

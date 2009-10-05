@@ -1,15 +1,18 @@
 #!/bin/sh
 
+. "${SYSDEP_SUBS_FILE}" || exit 1
+
 fout="$1"
 sysdeps="$2"
 
 cleanup()
 {
-  rm -f tryselect1 tryselect2 tryselect3 tryselect4 \
-        tryselect1.o tryselect2.o tryselect3.o tryselect4.o *.exe
+  ${SYSDEP_UTIL_RM} -f \
+    tryselect1 tryselect2 tryselect3 tryselect4 \
+    tryselect1.o tryselect2.o tryselect3.o tryselect4.o *.exe
 }
 
-cat >> "${fout}" << EOF
+${SYSDEP_UTIL_CAT} >> "${fout}" << EOF
 #ifndef _SD_SELECT_H
 #define _SD_SELECT_H
 EOF
@@ -18,63 +21,63 @@ ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o tryselect1.o tryselect1.c >/dev/null 2>&1
 ${SYSDEP_LD} -o tryselect1 tryselect1.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  echo '#include <sys/select.h>' >> "${fout}"
-  echo '#endif' >> "${fout}"
-  echo 'select: select.h' >> "${sysdeps}"
+  ${SYSDEP_UTIL_ECHO} '#include <sys/select.h>' >> "${fout}"
+  ${SYSDEP_UTIL_ECHO} '#endif' >> "${fout}"
+  ${SYSDEP_UTIL_ECHO} 'sd-select: select.h' >> "${sysdeps}"
   cleanup
-  exit 0
+  ${SYSDEP_UTIL_EXIT} 0
 fi
 
 ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o tryselect2 tryselect2.c >/dev/null 2>&1
 ${SYSDEP_LD} -o tryselect2 tryselect2.c ${SYSDEP_LDFLAGS} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  echo '#include <sys/time.h>' >> "${fout}"
-  echo '#endif' >> "${fout}"
-  echo 'select: time.h' >> "${sysdeps}"
+  ${SYSDEP_UTIL_ECHO} '#include <sys/time.h>' >> "${fout}"
+  ${SYSDEP_UTIL_ECHO} '#endif' >> "${fout}"
+  ${SYSDEP_UTIL_ECHO} 'sd-select: time.h' >> "${sysdeps}"
   cleanup
-  exit 0
+  ${SYSDEP_UTIL_EXIT} 0
 fi
 
 ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o tryselect3 tryselect3.c >/dev/null 2>&1
 ${SYSDEP_LD} -o tryselect3 tryselect3.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  echo '#include <sys/time.h>' >> "${fout}"
-  echo '#include <sys/types.h>' >> "${fout}"
-  echo '#include <sys/unistd.h>' >> "${fout}"
-  echo '#endif' >> "${fout}"
-  echo 'select: time.h types.h unistd.h' >> "${sysdeps}"
+  ${SYSDEP_UTIL_ECHO} '#include <sys/time.h>' >> "${fout}"
+  ${SYSDEP_UTIL_ECHO} '#include <sys/types.h>' >> "${fout}"
+  ${SYSDEP_UTIL_ECHO} '#include <sys/unistd.h>' >> "${fout}"
+  ${SYSDEP_UTIL_ECHO} '#endif' >> "${fout}"
+  ${SYSDEP_UTIL_ECHO} 'sd-select: time.h types.h unistd.h' >> "${sysdeps}"
   cleanup
-  exit 0
+  ${SYSDEP_UTIL_EXIT} 0
 fi
 
 ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o tryselect4.o tryselect4.c >/dev/null 2>&1
 ${SYSDEP_CC} -o tryselect4 tryselect4.o -lws2_32 ${SYSDEP_LDFLAGS} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  echo '#include <winsock.h>' >> "${fout}"
-  echo '#include <winbase.h>' >> "${fout}"
-  echo '#endif' >> "${fout}"
-  echo 'select: winsock.h winbase.h' >> "${sysdeps}"
+  ${SYSDEP_UTIL_ECHO} '#include <winsock.h>' >> "${fout}"
+  ${SYSDEP_UTIL_ECHO} '#include <winbase.h>' >> "${fout}"
+  ${SYSDEP_UTIL_ECHO} '#endif' >> "${fout}"
+  ${SYSDEP_UTIL_ECHO} 'sd-select: winsock.h winbase.h' >> "${sysdeps}"
   cleanup
-  exit 0
+  ${SYSDEP_UTIL_EXIT} 0
 fi
 
 ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o tryselect5.o tryselect5.c >/dev/null 2>&1
 ${SYSDEP_LD} -o tryselect5 tryselect5.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  echo '#include <net/socket.h>' >> "${fout}"
-  echo '#endif' >> "${fout}"
-  echo 'select: socket.h' >> "${sysdeps}"
+  ${SYSDEP_UTIL_ECHO} '#include <net/socket.h>' >> "${fout}"
+  ${SYSDEP_UTIL_ECHO} '#endif' >> "${fout}"
+  ${SYSDEP_UTIL_ECHO} 'sd-select: socket.h' >> "${sysdeps}"
   cleanup
-  exit 0
+  ${SYSDEP_UTIL_EXIT} 0
 fi
 
 if [ ! -f "${sysdeps}" ]
 then
-  echo 'select: ' >> "${sysdeps}"
+  ${SYSDEP_UTIL_ECHO} 'sd-select: none' >> "${sysdeps}"
 fi
 
-echo '#endif' >> "${fout}"
+${SYSDEP_UTIL_ECHO} '#endif' >> "${fout}"

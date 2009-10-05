@@ -1,15 +1,17 @@
 #!/bin/sh
 
+. "${SYSDEP_SUBS_FILE}" || exit 1
+
 fout="$1"
 sdout="$2"
 
 cleanup()
 {
-  rm -f tryinline tryinline.o
-  exit 0
+  ${SYSDEP_UTIL_RM} -f tryinline tryinline.o
+  ${SYSDEP_UTIL_EXIT} 0
 }
 
-cat >> "${fout}" <<EOF
+${SYSDEP_UTIL_CAT} >> "${fout}" <<EOF
 #ifndef _SD_INLINE_H
 #define _SD_INLINE_H
 EOF
@@ -18,11 +20,11 @@ ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o tryinline.o tryinline.c 1>/dev/null 2>&1
 ${SYSDEP_LD} -o tryinline tryinline.o ${SYSDEP_LDFLAGS} 1>/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  echo '#define HAVE_INLINE' >> "${fout}"
-  echo 'inline: yes' >> "${sdout}"
+  ${SYSDEP_UTIL_ECHO} '#define SD_HAVE_INLINE 1' >> "${fout}"
+  ${SYSDEP_UTIL_ECHO} 'sd-inline: yes' >> "${sdout}"
 else
-  echo 'inline: no' >> "${sdout}"
+  ${SYSDEP_UTIL_ECHO} 'sd-inline: no' >> "${sdout}"
 fi
 
-echo '#endif' >> "${fout}"
+${SYSDEP_UTIL_ECHO} '#endif' >> "${fout}"
 cleanup

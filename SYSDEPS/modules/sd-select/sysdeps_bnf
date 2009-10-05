@@ -1,0 +1,2 @@
+<select>      ::= "select.h" | "time.h" | "time.h types.h unistd.h" | "winsock.h winbase.h" | "socket.h" | "none"
+<select-spec> ::= "sd-select:" <select>

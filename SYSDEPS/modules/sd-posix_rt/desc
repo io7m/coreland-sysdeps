@@ -1,1 +1,0 @@
-detects posix realtime support and the required compiler and linker flags.

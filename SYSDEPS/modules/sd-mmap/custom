@@ -1,18 +1,20 @@
 #!/bin/sh
 
+. "${SYSDEP_SUBS_FILE}" || exit 1
+
 fout="$1"
 sysdeps="$2"
 
 cleanup_exit()
 {
-  rm -f trymmap1 trymmap1.o
-  exit 0
+  ${SYSDEP_UTIL_RM} -f trymmap1 trymmap1.o
+  ${SYSDEP_UTIL_EXIT} 0
 }
 
 have_mmap()
 {
-  echo '#define HAVE_MMAP' >> "${fout}"
-  echo 'mmap: mmap' >> "${sysdeps}"
+  ${SYSDEP_UTIL_ECHO} '#define SD_HAVE_MMAP' >> "${fout}"
+  ${SYSDEP_UTIL_ECHO} 'sd-mmap: mmap' >> "${sysdeps}"
 
   cat >> "${fout}" <<EOF
 #include <sys/types.h>
@@ -22,7 +24,7 @@ EOF
 
 no_mmap()
 {
-  echo 'mmap: none' >> "${sysdeps}"
+  ${SYSDEP_UTIL_ECHO} 'sd-mmap: none' >> "${sysdeps}"
 }
 
 try_mmap()

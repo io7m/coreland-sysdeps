@@ -1,0 +1,22 @@
+(para "This module determines which of the built-in C integer types
+  is the right size to be interchangeable with the largest built-in
+  C pointer type on the host system.")
+
+(para "The module first tests for " (item file_name "stdint.h") ", using
+  the appropriate " (item c_type "uintptr_t") " type if available. If unavailable,
+  the module tests against the integer types defined in C99. If unavailable,
+  the module tests against the integer types defined in C89. If unavailable,
+  the module attemps the read the config file " (item file_name "conf-sd-ptr_uint")
+  " for the name of an appropriate type. If this file cannot be read, the module
+  fails.")
+
+(para "Example output:")
+
+(para-verbatim example
+"#ifndef _SD_PTR_UINT_H
+#define _SD_PTR_UINT_H
+
+#include <stdint.h>
+typedef uintptr_t sd_ptr_uint;
+
+#endif")

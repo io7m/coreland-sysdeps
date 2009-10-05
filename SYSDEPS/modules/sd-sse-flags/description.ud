@@ -1,0 +1,6 @@
+(para "If the current compiler supports SSE intrinsics, this
+  modules outputs the compiler flags required to enable support.")
+
+(para "Example output:")
+
+(para-verbatim example "-msse")

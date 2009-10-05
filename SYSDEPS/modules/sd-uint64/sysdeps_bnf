@@ -1,0 +1,2 @@
+<uint64>      ::= "unsigned char" | "unsigned short" | "unsigned int" | "unsigned long" | "unsigned long long" | "uint64_t" | "none"
+<uint64-spec> ::= "sd-uint64:" <uint64>

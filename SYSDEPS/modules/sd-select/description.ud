@@ -1,0 +1,14 @@
+(para "This module tries to work out where " (item c_function
+"select()") " is declared and write the correct #include directives into
+a header file.")
+
+(para "If " (item c_function "select()") " is not present on the system (a
+rarity) nothing is written into the header file.")
+
+(para "Example output:")
+
+(para-verbatim example
+"#ifndef _SD_SELECT_H
+#define _SD_SELECT_H
+#include <sys/select.h>
+#endif")

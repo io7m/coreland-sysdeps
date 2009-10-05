@@ -1,0 +1,1 @@
+<tiff-flags-spec> ::= "tiff-flags:" <implementation-defined>

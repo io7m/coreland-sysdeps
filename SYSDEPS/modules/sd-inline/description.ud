@@ -1,0 +1,9 @@
+(para "This module does a simple compile-time check to determine whether or
+  not the " (item constant "inline") " keyword is supported by the current
+  C compiler.")
+(para "Example output:")
+(para-verbatim example
+"#ifndef _SD_INLINE_H
+#define _SD_INLINE_H
+#define SD_HAVE_INLINE 1
+#endif")

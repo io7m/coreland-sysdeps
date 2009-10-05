@@ -11,8 +11,8 @@ int socket_tcp4(void)
   return s;
 }
 
-int main()
+int main(void)
 {
   int s = socket_tcp4();
-  return 0;
+  return (s == -1);
 }

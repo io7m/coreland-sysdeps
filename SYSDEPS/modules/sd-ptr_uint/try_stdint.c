@@ -3,5 +3,7 @@
 int main(void)
 {
   uintptr_t n;
-  return 0;
+
+  n = 0; /* Pedantic compilers require assignment. */
+  return (int) n;
 }

@@ -1,0 +1,2 @@
+<sd-streams>      ::= "streams" | "none"
+<sd-streams-spec> ::= "sd-streams:" <sd-streams>

@@ -1,0 +1,1 @@
+<sqlite3-libs-spec> ::= "sqlite3-libs:" <implementation-defined>

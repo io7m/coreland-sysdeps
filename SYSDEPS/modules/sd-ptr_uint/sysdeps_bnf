@@ -1,0 +1,2 @@
+<ptr_uint>      ::= "unsigned char" | "unsigned short" | "unsigned int" | "unsigned long" | "unsigned long long" | "uintptr_t" | <implementation_defined>
+<ptr_uint-spec> ::= "sd-ptr_uint:" <ptr_uint>

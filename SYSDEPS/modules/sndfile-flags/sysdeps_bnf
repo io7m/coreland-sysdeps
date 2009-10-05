@@ -1,0 +1,1 @@
+<sndfile-flags-spec> ::= "sndfile-flags:" <implementation-defined>

@@ -1,0 +1,9 @@
+(para "This module does a simple compile-time check to determine whether or
+  not the " (item constant "long long") " type is supported by the current
+  C compiler.")
+(para "Example output:")
+(para-verbatim example
+"#ifndef _SD_LONGLONG_H
+#define _SD_LONGLONG_H
+#define SD_HAVE_LONGLONG 1
+#endif")

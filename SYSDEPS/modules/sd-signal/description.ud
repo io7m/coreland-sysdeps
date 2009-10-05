@@ -1,0 +1,16 @@
+(para "This module determines the availability of the "
+  (item c_function "sigaction") " and " (item c_function "sigprocmask")
+  " functions on the current system.")
+
+(para "Example output:")
+
+(para-verbatim example
+"#ifndef _SD_SIG_ACTION_H
+#define _SD_SIG_ACTION_H
+#define SD_HAVE_SIGACTION 1
+#endif
+
+#ifndef _SD_SIG_PMASK_H
+#define _SD_SIG_PMASK_H
+#define SD_HAVE_SIGPROCMASK 1
+#endif")

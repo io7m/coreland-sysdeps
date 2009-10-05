@@ -1,0 +1,1 @@
+<smtplib-flags-spec> ::= "smtplib-flags:" <implementation-defined>

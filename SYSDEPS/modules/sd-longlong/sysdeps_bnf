@@ -1,0 +1,2 @@
+<sd-longlong>      ::= "yes" | "no"
+<sd-longlong-spec> ::= "sd-longlong:" <sd-longlong>

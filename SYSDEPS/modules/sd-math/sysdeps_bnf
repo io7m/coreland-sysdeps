@@ -1,0 +1,38 @@
+<sd-math-func> ::= 
+  "acos" | "acosf" | "acosh" | "acoshf" | "acoshl" | "acosl" | "asin" |
+  "asinf" | "asinh" | "asinhf" | "asinhl" "asinl" | "atan" | "atan2" |
+  "atan2f" | "atan2l" | "atanf" | "atanh" | "atanhf" | "atanhl" |
+  "atanl" | "cbrt" "cbrtf" | "cbrtl" | "ceil" | "ceilf" | "ceill" |
+  "copysign" | "copysignf" | "copysignl" | "cos" | "cosf" | "cosh"
+  "coshf" | "coshl" | "cosl" | "erf" | "erfc" | "erfcf" | "erfcl" |
+  "erff" | "erfl" | "exp" | "exp2" | "exp2f" | "exp2l" "expf" | "expl" |
+  "expm1" | "expm1f" | "expm1l" | "fabs" | "fabsf" | "fabsl" | "fdim" |
+  "fdimf" | "fdiml" | "finite" "floor" | "floorf" | "floorl" | "fma" |
+  "fmaf" | "fmal" | "fmax" | "fmaxf" | "fmaxl" | "fmin" | "fminf" |
+  "fminl" | "fmod" "fmodf" | "fmodl" | "fpclassify" | "fpclassifyf" |
+  "fpclassifyl" | "frexp" | "frexpf" | "frexpl" | "hypot" "hypotf" |
+  "hypotl" | "ilogb" | "ilogbf" | "ilogbl" | "isfinite" | "isfinitef" |
+  "isfinitel" | "isgreater" "isgreaterequal" | "isgreaterequalf" |
+  "isgreaterequall" | "isgreaterf" | "isgreaterl" "isinf" | "isinff" |
+  "isinfl" | "isless" | "islessequal" | "islessequalf" | "islessequall"
+  | "islessf" "islessgreater" | "islessgreaterf" | "islessgreaterl" |
+  "islessl" | "isnan" | "isnanf" | "isnanl" "isnormal" | "isnormalf" |
+  "isnormall" | "isunordered" | "isunorderedf" | "isunorderedl" | "j0"
+  "j0f" | "j0l" | "j1" | "j1f" | "j1l" | "jn" | "jnf" | "jnl" | "ldexp"
+  | "ldexpf" | "ldexpl" | "lgamma" | "lgammaf" | "lgammal" "llrint" |
+  "llrintf" | "llrintl" | "llround" | "llroundf" | "llroundl" | "log" |
+  "log10" | "log10f" | "log10l" "log1p" | "log1pf" | "log1pl" | "logf" |
+  "logl" | "lrint" | "lrintf" | "lrintl" | "lround" | "lroundf" |
+  "lroundl" "modf" | "nearbyint" | "nearbyintf" | "nearbyintl" |
+  "nextafter" | "nextafterf" | "nextafterl" "nexttoward" | "nexttowardf"
+  | "nexttowardl" | "pow" | "powf" | "powl" | "remainder" | "remainderf"
+  "remainderl" | "remquo" | "remquof" | "remquol" | "rint" | "rintf" |
+  "rintl" | "round" | "roundf" | "roundl" "scalbln" | "scalblnf" |
+  "scalblnl" | "scalbn" | "scalbnf" | "scalbnl" | "signbit" | "sin" |
+  "sinf" | "sinh" "sinhf" | "sinhl" | "sinl" | "sqrt" | "sqrtf" |
+  "sqrtl" | "tan" | "tanf" | "tanh" | "tanhf" | "tanhl" | "tanl" |
+  "tgamma" "tgammaf" | "tgammal" | "trunc" | "truncf" | "truncl" | "y0"
+  | "y0f" | "y0l" | "y1" | "y1f" | "y1l" | "yn" | "ynf" | "ynl"
+
+<sd-math-spec>      ::= "sd-math-funcs:" { <math-func> }
+<sd-math-libs-spec> ::= "sd-math-libs:" <implementation-defined>

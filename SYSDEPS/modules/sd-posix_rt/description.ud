@@ -1,0 +1,58 @@
+(para "This module performs compile-time checks against all functions specified
+  by the realtime extensions to POSIX.  It writes a header file with one
+  preprocessor constant for each function that is implemented. The module also
+  determines the linker flags required to use the realtime extensions.")
+
+(para "Example output:")
+
+(para-verbatim example
+"#ifndef _SD_POSIX_RT_H
+#define _SD_POSIX_RT_H
+
+#define SD_HAVE_AIO_CANCEL 1
+#define SD_HAVE_AIO_ERROR 1
+#define SD_HAVE_AIO_FSYNC 1
+#define SD_HAVE_AIO_READ 1
+#define SD_HAVE_AIO_RETURN 1
+#define SD_HAVE_AIO_WRITE 1
+#define SD_HAVE_CLOCK_GETRES 1
+#define SD_HAVE_CLOCK_GETTIME 1
+#define SD_HAVE_CLOCK_SETTIME 1
+#define SD_HAVE_FCHMOD 1
+#define SD_HAVE_FSYNC 1
+#define SD_HAVE_FTRUNCATE 1
+#define SD_HAVE_MLOCK 1
+#define SD_HAVE_MLOCKALL 1
+#define SD_HAVE_MMAP 1
+#define SD_HAVE_MPROTECT 1
+#define SD_HAVE_MQ_UNLINK 1
+#define SD_HAVE_MSYNC 1
+#define SD_HAVE_MUNMAP 1
+#define SD_HAVE_NANOSLEEP 1
+#define SD_HAVE_POSIX_MADVISE 1
+#define SD_HAVE_POSIX_MEMALIGN 1
+#define SD_HAVE_SCHED_GET_PRIORITY_MAX 1
+#define SD_HAVE_SCHED_GETPARAM 1
+#define SD_HAVE_SCHED_GETSCHEDULER 1
+#define SD_HAVE_SCHED_RR_GET_INTERVAL 1
+#define SD_HAVE_SCHED_SETPARAM 1
+#define SD_HAVE_SCHED_SETSCHEDULER 1
+#define SD_HAVE_SEM_CLOSE 1
+#define SD_HAVE_SEM_DESTROY 1
+#define SD_HAVE_SEM_GETVALUE 1
+#define SD_HAVE_SEM_INIT 1
+#define SD_HAVE_SEM_OPEN 1
+#define SD_HAVE_SEM_POST 1
+#define SD_HAVE_SEM_TIMEDWAIT 1
+#define SD_HAVE_SEM_TRYWAIT 1
+#define SD_HAVE_SEM_UNLINK 1
+#define SD_HAVE_SEM_WAIT 1
+#define SD_HAVE_SHM_OPEN 1
+#define SD_HAVE_SHM_UNLINK 1
+#define SD_HAVE_SIGTIMEDWAIT 1
+#define SD_HAVE_SIGWAITINFO 1
+#define SD_HAVE_TIMER_CREATE 1
+#define SD_HAVE_TIMER_DELETE 1
+#define SD_HAVE_TIMER_GETOVERRUN 1
+
+#endif")

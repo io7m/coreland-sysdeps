@@ -1,0 +1,25 @@
+(para "This module determines which of the built-in C integer types
+  are 16 bits in size on the host platform. If one of the types is 16 bits
+  in size, the module writes a typedef " (item c_type "sd_uint16") " which
+  is equivalent to the given type and defines "
+  (item constant "SD_UINT16_SUPPORTED") ".")
+
+(para "The module first tests for " (item file_name "stdint.h") ", using
+  the appropriate " (item c_type "uint16_t") " type if available. If unavailable,
+  the module tests against the integer types defined in C99. If unavailable,
+  the module tests against the integer types defined in C89. If unavailable,
+  the module attemps the read the config file " (item file_name "conf-sd-uint16")
+  " for the name of an appropriate type. If this file cannot be read, the module
+  fails.")
+
+(para "Example output:")
+
+(para-verbatim example
+"#ifndef _SD_UINT16_H
+#define _SD_UINT16_H
+
+#define SD_UINT16_SUPPORTED 1
+
+typedef int sd_uint16;
+
+#endif")

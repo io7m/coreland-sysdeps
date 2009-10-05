@@ -1,0 +1,4 @@
+<sd-sigaction>        ::= "sigaction"   | "none"
+<sd-procmask>         ::= "sigprocmask" | "none"
+<sd-sigaction-spec>   ::= "sd-sigaction:" <sd-sigaction>
+<sd-sigprocmask-spec> ::= "sd-sigprocmask:" <sd-sigprocmask>

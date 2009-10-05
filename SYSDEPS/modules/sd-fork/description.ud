@@ -1,0 +1,12 @@
+(para "This module executes compile-time checks to determine the availability
+  of both the " (item c_function "fork") " and " (item c_function "vfork")
+  " system calls.")
+(para "Example output:")
+(para-verbatim example
+"#ifndef _SD_FORK_H
+#define _SD_FORK_H
+
+#define SD_HAVE_FORK 1
+#define SD_HAVE_VFORK 1
+
+#endif")
