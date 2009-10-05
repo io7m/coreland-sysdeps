@@ -38,27 +38,18 @@ flags-aiff:
 libs-aiff-S:
 	@echo SYSDEPS aiff-libs-S run create libs-aiff-S 
 	@(cd SYSDEPS && ./sd-run modules/aiff-libs-S)
-flags-altivec:
-	@echo SYSDEPS altivec-flags run create flags-altivec 
-	@(cd SYSDEPS && ./sd-run modules/altivec-flags)
 flags-alut:
 	@echo SYSDEPS alut-flags run create flags-alut 
 	@(cd SYSDEPS && ./sd-run modules/alut-flags)
 libs-alut:
 	@echo SYSDEPS alut-libs run create libs-alut 
 	@(cd SYSDEPS && ./sd-run modules/alut-libs)
-_byteorder.h:
-	@echo SYSDEPS byteorder run create _byteorder.h 
-	@(cd SYSDEPS && ./sd-run modules/byteorder)
 flags-c_string:
 	@echo SYSDEPS c_string-flags run create flags-c_string 
 	@(cd SYSDEPS && ./sd-run modules/c_string-flags)
 libs-c_string-S:
 	@echo SYSDEPS c_string-libs-S run create libs-c_string-S 
 	@(cd SYSDEPS && ./sd-run modules/c_string-libs-S)
-_ch_flags.h:
-	@echo SYSDEPS ch_flags run create _ch_flags.h 
-	@(cd SYSDEPS && ./sd-run modules/ch_flags)
 flags-chrono-ada:
 	@echo SYSDEPS chrono-ada-flags run create flags-chrono-ada 
 	@(cd SYSDEPS && ./sd-run modules/chrono-ada-flags)
@@ -92,9 +83,6 @@ libs-corelib:
 libs-corelib-S:
 	@echo SYSDEPS corelib-libs-S run create libs-corelib-S 
 	@(cd SYSDEPS && ./sd-run modules/corelib-libs-S)
-_direntry.h:
-	@echo SYSDEPS direntry run create _direntry.h 
-	@(cd SYSDEPS && ./sd-run modules/direntry)
 flags-enet:
 	@echo SYSDEPS enet-flags run create flags-enet 
 	@(cd SYSDEPS && ./sd-run modules/enet-flags)
@@ -119,12 +107,6 @@ flags-flac:
 libs-flac:
 	@echo SYSDEPS flac-libs run create libs-flac 
 	@(cd SYSDEPS && ./sd-run modules/flac-libs)
-_float32.h:
-	@echo SYSDEPS float32 run create _float32.h 
-	@(cd SYSDEPS && ./sd-run modules/float32)
-_float64.h:
-	@echo SYSDEPS float64 run create _float64.h 
-	@(cd SYSDEPS && ./sd-run modules/float64)
 flags-fltk11:
 	@echo SYSDEPS fltk11-flags run create flags-fltk11 
 	@(cd SYSDEPS && ./sd-run modules/fltk11-flags)
@@ -167,15 +149,6 @@ flags-glut:
 libs-glut:
 	@echo SYSDEPS glut-libs run create libs-glut 
 	@(cd SYSDEPS && ./sd-run modules/glut-libs)
-_int16.h:
-	@echo SYSDEPS int16 run create _int16.h 
-	@(cd SYSDEPS && ./sd-run modules/int16)
-_int32.h:
-	@echo SYSDEPS int32 run create _int32.h 
-	@(cd SYSDEPS && ./sd-run modules/int32)
-_int64.h:
-	@echo SYSDEPS int64 run create _int64.h 
-	@(cd SYSDEPS && ./sd-run modules/int64)
 flags-integer:
 	@echo SYSDEPS integer-flags run create flags-integer 
 	@(cd SYSDEPS && ./sd-run modules/integer-flags)
@@ -185,9 +158,6 @@ libs-integer:
 libs-integer-S:
 	@echo SYSDEPS integer-libs-S run create libs-integer-S 
 	@(cd SYSDEPS && ./sd-run modules/integer-libs-S)
-_io-notice.h:
-	@echo SYSDEPS io-notice run create _io-notice.h 
-	@(cd SYSDEPS && ./sd-run modules/io-notice)
 flags-io_poll:
 	@echo SYSDEPS io_poll-flags run create flags-io_poll 
 	@(cd SYSDEPS && ./sd-run modules/io_poll-flags)
@@ -249,9 +219,6 @@ flags-matrix4:
 libs-matrix4-S:
 	@echo SYSDEPS matrix4-libs-S run create libs-matrix4-S 
 	@(cd SYSDEPS && ./sd-run modules/matrix4-libs-S)
-flags-mmx:
-	@echo SYSDEPS mmx-flags run create flags-mmx 
-	@(cd SYSDEPS && ./sd-run modules/mmx-flags)
 flags-msg-ada:
 	@echo SYSDEPS msg-ada-flags run create flags-msg-ada 
 	@(cd SYSDEPS && ./sd-run modules/msg-ada-flags)
@@ -366,24 +333,54 @@ flags-samplerate:
 libs-samplerate:
 	@echo SYSDEPS samplerate-libs run create libs-samplerate 
 	@(cd SYSDEPS && ./sd-run modules/samplerate-libs)
+flags-altivec:
+	@echo SYSDEPS sd-altivec-flags run create flags-altivec 
+	@(cd SYSDEPS && ./sd-run modules/sd-altivec-flags)
+_sd_byteorder.h:
+	@echo SYSDEPS sd-byteorder run create _sd_byteorder.h 
+	@(cd SYSDEPS && ./sd-run modules/sd-byteorder)
+_sd_chflags.h:
+	@echo SYSDEPS sd-chflags run create _sd_chflags.h 
+	@(cd SYSDEPS && ./sd-run modules/sd-chflags)
+_sd_direntry.h:
+	@echo SYSDEPS sd-direntry run create _sd_direntry.h 
+	@(cd SYSDEPS && ./sd-run modules/sd-direntry)
 _sd_dlopen.h:
 	@echo SYSDEPS sd-dlopen run create libs-dlopen _sd_dlopen.h 
 	@(cd SYSDEPS && ./sd-run modules/sd-dlopen)
 libs-dlopen: _sd_dlopen.h
+_sd_dup2.h:
+	@echo SYSDEPS sd-dup2 run create _sd_dup2.h 
+	@(cd SYSDEPS && ./sd-run modules/sd-dup2)
 _sd_fcntl.h:
 	@echo SYSDEPS sd-fcntl run create libs-fcntl flags-fcntl _sd_fcntl.h 
 	@(cd SYSDEPS && ./sd-run modules/sd-fcntl)
 flags-fcntl: _sd_fcntl.h
 libs-fcntl: _sd_fcntl.h
-_sd_fd.h:
-	@echo SYSDEPS sd-fd run create _sd_fd.h 
-	@(cd SYSDEPS && ./sd-run modules/sd-fd)
+_sd_float32.h:
+	@echo SYSDEPS sd-float32 run create _sd_float32.h 
+	@(cd SYSDEPS && ./sd-run modules/sd-float32)
+_sd_float64.h:
+	@echo SYSDEPS sd-float64 run create _sd_float64.h 
+	@(cd SYSDEPS && ./sd-run modules/sd-float64)
 _sd_fork.h:
 	@echo SYSDEPS sd-fork run create _sd_fork.h 
 	@(cd SYSDEPS && ./sd-run modules/sd-fork)
 _sd_inline.h:
 	@echo SYSDEPS sd-inline run create _sd_inline.h 
 	@(cd SYSDEPS && ./sd-run modules/sd-inline)
+_sd_int16.h:
+	@echo SYSDEPS sd-int16 run create _sd_int16.h 
+	@(cd SYSDEPS && ./sd-run modules/sd-int16)
+_sd_int32.h:
+	@echo SYSDEPS sd-int32 run create _sd_int32.h 
+	@(cd SYSDEPS && ./sd-run modules/sd-int32)
+_sd_int64.h:
+	@echo SYSDEPS sd-int64 run create _sd_int64.h 
+	@(cd SYSDEPS && ./sd-run modules/sd-int64)
+_sd_io-notice.h:
+	@echo SYSDEPS sd-io-notice run create _sd_io-notice.h 
+	@(cd SYSDEPS && ./sd-run modules/sd-io-notice)
 _sd_longlong.h:
 	@echo SYSDEPS sd-longlong run create _sd_longlong.h 
 	@(cd SYSDEPS && ./sd-run modules/sd-longlong)
@@ -395,6 +392,9 @@ _sd_math.h: libs-math
 _sd_mmap.h:
 	@echo SYSDEPS sd-mmap run create _sd_mmap.h 
 	@(cd SYSDEPS && ./sd-run modules/sd-mmap)
+flags-mmx:
+	@echo SYSDEPS sd-mmx-flags run create flags-mmx 
+	@(cd SYSDEPS && ./sd-run modules/sd-mmx-flags)
 libs-posix_rt:
 	@echo SYSDEPS sd-posix_rt run create _sd_posix_rt.h flags-posix_rt libs-posix_rt 
 	@(cd SYSDEPS && ./sd-run modules/sd-posix_rt)
@@ -412,20 +412,47 @@ _sd_ptr_uint.h:
 _sd_select.h:
 	@echo SYSDEPS sd-select run create _sd_select.h 
 	@(cd SYSDEPS && ./sd-run modules/sd-select)
-_sendfile.h:
-	@echo SYSDEPS sd-sendfile run create libs-sendfile _sendfile.h 
+_sd_sendfile.h:
+	@echo SYSDEPS sd-sendfile run create libs-sendfile _sd_sendfile.h 
 	@(cd SYSDEPS && ./sd-run modules/sd-sendfile)
-libs-sendfile: _sendfile.h
-_sig_action.h:
-	@echo SYSDEPS sd-signal run create _sig_pmask.h _sig_action.h 
+libs-sendfile: _sd_sendfile.h
+_sd_sig_action.h:
+	@echo SYSDEPS sd-signal run create _sd_sig_pmask.h _sd_sig_action.h 
 	@(cd SYSDEPS && ./sd-run modules/sd-signal)
-_sig_pmask.h: _sig_action.h
+_sd_sig_pmask.h: _sd_sig_action.h
 libs-sockets:
 	@echo SYSDEPS sd-sockets run create libs-sockets 
 	@(cd SYSDEPS && ./sd-run modules/sd-sockets)
+flags-sse:
+	@echo SYSDEPS sd-sse-flags run create flags-sse 
+	@(cd SYSDEPS && ./sd-run modules/sd-sse-flags)
+flags-sse2:
+	@echo SYSDEPS sd-sse2-flags run create flags-sse2 
+	@(cd SYSDEPS && ./sd-run modules/sd-sse2-flags)
+flags-sse3:
+	@echo SYSDEPS sd-sse3-flags run create flags-sse3 
+	@(cd SYSDEPS && ./sd-run modules/sd-sse3-flags)
 _sd_streams.h:
 	@echo SYSDEPS sd-streams run create _sd_streams.h 
 	@(cd SYSDEPS && ./sd-run modules/sd-streams)
+_sd_sysinfo.h:
+	@echo SYSDEPS sd-sysinfo run create _sd_sysinfo.h 
+	@(cd SYSDEPS && ./sd-run modules/sd-sysinfo)
+flags-test:
+	@echo SYSDEPS sd-test run create flags-test 
+	@(cd SYSDEPS && ./sd-run modules/sd-test)
+flags-test-custom:
+	@echo SYSDEPS sd-test-custom run create flags-test-custom 
+	@(cd SYSDEPS && ./sd-run modules/sd-test-custom)
+_sd_uint16.h:
+	@echo SYSDEPS sd-uint16 run create _sd_uint16.h 
+	@(cd SYSDEPS && ./sd-run modules/sd-uint16)
+_sd_uint32.h:
+	@echo SYSDEPS sd-uint32 run create _sd_uint32.h 
+	@(cd SYSDEPS && ./sd-run modules/sd-uint32)
+_sd_uint64.h:
+	@echo SYSDEPS sd-uint64 run create _sd_uint64.h 
+	@(cd SYSDEPS && ./sd-run modules/sd-uint64)
 flags-sdl-ada-annex:
 	@echo SYSDEPS sdl-ada-annex-flags run create flags-sdl-ada-annex 
 	@(cd SYSDEPS && ./sd-run modules/sdl-ada-annex-flags)
@@ -525,45 +552,18 @@ flags-sqlite3:
 libs-sqlite3:
 	@echo SYSDEPS sqlite3-libs run create libs-sqlite3 
 	@(cd SYSDEPS && ./sd-run modules/sqlite3-libs)
-flags-sse:
-	@echo SYSDEPS sse-flags run create flags-sse 
-	@(cd SYSDEPS && ./sd-run modules/sse-flags)
-flags-sse2:
-	@echo SYSDEPS sse2-flags run create flags-sse2 
-	@(cd SYSDEPS && ./sd-run modules/sse2-flags)
-flags-sse3:
-	@echo SYSDEPS sse3-flags run create flags-sse3 
-	@(cd SYSDEPS && ./sd-run modules/sse3-flags)
 flags-stack-ada:
 	@echo SYSDEPS stack-ada-flags run create flags-stack-ada 
 	@(cd SYSDEPS && ./sd-run modules/stack-ada-flags)
 libs-stack-ada-S:
 	@echo SYSDEPS stack-ada-libs-S run create libs-stack-ada-S 
 	@(cd SYSDEPS && ./sd-run modules/stack-ada-libs-S)
-_sd_sysinfo.h:
-	@echo SYSDEPS sysinfo run create _sd_sysinfo.h 
-	@(cd SYSDEPS && ./sd-run modules/sysinfo)
-flags-test:
-	@echo SYSDEPS test run create flags-test 
-	@(cd SYSDEPS && ./sd-run modules/test)
-flags-test-custom:
-	@echo SYSDEPS test-custom run create flags-test-custom 
-	@(cd SYSDEPS && ./sd-run modules/test-custom)
 flags-tiff:
 	@echo SYSDEPS tiff-flags run create flags-tiff 
 	@(cd SYSDEPS && ./sd-run modules/tiff-flags)
 libs-tiff:
 	@echo SYSDEPS tiff-libs run create libs-tiff 
 	@(cd SYSDEPS && ./sd-run modules/tiff-libs)
-_uint16.h:
-	@echo SYSDEPS uint16 run create _uint16.h 
-	@(cd SYSDEPS && ./sd-run modules/uint16)
-_uint32.h:
-	@echo SYSDEPS uint32 run create _uint32.h 
-	@(cd SYSDEPS && ./sd-run modules/uint32)
-_uint64.h:
-	@echo SYSDEPS uint64 run create _uint64.h 
-	@(cd SYSDEPS && ./sd-run modules/uint64)
 flags-vector:
 	@echo SYSDEPS vector-flags run create flags-cc-vector flags-vector 
 	@(cd SYSDEPS && ./sd-run modules/vector-flags)
@@ -606,27 +606,18 @@ aiff-flags_clean:
 aiff-libs-S_clean:
 	@echo SYSDEPS aiff-libs-S clean libs-aiff-S 
 	@(cd SYSDEPS && ./sd-clean modules/aiff-libs-S)
-altivec-flags_clean:
-	@echo SYSDEPS altivec-flags clean flags-altivec 
-	@(cd SYSDEPS && ./sd-clean modules/altivec-flags)
 alut-flags_clean:
 	@echo SYSDEPS alut-flags clean flags-alut 
 	@(cd SYSDEPS && ./sd-clean modules/alut-flags)
 alut-libs_clean:
 	@echo SYSDEPS alut-libs clean libs-alut 
 	@(cd SYSDEPS && ./sd-clean modules/alut-libs)
-byteorder_clean:
-	@echo SYSDEPS byteorder clean _byteorder.h 
-	@(cd SYSDEPS && ./sd-clean modules/byteorder)
 c_string-flags_clean:
 	@echo SYSDEPS c_string-flags clean flags-c_string 
 	@(cd SYSDEPS && ./sd-clean modules/c_string-flags)
 c_string-libs-S_clean:
 	@echo SYSDEPS c_string-libs-S clean libs-c_string-S 
 	@(cd SYSDEPS && ./sd-clean modules/c_string-libs-S)
-ch_flags_clean:
-	@echo SYSDEPS ch_flags clean _ch_flags.h 
-	@(cd SYSDEPS && ./sd-clean modules/ch_flags)
 chrono-ada-flags_clean:
 	@echo SYSDEPS chrono-ada-flags clean flags-chrono-ada 
 	@(cd SYSDEPS && ./sd-clean modules/chrono-ada-flags)
@@ -660,9 +651,6 @@ corelib-libs_clean:
 corelib-libs-S_clean:
 	@echo SYSDEPS corelib-libs-S clean libs-corelib-S 
 	@(cd SYSDEPS && ./sd-clean modules/corelib-libs-S)
-direntry_clean:
-	@echo SYSDEPS direntry clean _direntry.h 
-	@(cd SYSDEPS && ./sd-clean modules/direntry)
 enet-flags_clean:
 	@echo SYSDEPS enet-flags clean flags-enet 
 	@(cd SYSDEPS && ./sd-clean modules/enet-flags)
@@ -687,12 +675,6 @@ flac-flags_clean:
 flac-libs_clean:
 	@echo SYSDEPS flac-libs clean libs-flac 
 	@(cd SYSDEPS && ./sd-clean modules/flac-libs)
-float32_clean:
-	@echo SYSDEPS float32 clean _float32.h 
-	@(cd SYSDEPS && ./sd-clean modules/float32)
-float64_clean:
-	@echo SYSDEPS float64 clean _float64.h 
-	@(cd SYSDEPS && ./sd-clean modules/float64)
 fltk11-flags_clean:
 	@echo SYSDEPS fltk11-flags clean flags-fltk11 
 	@(cd SYSDEPS && ./sd-clean modules/fltk11-flags)
@@ -735,15 +717,6 @@ glut-flags_clean:
 glut-libs_clean:
 	@echo SYSDEPS glut-libs clean libs-glut 
 	@(cd SYSDEPS && ./sd-clean modules/glut-libs)
-int16_clean:
-	@echo SYSDEPS int16 clean _int16.h 
-	@(cd SYSDEPS && ./sd-clean modules/int16)
-int32_clean:
-	@echo SYSDEPS int32 clean _int32.h 
-	@(cd SYSDEPS && ./sd-clean modules/int32)
-int64_clean:
-	@echo SYSDEPS int64 clean _int64.h 
-	@(cd SYSDEPS && ./sd-clean modules/int64)
 integer-flags_clean:
 	@echo SYSDEPS integer-flags clean flags-integer 
 	@(cd SYSDEPS && ./sd-clean modules/integer-flags)
@@ -753,9 +726,6 @@ integer-libs_clean:
 integer-libs-S_clean:
 	@echo SYSDEPS integer-libs-S clean libs-integer-S 
 	@(cd SYSDEPS && ./sd-clean modules/integer-libs-S)
-io-notice_clean:
-	@echo SYSDEPS io-notice clean _io-notice.h 
-	@(cd SYSDEPS && ./sd-clean modules/io-notice)
 io_poll-flags_clean:
 	@echo SYSDEPS io_poll-flags clean flags-io_poll 
 	@(cd SYSDEPS && ./sd-clean modules/io_poll-flags)
@@ -816,9 +786,6 @@ matrix4-flags_clean:
 matrix4-libs-S_clean:
 	@echo SYSDEPS matrix4-libs-S clean libs-matrix4-S 
 	@(cd SYSDEPS && ./sd-clean modules/matrix4-libs-S)
-mmx-flags_clean:
-	@echo SYSDEPS mmx-flags clean flags-mmx 
-	@(cd SYSDEPS && ./sd-clean modules/mmx-flags)
 msg-ada-flags_clean:
 	@echo SYSDEPS msg-ada-flags clean flags-msg-ada 
 	@(cd SYSDEPS && ./sd-clean modules/msg-ada-flags)
@@ -933,21 +900,51 @@ samplerate-flags_clean:
 samplerate-libs_clean:
 	@echo SYSDEPS samplerate-libs clean libs-samplerate 
 	@(cd SYSDEPS && ./sd-clean modules/samplerate-libs)
+sd-altivec-flags_clean:
+	@echo SYSDEPS sd-altivec-flags clean flags-altivec 
+	@(cd SYSDEPS && ./sd-clean modules/sd-altivec-flags)
+sd-byteorder_clean:
+	@echo SYSDEPS sd-byteorder clean _sd_byteorder.h 
+	@(cd SYSDEPS && ./sd-clean modules/sd-byteorder)
+sd-chflags_clean:
+	@echo SYSDEPS sd-chflags clean _sd_chflags.h 
+	@(cd SYSDEPS && ./sd-clean modules/sd-chflags)
+sd-direntry_clean:
+	@echo SYSDEPS sd-direntry clean _sd_direntry.h 
+	@(cd SYSDEPS && ./sd-clean modules/sd-direntry)
 sd-dlopen_clean:
 	@echo SYSDEPS sd-dlopen clean libs-dlopen _sd_dlopen.h 
 	@(cd SYSDEPS && ./sd-clean modules/sd-dlopen)
+sd-dup2_clean:
+	@echo SYSDEPS sd-dup2 clean _sd_dup2.h 
+	@(cd SYSDEPS && ./sd-clean modules/sd-dup2)
 sd-fcntl_clean:
 	@echo SYSDEPS sd-fcntl clean libs-fcntl flags-fcntl _sd_fcntl.h 
 	@(cd SYSDEPS && ./sd-clean modules/sd-fcntl)
-sd-fd_clean:
-	@echo SYSDEPS sd-fd clean _sd_fd.h 
-	@(cd SYSDEPS && ./sd-clean modules/sd-fd)
+sd-float32_clean:
+	@echo SYSDEPS sd-float32 clean _sd_float32.h 
+	@(cd SYSDEPS && ./sd-clean modules/sd-float32)
+sd-float64_clean:
+	@echo SYSDEPS sd-float64 clean _sd_float64.h 
+	@(cd SYSDEPS && ./sd-clean modules/sd-float64)
 sd-fork_clean:
 	@echo SYSDEPS sd-fork clean _sd_fork.h 
 	@(cd SYSDEPS && ./sd-clean modules/sd-fork)
 sd-inline_clean:
 	@echo SYSDEPS sd-inline clean _sd_inline.h 
 	@(cd SYSDEPS && ./sd-clean modules/sd-inline)
+sd-int16_clean:
+	@echo SYSDEPS sd-int16 clean _sd_int16.h 
+	@(cd SYSDEPS && ./sd-clean modules/sd-int16)
+sd-int32_clean:
+	@echo SYSDEPS sd-int32 clean _sd_int32.h 
+	@(cd SYSDEPS && ./sd-clean modules/sd-int32)
+sd-int64_clean:
+	@echo SYSDEPS sd-int64 clean _sd_int64.h 
+	@(cd SYSDEPS && ./sd-clean modules/sd-int64)
+sd-io-notice_clean:
+	@echo SYSDEPS sd-io-notice clean _sd_io-notice.h 
+	@(cd SYSDEPS && ./sd-clean modules/sd-io-notice)
 sd-longlong_clean:
 	@echo SYSDEPS sd-longlong clean _sd_longlong.h 
 	@(cd SYSDEPS && ./sd-clean modules/sd-longlong)
@@ -957,6 +954,9 @@ sd-math_clean:
 sd-mmap_clean:
 	@echo SYSDEPS sd-mmap clean _sd_mmap.h 
 	@(cd SYSDEPS && ./sd-clean modules/sd-mmap)
+sd-mmx-flags_clean:
+	@echo SYSDEPS sd-mmx-flags clean flags-mmx 
+	@(cd SYSDEPS && ./sd-clean modules/sd-mmx-flags)
 sd-posix_rt_clean:
 	@echo SYSDEPS sd-posix_rt clean _sd_posix_rt.h flags-posix_rt libs-posix_rt 
 	@(cd SYSDEPS && ./sd-clean modules/sd-posix_rt)
@@ -970,17 +970,44 @@ sd-select_clean:
 	@echo SYSDEPS sd-select clean _sd_select.h 
 	@(cd SYSDEPS && ./sd-clean modules/sd-select)
 sd-sendfile_clean:
-	@echo SYSDEPS sd-sendfile clean libs-sendfile _sendfile.h 
+	@echo SYSDEPS sd-sendfile clean libs-sendfile _sd_sendfile.h 
 	@(cd SYSDEPS && ./sd-clean modules/sd-sendfile)
 sd-signal_clean:
-	@echo SYSDEPS sd-signal clean _sig_pmask.h _sig_action.h 
+	@echo SYSDEPS sd-signal clean _sd_sig_pmask.h _sd_sig_action.h 
 	@(cd SYSDEPS && ./sd-clean modules/sd-signal)
 sd-sockets_clean:
 	@echo SYSDEPS sd-sockets clean libs-sockets 
 	@(cd SYSDEPS && ./sd-clean modules/sd-sockets)
+sd-sse-flags_clean:
+	@echo SYSDEPS sd-sse-flags clean flags-sse 
+	@(cd SYSDEPS && ./sd-clean modules/sd-sse-flags)
+sd-sse2-flags_clean:
+	@echo SYSDEPS sd-sse2-flags clean flags-sse2 
+	@(cd SYSDEPS && ./sd-clean modules/sd-sse2-flags)
+sd-sse3-flags_clean:
+	@echo SYSDEPS sd-sse3-flags clean flags-sse3 
+	@(cd SYSDEPS && ./sd-clean modules/sd-sse3-flags)
 sd-streams_clean:
 	@echo SYSDEPS sd-streams clean _sd_streams.h 
 	@(cd SYSDEPS && ./sd-clean modules/sd-streams)
+sd-sysinfo_clean:
+	@echo SYSDEPS sd-sysinfo clean _sd_sysinfo.h 
+	@(cd SYSDEPS && ./sd-clean modules/sd-sysinfo)
+sd-test_clean:
+	@echo SYSDEPS sd-test clean flags-test 
+	@(cd SYSDEPS && ./sd-clean modules/sd-test)
+sd-test-custom_clean:
+	@echo SYSDEPS sd-test-custom clean flags-test-custom 
+	@(cd SYSDEPS && ./sd-clean modules/sd-test-custom)
+sd-uint16_clean:
+	@echo SYSDEPS sd-uint16 clean _sd_uint16.h 
+	@(cd SYSDEPS && ./sd-clean modules/sd-uint16)
+sd-uint32_clean:
+	@echo SYSDEPS sd-uint32 clean _sd_uint32.h 
+	@(cd SYSDEPS && ./sd-clean modules/sd-uint32)
+sd-uint64_clean:
+	@echo SYSDEPS sd-uint64 clean _sd_uint64.h 
+	@(cd SYSDEPS && ./sd-clean modules/sd-uint64)
 sdl-ada-annex-flags_clean:
 	@echo SYSDEPS sdl-ada-annex-flags clean flags-sdl-ada-annex 
 	@(cd SYSDEPS && ./sd-clean modules/sdl-ada-annex-flags)
@@ -1080,45 +1107,18 @@ sqlite3-flags_clean:
 sqlite3-libs_clean:
 	@echo SYSDEPS sqlite3-libs clean libs-sqlite3 
 	@(cd SYSDEPS && ./sd-clean modules/sqlite3-libs)
-sse-flags_clean:
-	@echo SYSDEPS sse-flags clean flags-sse 
-	@(cd SYSDEPS && ./sd-clean modules/sse-flags)
-sse2-flags_clean:
-	@echo SYSDEPS sse2-flags clean flags-sse2 
-	@(cd SYSDEPS && ./sd-clean modules/sse2-flags)
-sse3-flags_clean:
-	@echo SYSDEPS sse3-flags clean flags-sse3 
-	@(cd SYSDEPS && ./sd-clean modules/sse3-flags)
 stack-ada-flags_clean:
 	@echo SYSDEPS stack-ada-flags clean flags-stack-ada 
 	@(cd SYSDEPS && ./sd-clean modules/stack-ada-flags)
 stack-ada-libs-S_clean:
 	@echo SYSDEPS stack-ada-libs-S clean libs-stack-ada-S 
 	@(cd SYSDEPS && ./sd-clean modules/stack-ada-libs-S)
-sysinfo_clean:
-	@echo SYSDEPS sysinfo clean _sd_sysinfo.h 
-	@(cd SYSDEPS && ./sd-clean modules/sysinfo)
-test_clean:
-	@echo SYSDEPS test clean flags-test 
-	@(cd SYSDEPS && ./sd-clean modules/test)
-test-custom_clean:
-	@echo SYSDEPS test-custom clean flags-test-custom 
-	@(cd SYSDEPS && ./sd-clean modules/test-custom)
 tiff-flags_clean:
 	@echo SYSDEPS tiff-flags clean flags-tiff 
 	@(cd SYSDEPS && ./sd-clean modules/tiff-flags)
 tiff-libs_clean:
 	@echo SYSDEPS tiff-libs clean libs-tiff 
 	@(cd SYSDEPS && ./sd-clean modules/tiff-libs)
-uint16_clean:
-	@echo SYSDEPS uint16 clean _uint16.h 
-	@(cd SYSDEPS && ./sd-clean modules/uint16)
-uint32_clean:
-	@echo SYSDEPS uint32 clean _uint32.h 
-	@(cd SYSDEPS && ./sd-clean modules/uint32)
-uint64_clean:
-	@echo SYSDEPS uint64 clean _uint64.h 
-	@(cd SYSDEPS && ./sd-clean modules/uint64)
 vector-flags_clean:
 	@echo SYSDEPS vector-flags clean flags-cc-vector flags-vector 
 	@(cd SYSDEPS && ./sd-clean modules/vector-flags)
@@ -1141,13 +1141,10 @@ agar-gui-libs_clean \
 agar-libs_clean \
 aiff-flags_clean \
 aiff-libs-S_clean \
-altivec-flags_clean \
 alut-flags_clean \
 alut-libs_clean \
-byteorder_clean \
 c_string-flags_clean \
 c_string-libs-S_clean \
-ch_flags_clean \
 chrono-ada-flags_clean \
 chrono-ada-libs-S_clean \
 chrono-flags_clean \
@@ -1159,7 +1156,6 @@ circbuf-libs-S_clean \
 corelib-flags_clean \
 corelib-libs_clean \
 corelib-libs-S_clean \
-direntry_clean \
 enet-flags_clean \
 enet-libs-S_clean \
 fastcgi-flags_clean \
@@ -1168,8 +1164,6 @@ flac-ada-flags_clean \
 flac-ada-libs-S_clean \
 flac-flags_clean \
 flac-libs_clean \
-float32_clean \
-float64_clean \
 fltk11-flags_clean \
 fltk11-libs_clean \
 fltk11-libs-S_clean \
@@ -1184,13 +1178,9 @@ gltxload-flags_clean \
 gltxload-libs-S_clean \
 glut-flags_clean \
 glut-libs_clean \
-int16_clean \
-int32_clean \
-int64_clean \
 integer-flags_clean \
 integer-libs_clean \
 integer-libs-S_clean \
-io-notice_clean \
 io_poll-flags_clean \
 io_poll-libs-S_clean \
 jack-flags_clean \
@@ -1211,7 +1201,6 @@ lua-physfs-libs-S_clean \
 mac-carbon_clean \
 matrix4-flags_clean \
 matrix4-libs-S_clean \
-mmx-flags_clean \
 msg-ada-flags_clean \
 msg-ada-libs-S_clean \
 netlib-flags_clean \
@@ -1250,14 +1239,25 @@ samplerate-ada-flags_clean \
 samplerate-ada-libs-S_clean \
 samplerate-flags_clean \
 samplerate-libs_clean \
+sd-altivec-flags_clean \
+sd-byteorder_clean \
+sd-chflags_clean \
+sd-direntry_clean \
 sd-dlopen_clean \
+sd-dup2_clean \
 sd-fcntl_clean \
-sd-fd_clean \
+sd-float32_clean \
+sd-float64_clean \
 sd-fork_clean \
 sd-inline_clean \
+sd-int16_clean \
+sd-int32_clean \
+sd-int64_clean \
+sd-io-notice_clean \
 sd-longlong_clean \
 sd-math_clean \
 sd-mmap_clean \
+sd-mmx-flags_clean \
 sd-posix_rt_clean \
 sd-pthreads_clean \
 sd-ptr_uint_clean \
@@ -1265,7 +1265,16 @@ sd-select_clean \
 sd-sendfile_clean \
 sd-signal_clean \
 sd-sockets_clean \
+sd-sse-flags_clean \
+sd-sse2-flags_clean \
+sd-sse3-flags_clean \
 sd-streams_clean \
+sd-sysinfo_clean \
+sd-test_clean \
+sd-test-custom_clean \
+sd-uint16_clean \
+sd-uint32_clean \
+sd-uint64_clean \
 sdl-ada-annex-flags_clean \
 sdl-ada-annex-libs-S_clean \
 sdl-ada-flags_clean \
@@ -1299,22 +1308,14 @@ sqlite3-ada-flags_clean \
 sqlite3-ada-libs-S_clean \
 sqlite3-flags_clean \
 sqlite3-libs_clean \
-sse-flags_clean \
-sse2-flags_clean \
-sse3-flags_clean \
 stack-ada-flags_clean \
 stack-ada-libs-S_clean \
-sysinfo_clean \
-test_clean \
-test-custom_clean \
 tiff-flags_clean \
 tiff-libs_clean \
-uint16_clean \
-uint32_clean \
-uint64_clean \
 vector-flags_clean \
 vector-libs_clean \
 vector-libs-S_clean \
+
 
 
 # SYSDEPS end
@@ -1322,20 +1323,22 @@ vector-libs-S_clean \
 
 cc-compile:\
 conf-cc conf-cctype conf-systype conf-cflags conf-ccfflist flags-agar-core-ada \
-	flags-agar-core flags-agar-gui-ada flags-agar-gui flags-aiff flags-altivec \
-	flags-alut flags-chrono flags-circbuf flags-corelib flags-enet flags-fastcgi \
-	flags-flac-ada flags-flac flags-fltk11 flags-fltk2 flags-getopt-ada \
-	flags-glsoload flags-gltxload flags-glut flags-integer flags-io_poll flags-jack \
-	flags-loadso flags-lua-ada flags-lua-load flags-lua flags-lua-physfs-ada \
-	flags-lua-physfs flags-carbon flags-matrix4 flags-mmx flags-msg-ada \
-	flags-netlib flags-openal flags-opengl flags-openssl flags-pdcgi flags-pgada \
-	flags-physfs-ada flags-physfs flags-plexlog flags-png flags-pngload \
-	flags-portaudio flags-samplerate-ada flags-samplerate flags-fcntl flags-math \
-	flags-posix_rt flags-pthreads flags-pthr_rt flags-sdl-ada flags-sdl \
-	flags-sdl-gfx flags-sdl-image flags-sdl-img-ada flags-sdl-mixer \
-	flags-sdl-ttf-ada flags-sdl-ttf flags-silc flags-skel flags-smtplib \
-	flags-sndfile-ada flags-sndfile flags-sqlite3-ada flags-sqlite3 flags-sse \
-	flags-sse2 flags-sse3 flags-stack-ada flags-tiff flags-vector flags-cc-vector
+	flags-agar-core flags-agar-gui-ada flags-agar-gui flags-aiff flags-alut \
+	flags-c_string flags-chrono-ada flags-chrono flags-circbuf flags-corelib \
+	flags-enet flags-fastcgi flags-flac-ada flags-flac flags-fltk11 flags-fltk2 \
+	flags-getopt-ada flags-glsoload flags-gltxload flags-glut flags-integer \
+	flags-io_poll flags-jack flags-loadso flags-lua-ada flags-lua-load flags-lua \
+	flags-lua-physfs-ada flags-lua-physfs flags-carbon flags-matrix4 flags-msg-ada \
+	flags-netlib flags-openal flags-opengl-ada flags-opengl flags-openssl \
+	flags-pdcgi flags-pgada flags-physfs-ada flags-physfs flags-plexlog-ada \
+	flags-plexlog flags-png flags-pngload flags-portaudio flags-samplerate-ada \
+	flags-samplerate flags-altivec flags-fcntl flags-math flags-mmx flags-posix_rt \
+	flags-pthreads flags-pthr_rt flags-sse flags-sse2 flags-sse3 flags-test \
+	flags-test-custom flags-sdl-ada-annex flags-sdl-ada flags-sdl flags-sdl-gfx \
+	flags-sdl-image flags-sdl-img-ada flags-sdl-mixer flags-sdl-ttf-ada \
+	flags-sdl-ttf flags-serial_io flags-silc flags-skel flags-smtplib \
+	flags-sndfile-ada flags-sndfile flags-sqlite3-ada flags-sqlite3 flags-stack-ada \
+	flags-tiff flags-vector flags-cc-vector
 
 cc-link:\
 conf-ld conf-ldtype conf-systype conf-ldflags
@@ -1360,11 +1363,12 @@ cc-link depchklist.ld depchklist.o
 	./cc-link depchklist depchklist.o
 
 depchklist.o:\
-cc-compile depchklist.c _byteorder.h _ch_flags.h _direntry.h _float32.h \
-_float64.h _int16.h _int32.h _int64.h _io-notice.h _sd_dlopen.h _sd_fcntl.h \
-_sd_fd.h _sd_fork.h _sd_inline.h _sd_longlong.h _sd_math.h _sd_mmap.h \
-_sd_posix_rt.h _sd_ptr_uint.h _sd_select.h _sendfile.h _sig_action.h \
-_sig_pmask.h _sd_sysinfo.h _uint16.h _uint32.h _uint64.h
+cc-compile depchklist.c _sd_byteorder.h _sd_chflags.h _sd_direntry.h \
+_sd_dlopen.h _sd_dup2.h _sd_fcntl.h _sd_float32.h _sd_float64.h _sd_fork.h \
+_sd_inline.h _sd_int16.h _sd_int32.h _sd_int64.h _sd_io-notice.h _sd_longlong.h \
+_sd_math.h _sd_mmap.h _sd_posix_rt.h _sd_ptr_uint.h _sd_select.h _sd_sendfile.h \
+_sd_sig_action.h _sd_sig_pmask.h _sd_streams.h _sd_sysinfo.h _sd_uint16.h \
+_sd_uint32.h _sd_uint64.h
 	./cc-compile depchklist.c
 
 mk-cctype:\
