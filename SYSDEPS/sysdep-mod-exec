@@ -111,7 +111,7 @@ touch ${SDM_CREATES} || SYSDEP_FATAL "could not create empty files"
 
 if [ -x "custom" ]
 then
-  ./custom ${SDM_CREATES} || SYSDEP_ERROR "custom search reported failure"
+  ./custom ${SDM_CREATES} || SYSDEP_ERROR "custom program reported failure"
   SDM_files_move
   exit 0
 else
