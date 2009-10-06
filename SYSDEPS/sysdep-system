@@ -285,7 +285,7 @@ then
   #----------------------------------------------------------------------
   # optional Ada components
 
-  SYSDEP_ADA_TYPE="UNKNOWN"
+  SYSDEP_ADA_TYPE="SD_SYSINFO_ADATYPE_UNKNOWN"
   SYSDEP_ADA_VERSION="0.0.0"
 
   if [ "${SYSDEP_ADA_COMP}" ]
@@ -318,7 +318,7 @@ then
 
 else
   # Find system type.
-  SYSDEP_OS="SD_SYSINFO_OS_`${SYSDEP_FILE} get "conf-x-systype" "UNKNOWN"`"
+  SYSDEP_OS="SD_SYSINFO_OS_`${SYSDEP_FILE} get "conf-x-systype" "SD_SYSINFO_OS_UNKNOWN"`"
   export SYSDEP_OS
 
   # Find system version.
@@ -326,11 +326,11 @@ else
   export SYSDEP_OSVERSION
 
   # Find system architecture.
-  SYSDEP_ARCH="SD_SYSINFO_ARCH_`${SYSDEP_FILE} get "conf-x-arch" "UNKNOWN"`"
+  SYSDEP_ARCH="SD_SYSINFO_ARCH_`${SYSDEP_FILE} get "conf-x-arch" "SD_SYSINFO_ARCH_UNKNOWN"`"
   export SYSDEP_ARCH
 
   # Find compiler type.
-  SYSDEP_CCTYPE="SD_SYSINFO_CCTYPE_`${SYSDEP_FILE} get "conf-x-cctype" "UNKNOWN"`"
+  SYSDEP_CCTYPE="SD_SYSINFO_CCTYPE_`${SYSDEP_FILE} get "conf-x-cctype" "SD_SYSINFO_CCTYPE_UNKNOWN"`"
   export SYSDEP_CCTYPE
 
   # Find compiler version.
@@ -378,7 +378,7 @@ else
   #
 
   # Find compiler type.
-  SYSDEP_ADA_TYPE="SD_SYSINFO_ADA_TYPE_`${SYSDEP_FILE} get "conf-x-adatype" "UNKNOWN"`"
+  SYSDEP_ADA_TYPE="SD_SYSINFO_ADA_TYPE_`${SYSDEP_FILE} get "conf-x-adatype" "SD_SYSINFO_ADATYPE_UNKNOWN"`"
   export SYSDEP_ADA_TYPE
 
   # Find compiler version.
