@@ -2,6 +2,14 @@ http://predef.sourceforge.net/index.php
 
 ------------------------------------------------------------------------
 
+conf-cctype incompatible with CPJ! FIX!
+
+------------------------------------------------------------------------
+
+Not all modules have been converted to using SYSDEP_UTIL_*
+
+------------------------------------------------------------------------
+
 Standardize module prelude, compiler use, etc.
   Provide template for custom modules?
 
