@@ -137,6 +137,35 @@ SDM_fetch_adaversion()
 }
 
 #
+# If the given string does not start with the given prefix,
+# prepend the prefix and return the modified string.
+#
+
+SDM_adjust_prefix()
+{
+  PREFIX="$1"
+  STRING="$2"
+  RETURN_CODE=0
+
+  OUTPUT=`${SYSDEP_UTIL_ECHO} "${STRING}" | ${SYSDEP_UTIL_GREP} "^${PREFIX}"`
+  case $? in
+    0)
+      ${SYSDEP_UTIL_ECHO} "${STRING}"
+      RETURN_CODE=0
+      ;;
+    1)
+      ${SYSDEP_UTIL_ECHO} "${PREFIX}${STRING}"
+      RETURN_CODE=0
+      ;;
+    *)
+      RETURN_CODE=1
+      ;;
+  esac
+
+  return ${RETURN_CODE}
+}
+
+#
 # Read configuration files, compiling support programs if necessary.
 #
 
@@ -317,8 +346,17 @@ then
   export SYSDEP_ADA_VERSION
 
 else
-  # Find system type.
+  #
+  # Some of these variables are compatible with configuration files
+  # used by certain other build systems. The other systems obviously do not
+  # use sysdep-specific prefixes such as SD_SYSINFO_OS_ and therefore the
+  # values are adjusted here, if necessary.
+  #
+
+  # Find system type (adjusting value, if necessary).
   SYSDEP_OS="SD_SYSINFO_OS_`${SYSDEP_FILE} get "conf-x-systype" "SD_SYSINFO_OS_UNKNOWN"`"
+  SYSDEP_OS=`SDM_adjust_prefix "SD_SYSINFO_OS_" "${SYSDEP_OS}"` ||
+    SYSDEP_FATAL "could not adjust string prefix for SYSDEP_OS"
   export SYSDEP_OS
 
   # Find system version.
@@ -326,11 +364,13 @@ else
   export SYSDEP_OSVERSION
 
   # Find system architecture.
-  SYSDEP_ARCH="SD_SYSINFO_ARCH_`${SYSDEP_FILE} get "conf-x-arch" "SD_SYSINFO_ARCH_UNKNOWN"`"
+  SYSDEP_ARCH="`${SYSDEP_FILE} get "conf-x-arch" "SD_SYSINFO_ARCH_UNKNOWN"`"
   export SYSDEP_ARCH
 
-  # Find compiler type.
+  # Find compiler type (adjusting value if necessary).
   SYSDEP_CCTYPE="SD_SYSINFO_CCTYPE_`${SYSDEP_FILE} get "conf-x-cctype" "SD_SYSINFO_CCTYPE_UNKNOWN"`"
+  SYSDEP_CCTYPE=`SDM_adjust_prefix "SD_SYSINFO_CCTYPE_" "${SYSDEP_CCTYPE}"` ||
+    SYSDEP_FATAL "could not adjust string prefix for SYSDEP_CCTYPE"
   export SYSDEP_CCTYPE
 
   # Find compiler version.
@@ -377,8 +417,10 @@ else
   # Optional Ada components.
   #
 
-  # Find compiler type.
+  # Find compiler type (adjusting value if necessary).
   SYSDEP_ADA_TYPE="SD_SYSINFO_ADA_TYPE_`${SYSDEP_FILE} get "conf-x-adatype" "SD_SYSINFO_ADATYPE_UNKNOWN"`"
+  SYSDEP_ADA_TYPE=`SDM_adjust_prefix "SD_SYSINFO_ADATYPE_" "${SYSDEP_ADA_TYPE}"` ||
+    SYSDEP_FATAL "could not adjust string prefix for SYSDEP_ADA_TYPE"
   export SYSDEP_ADA_TYPE
 
   # Find compiler version.
