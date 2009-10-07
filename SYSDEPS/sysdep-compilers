@@ -14,7 +14,7 @@
 
 SYSDEP_CROSS_COMPILE=0
 ${SYSDEP_FILE} exists "conf-x-cc"
-if [ $? -eq 1 ]
+if [ $? -eq 0 ]
 then
   SYSDEP_CROSS_COMPILE=1
   SYSDEP_INFO "conf-x-cc exists - assuming cross compilation"
@@ -23,10 +23,10 @@ export SYSDEP_CROSS_COMPILE
 
 if [ $SYSDEP_CROSS_COMPILE -eq 1 ]
 then
-  conf=`${SYSDEP_FILE} show "conf-x-cc"` || SYSDEP_FATAL "could not read conf-x-cc"
+  conf=`${SYSDEP_FILE} path_to "conf-x-cc"` || SYSDEP_FATAL "could not read conf-x-cc"
   SYSDEP_CC=`${SYSDEP_LINE} 1 < ${conf}` || SYSDEP_FATAL "could not read conf-x-cc"
 
-  conf=`${SYSDEP_FILE} show "conf-x-ld"` || SYSDEP_FATAL "could not read conf-x-ld"
+  conf=`${SYSDEP_FILE} path_to "conf-x-ld"` || SYSDEP_FATAL "could not read conf-x-ld"
   SYSDEP_LD=`${SYSDEP_LINE} 1 < ${conf}` || SYSDEP_FATAL "could not read conf-x-ld"
 
   if [ -z "${SYSDEP_CC}" ]
@@ -38,14 +38,14 @@ then
     SYSDEP_FATAL "cross linker is not defined, check 'conf-x-ld'"
   fi
 
-  conf=`${SYSDEP_FILE} show "conf-x-cflags"`
-  if [ $? -eq 1 ]
+  conf=`${SYSDEP_FILE} path_to "conf-x-cflags"`
+  if [ $? -eq 0 ]
   then
     SYSDEP_CFLAGS=`${SYSDEP_LINE} 1 < ${conf}` ||
       SYSDEP_FATAL "could not read conf-x-cflags"
   fi
-  conf=`${SYSDEP_FILE} show "conf-x-ldflags"`
-  if [ $? -eq 1 ]
+  conf=`${SYSDEP_FILE} path_to "conf-x-ldflags"`
+  if [ $? -eq 0 ]
   then
     SYSDEP_LDFLAGS=`${SYSDEP_LINE} 1 < ${conf}` ||
       SYSDEP_FATAL "could not read conf-x-ldflags"
@@ -56,15 +56,15 @@ then
 else
   SYSDEP_CC="cc"
 
-  conf=`${SYSDEP_FILE} show "conf-cc"`
-  if [ $? -eq 1 ]
+  conf=`${SYSDEP_FILE} path_to "conf-cc"`
+  if [ $? -eq 0 ]
   then
     SYSDEP_CC=`${SYSDEP_LINE} 1 < ${conf}` ||
       SYSDEP_FATAL "could not read conf-cc"
   fi
 
-  conf=`${SYSDEP_FILE} show "conf-ld"`
-  if [ $? -eq 1 ]
+  conf=`${SYSDEP_FILE} path_to "conf-ld"`
+  if [ $? -eq 0 ]
   then
     SYSDEP_LD=`${SYSDEP_LINE} 1 < ${conf}` ||
       SYSDEP_FATAL "could not read conf-ld"
@@ -79,14 +79,14 @@ else
     SYSDEP_FATAL "linker is not defined"
   fi
 
-  conf=`${SYSDEP_FILE} show "conf-cflags"`
-  if [ $? -eq 1 ]
+  conf=`${SYSDEP_FILE} path_to "conf-cflags"`
+  if [ $? -eq 0 ]
   then
     SYSDEP_CFLAGS=`${SYSDEP_LINE} 1 < ${conf}` ||
       SYSDEP_FATAL "could not read conf-cflags"
   fi
-  conf=`${SYSDEP_FILE} show "conf-ldflags"`
-  if [ $? -eq 1 ]
+  conf=`${SYSDEP_FILE} path_to "conf-ldflags"`
+  if [ $? -eq 0 ]
   then
     SYSDEP_LDFLAGS=`${SYSDEP_LINE} 1 < ${conf}` ||
       SYSDEP_FATAL "could not read conf-ldflags"
@@ -99,8 +99,8 @@ else
   # optional Ada components
   #
 
-  conf=`${SYSDEP_FILE} show "conf-adacomp"`
-  if [ $? -eq 1 ]
+  conf=`${SYSDEP_FILE} path_to "conf-adacomp"`
+  if [ $? -eq 0 ]
   then
     SYSDEP_ADA_COMP=`${SYSDEP_LINE} 1 < ${conf}` ||
       SYSDEP_FATAL "could not read conf-adacomp"
@@ -110,8 +110,8 @@ else
     fi
   fi
 
-  conf=`${SYSDEP_FILE} show "conf-adabind"`
-  if [ $? -eq 1 ]
+  conf=`${SYSDEP_FILE} path_to "conf-adabind"`
+  if [ $? -eq 0 ]
   then
     SYSDEP_ADA_BIND=`${SYSDEP_LINE} 1 < ${conf}` ||
       SYSDEP_FATAL "could not read conf-adabind"
@@ -121,8 +121,8 @@ else
     fi
   fi
 
-  conf=`${SYSDEP_FILE} show "conf-adalink"`
-  if [ $? -eq 1 ]
+  conf=`${SYSDEP_FILE} path_to "conf-adalink"`
+  if [ $? -eq 0 ]
   then
     SYSDEP_ADA_LINK=`${SYSDEP_LINE} 1 < ${conf}` ||
       SYSDEP_FATAL "could not read conf-adalink"
@@ -136,22 +136,22 @@ else
   export SYSDEP_ADA_BIND
   export SYSDEP_ADA_LINK
 
-  conf=`${SYSDEP_FILE} show "conf-adacflags"`
-  if [ $? -eq 1 ]
+  conf=`${SYSDEP_FILE} path_to "conf-adacflags"`
+  if [ $? -eq 0 ]
   then
     SYSDEP_ADA_CFLAGS=`${SYSDEP_LINE} 1 < ${conf}` ||
       SYSDEP_FATAL "could not read conf-adacflags"
   fi
 
-  conf=`${SYSDEP_FILE} show "conf-adabflags"`
-  if [ $? -eq 1 ]
+  conf=`${SYSDEP_FILE} path_to "conf-adabflags"`
+  if [ $? -eq 0 ]
   then
     SYSDEP_ADA_BFLAGS=`${SYSDEP_LINE} 1 < ${conf}` ||
       SYSDEP_FATAL "could not read conf-adabflags"
   fi
 
-  conf=`${SYSDEP_FILE} show "conf-adaldflags"`
-  if [ $? -eq 1 ]
+  conf=`${SYSDEP_FILE} path_to "conf-adaldflags"`
+  if [ $? -eq 0 ]
   then
     SYSDEP_ADA_LDFLAGS=`${SYSDEP_LINE} 1 < ${conf}` ||
       SYSDEP_FATAL "could not read conf-adaldflags"
