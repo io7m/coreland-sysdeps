@@ -33,7 +33,7 @@ do
     debug "${DIR}/${CONFIG_BINARY} not executable or nonexistent"
   else
     debug "executing ${DIR}/${CONFIG_BINARY} ${CONFIG_BINARY_FLAGS}"
-    ${CONFIG_BINARY} ${CONFIG_BINARY_FLAGS} 2>/dev/null
+    ${DIR}/${CONFIG_BINARY} ${CONFIG_BINARY_FLAGS} 2>/dev/null
     RETURN_CODE=$?
     if [ ${RETURN_CODE} -eq 0 ]
     then
