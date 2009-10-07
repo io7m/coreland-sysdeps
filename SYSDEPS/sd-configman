@@ -8,15 +8,15 @@ then
   ${SYSDEP_UTIL_EXIT} 111
 fi
 
-file="$1"
-path="$2"
-prefix="$3"
+FILE="$1"
+SEARCH_PATH="$2"
+PREFIX="$3"
 
-for path_element in ${path}
+for PATH_ELEMENT in ${SEARCH_PATH}
 do
-  if [ -f "${path_element}/${file}" ]
+  if [ -f "${PATH_ELEMENT}/${FILE}" ]
   then
-    ${SYSDEP_UTIL_ECHO} "${prefix}${path_element} "
+    ${SYSDEP_UTIL_ECHO} "${PREFIX}${PATH_ELEMENT} "
     ${SYSDEP_UTIL_EXIT} 0
   fi
 done
