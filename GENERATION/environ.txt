@@ -34,6 +34,7 @@ SYSDEP_OSVERSION                   | string       | 7.2-release-p1              
 SYSDEP_OUTPUT_DIRECTORY            | string       | /u/coreland/symbex                             | Path to directory where output files shall be written
 SYSDEP_STDINC                      | string-list  | /usr/include /usr/local/include                | Standard C header include paths
 SYSDEP_STDLIB                      | string-list  | /usr/lib /usr/local/lib                        | Standard C library include paths
+SYSDEP_STDBIN                      | string-list  | ${PATH}                                        | Path to search for configuration binaries (value is dependent on cross-compilation - see documentation).
 SYSDEP_SUBS_FILE                   | string       | /u/coreland/symbex/SYSDEPS/sysdep-subs         | Name/full path to sysdep-subs file
 SYSDEP_TRY_CONFIG_BIN              | string       | /u/coreland/symbex/SYSDEPS/sd-configbin        | sd-configbin program
 SYSDEP_TRY_MANUAL                  | string       | /u/coreland/symbex/SYSDEPS/sd-configman        | sd-configman program
