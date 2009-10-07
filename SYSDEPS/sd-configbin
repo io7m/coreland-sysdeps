@@ -18,22 +18,19 @@ fi
 CONFIG_BINARY="$1"
 CONFIG_BINARY_FLAGS="$2"
 
-PATH_ELEMENTS=`${SYSDEP_UTIL_ECHO} "${PATH}" | ${SYSDEP_UTIL_TR} ':' ' '` ||
-  SYSDEP_FATAL "${PROGRAM_NAME}: could not split PATH"
-
 #
 # Search in each element of ${PATH} and execute config binary using
 # absolute path.
 #
 
-for DIR in ${PATH_ELEMENTS}
+for PATH_ELEMENT in ${SYSDEP_STDBIN}
 do
-  if [ ! -x ${DIR}/${CONFIG_BINARY} ]
+  if [ ! -x ${PATH_ELEMENT}/${CONFIG_BINARY} ]
   then
-    debug "${DIR}/${CONFIG_BINARY} not executable or nonexistent"
+    debug "${PATH_ELEMENT}/${CONFIG_BINARY} not executable or nonexistent"
   else
-    debug "executing ${DIR}/${CONFIG_BINARY} ${CONFIG_BINARY_FLAGS}"
-    ${DIR}/${CONFIG_BINARY} ${CONFIG_BINARY_FLAGS} 2>/dev/null
+    debug "executing ${PATH_ELEMENT}/${CONFIG_BINARY} ${CONFIG_BINARY_FLAGS}"
+    ${PATH_ELEMENT}/${CONFIG_BINARY} ${CONFIG_BINARY_FLAGS} 2>/dev/null
     RETURN_CODE=$?
     if [ ${RETURN_CODE} -eq 0 ]
     then

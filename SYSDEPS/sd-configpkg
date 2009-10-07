@@ -18,22 +18,19 @@ fi
 PACKAGE_NAME="$1"
 CONFIG_FLAGS="$2"
 
-PATH_ELEMENTS=`${SYSDEP_UTIL_ECHO} "${PATH}" | ${SYSDEP_UTIL_TR} ':' ' '` ||
-  SYSDEP_FATAL "${PROGRAM_NAME}: could not split PATH"
-
 #
 # Search in each element of ${PATH} and execute pkg-config binary using
 # absolute path.
 #
 
-for DIR in ${PATH_ELEMENTS}
+for PATH_ELEMENT in ${SYSDEP_STDBIN}
 do
-  if [ ! -x ${DIR}/pkg-config ]
+  if [ ! -x ${PATH_ELEMENT}/pkg-config ]
   then
-    debug "${DIR}/pkg-config not executable or nonexistent"
+    debug "${PATH_ELEMENT}/pkg-config not executable or nonexistent"
   else
-    debug "executing ${DIR}/pkg-config ${CONFIG_FLAGS}"
-    ${DIR}/pkg-config ${PACKAGE_NAME} ${CONFIG_FLAGS} 2>/dev/null
+    debug "executing ${PATH_ELEMENT}/pkg-config ${CONFIG_FLAGS}"
+    ${PATH_ELEMENT}/pkg-config ${PACKAGE_NAME} ${CONFIG_FLAGS} 2>/dev/null
     RETURN_CODE=$?
     if [ ${RETURN_CODE} -eq 0 ]
     then
