@@ -11,7 +11,7 @@ debug()
 
 if [ $# -ne 2 ]
 then
-  ${SYSDEP_UTIL_ECHO} '${PROGRAM_NAME}: usage: bin flags' 1>&2
+  ${SYSDEP_UTIL_ECHO} "${PROGRAM_NAME}: usage: bin flags" 1>&2
   ${SYSDEP_UTIL_EXIT} 1
 fi
 
