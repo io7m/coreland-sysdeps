@@ -113,7 +113,7 @@ if [ -x "custom" ]
 then
   ./custom ${SDM_CREATES} || SYSDEP_ERROR "custom program reported failure"
   SDM_files_move
-  exit 0
+  ${SYSDEP_UTIL_EXIT} 0
 else
   if [ -f "custom" ]
   then
@@ -189,7 +189,7 @@ then
       SYSDEP_FATAL "could not write sysdeps.out"
 
     SDM_files_move || SYSDEP_FATAL "error moving files"
-    exit 0
+    ${SYSDEP_UTIL_EXIT} 0
   fi
 fi
 
@@ -219,7 +219,7 @@ then
       SYSDEP_FATAL "could not write sysdeps.out"
 
     SDM_files_move || SYSDEP_FATAL "error moving files"
-    exit 0
+    ${SYSDEP_UTIL_EXIT} 0
   fi
 fi
 
@@ -278,7 +278,7 @@ then
       SYSDEP_FATAL "could not write sysdeps.out"
 
     SDM_files_move || SYSDEP_FATAL "error moving files"
-    exit 0
+    ${SYSDEP_UTIL_EXIT} 0
   fi
 fi
 
@@ -311,7 +311,7 @@ then
       SYSDEP_FATAL "could not write 'sysdeps.out'"
 
     SDM_files_move || SYSDEP_FATAL "error moving files"
-    exit 0
+    ${SYSDEP_UTIL_EXIT} 0
   fi
 fi
 
@@ -346,7 +346,7 @@ then
       SYSDEP_FATAL "could not write to 'sysdeps.out'"
 
     SDM_files_move || SYSDEP_FATAL "error moving files"
-    exit 0
+    ${SYSDEP_UTIL_EXIT} 0
   fi
 fi
 
