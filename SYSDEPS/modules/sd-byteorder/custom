@@ -4,7 +4,7 @@
 
 cleanup()
 {
-  rm -f byteorder byteorder.o
+  ${SYSDEP_UTIL_RM} -f byteorder byteorder.o
 }
 
 fatal()
@@ -16,15 +16,6 @@ fatal()
 
 temph="$1"
 tempsys="$2"
-
-${SYSDEP_UTIL_CAT} >> "${temph}" << EOF
-#ifndef _SD_BYTEORDER_H
-#define _SD_BYTEORDER_H
-
-#define SD_BYTEORDER_BIG    0
-#define SD_BYTEORDER_LITTLE 1
-
-EOF
 
 if [ ${SYSDEP_CROSS_COMPILE} -eq 0 ]
 then
@@ -52,6 +43,15 @@ then
   fi
 fi
 
+${SYSDEP_UTIL_CAT} >> "${temph}" << EOF
+#ifndef _SD_BYTEORDER_H
+#define _SD_BYTEORDER_H
+
+#define SD_BYTEORDER_BIG    0
+#define SD_BYTEORDER_LITTLE 1
+
+EOF
+
 case "${order}" in
   little)
     ${SYSDEP_UTIL_ECHO} '#define SD_BYTEORDER SD_BYTEORDER_LITTLE' >> "${temph}"
@@ -66,7 +66,10 @@ case "${order}" in
     ;;
 esac
 
-${SYSDEP_UTIL_ECHO} '#endif' >> "${temph}"
+${SYSDEP_UTIL_CAT} >> "${temph}" << EOF
+
+#endif
+EOF
 
 cleanup
 ${SYSDEP_UTIL_EXIT} 0
