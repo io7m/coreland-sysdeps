@@ -1,7 +1,4 @@
-(para "This module creates the appropriate typedef for the "
-  (item file_name "_sd_byteorder.h") " header file.")
-
-(para "It does a simple pointer check to see if integers stored in
+(para "This module does a simple pointer check to see if integers stored in
   memory are in little endian or big endian format. There are no plans to
   support middle endian byte ordering at this time.")
 
@@ -17,3 +14,11 @@
 #define SD_BYTEORDER SD_BYTEORDER_LITTLE
 #endif
 ")
+
+(para "If not cross-compiling, the module will attempt to compile "
+  (item file_name "byteorder.c") " and run the resulting executable
+  to perform the check. In the case of cross-compiling or the
+  executable encountering an error, the configuration file is
+  read instead. The configuration file has a very simple syntax:")
+
+(para-verbatim example bnf "byteorder-spec ::= \"little\" | \"big\"")
