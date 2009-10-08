@@ -72,11 +72,11 @@ else
 
   if [ -z "${SYSDEP_CC}" ]
   then
-    SYSDEP_FATAL "C compiler is not defined"
+    SYSDEP_FATAL "C compiler is not defined, check 'conf-cc'"
   fi
   if [ -z "${SYSDEP_LD}" ]
   then
-    SYSDEP_FATAL "linker is not defined"
+    SYSDEP_FATAL "linker is not defined, check 'conf-ld'"
   fi
 
   conf=`${SYSDEP_FILE} path_to "conf-cflags"`
