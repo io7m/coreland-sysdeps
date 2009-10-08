@@ -16,7 +16,7 @@ have_mmap()
   ${SYSDEP_UTIL_ECHO} '#define SD_HAVE_MMAP' >> "${fout}"
   ${SYSDEP_UTIL_ECHO} 'sd-mmap: mmap' >> "${sysdeps}"
 
-  cat >> "${fout}" <<EOF
+  ${SYSDEP_UTIL_CAT} >> "${fout}" <<EOF
 #include <sys/types.h>
 #include <sys/mman.h>
 EOF
@@ -52,7 +52,7 @@ try_run_mmap()
 
 header_open()
 {
-  cat >> "${fout}" <<EOF
+  ${SYSDEP_UTIL_CAT} >> "${fout}" <<EOF
 #ifndef _SD_MMAP_H
 #define _SD_MMAP_H
 
@@ -61,7 +61,8 @@ EOF
 
 header_close()
 {
-  cat >> "${fout}" <<EOF
+  ${SYSDEP_UTIL_CAT} >> "${fout}" <<EOF
+
 #endif
 EOF
 }
@@ -82,27 +83,26 @@ fail()
   cleanup_exit
 }
 
-config_file="`${SYSDEP_LINE} 1 < config`"
+CONFIG_FILE="`${SYSDEP_LINE} 1 < config`" ||
+  SYSDEP_FATAL "could not determine config"
 
-try_mmap
-if [ $? -eq 1 ]
+if [ ${SYSDEP_CROSS_COMPILE} -eq 1 ]
 then
-  if [ ${SYSDEP_CROSS_COMPILE} -eq 1 ]
+  ${SYSDEP_FILE} exists "${CONFIG_FILE}"
+  if [ $? -eq 0 ]
   then
-    ${SYSDEP_FILE} exists "${config_file}"
-    if [ $? -eq 1 ]
-    then
-      case `${SYSDEP_LINE} 1 < "${config_file}"` in
-        mmap) success ;;
-        *) fail ;;
-      esac
-    else
-      # Compile succeeded, cross compiling and no config file.
-      success
-    fi
+    CONFIG_VALUE=`${SYSDEP_LINE} 1 < "${CONFIG_FILE}"` ||
+      SYSDEP_FATAL "could not read configuration file"
+    case ${CONFIG_VALUE} in
+      mmap) success ;;
+      none) fail    ;;
+      *)    SYSDEP_FATAL "invalid value specified in config file (mmap|none)"
+    esac
   else
-    try_run_mmap
-    if [ $? -eq 1 ]; then success; fi
+    SYSDEP_FATAL "cross compiling requires configuration file (${CONFIG_FILE})"
   fi
+else
+  try_mmap     || fail
+  try_run_mmap || fail
+  success
 fi
-fail
