@@ -18,8 +18,15 @@ then
   fatal "SYSDEP_REPOSITORY inaccessible"
 fi
 
-mkdir SYSDEPS         || fatal "could not create SYSDEPS directory"
-mkdir SYSDEPS/modules || fatal "could not create SYSDEPS/modules directory"
+if [ ! -d SYSDEPS ]
+then
+  mkdir SYSDEPS || fatal "could not create SYSDEPS directory"
+fi
+
+if [ ! -d SYSDEPS/modules ]
+then
+  mkdir SYSDEPS/modules || fatal "could not create SYSDEPS/modules directory"
+fi
 
 FAILED=0
 
