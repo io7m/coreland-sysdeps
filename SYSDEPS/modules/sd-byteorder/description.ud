@@ -21,4 +21,4 @@
   executable encountering an error, the configuration file is
   read instead. The configuration file has a very simple syntax:")
 
-(para-verbatim example bnf "byteorder-spec ::= \"little\" | \"big\"")
+(para-verbatim example bnf "<byteorder-spec> ::= \"little\" | \"big\"")
