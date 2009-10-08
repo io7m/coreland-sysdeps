@@ -8,13 +8,13 @@ DL_LIBS=""
 
 cleanup()
 {
-  rm -f trydlfunc trydlfunc.o trydlopen trydlopen.o
-  exit 0
+  ${SYSDEP_UTIL_RM} -f trydlfunc trydlfunc.o trydlopen trydlopen.o
+  ${SYSDEP_UTIL_EXIT} 0
 }
 
 head_begin()
 {
-  cat >> "${head_out}" <<EOF
+  ${SYSDEP_UTIL_CAT} >> "${head_out}" <<EOF
 #ifndef _SD_DLOPEN_H
 #define _SD_DLOPEN_H
  
@@ -23,7 +23,7 @@ EOF
 
 head_end()
 {
-  cat >> "${head_out}" <<EOF
+  ${SYSDEP_UTIL_CAT} >> "${head_out}" <<EOF
 
 #endif
 EOF
@@ -47,16 +47,16 @@ try_dlopen()
   ${SYSDEP_LD} -o trydlopen trydlopen.o ${SYSDEP_LDFLAGS} ${DL_LIBS} 1>/dev/null 2>&1
   if [ $? -eq 0 ]
   then
-    echo "sd-dlopen-libs: ${DL_LIBS}" >> "${sysd_out}"
-    echo "${DL_LIBS}" >> "${flag_out}"
-    echo "#define SD_HAVE_DLOPEN" >> "${head_out}"
+    ${SYSDEP_UTIL_ECHO} "sd-dlopen-libs: ${DL_LIBS}" >> "${sysd_out}"
+    ${SYSDEP_UTIL_ECHO} "${DL_LIBS}" >> "${flag_out}"
+    ${SYSDEP_UTIL_ECHO} "#define SD_HAVE_DLOPEN" >> "${head_out}"
     try_dlfunc
     if [ $? -eq 1 ]
     then
-      echo "#define SD_HAVE_DLFUNC" >> "${head_out}"
-      echo "sd-dlopen: dlopen dlfunc" >> "${sysd_out}"
+      ${SYSDEP_UTIL_ECHO} "#define SD_HAVE_DLFUNC" >> "${head_out}"
+      ${SYSDEP_UTIL_ECHO} "sd-dlopen: dlopen dlfunc" >> "${sysd_out}"
     else
-      echo "sd-dlopen: dlopen" >> "${sysd_out}"
+      ${SYSDEP_UTIL_ECHO} "sd-dlopen: dlopen" >> "${sysd_out}"
     fi
     return 1
   else
@@ -64,7 +64,7 @@ try_dlopen()
   fi
 }
 
-touch "${flag_out}"
+${SYSDEP_UTIL_TOUCH} "${flag_out}"
 head_begin
 
 DL_LIBS="-ldl"
