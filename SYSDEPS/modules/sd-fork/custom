@@ -36,10 +36,10 @@ then
   fi
 fi
 
-if [ $SD_HAVE_FORK -eq 1 ]
+if [ ${SD_HAVE_FORK} -eq 1 ]
 then
   ${SYSDEP_UTIL_ECHO} '#define SD_HAVE_FORK 1' >> "${fout}"
-  if [ $SD_HAVE_VFORK -eq 1 ]
+  if [ ${SD_HAVE_VFORK} -eq 1 ]
   then
     ${SYSDEP_UTIL_ECHO} '#define SD_HAVE_VFORK 1' >> "${fout}"
     ${SYSDEP_UTIL_ECHO} 'sd-fork: fork vfork' >> "${sysdeps}"
