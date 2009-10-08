@@ -4,7 +4,7 @@
 
 cleanup()
 {
-  rm -f float32_make float32_make.o
+  ${SYSDEP_UTIL_RM} -f float32_make float32_make.o
 }
 
 fatal()
