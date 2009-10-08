@@ -22,11 +22,11 @@ then
   ${SYSDEP_CC} -c -o trykqueue2.o trykqueue2.c >/dev/null 2>&1
   ${SYSDEP_LD} -o trykqueue2 trykqueue2.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
   ./trykqueue2 >/dev/null 2>&1
-  ret=$?
-  if [ ${ret} -eq 0 ]
+  RETURN_CODE=$?
+  if [ ${RETURN_CODE} -eq 0 ]
   then
     ${SYSDEP_UTIL_ECHO} '#define SD_IO_NOTICE_SUPPORTED_KQUEUE 1' >> "${fout}" 
-    mechs="${mechs} kqueue"
+    MECHANISMS="${MECHANISMS} kqueue"
   fi
 fi
 
@@ -37,11 +37,11 @@ then
   ${SYSDEP_CC} -c -o tryepoll2.o tryepoll2.c >/dev/null 2>&1
   ${SYSDEP_LD} -o tryepoll2 tryepoll2.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
   ./tryepoll2 >/dev/null 2>&1
-  ret=$?
-  if [ ${ret} -eq 0 ]
+  RETURN_CODE=$?
+  if [ ${RETURN_CODE} -eq 0 ]
   then
     ${SYSDEP_UTIL_ECHO} '#define SD_IO_NOTICE_SUPPORTED_EPOLL 1' >> "${fout}"
-    mechs="${mechs} epoll"
+    MECHANISMS="${MECHANISMS} epoll"
   fi
 fi
 
@@ -50,7 +50,7 @@ ${SYSDEP_LD} -o trypoll trypoll.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   ${SYSDEP_UTIL_ECHO} '#define SD_IO_NOTICE_SUPPORTED_POLL 1' >> "${fout}"
-  mechs="${mechs} poll"
+  MECHANISMS="${MECHANISMS} poll"
 fi
 
 ${SYSDEP_CC} -c -o tryselect1.o tryselect1.c >/dev/null 2>&1
@@ -58,21 +58,21 @@ ${SYSDEP_LD} -o tryselect1 tryselect1.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
 if [ $? -eq 0 ]
 then
   ${SYSDEP_UTIL_ECHO} '#define SD_IO_NOTICE_SUPPORTED_SELECT 1' >> "${fout}"
-  mechs="${mechs} select"
+  MECHANISMS="${MECHANISMS} select"
 else
   ${SYSDEP_CC} -c -o tryselect2.o tryselect2.c >/dev/null 2>&1
   ${SYSDEP_LD} -o tryselect2 tryselect2.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
   if [ $? -eq 0 ]
   then
     ${SYSDEP_UTIL_ECHO} '#define SD_IO_NOTICE_SUPPORTED_SELECT 1' >> "${fout}"
-    mechs="${mechs} select"
+    MECHANISMS="${MECHANISMS} select"
   else
     ${SYSDEP_CC} -c -o tryselect3.o tryselect3.c >/dev/null 2>&1
     ${SYSDEP_LD} -o tryselect3 tryselect3.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
     if [ $? -eq 0 ]
     then
       ${SYSDEP_UTIL_ECHO} '#define SD_IO_NOTICE_SUPPORTED_SELECT 1' >> "${fout}"
-      mechs="${mechs} select"
+      MECHANISMS="${MECHANISMS} select"
     fi
   fi
 fi
@@ -81,7 +81,7 @@ ${SYSDEP_UTIL_CAT} >> "${fout}" <<EOF
 #endif
 EOF
 
-${SYSDEP_UTIL_ECHO} "sd-io-notice:${mechs}" >> "${sysdeps}"
+${SYSDEP_UTIL_ECHO} "sd-io-notice: ${MECHANISMS}" >> "${sysdeps}"
 
 ${SYSDEP_UTIL_RM} -f \
   trykqueue1 trykqueue1.o \
