@@ -8,7 +8,7 @@
   the appropriate " (item c_type "uint64_t") " type if available. If unavailable,
   the module tests against the integer types defined in C99. If unavailable,
   the module tests against the integer types defined in C89. If unavailable,
-  the module attemps the read the config file " (item file_name "conf-sd-uint64")
+  the module attempts the read the config file " (item file_name "conf-sd-uint64")
   " for the name of an appropriate type. If this file cannot be read, the module
   fails.")
 

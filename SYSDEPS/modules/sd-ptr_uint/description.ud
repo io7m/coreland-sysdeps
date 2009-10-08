@@ -6,7 +6,7 @@
   the appropriate " (item c_type "uintptr_t") " type if available. If unavailable,
   the module tests against the integer types defined in C99. If unavailable,
   the module tests against the integer types defined in C89. If unavailable,
-  the module attemps the read the config file " (item file_name "conf-sd-ptr_uint")
+  the module attempts the read the config file " (item file_name "conf-sd-ptr_uint")
   " for the name of an appropriate type. If this file cannot be read, the module
   fails.")
 
