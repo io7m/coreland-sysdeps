@@ -102,8 +102,8 @@ SDM_CREATES="${SDM_CREATES} sysdeps.out"
 # Ensure a clean environment.
 #
 
-SYSDEP_REMOVE ${SDM_CREATES} || SYSDEP_FATAL "could not clean up created files"
-touch ${SDM_CREATES} || SYSDEP_FATAL "could not create empty files"
+SYSDEP_REMOVE ${SDM_CREATES}        || SYSDEP_FATAL "could not clean up created files"
+${SYSDEP_UTIL_TOUCH} ${SDM_CREATES} || SYSDEP_FATAL "could not create empty files"
 
 #
 # Execute custom script if present.
@@ -127,7 +127,7 @@ fi
 
 OUTPUT_FILE="`${SYSDEP_LINE} 1 < creates`" ||
   SYSDEP_FATAL "could not determine output file"
-touch ${OUTPUT_FILE} ||
+${SYSDEP_UTIL_TOUCH} ${OUTPUT_FILE} ||
   SYSDEP_FATAL "could not create '${OUTPUT_FILE}'"
 
 if [ -f "defines" ]
