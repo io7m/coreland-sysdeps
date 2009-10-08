@@ -1,1 +1,1 @@
-Linker flags to link against the system socket libraries.
+Determine current system socket support.
