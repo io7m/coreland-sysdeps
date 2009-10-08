@@ -12,3 +12,7 @@ typedef, including the required headers, to a header file.")
 #define sd_direntry struct dirent
 
 #endif")
+
+(para "This module is dependent solely on operating system headers
+  and should therefore give the correct results for the target
+  operating system when cross-compiling.")
