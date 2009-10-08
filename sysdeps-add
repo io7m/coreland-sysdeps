@@ -1,0 +1,64 @@
+#!/bin/sh
+
+PROGRAM_NAME="sysdeps-add"
+
+fatal()
+{
+  echo "${PROGRAM_NAME}: fatal: $1" 1>&2
+  exit 1
+}
+
+error()
+{
+  echo "${PROGRAM_NAME}: error: $1" 1>&2
+  FAILED=1
+  FAILED_MODULE=1
+}
+
+if [ $# -lt 1 ]
+then
+  echo "${PROGRAM_NAME}: usage: module [modules ...]" 1>&2
+  exit 1
+fi
+
+if [ -z "${SYSDEP_REPOSITORY}" ]
+then
+  fatal "SYSDEP_REPOSITORY must be defined in the environment"
+fi
+
+if [ ! -d "${SYSDEP_REPOSITORY}" ]
+then
+  fatal "SYSDEP_REPOSITORY inaccessible"
+fi
+
+FAILED=0
+
+for MODULE in $@
+do
+  MODULE_PATH="${SYSDEP_REPOSITORY}/modules/${MODULE}"
+  MODULE_DEST="SYSDEPS/modules/${MODULE}"
+  FAILED_MODULE=0
+
+  if [ -d "${MODULE_PATH}" ]
+  then
+    if [ ! -d "${MODULE_DEST}" ]
+    then
+      mkdir ${MODULE_DEST} || error "could not create ${MODULE_DEST}"
+    fi
+    if [ ${FAILED_MODULE} -ne 1 ]
+    then
+      for FILE in `ls ${MODULE_PATH}`
+      do
+        cp "${MODULE_PATH}/${FILE}" ${MODULE_DEST} ||
+          error "could not copy ${MODULE_PATH}/${FILE}"
+      done
+    fi
+  else
+    error "${MODULE} does not exist in the repository"
+  fi
+done
+
+if [ ${FAILED} -eq 1 ]
+then
+  fatal "one or more modules were not copied"
+fi
