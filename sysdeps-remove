@@ -1,0 +1,40 @@
+
+#!/bin/sh
+
+PROGRAM_NAME="sysdeps-remove"
+
+fatal()
+{
+  echo "${PROGRAM_NAME}: fatal: $1" 1>&2
+  exit 1
+}
+
+error()
+{
+  echo "${PROGRAM_NAME}: error: $1" 1>&2
+  FAILED=1
+}
+
+if [ $# -lt 1 ]
+then
+  echo "${PROGRAM_NAME}: usage: module [modules ...]" 1>&2
+  exit 1
+fi
+
+FAILED=0
+
+for MODULE in $@
+do
+  MODULE_PATH="SYSDEPS/modules/${MODULE}"
+  if [ -d "${MODULE_PATH}" ]
+  then
+    rm -r "${MODULE_PATH}" || error "could not remove ${MODULE_PATH}"
+  else
+    error "module ${MODULE} does not exist"
+  fi
+done
+
+if [ ${FAILED} -eq 1 ]
+then
+  fatal "one or more modules were not removed"
+fi
