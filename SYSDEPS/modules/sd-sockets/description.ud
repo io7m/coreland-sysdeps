@@ -1,2 +1,15 @@
-(para "This module determines the linker flags required to use the
-  system BSD socket libraries.")
+(para "This module attempts to determine the type of socket support
+  on the current system. This may be POSIX or Winsock, for example. The
+  current system may not support sockets at all. The module also attempts
+  to determine the linker flags required to use the socket library, if any.")
+
+(para "Example output:")
+
+(para-verbatim example
+"#ifndef _SD_SOCKETS_H
+#define _SD_SOCKETS_H
+
+#define SD_SOCKET_SUPPORTED 1
+#define SD_SOCKET_SUPPORTED_WINSOCK 1
+
+#endif")

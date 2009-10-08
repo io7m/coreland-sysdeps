@@ -1,0 +1,3 @@
+SD_SOCKET_SUPPORTED         : integer 1 .. 1 : optional
+SD_SOCKET_SUPPORTED_POSIX   : integer 1 .. 1 : optional
+SD_SOCKET_SUPPORTED_WINSOCK : integer 1 .. 1 : optional

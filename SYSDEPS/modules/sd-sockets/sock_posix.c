@@ -3,7 +3,8 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
-int socket_tcp4(void)
+int
+socket_tcp4 (void)
 {
   int s;
   s = socket(PF_INET, SOCK_STREAM, 0);
@@ -11,7 +12,8 @@ int socket_tcp4(void)
   return s;
 }
 
-int main(void)
+int
+main (void)
 {
   int s = socket_tcp4();
   return (s == -1);

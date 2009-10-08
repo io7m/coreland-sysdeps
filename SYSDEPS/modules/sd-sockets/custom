@@ -2,36 +2,67 @@
 
 . "${SYSDEP_SUBS_FILE}" || exit 1
 
-fout="$1"
-sd_out="$2"
+header_out="$1"
+libs_out="$2"
+sysdeps_out="$3"
 
 cleanup()
 {
-  ${SYSDEP_UTIL_RM} -f trysocket trysocket.o
+  ${SYSDEP_UTIL_RM} -f \
+    sock_posix   sock_posix.o \
+    sock_winsock sock_winsock.o
 }
 
-${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trysocket.o trysocket.c 1>/dev/null 2>&1
-${SYSDEP_LD} -o trysocket trysocket.o ${SYSDEP_LDFLAGS} 1>/dev/null 2>&1
-if [ $? -eq 0 ]
-then
-  ${SYSDEP_UTIL_ECHO} >> "${fout}"
-  ${SYSDEP_UTIL_ECHO} "sd-socket-libs: " >> "${sd_out}"
-  cleanup
-  ${SYSDEP_UTIL_EXIT} 0
-fi
+header_open()
+{
+  ${SYSDEP_UTIL_CAT} >> "${header_out}" <<EOF
+#ifndef _SD_SOCKETS_H
+#define _SD_SOCKETS_H
 
-${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trysocket.o trysocket.c 1>/dev/null 2>&1
-${SYSDEP_LD} -o trysocket trysocket.c -lsocket ${SYSDEP_LDFLAGS} 1>/dev/null 2>&1
-if [ $? -eq 0 ]
-then
-  ${SYSDEP_UTIL_ECHO} '-lsocket' >> "${fout}"
-  ${SYSDEP_UTIL_ECHO} "sd-socket-libs: -lsocket" >> "${sd_out}"
-  cleanup
-  ${SYSDEP_UTIL_EXIT} 0
-fi
+EOF
+}
 
-${SYSDEP_UTIL_ECHO} >> "${fout}"
-${SYSDEP_UTIL_ECHO} "sd-socket-libs:" >> "${sd_out}"
+header_close()
+{
+  ${SYSDEP_UTIL_CAT} >> "${header_out}" <<EOF
 
+#endif
+EOF
+}
+
+try_compile()
+{
+  TYPE="$1"
+  FLAGS="$2"
+  DEFINE="$3"
+
+  SOURCE_FILE="sock_${TYPE}.c"
+  OBJECT_FILE="sock_${TYPE}.o"
+  OUTPUT_FILE="sock_${TYPE}"
+
+  ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o "${OBJECT_FILE}" "${SOURCE_FILE}" 2>/dev/null
+  ${SYSDEP_LD} -o "${OUTPUT_FILE}" "${OBJECT_FILE}" ${FLAGS}            2>/dev/null
+  if [ $? -eq 0 ]
+  then
+    ${SYSDEP_UTIL_ECHO} "#define SD_SOCKET_SUPPORTED 1"           >> "${header_out}"
+    ${SYSDEP_UTIL_ECHO} "#define SD_SOCKET_SUPPORTED_${DEFINE} 1" >> "${header_out}"
+    ${SYSDEP_UTIL_ECHO} ${FLAGS}                                  >> "${libs_out}"
+    ${SYSDEP_UTIL_ECHO} "sd-socket: ${TYPE}"                      >> "${sysdeps_out}"
+    ${SYSDEP_UTIL_ECHO} "sd-socket-libs: ${FLAGS}"                >> "${sysdeps_out}"
+    cleanup
+    header_close
+    ${SYSDEP_UTIL_EXIT} 0
+  fi
+}
+
+header_open
+try_compile "posix"   ""          "POSIX"
+try_compile "posix"   "-lsocket"  "POSIX"
+try_compile "winsock" ""          "WINSOCK"
+try_compile "winsock" "-lwsock32" "WINSOCK"
+
+${SYSDEP_UTIL_ECHO} "sd-socket: none" >> "${sysdeps_out}"
+${SYSDEP_UTIL_ECHO} "sd-socket-libs:" >> "${sysdeps_out}"
+ 
 cleanup
-SYSDEP_FATAL "could not determine socket linker flags"
+header_close
