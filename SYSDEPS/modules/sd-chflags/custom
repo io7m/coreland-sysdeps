@@ -64,13 +64,14 @@ then
         no_chflags;;
     esac
   fi
+else
+  ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trychflags.o trychflags.c >/dev/null 2>&1
+  ${SYSDEP_LD} -o trychflags trychflags.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
+  if [ $? -eq 0 ];
+  then
+    have_chflags;
+  else
+    no_chflags;
+  fi
 fi
 
-${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trychflags.o trychflags.c >/dev/null 2>&1
-${SYSDEP_LD} -o trychflags trychflags.o ${SYSDEP_LDFLAGS} >/dev/null 2>&1
-if [ $? -eq 0 ];
-then
-  have_chflags;
-else
-  no_chflags;
-fi
