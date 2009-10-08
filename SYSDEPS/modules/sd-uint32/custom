@@ -33,7 +33,7 @@ typedef $type sd_uint32;
 
 #endif
 EOF
-  echo "sd-uint32: ${type}" >> "${temp_sys}"
+  ${SYSDEP_UTIL_ECHO} "sd-uint32: ${type}" >> "${temp_sys}"
   cleanup
   ${SYSDEP_UTIL_EXIT} 0
 }
