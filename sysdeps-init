@@ -1,0 +1,37 @@
+#!/bin/sh
+
+PROGRAM_NAME="sysdeps-init"
+
+fatal()
+{
+  echo "${PROGRAM_NAME}: fatal: $1" 1>&2
+  exit 1
+}
+
+if [ -z "${SYSDEP_REPOSITORY}" ]
+then
+  fatal "SYSDEP_REPOSITORY must be defined in the environment"
+fi
+
+if [ ! -d "${SYSDEP_REPOSITORY}" ]
+then
+  fatal "SYSDEP_REPOSITORY inaccessible"
+fi
+
+mkdir SYSDEPS         || fatal "could not create SYSDEPS directory"
+mkdir SYSDEPS/modules || fatal "could not create SYSDEPS/modules directory"
+
+FAILED=0
+
+for FILE in `echo ${SYSDEP_REPOSITORY}/*`
+do
+  if [ -f "${FILE}" ]
+  then
+    cp ${FILE} SYSDEPS/ || FAILED=1
+  fi
+done
+
+if [ ${FAILED} -eq 1 ]
+then
+  fatal "failed to copy one or more files"
+fi
