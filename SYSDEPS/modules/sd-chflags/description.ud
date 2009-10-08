@@ -1,6 +1,12 @@
 (para "This module does a simple compile-time check to see if
   the " (item c_function "chflags()") " system call is implemented.")
 
+(para "In the case of cross compilation, the module simply reads the
+  configuration file as opposed to performing the compile-time check.
+  The configuration file has the following syntax:")
+
+(para-verbatim example bnf "<chflags-spec> ::= \"chflags\" | \"none\"")
+
 (para "Example output:")
 
 (para-verbatim example
