@@ -1,0 +1,41 @@
+#!/bin/sh
+
+PROGRAM_NAME="sysdeps-list"
+
+fatal()
+{
+  echo "${PROGRAM_NAME}: fatal: $1" 1>&2
+  exit 1
+}
+
+error()
+{
+  echo "${PROGRAM_NAME}: error: $1" 1>&2
+}
+
+if [ -z "${SYSDEP_REPOSITORY}" ]
+then
+  fatal "SYSDEP_REPOSITORY must be defined in the environment"
+fi
+
+if [ ! -d "${SYSDEP_REPOSITORY}" ]
+then
+  fatal "SYSDEP_REPOSITORY inaccessible"
+fi
+
+for MODULE in `ls ${SYSDEP_REPOSITORY}/modules`
+do
+  MODULE_PATH="${SYSDEP_REPOSITORY}/modules/${MODULE}"
+  if [ -d "${MODULE_PATH}" ]
+  then
+    SYNOPSIS=`cat ${MODULE_PATH}/synopsis`
+    if [ $? -eq 0 ]
+    then
+      cat <<EOF
+${MODULE}: ${SYNOPSIS}
+EOF
+    else
+      error "could not read ${MODULE_PATH}/synopsis"
+    fi
+  fi
+done
