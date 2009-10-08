@@ -1,2 +1,2 @@
-<int64>      ::= "signed char" | "signed short" | "signed int" | "signed long" | "signed long long" | "int64_t" | "none"
-<int64-spec> ::= "sd-int64:" <int64>
+int64      = "signed char" | "signed short" | "signed int" | "signed long" | "signed long long" | "int64_t" | "none" ;
+int64-spec = "sd-int64:" , int64 ;

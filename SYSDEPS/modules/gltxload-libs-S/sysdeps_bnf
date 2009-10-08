@@ -1,1 +1,1 @@
-<gltxload-libs-S-spec> ::= "gltxload-libs-S:" <implementation-defined>
+gltxload-libs-S-spec = "gltxload-libs-S:" , implementation-defined ;

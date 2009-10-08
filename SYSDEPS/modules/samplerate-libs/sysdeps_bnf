@@ -1,1 +1,1 @@
-<samplerate-libs-spec> ::= "samplerate-libs:" <implementation-defined>
+samplerate-libs-spec = "samplerate-libs:" , implementation-defined ;

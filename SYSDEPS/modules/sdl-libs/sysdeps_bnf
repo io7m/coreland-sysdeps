@@ -1,1 +1,1 @@
-<sdl-libs-spec> ::= "sdl-libs:" <implementation-defined>
+sdl-libs-spec = "sdl-libs:" , implementation-defined ;

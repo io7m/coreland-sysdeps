@@ -1,1 +1,1 @@
-<physfs-ada-flags-spec> ::= "physfs-ada-flags:" <implementation-defined>
+physfs-ada-flags-spec = "physfs-ada-flags:" , implementation-defined ;

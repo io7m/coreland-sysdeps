@@ -1,1 +1,1 @@
-<openssl-libs-S-spec> ::= "openssl-libs-S:" <implementation-defined>
+openssl-libs-S-spec = "openssl-libs-S:" , implementation-defined ;

@@ -1,1 +1,1 @@
-<io_poll-flags-spec> ::= "io_poll-flags:" <implementation-defined>
+io_poll-flags-spec = "io_poll-flags:" , implementation-defined ;

@@ -1,2 +1,2 @@
-<endianness>      ::= "big" | "little"
-<endianness-spec> ::= "sd-byteorder:" <endianness>
+endianness      = "big" | "little" ;
+endianness-spec = "sd-byteorder:" , endianness ;

@@ -1,1 +1,1 @@
-<glsoload-flags-spec> ::= "glsoload-flags:" <implementation-defined>
+glsoload-flags-spec = "glsoload-flags:" , implementation-defined ;

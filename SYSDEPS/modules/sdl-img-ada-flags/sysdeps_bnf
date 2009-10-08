@@ -1,1 +1,1 @@
-<sdl-img-ada-flags-spec> ::= "sdl-img-ada-flags:" <implementation-defined>
+sdl-img-ada-flags-spec = "sdl-img-ada-flags:" , implementation-defined ;

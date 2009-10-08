@@ -1,1 +1,1 @@
-<portaudio-libs-spec> ::= "portaudio-libs:" <implementation-defined>
+portaudio-libs-spec = "portaudio-libs:" , implementation-defined ;

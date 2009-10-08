@@ -1,1 +1,1 @@
-<matrix4-libs-S-spec> ::= "matrix4-libs-S:" <implementation-defined>
+matrix4-libs-S-spec = "matrix4-libs-S:" , implementation-defined ;

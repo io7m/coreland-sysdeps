@@ -1,1 +1,1 @@
-<sdl-flags-spec> ::= "sdl-flags:" <implementation-defined>
+sdl-flags-spec = "sdl-flags:" , implementation-defined ;

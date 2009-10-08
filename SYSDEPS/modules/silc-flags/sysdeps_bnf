@@ -1,1 +1,1 @@
-<silc-flags-spec> ::= "silc-flags:" <implementation-defined>
+silc-flags-spec = "silc-flags:" , implementation-defined ;

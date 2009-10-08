@@ -1,1 +1,1 @@
-<plexlog-flags-spec> ::= "plexlog-flags:" <implementation-defined>
+plexlog-flags-spec = "plexlog-flags:" , implementation-defined ;

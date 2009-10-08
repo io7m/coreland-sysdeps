@@ -1,5 +1,5 @@
-<sd-fcntl>            ::= "fcntl"
-<sd-ioctlsocket>      ::= "ioctlsocket"
-<sd-fcntl-flags-spec> ::= "sd-fcntl-flags:" <implementation-defined>
-<sd-fcntl-libs-spec>  ::= "sd-fcntl-libs:" <implementation-defined>
-<sd-fcntl-spec>       ::= "sd-fcntl:" { <sd-fcntl> } { <sd-ioctlsocket> }
+sd-fcntl            = "fcntl" ;
+sd-ioctlsocket      = "ioctlsocket" ;
+sd-fcntl-flags-spec = "sd-fcntl-flags:" , implementation-defined ;
+sd-fcntl-libs-spec  = "sd-fcntl-libs:" , implementation-defined ;
+sd-fcntl-spec       = "sd-fcntl:" , [ sd-fcntl ] , [ sd-ioctlsocket ] ;

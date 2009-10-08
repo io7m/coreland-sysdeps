@@ -1,1 +1,1 @@
-<msg-ada-libs-S-spec> ::= "msg-ada-libs-S:" <implementation-defined>
+msg-ada-libs-S-spec = "msg-ada-libs-S:" , implementation-defined ;

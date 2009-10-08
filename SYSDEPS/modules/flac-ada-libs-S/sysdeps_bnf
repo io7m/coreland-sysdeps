@@ -1,1 +1,1 @@
-<flac-ada-libs-S-spec> ::= "flac-ada-libs-S:" <implementation-defined>
+flac-ada-libs-S-spec = "flac-ada-libs-S:" , implementation-defined ;

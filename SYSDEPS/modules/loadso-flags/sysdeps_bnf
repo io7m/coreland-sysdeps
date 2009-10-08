@@ -1,1 +1,1 @@
-<loadso-flags-spec> ::= "loadso-flags:" <implementation-defined>
+loadso-flags-spec = "loadso-flags:" , implementation-defined ;

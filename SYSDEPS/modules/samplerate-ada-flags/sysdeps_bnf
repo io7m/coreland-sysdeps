@@ -1,1 +1,1 @@
-<samplerate-ada-flags-spec> ::= "samplerate-ada-flags:" <implementation-defined>
+samplerate-ada-flags-spec = "samplerate-ada-flags:" , implementation-defined ;

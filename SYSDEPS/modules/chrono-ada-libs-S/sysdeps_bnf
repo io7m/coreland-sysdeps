@@ -1,1 +1,1 @@
-<chrono-ada-libs-S-spec> ::= "chrono-ada-libs-S:" <implementation-defined>
+chrono-ada-libs-S-spec = "chrono-ada-libs-S:" , implementation-defined ;

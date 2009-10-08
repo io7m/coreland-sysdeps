@@ -1,1 +1,1 @@
-<agar-core-ada-flags-spec> ::= "agar-core-ada-flags:" <implementation-defined>
+agar-core-ada-flags-spec = "agar-core-ada-flags:" , implementation-defined ;

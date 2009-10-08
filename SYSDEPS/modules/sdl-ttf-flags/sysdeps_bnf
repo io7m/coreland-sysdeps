@@ -1,1 +1,1 @@
-<sdl-ttf-flags-spec> ::= "sdl-ttf-flags:" <implementation-defined>
+sdl-ttf-flags-spec = "sdl-ttf-flags:" , implementation-defined ;

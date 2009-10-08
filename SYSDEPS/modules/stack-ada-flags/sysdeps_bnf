@@ -1,1 +1,1 @@
-<stack-ada-flags-spec> ::= "stack-ada-flags:" <implementation-defined>
+stack-ada-flags-spec = "stack-ada-flags:" , implementation-defined ;

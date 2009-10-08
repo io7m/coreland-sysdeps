@@ -1,1 +1,1 @@
-<lua-flags-spec> ::= "lua-flags:" <implementation-defined>
+lua-flags-spec = "lua-flags:" , implementation-defined ;

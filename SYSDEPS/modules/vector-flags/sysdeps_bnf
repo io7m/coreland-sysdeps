@@ -1,1 +1,1 @@
-<vector-flags-spec> ::= "vector-flags:" <implementation-defined>
+vector-flags-spec = "vector-flags:" , implementation-defined ;

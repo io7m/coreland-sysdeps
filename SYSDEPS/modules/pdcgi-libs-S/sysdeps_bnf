@@ -1,1 +1,1 @@
-<pdcgi-libs-S-spec> ::= "pdcgi-libs-S:" <implementation-defined>
+pdcgi-libs-S-spec = "pdcgi-libs-S:" , implementation-defined ;

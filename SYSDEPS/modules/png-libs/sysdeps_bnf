@@ -1,1 +1,1 @@
-<png-libs-spec> ::= "png-libs:" <implementation-defined>
+png-libs-spec = "png-libs:" , implementation-defined ;

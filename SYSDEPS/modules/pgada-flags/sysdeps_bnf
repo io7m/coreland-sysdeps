@@ -1,1 +1,1 @@
-<pgada-flags-spec> ::= "pgada-flags:" <implementation-defined>
+pgada-flags-spec = "pgada-flags:" , implementation-defined ;

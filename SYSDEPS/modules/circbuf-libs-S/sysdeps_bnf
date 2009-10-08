@@ -1,1 +1,1 @@
-<circbuf-libs-S-spec> ::= "circbuf-libs-S:" <implementation-defined>
+circbuf-libs-S-spec = "circbuf-libs-S:" , implementation-defined ;

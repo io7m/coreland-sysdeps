@@ -1,1 +1,1 @@
-<agar-gui-libs-spec> ::= "agar-gui-libs:" <implementation-defined>
+agar-gui-libs-spec = "agar-gui-libs:" , implementation-defined ;

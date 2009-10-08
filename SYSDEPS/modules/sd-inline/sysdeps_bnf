@@ -1,2 +1,2 @@
-<sd-inline>      ::= "yes" | "no"
-<sd-inline-spec> ::= "sd-inline:" <sd-inline>
+sd-inline      = "yes" | "no" ;
+sd-inline-spec = "sd-inline:" , sd-inline ;

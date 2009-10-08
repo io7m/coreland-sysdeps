@@ -1,2 +1,2 @@
-<uint32>      ::= "unsigned char" | "unsigned short" | "unsigned int" | "unsigned long" | "unsigned long long" | "uint32_t" | "none"
-<uint32-spec> ::= "sd-uint32:" <uint32>
+uint32      = "unsigned char" | "unsigned short" | "unsigned int" | "unsigned long" | "unsigned long long" | "uint32_t" | "none" ;
+uint32-spec = "sd-uint32:" , uint32 ;

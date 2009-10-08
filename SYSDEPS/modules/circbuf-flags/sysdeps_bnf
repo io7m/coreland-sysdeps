@@ -1,1 +1,1 @@
-<circbuf-flags-spec> ::= "circbuf-flags:" <implementation-defined>
+circbuf-flags-spec = "circbuf-flags:" , implementation-defined ;

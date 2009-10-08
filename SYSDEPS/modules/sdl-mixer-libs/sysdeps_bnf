@@ -1,1 +1,1 @@
-<sdl-mixer-libs-spec> ::= "sdl-mixer-libs:" <implementation-defined>
+sdl-mixer-libs-spec = "sdl-mixer-libs:" , implementation-defined ;

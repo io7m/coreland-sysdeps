@@ -1,1 +1,1 @@
-<aiff-libs-S-spec> ::= "aiff-libs-S:" <implementation-defined>
+aiff-libs-S-spec = "aiff-libs-S:" , implementation-defined ;

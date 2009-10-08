@@ -1,1 +1,1 @@
-<loadso-libs-S-spec> ::= "loadso-libs-S:" <implementation-defined>
+loadso-libs-S-spec = "loadso-libs-S:" , implementation-defined ;

@@ -1,1 +1,1 @@
-<pgada-libs-S-spec> ::= "pgada-libs-S:" <implementation-defined>
+pgada-libs-S-spec = "pgada-libs-S:" , implementation-defined ;

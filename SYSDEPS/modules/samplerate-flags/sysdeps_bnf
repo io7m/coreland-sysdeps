@@ -1,1 +1,1 @@
-<samplerate-flags-spec> ::= "samplerate-flags:" <implementation-defined>
+samplerate-flags-spec = "samplerate-flags:" , implementation-defined ;

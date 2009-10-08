@@ -1,1 +1,1 @@
-<smtplib-libs-S-spec> ::= "smtplib-libs-S:" <implementation-defined>
+smtplib-libs-S-spec = "smtplib-libs-S:" , implementation-defined ;

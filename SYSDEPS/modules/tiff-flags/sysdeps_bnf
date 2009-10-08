@@ -1,1 +1,1 @@
-<tiff-flags-spec> ::= "tiff-flags:" <implementation-defined>
+tiff-flags-spec = "tiff-flags:" , implementation-defined ;

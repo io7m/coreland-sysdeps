@@ -1,1 +1,1 @@
-<corelib-libs-spec> ::= "corelib-libs:" <implementation-defined>
+corelib-libs-spec = "corelib-libs:" , implementation-defined ;

@@ -1,1 +1,1 @@
-<sdl-image-libs-spec> ::= "sdl-image-libs:" <implementation-defined>
+sdl-image-libs-spec = "sdl-image-libs:" , implementation-defined ;

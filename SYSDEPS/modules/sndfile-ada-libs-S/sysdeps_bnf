@@ -1,1 +1,1 @@
-<sndfile-ada-libs-S-spec> ::= "sndfile-ada-libs-S:" <implementation-defined>
+sndfile-ada-libs-S-spec = "sndfile-ada-libs-S:" , implementation-defined ;

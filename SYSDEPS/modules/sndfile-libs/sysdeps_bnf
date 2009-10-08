@@ -1,1 +1,1 @@
-<sndfile-libs-spec> ::= "sndfile-libs:" <implementation-defined>
+sndfile-libs-spec = "sndfile-libs:" , implementation-defined ;

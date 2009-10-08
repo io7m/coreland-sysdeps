@@ -1,1 +1,1 @@
-<pngload-flags-spec> ::= "pngload-flags:" <implementation-defined>
+pngload-flags-spec = "pngload-flags:" , implementation-defined ;

@@ -1,1 +1,1 @@
-<glut-libs-spec> ::= "glut-libs:" <implementation-defined>
+glut-libs-spec = "glut-libs:" , implementation-defined ;

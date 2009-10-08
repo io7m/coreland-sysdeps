@@ -1,1 +1,1 @@
-<physfs-libs-S-spec> ::= "physfs-libs-S:" <implementation-defined>
+physfs-libs-S-spec = "physfs-libs-S:" , implementation-defined ;

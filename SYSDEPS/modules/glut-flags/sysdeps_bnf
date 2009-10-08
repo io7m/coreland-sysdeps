@@ -1,1 +1,1 @@
-<glut-flags-spec> ::= "glut-flags:" <implementation-defined>
+glut-flags-spec = "glut-flags:" , implementation-defined ;

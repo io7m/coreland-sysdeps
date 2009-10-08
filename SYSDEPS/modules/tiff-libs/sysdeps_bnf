@@ -1,1 +1,1 @@
-<tiff-libs-spec> ::= "tiff-libs:" <implementation-defined>
+tiff-libs-spec = "tiff-libs:" , implementation-defined ;

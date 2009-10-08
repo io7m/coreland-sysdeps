@@ -1,1 +1,1 @@
-<sse-spec> ::= "sd-sse:" <implementation-defined>
+sse-spec = "sd-sse:" , implementation-defined ;

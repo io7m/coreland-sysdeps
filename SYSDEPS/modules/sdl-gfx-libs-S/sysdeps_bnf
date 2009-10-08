@@ -1,1 +1,1 @@
-<sdl-gfx-libs-S-spec> ::= "sdl-gfx-libs-S:" <implementation-defined>
+sdl-gfx-libs-S-spec = "sdl-gfx-libs-S:" , implementation-defined ;

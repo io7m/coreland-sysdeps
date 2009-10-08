@@ -1,1 +1,1 @@
-<glsoload-libs-S-spec> ::= "glsoload-libs-S:" <implementation-defined>
+glsoload-libs-S-spec = "glsoload-libs-S:" , implementation-defined ;

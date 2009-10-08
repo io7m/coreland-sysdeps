@@ -1,1 +1,1 @@
-<lua-ada-load-libs-S-spec> ::= "lua-ada-load-libs-S:" <implementation-defined>
+lua-ada-load-libs-S-spec = "lua-ada-load-libs-S:" , implementation-defined ;

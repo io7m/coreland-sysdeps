@@ -1,2 +1,2 @@
-<sd-mmap>      ::= "mmap" | "none"
-<sd-mmap-spec> ::= "sd-mmap:" <sd-mmap>
+sd-mmap      = "mmap" | "none" ;
+sd-mmap-spec = "sd-mmap:" , sd-mmap ;

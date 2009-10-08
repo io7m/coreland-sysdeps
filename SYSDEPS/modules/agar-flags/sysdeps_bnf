@@ -1,1 +1,1 @@
-<agar-flags-spec> ::= "agar-flags:" <implementation-defined>
+agar-flags-spec = "agar-flags:" , implementation-defined ;

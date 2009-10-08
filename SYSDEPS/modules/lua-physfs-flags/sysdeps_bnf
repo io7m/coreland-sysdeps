@@ -1,1 +1,1 @@
-<lua-physfs-flags-spec> ::= "lua-physfs-flags:" <implementation-defined>
+lua-physfs-flags-spec = "lua-physfs-flags:" , implementation-defined ;

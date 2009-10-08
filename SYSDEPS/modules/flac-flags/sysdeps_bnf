@@ -1,1 +1,1 @@
-<flac-flags-spec> ::= "flac-flags:" <implementation-defined>
+flac-flags-spec = "flac-flags:" , implementation-defined ;

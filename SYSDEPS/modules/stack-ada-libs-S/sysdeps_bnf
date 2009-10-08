@@ -1,1 +1,1 @@
-<stack-ada-libs-S-spec> ::= "stack-ada-libs-S:" <implementation-defined>
+stack-ada-libs-S-spec = "stack-ada-libs-S:" , implementation-defined ;

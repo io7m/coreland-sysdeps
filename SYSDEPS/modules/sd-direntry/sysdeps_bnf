@@ -1,2 +1,2 @@
-<direntry>      ::= "struct dirent" | "struct direct"
-<direntry-spec> ::= "sd-direntry:" <direntry>
+direntry      = "struct dirent" | "struct direct" ;
+direntry-spec = "sd-direntry:" , direntry ;

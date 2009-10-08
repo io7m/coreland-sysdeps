@@ -1,1 +1,1 @@
-<sndfile-flags-spec> ::= "sndfile-flags:" <implementation-defined>
+sndfile-flags-spec = "sndfile-flags:" , implementation-defined ;

@@ -1,1 +1,1 @@
-<plexlog-libs-S-spec> ::= "plexlog-libs-S:" <implementation-defined>
+plexlog-libs-S-spec = "plexlog-libs-S:" , implementation-defined ;

@@ -1,1 +1,1 @@
-<mmx-spec> ::= "sd-mmx:" <implementation-defined>
+mmx-spec = "sd-mmx:" , implementation-defined ;

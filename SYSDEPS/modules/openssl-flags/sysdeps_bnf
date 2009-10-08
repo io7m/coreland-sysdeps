@@ -1,1 +1,1 @@
-<openssl-flags-spec> ::= "openssl-flags:" <implementation-defined>
+openssl-flags-spec = "openssl-flags:" , implementation-defined ;

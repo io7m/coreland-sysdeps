@@ -1,1 +1,1 @@
-<plexlog-ada-libs-S-spec> ::= "plexlog-ada-libs-S:" <implementation-defined>
+plexlog-ada-libs-S-spec = "plexlog-ada-libs-S:" , implementation-defined ;

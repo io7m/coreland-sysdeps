@@ -1,1 +1,1 @@
-<fltk2-libs-S-spec> ::= "fltk2-libs-S:" <implementation-defined>
+fltk2-libs-S-spec = "fltk2-libs-S:" , implementation-defined ;

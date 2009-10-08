@@ -1,1 +1,1 @@
-<jack-flags-spec> ::= "jack-flags:" <implementation-defined>
+jack-flags-spec = "jack-flags:" , implementation-defined ;

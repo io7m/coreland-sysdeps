@@ -1,1 +1,1 @@
-<agar-core-libs-spec> ::= "agar-core-libs:" <implementation-defined>
+agar-core-libs-spec = "agar-core-libs:" , implementation-defined ;

@@ -1,1 +1,1 @@
-<io_poll-libs-S-spec> ::= "io_poll-libs-S:" <implementation-defined>
+io_poll-libs-S-spec = "io_poll-libs-S:" , implementation-defined ;

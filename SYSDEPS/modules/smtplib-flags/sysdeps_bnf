@@ -1,1 +1,1 @@
-<smtplib-flags-spec> ::= "smtplib-flags:" <implementation-defined>
+smtplib-flags-spec = "smtplib-flags:" , implementation-defined ;

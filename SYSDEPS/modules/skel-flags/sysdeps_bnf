@@ -1,1 +1,1 @@
-<skel-flags-spec> ::= "skel-flags:" <implementation-defined>
+skel-flags-spec = "skel-flags:" , implementation-defined ;

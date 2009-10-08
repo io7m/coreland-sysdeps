@@ -1,1 +1,1 @@
-<sdl-gfx-flags-spec> ::= "sdl-gfx-flags:" <implementation-defined>
+sdl-gfx-flags-spec = "sdl-gfx-flags:" , implementation-defined ;

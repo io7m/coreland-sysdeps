@@ -1,1 +1,1 @@
-<enet-libs-S-spec> ::= "enet-libs-S:" <implementation-defined>
+enet-libs-S-spec = "enet-libs-S:" , implementation-defined ;

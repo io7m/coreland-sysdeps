@@ -1,2 +1,2 @@
-<io-notice>      ::= "select" | "kqueue" | "epoll" | "poll"
-<io-notice-spec> ::= "sd-io-notice:" { <io-notice> }
+io-notice      = "select" | "kqueue" | "epoll" | "poll" ;
+io-notice-spec = "sd-io-notice:" , { io-notice } ;

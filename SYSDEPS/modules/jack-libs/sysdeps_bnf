@@ -1,1 +1,1 @@
-<jack-libs-spec> ::= "jack-libs:" <implementation-defined>
+jack-libs-spec = "jack-libs:" , implementation-defined ;

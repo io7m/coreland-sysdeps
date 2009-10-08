@@ -1,1 +1,1 @@
-<fltk11-flags-spec> ::= "fltk11-flags:" <implementation-defined>
+fltk11-flags-spec = "fltk11-flags:" , implementation-defined ;

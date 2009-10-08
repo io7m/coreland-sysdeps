@@ -1,1 +1,1 @@
-<vector-libs-S-spec> ::= "vector-libs-S:" <implementation-defined>
+vector-libs-S-spec = "vector-libs-S:" , implementation-defined ;

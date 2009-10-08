@@ -1,1 +1,1 @@
-<sdl-mixer-flags-spec> ::= "sdl-mixer-flags:" <implementation-defined>
+sdl-mixer-flags-spec = "sdl-mixer-flags:" , implementation-defined ;

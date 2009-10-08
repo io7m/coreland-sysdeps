@@ -1,1 +1,1 @@
-<pdcgi-flags-spec> ::= "pdcgi-flags:" <implementation-defined>
+pdcgi-flags-spec = "pdcgi-flags:" , implementation-defined ;

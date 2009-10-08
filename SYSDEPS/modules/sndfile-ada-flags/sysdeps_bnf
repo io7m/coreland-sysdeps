@@ -1,1 +1,1 @@
-<sndfile-ada-flags-spec> ::= "sndfile-ada-flags:" <implementation-defined>
+sndfile-ada-flags-spec = "sndfile-ada-flags:" , implementation-defined ;

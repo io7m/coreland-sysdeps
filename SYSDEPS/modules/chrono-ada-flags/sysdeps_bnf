@@ -1,1 +1,1 @@
-<chrono-ada-flags-spec> ::= "chrono-ada-flags:" <implementation-defined>
+chrono-ada-flags-spec = "chrono-ada-flags:" , implementation-defined ;

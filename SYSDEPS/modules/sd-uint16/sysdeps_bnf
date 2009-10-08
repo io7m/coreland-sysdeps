@@ -1,2 +1,2 @@
-<uint16>      ::= "unsigned char" | "unsigned short" | "unsigned int" | "unsigned long" | "unsigned long long" | "uint16_t" | "none"
-<uint16-spec> ::= "sd-uint16:" <uint16>
+uint16      = "unsigned char" | "unsigned short" | "unsigned int" | "unsigned long" | "unsigned long long" | "uint16_t" | "none" ;
+uint16-spec = "sd-uint16:" , uint16 ;

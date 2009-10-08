@@ -1,1 +1,1 @@
-<sdl-ttf-libs-spec> ::= "sdl-ttf-libs:" <implementation-defined>
+sdl-ttf-libs-spec = "sdl-ttf-libs:" , implementation-defined ;

@@ -1,4 +1,4 @@
-<rt-func> ::=
+rt-func 
   "aio_cancel" | "aio_error" | "aio_fsync" | "aio_read" | "aio_return" |
   "aio_suspend" | "aio_write" | "clock_getcpuclockid" | "clock_getres" |
   "clock_gettime" | "clock_nanosleep" | "clock_settime" | "fchmod" |
@@ -8,8 +8,8 @@
   "mq_timedreceive" | "mq_timedsend" | "mq_unlink" | "msync" | "munmap" |
   "nanosleep" | "posix_fadvise" | "posix_fallocate" | "posix_madvise" |
   "posix_mem_offset" | "posix_memalign" | "posix_spawn" |
-  "posix_spawn_file_actions_addclose" | "posix_spawn_file_actions_adddup2"
-  | "posix_spawn_file_actions_addopen" |
+  "posix_spawn_file_actions_addclose" | "posix_spawn_file_actions_adddup2"|
+  "posix_spawn_file_actions_addopen" |
   "posix_spawn_file_actions_destroy" | "posix_spawn_file_actions_init" |
   "posix_spawnattr_destroy" | "posix_spawnattr_getflags" |
   "posix_spawnattr_getpgroup" | "posix_spawnattr_getschedparam" |
@@ -22,10 +22,10 @@
   "sched_get_priority_max" | "sched_getparam" | "sched_getscheduler" |
   "sched_rr_get_interval" | "sched_setparam" | "sched_setscheduler" |
   "sem_close" | "sem_destroy" | "sem_getvalue" | "sem_init" | "sem_open" |
-  "sem_post" | "sem_timedwait" | "sem_trywait" | "sem_unlink" | "sem_wait"
-  | "shm_open" | "shm_unlink" | "sigqueue" | "sigtimedwait" |
-  "sigwaitinfo" | "timer_create" | "timer_delete" | "timer_getoverrun"
+  "sem_post" | "sem_timedwait" | "sem_trywait" | "sem_unlink" | "sem_wait"|
+  "shm_open" | "shm_unlink" | "sigqueue" | "sigtimedwait" |
+  "sigwaitinfo" | "timer_create" | "timer_delete" | "timer_getoverrun"|
 
-<sd-posix_rt-funcs-spec> ::= "sd-posix_rt:" { <rt-func> }
-<sd-posix_rt-flags>      ::= "sd-posix_rt-flags:" <implementation-defined>
-<sd-posix_rt-libs>       ::= "sd-posix_rt-libs:" <implementation-defined>
+sd-posix_rt-funcs-spec = "sd-posix_rt:" , { rt-func } ;
+sd-posix_rt-flags      = "sd-posix_rt-flags:" , implementation-defined ;
+sd-posix_rt-libs       = "sd-posix_rt-libs:" , implementation-defined ;

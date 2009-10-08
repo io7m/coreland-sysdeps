@@ -1,1 +1,1 @@
-<fastcgi-libs-spec> ::= "fastcgi-libs:" <implementation-defined>
+fastcgi-libs-spec = "fastcgi-libs:" , implementation-defined ;
