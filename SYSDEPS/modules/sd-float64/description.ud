@@ -3,7 +3,9 @@
   in size, the module writes a typedef " (item c_type "sd_float64") " which
   is equivalent to the given type and defines "
   (item constant "SD_FLOAT64_SUPPORTED") ". If none of the built-in types are
-  64 bits in size, the module does nothing.")
+  64 bits in size, the module reads the configuration file for the name of
+  an appropriate C type. The configuration file will also be read in the case
+  of cross compilation.")
 
 (para "Example output:")
 
