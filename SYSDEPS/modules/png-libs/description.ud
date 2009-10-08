@@ -1,2 +1,2 @@
-(para "This module determines the linker flags required to statically link against "
+(para "This module determines the linker flags required to link against "
   (link-ext "http://www.libpng.org" "PNG"))
