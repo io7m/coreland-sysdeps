@@ -2,7 +2,7 @@ http://predef.sourceforge.net/index.php
 
 ------------------------------------------------------------------------
 
-conf-cctype incompatible with CPJ! FIX!
+sysdeps-run target in sd-genmk for cross compilation convenience.
 
 ------------------------------------------------------------------------
 
