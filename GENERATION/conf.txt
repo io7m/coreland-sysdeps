@@ -1,0 +1,18 @@
+conf-adabind   | optional | string      | gnatbind                         | Ada binder
+conf-adacomp   | optional | string      | gcc                              | Ada compiler
+conf-adalink   | optional | string      | gnatlink                         | Ada linker
+conf-cc        | required | string      | cc                               | C compiler used to translate source to object files
+conf-cflags    | optional | string      | -W -Wall -O2 -g -Werror -std=c99 | C compiler flags
+conf-ld        | required | string      | cc                               | C linker used to link object files into executables
+conf-ldflags   | optional | string      | -m64                             | C linker flags
+conf-prefix    | optional | string      | /u/extra                         | Extra paths to be searched
+conf-x-arch    | optional | arch        | SD_SYSINFO_ARCH_PPC64            | Architecture specification for target platform of cross compilation
+conf-x-cc      | optional | string      | mingw32-gcc                      | C cross compiler (presence of file enables cross compilation)
+conf-x-cctype  | optional | cc-type     | SD_SYSINFO_CCTYPE_PORTLAND       | C cross compiler compiler type
+conf-x-ccver   | optional | version     | 13.0.2                           | C cross compiler compiler version
+conf-x-cflags  | optional | string      | -W -Wall -O2 -g -Werror -std=c99 | C cross compiler flags
+conf-x-ld      | optional | string      | mingw32-gcc                      | C cross linker (required if cross compiling)
+conf-x-ldflags | optional | string      |                                  | C cross linker flags
+conf-x-prefix  | optional | string-list | /usr/x86-minix-3.1.4             | Paths to be searched during cross compilation
+conf-x-systype | optional | string      | SD_SYSINFO_OS_OPENBSD            | OS specification for target platform of cross compilation
+conf-x-sysver  | optional | string      | 7.2-release-p3                   | OS version specification for target platform of cross compilation
