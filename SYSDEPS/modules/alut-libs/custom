@@ -16,8 +16,8 @@ case ${SYSDEP_OS} in
     path="/System/Library/Frameworks/ALUT.framework ${path}"
     if [ -d "/System/Library/Frameworks/ALUT.framework" ]
     then
-      echo ${args}
-      exit 0
+      ${SYSDEP_UTIL_ECHO} ${args}
+      ${SYSDEP_UTIL_EXIT} 0
     fi
     ;;
   *)
@@ -29,16 +29,16 @@ if [ "x${FLAGS}" != "x" ]
 then
   case ${SYSDEP_OS} in
     SYSDEP_OS_DARWIN)
-      echo ${args}
-      exit 0
+      ${SYSDEP_UTIL_ECHO} ${args}
+      ${SYSDEP_UTIL_EXIT} 0
       ;;
     *)
-      echo ${FLAGS} ${args}
-      exit 0
+      ${SYSDEP_UTIL_ECHO} ${FLAGS} ${args}
+      ${SYSDEP_UTIL_EXIT} 0
       ;;
     esac
 else
   SYSDEP_ERROR "manual search failed"
 fi
 
-exit 0
+${SYSDEP_UTIL_EXIT} 0

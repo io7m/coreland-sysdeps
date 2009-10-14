@@ -4,9 +4,9 @@ exec 1> "$1"
 
 case "$SYSDEP_OS" in
   SYSDEP_OS_DARWIN)
-    echo "-framework SDL_mixer"
+    ${SYSDEP_UTIL_ECHO} "-framework SDL_mixer"
     ;;
   *)
-    echo "-lSDL_mixer"
+    ${SYSDEP_UTIL_ECHO} "-lSDL_mixer"
     ;;
 esac

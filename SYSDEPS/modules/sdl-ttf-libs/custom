@@ -4,9 +4,9 @@ exec 1> "$1"
 
 case "$SYSDEP_OS" in
   SYSDEP_OS_DARWIN)
-    echo "-framework SDL_ttf"
+    ${SYSDEP_UTIL_ECHO} "-framework SDL_ttf"
     ;;
   *)
-    echo "-lSDL_ttf"
+    ${SYSDEP_UTIL_ECHO} "-lSDL_ttf"
     ;;
 esac

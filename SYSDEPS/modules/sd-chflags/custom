@@ -7,7 +7,7 @@ sysdep="$2"
 
 cleanup()
 {
-  rm -f trychflags trychflags.o
+  ${SYSDEP_UTIL_RM} -f trychflags trychflags.o
 }
 
 fatal()

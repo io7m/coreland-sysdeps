@@ -58,7 +58,7 @@ EOF
     rt_func=`${SYSDEP_UTIL_BASENAME} ${rt_func_path}` || 
       fatal "could not retrieve function name"
 
-    FUNC=`${SYSDEP_UTIL_ECHO} ${rt_func} | tr [a-z] [A-Z]`
+    FUNC=`${SYSDEP_UTIL_ECHO} ${rt_func} | ${SYSDEP_UTIL_TR} [a-z] [A-Z]`
 
     ${SYSDEP_CC} ${SYSDEP_CFLAGS} ${PRT_FLAGS} \
       -c -o tmp/${rt_func}.o functions/${rt_func}/${rt_func}.c 1>/dev/null 2>&1
@@ -80,7 +80,7 @@ EOF
 EOF
 
   ${SYSDEP_UTIL_ECHO} "sd-posix_rt-funcs: ${funcs}" >> "${sysd_out}"
-  exit 0
+  ${SYSDEP_UTIL_EXIT} 0
 }
 
 #

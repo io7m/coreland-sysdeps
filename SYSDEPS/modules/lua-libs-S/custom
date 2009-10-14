@@ -12,9 +12,9 @@ file="liblua.a"
 FLAGS=`${SYSDEP_TRY_MANUAL} "${file}" "${path}" "-L" 2>&-`
 if [ "x${FLAGS}" != "x" ]
 then
-  echo "${FLAGS} -llua " >> "${temp_f}"
-  echo "lua-libs-S: ${FLAGS} -llua " >> "${temp_sys}"
-  exit 0
+  ${SYSDEP_UTIL_ECHO} "${FLAGS} -llua " >> "${temp_f}"
+  ${SYSDEP_UTIL_ECHO} "lua-libs-S: ${FLAGS} -llua " >> "${temp_sys}"
+  ${SYSDEP_UTIL_EXIT} 0
 fi
 
 #
@@ -25,14 +25,14 @@ case ${SYSDEP_OS} in
   SYSDEP_OS_FREEBSD)
     for basedir in ${path}
     do
-      lua_dirs=`ls ${basedir} 2>/dev/null | grep 'lua[0-9]*$' 2>/dev/null`
+      lua_dirs=`ls ${basedir} 2>/dev/null | ${SYSDEP_UTIL_GREP} 'lua[0-9]*$' 2>/dev/null`
       for dir in ${lua_dirs}
       do
         if [ -f "${basedir}/${dir}/${file}" ]
         then
-          echo "${basedir}/${dir}/${file} " >> "${temp_f}"
-          echo "lua-libs-S: ${basedir}/${dir}/${file} " >> "${temp_sys}"
-          exit 0
+          ${SYSDEP_UTIL_ECHO} "${basedir}/${dir}/${file} " >> "${temp_f}"
+          ${SYSDEP_UTIL_ECHO} "lua-libs-S: ${basedir}/${dir}/${file} " >> "${temp_sys}"
+          ${SYSDEP_UTIL_EXIT} 0
         fi
       done
     done
@@ -40,14 +40,14 @@ case ${SYSDEP_OS} in
   SYSDEP_OS_LINUX)
     for basedir in ${path}
     do
-      lua_libs=`ls ${basedir} 2>/dev/null | grep 'liblua[0-9]*\.[0-9]*\.a' 2>/dev/null`
+      lua_libs=`ls ${basedir} 2>/dev/null | ${SYSDEP_UTIL_GREP} 'liblua[0-9]*\.[0-9]*\.a' 2>/dev/null`
       for lib in ${lua_libs}
       do
         if [ -f "${basedir}/${lib}" ]
         then
-          echo "${basedir}/${lib} -ldl " >> "${temp_f}"
-          echo "lua-libs-S: ${basedir}/${lib} -ldl " >> "${temp_sys}"
-          exit 0
+          ${SYSDEP_UTIL_ECHO} "${basedir}/${lib} -ldl " >> "${temp_f}"
+          ${SYSDEP_UTIL_ECHO} "lua-libs-S: ${basedir}/${lib} -ldl " >> "${temp_sys}"
+          ${SYSDEP_UTIL_EXIT} 0
         fi
       done
     done
@@ -55,4 +55,4 @@ case ${SYSDEP_OS} in
 esac
 
 SYSDEP_ERROR "manual/custom search failed"
-exit 0 
+${SYSDEP_UTIL_EXIT} 0 

@@ -6,23 +6,23 @@ sdout="$3"
 
 cleanup()
 {
-  rm -f trycarbon trycarbon.o
-  exit 0
+  ${SYSDEP_UTIL_RM} -f trycarbon trycarbon.o
+  ${SYSDEP_UTIL_EXIT} 0
 }
 
 ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trycarbon.o trycarbon.c 1>/dev/null 2>&1
 ${SYSDEP_LD} -o trycarbon trycarbon.o -framework Carbon ${SYSDEP_LDFLAGS} 1>/dev/null 2>&1
 if [ $? -eq 0 ]
 then
-  echo '-framework Carbon' >> "${lib_out}"
-  echo '-DHAVE_CARBON' >> "${flg_out}"
-  echo 'carbon-libs: -framework Carbon' >> "${sdout}"
-  echo 'carbon: yes' >> "${sdout}"
+  ${SYSDEP_UTIL_ECHO} '-framework Carbon' >> "${lib_out}"
+  ${SYSDEP_UTIL_ECHO} '-DHAVE_CARBON' >> "${flg_out}"
+  ${SYSDEP_UTIL_ECHO} 'carbon-libs: -framework Carbon' >> "${sdout}"
+  ${SYSDEP_UTIL_ECHO} 'carbon: yes' >> "${sdout}"
 else
-  echo >> "${lib_out}"
-  echo >> "${flg_out}"
-  echo 'carbon-libs:' >> "${sdout}"
-  echo 'carbon: no' >> "${sdout}"
+  ${SYSDEP_UTIL_ECHO} >> "${lib_out}"
+  ${SYSDEP_UTIL_ECHO} >> "${flg_out}"
+  ${SYSDEP_UTIL_ECHO} 'carbon-libs:' >> "${sdout}"
+  ${SYSDEP_UTIL_ECHO} 'carbon: no' >> "${sdout}"
 fi
 
 cleanup
