@@ -14,5 +14,5 @@ conf-x-cflags  | optional | string      | -W -Wall -O2 -g -Werror -std=c99 | C c
 conf-x-ld      | optional | string      | mingw32-gcc                      | C cross linker (required if cross compiling)
 conf-x-ldflags | optional | string      |                                  | C cross linker flags
 conf-x-prefix  | optional | string-list | /usr/x86-minix-3.1.4             | Paths to be searched during cross compilation
-conf-x-systype | optional | string      | SD_SYSINFO_OS_OPENBSD            | OS specification for target platform of cross compilation
+conf-x-systype | optional | os-type     | SD_SYSINFO_OS_OPENBSD            | OS specification for target platform of cross compilation
 conf-x-sysver  | optional | string      | 7.2-release-p3                   | OS version specification for target platform of cross compilation
