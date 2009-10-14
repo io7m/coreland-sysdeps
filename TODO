@@ -6,6 +6,30 @@ sysdeps-run target in sd-genmk for cross compilation convenience.
 
 ------------------------------------------------------------------------
 
+sysdeps-genchk for generating test programs:
+
+  check.dat
+    tiff-flags : required
+    png-flags  : required
+    gif-flags  : optional
+
+  $ sysdeps-genchk check.dat
+  #include <stdio.h>
+  #include <stdlib.h>
+  
+  int
+  main (void)
+  {
+    int return_code = EXIT_SUCCESS;
+  #ifndef SD_HAVE_TIFF
+    printf ("generated message about libtiff with URL, etc");
+    return_code = EXIT_FAILURE;
+  #endif
+    return return_code;
+  }
+
+------------------------------------------------------------------------
+
 Not all modules have been converted to using SYSDEP_UTIL_*
 
 ------------------------------------------------------------------------
