@@ -43,6 +43,10 @@ case "$sys" in
     model=""
     res=1
     ;;
+  SD_SYSINFO_OS_MS_WINDOWS)
+    model=""
+    res=1
+    ;;
   *)
     model_raw=`sysctl hw.model`
     res=$?
