@@ -31,23 +31,13 @@ try_mmap()
 {
   ${SYSDEP_CC} ${SYSDEP_CFLAGS} -c -o trymmap1.o trymmap1.c  1>/dev/null 2>&1
   ${SYSDEP_LD} -o trymmap1 trymmap1.o ${SYSDEP_LDFLAGS} 1>/dev/null 2>&1
-  if [ $? -eq 0 ]
-  then
-    return 1
-  else
-    return 0
-  fi
+  return $?
 }
 
 try_run_mmap()
 {
   ./trymmap1
-  if [ $? -eq 0 ]
-  then
-    return 1
-  else
-    return 0
-  fi
+  return $?
 }
 
 header_open()
