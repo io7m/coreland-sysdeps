@@ -56,7 +56,8 @@ fi
 VEC_FLAGS=`eval vector-conf cflags incdir compile 2>/dev/null`
 if [ $? -eq 0 ]
 then
-  ${SYSDEP_UTIL_ECHO} "${VEC_FLAGS} -D`${SYSDEP_LINE} 1 < defines`" >> "${f_out}"
+  DEFINE_LINE=`${SYSDEP_LINE} 1 < defines | ${SYSDEP_UTIL_AWK} -F: '{print $1}'`
+  ${SYSDEP_UTIL_ECHO} "${VEC_FLAGS} -D${DEFINE_LINE}" >> "${f_out}"
 else
   ${SYSDEP_UTIL_TOUCH} "${f_out}"
 fi
