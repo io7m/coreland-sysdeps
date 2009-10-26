@@ -235,14 +235,14 @@ then
   export SYSDEP_OS
 
   # Find system version.
-  SYSDEP_OSVERSION="`SDM_lock_and_exec         \
+  SYSDEP_OS_VERSION="`SDM_lock_and_exec        \
     ${SYSDEP_BASE_DIRECTORY}/sd-osversion.lock \
     ${SYSDEP_BASE_DIRECTORY}/sd-osversion ${SYSDEP_OS}`" ||
       SYSDEP_ERROR "sd-osversion failed - operating system version will be marked '0.0.0'"
-  export SYSDEP_OSVERSION
+  export SYSDEP_OS_VERSION
 
   # Find compiler version.
-  SYSDEP_CC_VERSION="`SDM_lock_and_exec         \
+  SYSDEP_CC_VERSION="`SDM_lock_and_exec        \
     ${SYSDEP_BASE_DIRECTORY}/sd-ccversion.lock \
     ${SYSDEP_BASE_DIRECTORY}/sd-ccversion`" ||
       SYSDEP_ERROR "sd-ccversion failed - compiler version will be marked '0.0.0'"
@@ -360,8 +360,8 @@ else
   export SYSDEP_OS
 
   # Find system version.
-  SYSDEP_OSVERSION=`${SYSDEP_FILE} get "conf-x-sysver" "0.0"`
-  export SYSDEP_OSVERSION
+  SYSDEP_OS_VERSION=`${SYSDEP_FILE} get "conf-x-sysver" "0.0"`
+  export SYSDEP_OS_VERSION
 
   # Find system architecture.
   SYSDEP_ARCH="`${SYSDEP_FILE} get "conf-x-arch" "SD_SYSINFO_ARCH_UNKNOWN"`"

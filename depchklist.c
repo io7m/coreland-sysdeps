@@ -1492,7 +1492,7 @@ main (void)
 #else
   printf("system does not have sd_sysinfo_os\n");
 #endif
-#ifdef SD_SYSINFO_OSVERSION
+#ifdef SD_SYSINFO_OS_VERSION
   printf("system has sd_sysinfo_osversion\n");
 #else
   printf("system does not have sd_sysinfo_osversion\n");

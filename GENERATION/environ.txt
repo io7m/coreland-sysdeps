@@ -30,7 +30,7 @@ SYSDEP_LINE                        | string       | /u/coreland/symbex/SYSDEPS/s
 SYSDEP_MODULE                      | string       | sd-math                                        | Name of current module
 SYSDEP_MODULE_PATH                 | string       | modules/sd-math                                | Path to current module from base directory
 SYSDEP_OS                          | os-type      | SD_SYSINFO_OS_VMS                              | Host operating system
-SYSDEP_OSVERSION                   | string       | 7.2-release-p1                                 | Host operating system version
+SYSDEP_OS_VERSION                  | string       | 7.2-release-p1                                 | Host operating system version
 SYSDEP_OUTPUT_DIRECTORY            | string       | /u/coreland/symbex                             | Path to directory where output files shall be written
 SYSDEP_STDINC                      | string-list  | /usr/include /usr/local/include                | Standard C header include paths
 SYSDEP_STDLIB                      | string-list  | /usr/lib /usr/local/lib                        | Standard C library include paths
