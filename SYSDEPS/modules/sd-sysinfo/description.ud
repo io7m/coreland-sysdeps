@@ -7,7 +7,7 @@
 "#define SD_SYSINFO_OS SD_SYSINFO_OS_FREEBSD
 #define SD_SYSINFO_OSVERSION \"7.2-release-p2\"
 #define SD_SYSINFO_ARCH SD_SYSINFO_ARCH_X86_64
-#define SD_SYSINFO_CCTYPE SD_SYSINFO_CCTYPE_GCC
+#define SD_SYSINFO_CC_TYPE SD_SYSINFO_CC_TYPE_GCC
 #define SD_SYSINFO_CFLAGS \"-O2 -g -W -Werror -Wall -std=c99 -pedantic-errors -Wno-unused-parameter\"
 #define SD_SYSINFO_LDFLAGS \"\"
 #define SD_SYSINFO_CCVERSION \"4.3.4\"

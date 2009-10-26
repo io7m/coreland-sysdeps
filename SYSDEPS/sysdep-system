@@ -209,11 +209,11 @@ then
   export SYSDEP_ARCH
 
   # Find compiler type.
-  SYSDEP_CCTYPE="`SDM_lock_and_exec         \
+  SYSDEP_CC_TYPE="`SDM_lock_and_exec        \
     ${SYSDEP_BASE_DIRECTORY}/sd-cctype.lock \
     ${SYSDEP_BASE_DIRECTORY}/sd-cctype`" ||
       SYSDEP_ERROR "sd-cctype failed - compiler type will be marked 'unknown'"
-  export SYSDEP_CCTYPE
+  export SYSDEP_CC_TYPE
 
   # Create header for sd-cpuidx86
   SDM_lock_and_exec                                 \
@@ -368,10 +368,10 @@ else
   export SYSDEP_ARCH
 
   # Find compiler type (adjusting value if necessary).
-  SYSDEP_CCTYPE="SD_SYSINFO_CCTYPE_`${SYSDEP_FILE} get "conf-x-cctype" "SD_SYSINFO_CCTYPE_UNKNOWN"`"
-  SYSDEP_CCTYPE=`SDM_adjust_prefix "SD_SYSINFO_CCTYPE_" "${SYSDEP_CCTYPE}"` ||
-    SYSDEP_FATAL "could not adjust string prefix for SYSDEP_CCTYPE"
-  export SYSDEP_CCTYPE
+  SYSDEP_CC_TYPE="SD_SYSINFO_CC_TYPE_`${SYSDEP_FILE} get "conf-x-cctype" "SD_SYSINFO_CC_TYPE_UNKNOWN"`"
+  SYSDEP_CC_TYPE=`SDM_adjust_prefix "SD_SYSINFO_CC_TYPE_" "${SYSDEP_CC_TYPE}"` ||
+    SYSDEP_FATAL "could not adjust string prefix for SYSDEP_CC_TYPE"
+  export SYSDEP_CC_TYPE
 
   # Find compiler version.
   SYSDEP_CCVERSION=`${SYSDEP_FILE} get "conf-x-ccver" "0.0.0"`

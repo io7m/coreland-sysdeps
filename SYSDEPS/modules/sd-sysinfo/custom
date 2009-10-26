@@ -30,7 +30,7 @@ ${SYSDEP_UTIL_ECHO} >> "${fout}" ||
 define SD_SYSINFO_OS "${SYSDEP_OS}"
 define SD_SYSINFO_OSVERSION \""${SYSDEP_OSVERSION}"\"
 define SD_SYSINFO_ARCH "${SYSDEP_ARCH}"
-define SD_SYSINFO_CCTYPE "${SYSDEP_CCTYPE}"
+define SD_SYSINFO_CC_TYPE "${SYSDEP_CC_TYPE}"
 define SD_SYSINFO_CFLAGS \""${SYSDEP_CFLAGS}"\"
 define SD_SYSINFO_LDFLAGS \""${SYSDEP_LDFLAGS}"\"
 define SD_SYSINFO_CCVERSION \""${SYSDEP_CCVERSION}"\"
@@ -106,8 +106,8 @@ os=`${SYSDEP_UTIL_GREP} 'SD_SYSINFO_OS ' "${fout}" \
 ver=`${SYSDEP_UTIL_GREP} 'SD_SYSINFO_OSVERSION ' "${fout}" \
  | ${SYSDEP_UTIL_SED} -e 's/SD_SYSINFO_OSVERSION_//g' | ${SYSDEP_UTIL_AWK} '{print $NF}'` ||
   SYSDEP_FATAL "could not extract OS version"
-cc=`${SYSDEP_UTIL_GREP} 'SD_SYSINFO_CCTYPE ' "${fout}" \
- | ${SYSDEP_UTIL_SED} -e 's/SD_SYSINFO_CCTYPE_//g' | ${SYSDEP_UTIL_AWK} '{print $NF}'` ||
+cc=`${SYSDEP_UTIL_GREP} 'SD_SYSINFO_CC_TYPE ' "${fout}" \
+ | ${SYSDEP_UTIL_SED} -e 's/SD_SYSINFO_CC_TYPE_//g' | ${SYSDEP_UTIL_AWK} '{print $NF}'` ||
   SYSDEP_FATAL "could not extract C compiler type"
 ccver=`${SYSDEP_UTIL_GREP} 'SD_SYSINFO_CCVERSION ' "${fout}" \
  | ${SYSDEP_UTIL_SED} -e 's/SD_SYSINFO_CCVERSION//g' | ${SYSDEP_UTIL_AWK} '{print $NF}'` ||

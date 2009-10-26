@@ -1502,7 +1502,7 @@ main (void)
 #else
   printf("system does not have sd_sysinfo_arch\n");
 #endif
-#ifdef SD_SYSINFO_CCTYPE
+#ifdef SD_SYSINFO_CC_TYPE
   printf("system has sd_sysinfo_cctype\n");
 #else
   printf("system does not have sd_sysinfo_cctype\n");

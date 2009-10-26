@@ -8,7 +8,7 @@ conf-ldflags   | optional | string      | -m64                             | C l
 conf-prefix    | optional | string      | /u/extra                         | Extra paths to be searched
 conf-x-arch    | optional | arch        | SD_SYSINFO_ARCH_PPC64            | Architecture specification for target platform of cross compilation
 conf-x-cc      | optional | string      | mingw32-gcc                      | C cross compiler (presence of file enables cross compilation)
-conf-x-cctype  | optional | cc-type     | SD_SYSINFO_CCTYPE_PORTLAND       | C cross compiler compiler type
+conf-x-cctype  | optional | cc-type     | SD_SYSINFO_CC_TYPE_PORTLAND      | C cross compiler compiler type
 conf-x-ccver   | optional | version     | 13.0.2                           | C cross compiler compiler version
 conf-x-cflags  | optional | string      | -W -Wall -O2 -g -Werror -std=c99 | C cross compiler flags
 conf-x-ld      | optional | string      | mingw32-gcc                      | C cross linker (required if cross compiling)

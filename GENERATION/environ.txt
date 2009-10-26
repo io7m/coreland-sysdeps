@@ -9,7 +9,7 @@ SYSDEP_ADA_VERSION                 | version      | 4.4.0                       
 SYSDEP_ARCH                        | arch         | SD_SYSINFO_ARCH_SPARC                          | Host system architecture
 SYSDEP_BASE_DIRECTORY              | string       | /u/coreland/symbex/SYSDEPS                     | Path to SYSDEPS directory
 SYSDEP_CC                          | string       | gcc                                            | C compiler
-SYSDEP_CCTYPE                      | cc-type      | SD_SYSINFO_CCTYPE_SUN_C                        | C compiler type
+SYSDEP_CC_TYPE                     | cc-type      | SD_SYSINFO_CC_TYPE_SUN_C                       | C compiler type
 SYSDEP_CCVERSION                   | version      | 4.3.0                                          | C compiler version
 SYSDEP_CFLAGS                      | string       | -g -O2 -W -Wall                                | C compiler flags
 SYSDEP_CPU_CACHE_LINE_SIZE         | number       | 64                                             | Host system CPU cache line size in bytes

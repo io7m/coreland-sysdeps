@@ -74,12 +74,12 @@ try_realtime()
   return 1
 }
 
-case ${SYSDEP_CCTYPE} in
-  SYSDEP_CCTYPE_SUN_C)
+case ${SYSDEP_CC_TYPE} in
+  SYSDEP_CC_TYPE_SUN_C)
     PTHREAD_FLAGS="-mt ${PTHREAD_FLAGS}"
     PTHREAD_LIBS="${PTHREAD_LIBS} -lposix4"
     ;;
-  SYSDEP_CCTYPE_SUN_CXX)
+  SYSDEP_CC_TYPE_SUN_CXX)
     PTHREAD_FLAGS="-mt ${PTHREAD_FLAGS}"
     PTHREAD_LIBS="${PTHREAD_LIBS} -lposix4"
     ;;

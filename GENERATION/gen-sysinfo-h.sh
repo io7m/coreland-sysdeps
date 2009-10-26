@@ -4,7 +4,7 @@
 echo
 ./gen_h.sh arch.txt    SD_SYSINFO_ARCH
 echo
-./gen_h.sh cctype.txt  SD_SYSINFO_CCTYPE
+./gen_h.sh cctype.txt  SD_SYSINFO_CC_TYPE
 echo
 ./gen_h.sh adatype.txt SD_SYSINFO_ADA_TYPE
 echo

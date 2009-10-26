@@ -28,7 +28,7 @@ OUTPUT_FILE_TMP="${OUTPUT_FILE}.tmp"
 shift
 
 if [ -z "${SYSDEP_ARCH}" ]; then fail "SYSDEP_ARCH not defined"; fi
-if [ -z "${SYSDEP_CCTYPE}" ]; then fail "SYSDEP_CCTYPE not defined"; fi
+if [ -z "${SYSDEP_CC_TYPE}" ]; then fail "SYSDEP_CC_TYPE not defined"; fi
 
 (
 ${SYSDEP_UTIL_CAT} > ${OUTPUT_FILE_TMP} <<EOF
@@ -38,7 +38,7 @@ ${SYSDEP_UTIL_CAT} > ${OUTPUT_FILE_TMP} <<EOF
 #include "sd-sysinfo.h"
 
 #define SD_CPUIDX86_ARCH   ${SYSDEP_ARCH}
-#define SD_CPUIDX86_CCTYPE ${SYSDEP_CCTYPE}
+#define SD_CPUIDX86_CC_TYPE ${SYSDEP_CC_TYPE}
 
 #endif
 EOF

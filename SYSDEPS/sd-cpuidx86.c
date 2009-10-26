@@ -242,18 +242,18 @@ cpu_check_features (const char *name)
  */
 
 #if SD_CPUIDX86_ARCH == SD_SYSINFO_ARCH_X86_64
-#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_GCC || SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_MINGW32
+#if SD_CPUIDX86_CC_TYPE == SD_SYSINFO_CC_TYPE_GCC || SD_CPUIDX86_CC_TYPE == SD_SYSINFO_CC_TYPE_MINGW32
 static int
 cpuid_check_support_x86_64_gcc (void)
 {
   /* Assume all 64 bit CPUs support CPUID. */
   return 1;
 }
-#endif /* SD_SYSINFO_CCTYPE_GCC */
+#endif /* SD_SYSINFO_CC_TYPE_GCC */
 #endif /* SD_SYSINFO_ARCH_X86_64 */
 
 #if SD_CPUIDX86_ARCH == SD_SYSINFO_ARCH_X86
-#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_GCC || SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_MINGW32
+#if SD_CPUIDX86_CC_TYPE == SD_SYSINFO_CC_TYPE_GCC || SD_CPUIDX86_CC_TYPE == SD_SYSINFO_CC_TYPE_MINGW32
 static int
 cpuid_check_support_x86_gcc (void)
 {
@@ -281,9 +281,9 @@ cpuid_check_support_x86_gcc (void)
 
   return eax != ecx;
 }
-#endif /* SD_SYSINFO_CCTYPE_GCC */
+#endif /* SD_SYSINFO_CC_TYPE_GCC */
 
-#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_SUN_C
+#if SD_CPUIDX86_CC_TYPE == SD_SYSINFO_CC_TYPE_SUN_C
 static int
 cpuid_check_support_x86_sun (void)
 {
@@ -302,7 +302,7 @@ cpuid_check_support_x86_sun (void)
 
   return eax != ecx;
 }
-#endif /* SD_SYSINFO_CCTYPE_SUN_C */
+#endif /* SD_SYSINFO_CC_TYPE_SUN_C */
 #endif /* SD_SYSINFO_ARCH_X86 */
 
 static int
@@ -311,18 +311,18 @@ cpuid_check_support (void)
   int supported = 0;
 
 #if SD_CPUIDX86_ARCH == SD_SYSINFO_ARCH_X86_64
-#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_GCC || SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_MINGW32
+#if SD_CPUIDX86_CC_TYPE == SD_SYSINFO_CC_TYPE_GCC || SD_CPUIDX86_CC_TYPE == SD_SYSINFO_CC_TYPE_MINGW32
   supported = cpuid_check_support_x86_64_gcc ();
-#endif /* SD_SYSINFO_CCTYPE_GCC */
+#endif /* SD_SYSINFO_CC_TYPE_GCC */
 #endif /* SD_SYSINFO_ARCH_X86 */
 
 #if SD_CPUIDX86_ARCH == SD_SYSINFO_ARCH_X86
-#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_GCC || SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_MINGW32
+#if SD_CPUIDX86_CC_TYPE == SD_SYSINFO_CC_TYPE_GCC || SD_CPUIDX86_CC_TYPE == SD_SYSINFO_CC_TYPE_MINGW32
   supported = cpuid_check_support_x86_gcc ();
-#endif /* SD_SYSINFO_CCTYPE_GCC */
-#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_SUN_C
+#endif /* SD_SYSINFO_CC_TYPE_GCC */
+#if SD_CPUIDX86_CC_TYPE == SD_SYSINFO_CC_TYPE_SUN_C
   supported = cpuid_check_support_x86_sun ();
-#endif /* SD_SYSINFO_CCTYPE_SUN_C */
+#endif /* SD_SYSINFO_CC_TYPE_SUN_C */
 #endif /* SD_SYSINFO_ARCH_X86 */
 
   if (supported == 0) {
@@ -339,7 +339,7 @@ cpuid_check_support (void)
  */
 
 #if SD_CPUIDX86_ARCH == SD_SYSINFO_ARCH_X86_64
-#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_GCC || SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_MINGW32
+#if SD_CPUIDX86_CC_TYPE == SD_SYSINFO_CC_TYPE_GCC || SD_CPUIDX86_CC_TYPE == SD_SYSINFO_CC_TYPE_MINGW32
 static void
 cpuid_exec_gcc_x86_64 (uint32_t val,  uint32_t *eax, uint32_t *ebx,
                        uint32_t *ecx, uint32_t *edx)
@@ -353,11 +353,11 @@ cpuid_exec_gcc_x86_64 (uint32_t val,  uint32_t *eax, uint32_t *ebx,
     : "0" (val)
   );
 }
-#endif /* SD_SYSINFO_CCTYPE_GCC */
+#endif /* SD_SYSINFO_CC_TYPE_GCC */
 #endif /* SD_SYSINFO_ARCH_X86_64 */
 
 #if SD_CPUIDX86_ARCH == SD_SYSINFO_ARCH_X86
-#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_GCC || SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_MINGW32
+#if SD_CPUIDX86_CC_TYPE == SD_SYSINFO_CC_TYPE_GCC || SD_CPUIDX86_CC_TYPE == SD_SYSINFO_CC_TYPE_MINGW32
 static void
 cpuid_exec_gcc_x86 (uint32_t val,  uint32_t *eax, uint32_t *ebx,
                     uint32_t *ecx, uint32_t *edx)
@@ -371,8 +371,8 @@ cpuid_exec_gcc_x86 (uint32_t val,  uint32_t *eax, uint32_t *ebx,
     : "0" (val)
   );
 }
-#endif /* SD_SYSINFO_CCTYPE_GCC */
-#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_SUN_C
+#endif /* SD_SYSINFO_CC_TYPE_GCC */
+#if SD_CPUIDX86_CC_TYPE == SD_SYSINFO_CC_TYPE_SUN_C
 static void
 cpuid_exec_x86_sun (uint32_t val,  uint32_t *eax, uint32_t *ebx,
                     uint32_t *ecx, uint32_t *edx)
@@ -388,7 +388,7 @@ cpuid_exec_x86_sun (uint32_t val,  uint32_t *eax, uint32_t *ebx,
   asm ("movl 24(%ebp), %esp");
   asm ("movl %edx, 0(%esp)");
 }
-#endif /* SD_SYSINFO_CCTYPE_SUN_C */
+#endif /* SD_SYSINFO_CC_TYPE_SUN_C */
 #endif /* SD_SYSINFO_ARCH_X86 */
 
 static void
@@ -396,18 +396,18 @@ cpuid_exec (uint32_t val,  uint32_t *eax, uint32_t *ebx,
             uint32_t *ecx, uint32_t *edx)
 {
 #if SD_CPUIDX86_ARCH == SD_SYSINFO_ARCH_X86_64
-#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_GCC || SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_MINGW32
+#if SD_CPUIDX86_CC_TYPE == SD_SYSINFO_CC_TYPE_GCC || SD_CPUIDX86_CC_TYPE == SD_SYSINFO_CC_TYPE_MINGW32
   cpuid_exec_gcc_x86_64 (val, eax, ebx, ecx, edx);
-#endif /* SD_SYSINFO_CCTYPE_GCC */
+#endif /* SD_SYSINFO_CC_TYPE_GCC */
 #endif /* SD_SYSINFO_ARCH_X86_64 */
 
 #if SD_CPUIDX86_ARCH == SD_SYSINFO_ARCH_X86
-#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_GCC || SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_MINGW32
+#if SD_CPUIDX86_CC_TYPE == SD_SYSINFO_CC_TYPE_GCC || SD_CPUIDX86_CC_TYPE == SD_SYSINFO_CC_TYPE_MINGW32
   cpuid_exec_gcc_x86 (val, eax, ebx, ecx, edx);
-#endif /* SD_SYSINFO_CCTYPE_GCC */
-#if SD_CPUIDX86_CCTYPE == SD_SYSINFO_CCTYPE_SUN_C
+#endif /* SD_SYSINFO_CC_TYPE_GCC */
+#if SD_CPUIDX86_CC_TYPE == SD_SYSINFO_CC_TYPE_SUN_C
   cpuid_exec_x86_sun (val, eax, ebx, ecx, edx);
-#endif /* SD_SYSINFO_CCTYPE_SUN_C */
+#endif /* SD_SYSINFO_CC_TYPE_SUN_C */
 #endif /* SD_SYSINFO_ARCH_X86 */
 }
 

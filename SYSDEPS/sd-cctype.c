@@ -156,6 +156,6 @@ int main (void)
 #if defined(__WATCOMC__)
   var = "WATCOM";
 #endif
-  printf("SD_SYSINFO_CCTYPE_%s\n", var);
+  printf("SD_SYSINFO_CC_TYPE_%s\n", var);
   return 0;
 }

@@ -1,7 +1,7 @@
 SD_SYSINFO_OS                     : integer : required
 SD_SYSINFO_OSVERSION              : string  : required
 SD_SYSINFO_ARCH                   : integer : required
-SD_SYSINFO_CCTYPE                 : integer : required
+SD_SYSINFO_CC_TYPE                : integer : required
 SD_SYSINFO_CFLAGS                 : string  : required
 SD_SYSINFO_LDFLAGS                : string  : required
 SD_SYSINFO_CCVERSION              : string  : required

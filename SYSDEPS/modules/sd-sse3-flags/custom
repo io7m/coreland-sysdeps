@@ -9,10 +9,10 @@ ${SYSDEP_UTIL_ECHO} ${SYSDEP_CPU_EXT} |
 
 if [ $? -eq 0 ]
 then
-  case ${SYSDEP_CCTYPE} in
-    SYSDEP_CCTYPE_GCC)   ${SYSDEP_UTIL_ECHO} '-msse3' > "${fout}";;
-    SYSDEP_CCTYPE_INTEL) ${SYSDEP_UTIL_ECHO} '-msse3' > "${fout}";;
-    *)                   ${SYSDEP_UTIL_ECHO} > "${fout}";;
+  case ${SYSDEP_CC_TYPE} in
+    SYSDEP_CC_TYPE_GCC)   ${SYSDEP_UTIL_ECHO} '-msse3' > "${fout}";;
+    SYSDEP_CC_TYPE_INTEL) ${SYSDEP_UTIL_ECHO} '-msse3' > "${fout}";;
+    *)                    ${SYSDEP_UTIL_ECHO} > "${fout}";;
   esac
 else
   ${SYSDEP_UTIL_ECHO} > "${fout}"
