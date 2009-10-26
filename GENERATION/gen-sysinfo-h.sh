@@ -6,6 +6,6 @@ echo
 echo
 ./gen_h.sh cctype.txt  SD_SYSINFO_CCTYPE
 echo
-./gen_h.sh adatype.txt SD_SYSINFO_ADATYPE
+./gen_h.sh adatype.txt SD_SYSINFO_ADA_TYPE
 echo
 ./gen_h.sh cpu_ext.txt SD_SYSINFO_CPU_EXT

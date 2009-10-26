@@ -314,7 +314,7 @@ then
   #----------------------------------------------------------------------
   # optional Ada components
 
-  SYSDEP_ADA_TYPE="SD_SYSINFO_ADATYPE_UNKNOWN"
+  SYSDEP_ADA_TYPE="SD_SYSINFO_ADA_TYPE_UNKNOWN"
   SYSDEP_ADA_VERSION="0.0.0"
 
   if [ "${SYSDEP_ADA_COMP}" ]
@@ -418,8 +418,8 @@ else
   #
 
   # Find compiler type (adjusting value if necessary).
-  SYSDEP_ADA_TYPE="SD_SYSINFO_ADA_TYPE_`${SYSDEP_FILE} get "conf-x-adatype" "SD_SYSINFO_ADATYPE_UNKNOWN"`"
-  SYSDEP_ADA_TYPE=`SDM_adjust_prefix "SD_SYSINFO_ADATYPE_" "${SYSDEP_ADA_TYPE}"` ||
+  SYSDEP_ADA_TYPE="SD_SYSINFO_ADA_TYPE_`${SYSDEP_FILE} get "conf-x-adatype" "SD_SYSINFO_ADA_TYPE_UNKNOWN"`"
+  SYSDEP_ADA_TYPE=`SDM_adjust_prefix "SD_SYSINFO_ADA_TYPE_" "${SYSDEP_ADA_TYPE}"` ||
     SYSDEP_FATAL "could not adjust string prefix for SYSDEP_ADA_TYPE"
   export SYSDEP_ADA_TYPE
 

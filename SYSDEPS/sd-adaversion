@@ -15,7 +15,7 @@ cleanup_exit()
 
 unknown()
 {
-  ${SYSDEP_UTIL_ECHO} "SD_SYSINFO_ADATYPE_UNKNOWN 0.0.0"
+  ${SYSDEP_UTIL_ECHO} "SD_SYSINFO_ADA_TYPE_UNKNOWN 0.0.0"
   cleanup_exit
 }
 
