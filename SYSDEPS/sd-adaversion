@@ -13,9 +13,14 @@ cleanup_exit()
   ${SYSDEP_UTIL_EXIT} 0
 }
 
+output_with_prefix()
+{
+  ${SYSDEP_UTIL_ECHO} "SD_SYSINFO_ADA_TYPE_$1 $2"
+}
+
 unknown()
 {
-  ${SYSDEP_UTIL_ECHO} "SD_SYSINFO_ADA_TYPE_UNKNOWN 0.0.0"
+  output_with_prefix "UNKNOWN" "0.0.0"
   cleanup_exit
 }
 
@@ -40,7 +45,7 @@ try_gnat()
            "${WORKDIR}/ver_gnat.ali" ${ADA_LDFLAGS}
       if [ $? -eq 0 ]
       then
-        "${WORKDIR}/ver_gnat"
+        output_with_prefix `${WORKDIR}/ver_gnat`
         cleanup_exit
       fi
     fi
