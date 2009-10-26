@@ -33,18 +33,18 @@ define SD_SYSINFO_ARCH "${SYSDEP_ARCH}"
 define SD_SYSINFO_CC_TYPE "${SYSDEP_CC_TYPE}"
 define SD_SYSINFO_CFLAGS \""${SYSDEP_CFLAGS}"\"
 define SD_SYSINFO_LDFLAGS \""${SYSDEP_LDFLAGS}"\"
-define SD_SYSINFO_CCVERSION \""${SYSDEP_CCVERSION}"\"
+define SD_SYSINFO_CC_VERSION \""${SYSDEP_CC_VERSION}"\"
 
-major=`${SYSDEP_UTIL_ECHO} "${SYSDEP_CCVERSION}" | ${SYSDEP_UTIL_AWK} -F. '{print $1}'` ||
+major=`${SYSDEP_UTIL_ECHO} "${SYSDEP_CC_VERSION}" | ${SYSDEP_UTIL_AWK} -F. '{print $1}'` ||
   SYSDEP_FATAL "could not get C compiler major version"
-minor=`${SYSDEP_UTIL_ECHO} "${SYSDEP_CCVERSION}" | ${SYSDEP_UTIL_AWK} -F. '{print $2}'` ||
+minor=`${SYSDEP_UTIL_ECHO} "${SYSDEP_CC_VERSION}" | ${SYSDEP_UTIL_AWK} -F. '{print $2}'` ||
   SYSDEP_FATAL "could not get C compiler minor version"
-patch=`${SYSDEP_UTIL_ECHO} "${SYSDEP_CCVERSION}" | ${SYSDEP_UTIL_AWK} -F. '{print $3}'` ||
+patch=`${SYSDEP_UTIL_ECHO} "${SYSDEP_CC_VERSION}" | ${SYSDEP_UTIL_AWK} -F. '{print $3}'` ||
   SYSDEP_FATAL "could not get C compiler patch version"
 
-define SD_SYSINFO_CCVERSION_MAJOR "$major"
-define SD_SYSINFO_CCVERSION_MINOR "$minor"
-define SD_SYSINFO_CCVERSION_PATCH "$patch"
+define SD_SYSINFO_CC_VERSION_MAJOR "$major"
+define SD_SYSINFO_CC_VERSION_MINOR "$minor"
+define SD_SYSINFO_CC_VERSION_PATCH "$patch"
 
 #----------------------------------------------------------------------
 # Ada
@@ -109,8 +109,8 @@ ver=`${SYSDEP_UTIL_GREP} 'SD_SYSINFO_OSVERSION ' "${fout}" \
 cc=`${SYSDEP_UTIL_GREP} 'SD_SYSINFO_CC_TYPE ' "${fout}" \
  | ${SYSDEP_UTIL_SED} -e 's/SD_SYSINFO_CC_TYPE_//g' | ${SYSDEP_UTIL_AWK} '{print $NF}'` ||
   SYSDEP_FATAL "could not extract C compiler type"
-ccver=`${SYSDEP_UTIL_GREP} 'SD_SYSINFO_CCVERSION ' "${fout}" \
- | ${SYSDEP_UTIL_SED} -e 's/SD_SYSINFO_CCVERSION//g' | ${SYSDEP_UTIL_AWK} '{print $NF}'` ||
+ccver=`${SYSDEP_UTIL_GREP} 'SD_SYSINFO_CC_VERSION ' "${fout}" \
+ | ${SYSDEP_UTIL_SED} -e 's/SD_SYSINFO_CC_VERSION//g' | ${SYSDEP_UTIL_AWK} '{print $NF}'` ||
   SYSDEP_FATAL "could not extract C compiler version"
 arch=`${SYSDEP_UTIL_GREP} 'SD_SYSINFO_ARCH ' "${fout}" \
  | ${SYSDEP_UTIL_SED} -e 's/SD_SYSINFO_ARCH_//g' | ${SYSDEP_UTIL_AWK} '{print $NF}'` ||

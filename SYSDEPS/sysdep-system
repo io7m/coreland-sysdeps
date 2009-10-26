@@ -242,11 +242,11 @@ then
   export SYSDEP_OSVERSION
 
   # Find compiler version.
-  SYSDEP_CCVERSION="`SDM_lock_and_exec         \
+  SYSDEP_CC_VERSION="`SDM_lock_and_exec         \
     ${SYSDEP_BASE_DIRECTORY}/sd-ccversion.lock \
     ${SYSDEP_BASE_DIRECTORY}/sd-ccversion`" ||
       SYSDEP_ERROR "sd-ccversion failed - compiler version will be marked '0.0.0'"
-  export SYSDEP_CCVERSION
+  export SYSDEP_CC_VERSION
 
   # Find CPU features (Altivec, SSE etc).
   SYSDEP_CPU_EXT="`SDM_lock_and_exec          \
@@ -374,8 +374,8 @@ else
   export SYSDEP_CC_TYPE
 
   # Find compiler version.
-  SYSDEP_CCVERSION=`${SYSDEP_FILE} get "conf-x-ccver" "0.0.0"`
-  export SYSDEP_CCVERSION
+  SYSDEP_CC_VERSION=`${SYSDEP_FILE} get "conf-x-ccver" "0.0.0"`
+  export SYSDEP_CC_VERSION
 
   # Find CPU features.
   SYSDEP_CPU_EXT=`${SYSDEP_FILE} get "conf-x-cpufeat" ""`

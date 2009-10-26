@@ -1517,22 +1517,22 @@ main (void)
 #else
   printf("system does not have sd_sysinfo_ldflags\n");
 #endif
-#ifdef SD_SYSINFO_CCVERSION
+#ifdef SD_SYSINFO_CC_VERSION
   printf("system has sd_sysinfo_ccversion\n");
 #else
   printf("system does not have sd_sysinfo_ccversion\n");
 #endif
-#ifdef SD_SYSINFO_CCVERSION_MAJOR
+#ifdef SD_SYSINFO_CC_VERSION_MAJOR
   printf("system has sd_sysinfo_ccversion_major\n");
 #else
   printf("system does not have sd_sysinfo_ccversion_major\n");
 #endif
-#ifdef SD_SYSINFO_CCVERSION_MINOR
+#ifdef SD_SYSINFO_CC_VERSION_MINOR
   printf("system has sd_sysinfo_ccversion_minor\n");
 #else
   printf("system does not have sd_sysinfo_ccversion_minor\n");
 #endif
-#ifdef SD_SYSINFO_CCVERSION_PATCH
+#ifdef SD_SYSINFO_CC_VERSION_PATCH
   printf("system has sd_sysinfo_ccversion_patch\n");
 #else
   printf("system does not have sd_sysinfo_ccversion_patch\n");
