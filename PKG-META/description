@@ -1,7 +1,75 @@
 <p>
-This package provides modular compile-time feature detection
-and can be easily hooked into any ordinary Makefile.
+This package provides compile-time feature detection and external package
+detection. It has been carefully designed to avoid the serious design
+and implementation flaws of packages with similar goals.
 </p>
 <p>
-It is written using ISO C and POSIX sh.
+The package is implemented using a strict, portable subset of the POSIX
+shell utilities and minimal pieces of ISO C90.
+</p>
+<p>
+From the perspective of a developer using the package, the package adds
+no dependencies on external tools to the project and is completely self
+contained.
+</p>
+<p>
+Other packages with similar goals tend to work from a monolithic design,
+requiring developers to write complicated build scripts and manual
+workarounds for hard-to-detect features and packages (and, of course,
+remember to write them correctly again in every future project). The
+sysdeps package categorically rejects this approach and provides a
+trivial module system requiring no configuration or writing of build
+scripts.
+</p>
+<p>
+The sysdeps package is designed from the ground up to be completely safe
+to run from parallel software builds. Each module uses a private
+workspace for temporary files and any project global support/feature
+detection programs that need to be compiled are done so under the
+protection of a simple locking scheme.
+</p>
+<p>
+The package can currently detect:</p>
+<p>
+<ul>
+<li><span>CPU features such as MMX, MMX2, 3DNow!, SSE, Altivec</span></li>
+<li><span>CPU L1 instruction cache size</span></li>
+<li><span>CPU L1 data cache size</span></li>
+<li><span>CPU L2 cache size</span></li>
+<li><span>CPU L3 cache size</span></li>
+<li><span>CPU cache line size</span></li>
+<li><span>CPU model</span></li>
+<li><span>Number of CPUs in the system</span></li>
+<li><span>Operating system</span></li>
+<li><span>Version of operating system</span></li>
+<li><span>C compiler vendor</span></li>
+<li><span>Version of C compiler</span></li>
+<li><span>Hardware architecture</span></li>
+<li><span>Ada compiler vendor</span></li>
+<li><span>Version of Ada compiler</span></li>
+</ul>
+</p>
+<p>
+These are detected as standard, without any additional modules
+required. They can be extremely useful when, for example, writing
+high-performance numerical software.</p>
+<p>
+The package comes with various optional modules that can detect,
+for example:</p>
+<p>
+<ul>
+<li><span>Various features of ISO C, such as 'inline' support</span></li>
+<li><span>System interfaces that have been historically problematic, such as <span class="file_name">signal.h</span></span></li>
+<li><span>Presence of math functions in the standard C library</span></li>
+<li><span>Libraries required to use system network socket functions</span></li>
+<li><span>Libraries required to use dynamic library loading</span></li>
+<li><span>Detection of native byte order</span></li>
+</ul>
+</p>
+<p>
+At the time of writing, there are close to 200 modules for
+various system features and external packages. This number is
+steadily increasing. The modular design, of course, ensures that
+complexity does not become an issue as it is isolated inside
+optional modules.
 </p>
