@@ -359,15 +359,15 @@ fi
 # Static library search.
 #
 
-if [ -f slib ]
+if [ -f static_lib ]
 then
-  STATIC_LIBRARY="`${SYSDEP_LINE} 1 < slib`" ||
-    SDM_module_fatal "could not read 'slib'"
+  STATIC_LIBRARY="`${SYSDEP_LINE} 1 < static_lib`" ||
+    SDM_module_fatal "could not read 'static_lib'"
 
-  if [ -f "os_ext/${OS_LOWER}/slib" ]
+  if [ -f "os_ext/${OS_LOWER}/static_lib" ]
   then
-    STATIC_LIBRARY="`${SYSDEP_LINE} 1 < os_ext/${OS_LOWER}/slib`" ||
-      SDM_module_fatal "could not read 'os_ext/${OS_LOWER}/slib'"
+    STATIC_LIBRARY="`${SYSDEP_LINE} 1 < os_ext/${OS_LOWER}/static_lib`" ||
+      SDM_module_fatal "could not read 'os_ext/${OS_LOWER}/static_lib'"
   fi
 
   STATIC_LIBRARY_FILE="lib${STATIC_LIBRARY}.a"
