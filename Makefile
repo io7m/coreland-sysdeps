@@ -3,7 +3,214 @@
 default: all
 
 all:\
-depchklist depchklist.o
+local depchklist depchklist.o
+
+# Mkf-local
+local:\
+_opengl_obj.c \
+_sd_byteorder.h \
+_sd_chflags.h \
+_sd_direntry.h \
+_sd_dlopen.h \
+_sd_dup2.h \
+_sd_fcntl.h \
+_sd_float32.h \
+_sd_float64.h \
+_sd_fork.h \
+_sd_inline.h \
+_sd_int16.h \
+_sd_int32.h \
+_sd_int64.h \
+_sd_io-notice.h \
+_sd_longlong.h \
+_sd_math.h \
+_sd_mmap.h \
+_sd_posix_rt.h \
+_sd_ptr_uint.h \
+_sd_select.h \
+_sd_sendfile.h \
+_sd_sig_action.h \
+_sd_sig_pmask.h \
+_sd_sockets.h \
+_sd_streams.h \
+_sd_sysinfo.h \
+_sd_uint16.h \
+_sd_uint32.h \
+_sd_uint64.h \
+flags-agar-core \
+flags-agar-core-ada \
+flags-agar-gui \
+flags-agar-gui-ada \
+flags-aiff \
+flags-altivec \
+flags-alut \
+flags-c_string \
+flags-carbon \
+flags-cc-vector \
+flags-chrono \
+flags-chrono-ada \
+flags-circbuf \
+flags-corelib \
+flags-enet \
+flags-fastcgi \
+flags-fcntl \
+flags-flac \
+flags-flac-ada \
+flags-fltk11 \
+flags-fltk2 \
+flags-getopt-ada \
+flags-glsoload \
+flags-gltxload \
+flags-glut \
+flags-integer \
+flags-io_poll \
+flags-jack \
+flags-loadso \
+flags-lua \
+flags-lua-ada \
+flags-lua-load \
+flags-lua-physfs \
+flags-lua-physfs-ada \
+flags-math \
+flags-matrix4 \
+flags-mmx \
+flags-msg-ada \
+flags-netlib \
+flags-openal \
+flags-opengl \
+flags-opengl-ada \
+flags-openssl \
+flags-pdcgi \
+flags-pgada \
+flags-physfs \
+flags-physfs-ada \
+flags-plexlog \
+flags-plexlog-ada \
+flags-png \
+flags-pngload \
+flags-portaudio \
+flags-posix_rt \
+flags-pthr_rt \
+flags-pthreads \
+flags-samplerate \
+flags-samplerate-ada \
+flags-sdl \
+flags-sdl-ada \
+flags-sdl-ada-annex \
+flags-sdl-gfx \
+flags-sdl-image \
+flags-sdl-img-ada \
+flags-sdl-mixer \
+flags-sdl-ttf \
+flags-sdl-ttf-ada \
+flags-serial_io \
+flags-silc \
+flags-skel \
+flags-smtplib \
+flags-sndfile \
+flags-sndfile-ada \
+flags-sqlite3 \
+flags-sqlite3-ada \
+flags-sse \
+flags-sse2 \
+flags-sse3 \
+flags-stack-ada \
+flags-test \
+flags-test-custom \
+flags-tiff \
+flags-vector \
+libs-agar-core \
+libs-agar-core-ada-S \
+libs-agar-gui \
+libs-agar-gui-ada-S \
+libs-aiff-S \
+libs-alut \
+libs-c_string-S \
+libs-carbon \
+libs-chrono \
+libs-chrono-S \
+libs-chrono-ada-S \
+libs-circbuf \
+libs-circbuf-S \
+libs-corelib \
+libs-corelib-S \
+libs-dlopen \
+libs-enet-S \
+libs-fastcgi \
+libs-fcntl \
+libs-flac \
+libs-flac-ada-S \
+libs-fltk11 \
+libs-fltk11-S \
+libs-fltk2 \
+libs-fltk2-S \
+libs-getopt-ada-S \
+libs-glsoload-S \
+libs-gltxload-S \
+libs-glut \
+libs-integer \
+libs-integer-S \
+libs-io_poll-S \
+libs-jack \
+libs-loadso \
+libs-loadso-S \
+libs-lua-S \
+libs-lua-ada-S \
+libs-lua-load-S \
+libs-lua-physfs-S \
+libs-lua-physfs-ada-S \
+libs-math \
+libs-matrix4-S \
+libs-msg-ada-S \
+libs-netlib \
+libs-netlib-S \
+libs-openal \
+libs-opengl \
+libs-opengl-ada-S \
+libs-openssl \
+libs-openssl-S \
+libs-pdcgi-S \
+libs-pgada-S \
+libs-physfs \
+libs-physfs-S \
+libs-physfs-ada-S \
+libs-plexlog-S \
+libs-plexlog-ada-S \
+libs-png \
+libs-pngload-S \
+libs-portaudio \
+libs-posix_rt \
+libs-pthr_rt \
+libs-pthreads \
+libs-samplerate \
+libs-samplerate-ada-S \
+libs-sdl \
+libs-sdl-ada-S \
+libs-sdl-ada-annex-S \
+libs-sdl-gfx-S \
+libs-sdl-image \
+libs-sdl-img-ada-S \
+libs-sdl-mixer \
+libs-sdl-ttf \
+libs-sdl-ttf-ada-S \
+libs-sendfile \
+libs-serial_io-S \
+libs-skel-S \
+libs-smtplib-S \
+libs-sndfile \
+libs-sndfile-ada-S \
+libs-sockets \
+libs-sqlite3 \
+libs-sqlite3-ada-S \
+libs-stack-ada-S \
+libs-tiff \
+libs-vector \
+libs-vector-S \
+
+
+local_pre:
+local_clean:
+
 
 #----------------------------------------------------------------------
 # SYSDEPS start
@@ -420,9 +627,10 @@ _sd_sig_action.h:
 	@echo SYSDEPS sd-signal run create _sd_sig_pmask.h _sd_sig_action.h 
 	@(cd SYSDEPS && ./sd-run modules/sd-signal)
 _sd_sig_pmask.h: _sd_sig_action.h
-libs-sockets:
-	@echo SYSDEPS sd-sockets run create libs-sockets 
+_sd_sockets.h:
+	@echo SYSDEPS sd-sockets run create libs-sockets _sd_sockets.h 
 	@(cd SYSDEPS && ./sd-run modules/sd-sockets)
+libs-sockets: _sd_sockets.h
 flags-sse:
 	@echo SYSDEPS sd-sse-flags run create flags-sse 
 	@(cd SYSDEPS && ./sd-run modules/sd-sse-flags)
@@ -976,7 +1184,7 @@ sd-signal_clean:
 	@echo SYSDEPS sd-signal clean _sd_sig_pmask.h _sd_sig_action.h 
 	@(cd SYSDEPS && ./sd-clean modules/sd-signal)
 sd-sockets_clean:
-	@echo SYSDEPS sd-sockets clean libs-sockets 
+	@echo SYSDEPS sd-sockets clean libs-sockets _sd_sockets.h 
 	@(cd SYSDEPS && ./sd-clean modules/sd-sockets)
 sd-sse-flags_clean:
 	@echo SYSDEPS sd-sse-flags clean flags-sse 
@@ -1387,7 +1595,7 @@ conf-cc conf-ld
 mk-systype:\
 conf-cc conf-ld
 
-clean-all: sysdeps_clean obj_clean ext_clean
+clean-all: sysdeps_clean local_clean obj_clean ext_clean
 clean: obj_clean
 obj_clean:
 	rm -f depchklist depchklist.o

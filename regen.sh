@@ -32,5 +32,10 @@ mv depchklist.c.tmp depchklist.c ||
 #----------------------------------------------------------------------
 # regen makefile
 
+GENERATION/gen-local.sh > Mkf-local.tmp ||
+  fatal "could not generate Mkf-local"
+mv Mkf-local.tmp Mkf-local ||
+  fatal "could not rename Mkf-local.tmp"
+
 info "Makefile" 
 make clean-all regen
