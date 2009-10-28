@@ -3,7 +3,7 @@
 exec 1> "$1"
 
 case "$SYSDEP_OS" in
-  SYSDEP_OS_DARWIN)
+  SD_SYSINFO_OS_DARWIN)
     ${SYSDEP_UTIL_ECHO} "-framework SDL_ttf"
     ;;
   *)
