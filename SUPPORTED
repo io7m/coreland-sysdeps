@@ -1,4 +1,4 @@
-darwin     8.11.0         gcc           4.3.0  ppc    unknown 0.0.0
+darwin     8.11.0         gcc           4.3.0  ppc    gnat_fsf 4.3.0
 darwin     9.8.0          gcc           4.0.1  x86
 darwin     9.8.0          gcc           4.0.1  x86_64
 darwin     9.8.0          gcc           4.3.3  x86_64 gnat_gpl 2009.5.19
