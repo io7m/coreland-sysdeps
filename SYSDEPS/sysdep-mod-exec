@@ -150,7 +150,9 @@ then
   then
     SDM_module_exit_success
   else
-    SDM_module_fatal "custom program reported failure"
+    SYSDEP_ERROR "custom program reported failure"
+    SDM_module_fail
+    ${SYSDEP_EXIT} 0
   fi
 else
   if [ -f "custom" ]
