@@ -359,7 +359,7 @@ fi
 # Static library search.
 #
 
-if [ -f static_lib ]
+if [ -f "static_lib" ]
 then
   STATIC_LIBRARY="`${SYSDEP_LINE} 1 < static_lib`" ||
     SDM_module_fatal "could not read 'static_lib'"
