@@ -149,3 +149,5 @@
                readability/maintainability.
 20090829 code: added serial_io-flags
 20090829 code: added serial_io-libs-S
+20091028 code: Finish large rewrite of all subsystems. sysdeps has essentially
+               jumped three major version numbers.
