@@ -28,6 +28,11 @@ then
   mkdir SYSDEPS/modules || fatal "could not create SYSDEPS/modules directory"
 fi
 
+if [ ! -d SYSDEPS/status ]
+then
+  mkdir SYSDEPS/status || fatal "could not create SYSDEPS/status directory"
+fi
+
 FAILED=0
 
 for FILE in `echo ${SYSDEP_REPOSITORY}/*`
