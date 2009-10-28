@@ -23,7 +23,7 @@ SDM_files_move()
       ${SYSDEP_UTIL_CAT} "$file" >> "${SYSDEP_OUTPUT_DIRECTORY}/$file"
       SYSDEP_REMOVE "${file}"
     else
-      cp "$file" "${SYSDEP_OUTPUT_DIRECTORY}/$file"
+      ${SYSDEP_UTIL_CP} "$file" "${SYSDEP_OUTPUT_DIRECTORY}/$file"
       SYSDEP_REMOVE "${file}"
     fi
   done
