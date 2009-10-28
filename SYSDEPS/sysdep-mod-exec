@@ -142,16 +142,16 @@ ${SYSDEP_UTIL_TOUCH} ${SDM_CREATES} || SDM_module_fatal "could not create empty 
 if [ -x "custom" ]
 then
   ./custom ${SDM_CREATES}
-  if [ $? -eq 0 ]
-  then
-    SDM_module_succeed
-  else
-    SYSDEP_ERROR "custom program reported failure"
-    SDM_module_fail
-  fi
+  RETURN_CODE=$?
 
   SDM_files_move
-  SDM_module_exit_success
+
+  if [ ${RETURN_CODE} -eq 0 ]
+  then
+    SDM_module_exit_success
+  else
+    SDM_module_fatal "custom program reported failure"
+  fi
 else
   if [ -f "custom" ]
   then
