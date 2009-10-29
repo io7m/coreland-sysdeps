@@ -23,6 +23,7 @@
 #include "_sd_sendfile.h"
 #include "_sd_sig_action.h"
 #include "_sd_sig_pmask.h"
+#include "_sd_sockets.h"
 #include "_sd_streams.h"
 #include "_sd_sysinfo.h"
 #include "_sd_uint16.h"
@@ -277,25 +278,25 @@ main (void)
 #else
   printf("system does not have sd_int64_supported\n");
 #endif
-#ifdef SD_IO_NOTICE_SUPPORT_KQUEUE
-  printf("system has sd_io_notice_support_kqueue\n");
+#ifdef SD_IO_NOTICE_SUPPORTED_KQUEUE
+  printf("system has sd_io_notice_supported_kqueue\n");
 #else
-  printf("system does not have sd_io_notice_support_kqueue\n");
+  printf("system does not have sd_io_notice_supported_kqueue\n");
 #endif
-#ifdef SD_IO_NOTICE_SUPPORT_EPOLL
-  printf("system has sd_io_notice_support_epoll\n");
+#ifdef SD_IO_NOTICE_SUPPORTED_EPOLL
+  printf("system has sd_io_notice_supported_epoll\n");
 #else
-  printf("system does not have sd_io_notice_support_epoll\n");
+  printf("system does not have sd_io_notice_supported_epoll\n");
 #endif
-#ifdef SD_IO_NOTICE_SUPPORT_POLL
-  printf("system has sd_io_notice_support_poll\n");
+#ifdef SD_IO_NOTICE_SUPPORTED_POLL
+  printf("system has sd_io_notice_supported_poll\n");
 #else
-  printf("system does not have sd_io_notice_support_poll\n");
+  printf("system does not have sd_io_notice_supported_poll\n");
 #endif
-#ifdef SD_IO_NOTICE_SUPPORT_SELECT
-  printf("system has sd_io_notice_support_select\n");
+#ifdef SD_IO_NOTICE_SUPPORTED_SELECT
+  printf("system has sd_io_notice_supported_select\n");
 #else
-  printf("system does not have sd_io_notice_support_select\n");
+  printf("system does not have sd_io_notice_supported_select\n");
 #endif
 #ifdef SD_HAVE_LONGLONG
   printf("system has longlong\n");
@@ -1482,6 +1483,21 @@ main (void)
 #else
   printf("system does not have sigprocmask\n");
 #endif
+#ifdef SD_SOCKET_SUPPORTED
+  printf("system has sd_socket_supported\n");
+#else
+  printf("system does not have sd_socket_supported\n");
+#endif
+#ifdef SD_SOCKET_SUPPORTED_POSIX
+  printf("system has sd_socket_supported_posix\n");
+#else
+  printf("system does not have sd_socket_supported_posix\n");
+#endif
+#ifdef SD_SOCKET_SUPPORTED_WINSOCK
+  printf("system has sd_socket_supported_winsock\n");
+#else
+  printf("system does not have sd_socket_supported_winsock\n");
+#endif
 #ifdef SD_HAVE_STREAMS
   printf("system has streams\n");
 #else
@@ -1493,9 +1509,9 @@ main (void)
   printf("system does not have sd_sysinfo_os\n");
 #endif
 #ifdef SD_SYSINFO_OS_VERSION
-  printf("system has sd_sysinfo_osversion\n");
+  printf("system has sd_sysinfo_os_version\n");
 #else
-  printf("system does not have sd_sysinfo_osversion\n");
+  printf("system does not have sd_sysinfo_os_version\n");
 #endif
 #ifdef SD_SYSINFO_ARCH
   printf("system has sd_sysinfo_arch\n");
@@ -1503,9 +1519,9 @@ main (void)
   printf("system does not have sd_sysinfo_arch\n");
 #endif
 #ifdef SD_SYSINFO_CC_TYPE
-  printf("system has sd_sysinfo_cctype\n");
+  printf("system has sd_sysinfo_cc_type\n");
 #else
-  printf("system does not have sd_sysinfo_cctype\n");
+  printf("system does not have sd_sysinfo_cc_type\n");
 #endif
 #ifdef SD_SYSINFO_CFLAGS
   printf("system has sd_sysinfo_cflags\n");
@@ -1518,24 +1534,24 @@ main (void)
   printf("system does not have sd_sysinfo_ldflags\n");
 #endif
 #ifdef SD_SYSINFO_CC_VERSION
-  printf("system has sd_sysinfo_ccversion\n");
+  printf("system has sd_sysinfo_cc_version\n");
 #else
-  printf("system does not have sd_sysinfo_ccversion\n");
+  printf("system does not have sd_sysinfo_cc_version\n");
 #endif
 #ifdef SD_SYSINFO_CC_VERSION_MAJOR
-  printf("system has sd_sysinfo_ccversion_major\n");
+  printf("system has sd_sysinfo_cc_version_major\n");
 #else
-  printf("system does not have sd_sysinfo_ccversion_major\n");
+  printf("system does not have sd_sysinfo_cc_version_major\n");
 #endif
 #ifdef SD_SYSINFO_CC_VERSION_MINOR
-  printf("system has sd_sysinfo_ccversion_minor\n");
+  printf("system has sd_sysinfo_cc_version_minor\n");
 #else
-  printf("system does not have sd_sysinfo_ccversion_minor\n");
+  printf("system does not have sd_sysinfo_cc_version_minor\n");
 #endif
 #ifdef SD_SYSINFO_CC_VERSION_PATCH
-  printf("system has sd_sysinfo_ccversion_patch\n");
+  printf("system has sd_sysinfo_cc_version_patch\n");
 #else
-  printf("system does not have sd_sysinfo_ccversion_patch\n");
+  printf("system does not have sd_sysinfo_cc_version_patch\n");
 #endif
 #ifdef SD_SYSINFO_ADA_CFLAGS
   printf("system has sd_sysinfo_ada_cflags\n");

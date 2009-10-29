@@ -3,7 +3,7 @@
 IFS="
 "
 
-DEFINES=`cd SYSDEPS && ./sd-defines`
+DEFINES=`./sysdeps-defines` || exit 1
 for def in ${DEFINES}
 do
   xdef=`echo $def | sed -e 's/SD_HAVE_//g' | tr [A-Z] [a-z]`

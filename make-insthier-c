@@ -1,0 +1,97 @@
+#!/bin/sh
+
+fatal()
+{
+  echo "fatal: $1" 1>&2
+  exit 1
+}
+
+(
+cat <<EOF
+#include "insthier.h"
+#include "install.h"
+
+#ifndef CONF_REPOS
+#  error "CONF_REPOS not defined"
+#endif
+
+#ifndef CONF_BINDIR
+#  error "CONF_BINDIR not defined"
+#endif
+
+struct install_item insthier[] = {
+
+  /*
+   * Base directories.
+   */
+
+  { INST_MKDIR, 0, 0, CONF_REPOS,  0, 0, 0755 },
+  { INST_MKDIR, 0, 0, CONF_BINDIR, 0, 0, 0755 },
+
+  /*
+   * Module hierarchy.
+   */
+
+EOF
+) || fatal "could not write prelude"
+
+DIRECTORIES=`find SYSDEPS -type d | sort` || fatal "could not list directories"
+for DIR in ${DIRECTORIES}
+do
+  (
+  cat <<EOF
+  { INST_MKDIR, 0, 0, CONF_REPOS"/${DIR}", 0, 0, 0755 },
+EOF
+  ) || fatal "could not write entry"
+done
+
+FILES=`find SYSDEPS -type f | sort` || fatal "could not list files"
+for FILE in ${FILES}
+do
+  FILE_BASE=`basename ${FILE}` || fatal "could not get basename of file"
+  DIR_BASE=`dirname ${FILE}`   || fatal "could not get dirname of file"
+  PERM=644
+
+  case "${FILE_BASE}" in
+    sd-*.c)   PERM=644 ;;
+    sd-*.h)   PERM=644 ;;
+    sd-*)     PERM=755 ;;
+    custom)   PERM=755 ;;
+    sysdep-*) PERM=755 ;;
+  esac
+
+  (
+  cat <<EOF
+  { INST_COPY, "${FILE}", 0, CONF_REPOS"/${DIR_BASE}", 0, 0, 0${PERM} },
+EOF
+  ) || fatal "could not write entry"
+done
+
+(
+cat <<EOF
+
+  /*
+   * Core sysdeps-* executables.
+   */
+
+EOF
+) || fatal "could not write prelude"
+
+
+FILES=`ls sysdeps-*` || fatal "could not list sysdeps-* executables"
+for FILE in ${FILES}
+do
+  (
+  cat <<EOF
+  { INST_COPY, "${FILE}", 0, CONF_BINDIR, 0, 0, 0755 },
+EOF
+  ) || fatal "could not write entry"
+done
+
+(
+cat <<EOF
+};
+
+unsigned long insthier_len = sizeof(insthier) / sizeof(struct install_item);
+EOF
+) || fatal "could not close file"

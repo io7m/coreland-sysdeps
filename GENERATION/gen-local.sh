@@ -1,8 +1,6 @@
 #!/bin/sh
 
-cd SYSDEPS || exit 1
-
-CREATES=`./sd-creates | sort`
+CREATES=`./sysdeps-creates | sort`
 
 echo "local:\\"
 
@@ -16,5 +14,10 @@ cat <<EOF
 
 local_pre:
 local_clean:
+
+
+SYSDEPS/README: make-readme VERSION
+	./make-readme > SYSDEPS/README.tmp
+	mv SYSDEPS/README.tmp SYSDEPS/README
 
 EOF

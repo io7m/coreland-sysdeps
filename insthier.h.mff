@@ -1,0 +1,3 @@
+insthier.h: conf-repos conf-bindir
+	./make-insthier-h > insthier.h.tmp
+	mv insthier.h.tmp insthier.h

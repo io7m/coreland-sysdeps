@@ -5,7 +5,7 @@ cat <<EOF
 
 EOF
 
-headers=`cd SYSDEPS && ./sd-creates | grep '\.h$'`
+headers=`./sysdeps-creates | grep '\.h$'`
 for header in ${headers}
 do
   cat <<EOF

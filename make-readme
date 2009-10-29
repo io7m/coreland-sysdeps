@@ -1,5 +1,9 @@
-sysdeps 3.0.0
+#!/bin/sh
+
+cat VERSION || exit 1
+exec cat <<EOF
 http://coreland.ath.cx/code/sysdeps
 
 These files are not user-serviceable. If you are experiencing
 build failures, please read the documentation at the URL above.
+EOF

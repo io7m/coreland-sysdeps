@@ -12,13 +12,13 @@ info()
 }
 
 #----------------------------------------------------------------------
-# generate conf-ccfflist
+# generate depchklist.iff
 
-info "conf-ccfflist"
-(cd SYSDEPS && ./sd-creates | grep '^flags-') > conf-ccfflist.tmp ||
-  fatal "could not generate conf-ccfflist.tmp"
-mv conf-ccfflist.tmp conf-ccfflist ||
-  fatal "could not rename conf-ccfflist.tmp"
+info "depchklist.iff"
+(./sysdeps-creates | grep '^flags-') > depchklist.iff.tmp ||
+  fatal "could not generate depchklist.iff.tmp"
+mv depchklist.iff.tmp depchklist.iff ||
+  fatal "could not rename depchklist.iff.tmp"
 
 #----------------------------------------------------------------------
 # generate depchklist.c
@@ -28,6 +28,15 @@ info "depchklist.c"
   fatal "could not generate depchklist.c.tmp"
 mv depchklist.c.tmp depchklist.c ||
   fatal "could not rename depchklist.c.tmp"
+
+#----------------------------------------------------------------------
+# generate insthier.c
+
+info "insthier.c"
+./make-insthier-c > insthier.c.tmp ||
+  fatal "could not generate insthier.c.tmp"
+mv insthier.c.tmp insthier.c ||
+  fatal "could not rename insthier.c"
 
 #----------------------------------------------------------------------
 # regen makefile

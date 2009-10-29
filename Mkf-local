@@ -203,3 +203,8 @@ libs-vector-S \
 local_pre:
 local_clean:
 
+
+SYSDEPS/README: make-readme VERSION
+	./make-readme > SYSDEPS/README.tmp
+	mv SYSDEPS/README.tmp SYSDEPS/README
+

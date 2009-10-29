@@ -3,7 +3,28 @@
 default: all
 
 all:\
-local depchklist depchklist.o
+local ctxt/bindir.o ctxt/ctxt.a ctxt/fakeroot.o ctxt/repos.o ctxt/version.o \
+deinstaller deinstaller.o depchklist depchklist.o install-core.o \
+install-error.o install-posix.o install-win32.o install.a installer installer.o \
+instchk instchk.o insthier.o
+
+# Mkf-deinstall
+deinstall: deinstaller conf-sosuffix
+	./deinstaller
+deinstall-dryrun: deinstaller conf-sosuffix
+	./deinstaller dryrun
+
+# Mkf-install
+install: installer postinstall conf-sosuffix SYSDEPS/README
+	./installer
+	./postinstall
+
+install-dryrun: installer conf-sosuffix
+	./installer dryrun
+
+# Mkf-instchk
+install-check: instchk conf-sosuffix
+	./instchk
 
 # Mkf-local
 local:\
@@ -210,6 +231,11 @@ libs-vector-S \
 
 local_pre:
 local_clean:
+
+
+SYSDEPS/README: make-readme VERSION
+	./make-readme > SYSDEPS/README.tmp
+	mv SYSDEPS/README.tmp SYSDEPS/README
 
 
 #----------------------------------------------------------------------
@@ -1530,23 +1556,7 @@ vector-libs-S_clean \
 #----------------------------------------------------------------------
 
 cc-compile:\
-conf-cc conf-cctype conf-systype conf-cflags conf-ccfflist flags-agar-core-ada \
-	flags-agar-core flags-agar-gui-ada flags-agar-gui flags-aiff flags-alut \
-	flags-c_string flags-chrono-ada flags-chrono flags-circbuf flags-corelib \
-	flags-enet flags-fastcgi flags-flac-ada flags-flac flags-fltk11 flags-fltk2 \
-	flags-getopt-ada flags-glsoload flags-gltxload flags-glut flags-integer \
-	flags-io_poll flags-jack flags-loadso flags-lua-ada flags-lua-load flags-lua \
-	flags-lua-physfs-ada flags-lua-physfs flags-carbon flags-matrix4 flags-msg-ada \
-	flags-netlib flags-openal flags-opengl-ada flags-opengl flags-openssl \
-	flags-pdcgi flags-pgada flags-physfs-ada flags-physfs flags-plexlog-ada \
-	flags-plexlog flags-png flags-pngload flags-portaudio flags-samplerate-ada \
-	flags-samplerate flags-altivec flags-fcntl flags-math flags-mmx flags-posix_rt \
-	flags-pthreads flags-pthr_rt flags-sse flags-sse2 flags-sse3 flags-test \
-	flags-test-custom flags-sdl-ada-annex flags-sdl-ada flags-sdl flags-sdl-gfx \
-	flags-sdl-image flags-sdl-img-ada flags-sdl-mixer flags-sdl-ttf-ada \
-	flags-sdl-ttf flags-serial_io flags-silc flags-skel flags-smtplib \
-	flags-sndfile-ada flags-sndfile flags-sqlite3-ada flags-sqlite3 flags-stack-ada \
-	flags-tiff flags-vector flags-cc-vector
+conf-cc conf-cctype conf-systype conf-cflags
 
 cc-link:\
 conf-ld conf-ldtype conf-systype conf-ldflags
@@ -1562,9 +1572,61 @@ conf-ldtype:\
 conf-ld mk-ldtype
 	./mk-ldtype > conf-ldtype.tmp && mv conf-ldtype.tmp conf-ldtype
 
+conf-sosuffix:\
+mk-sosuffix
+	./mk-sosuffix > conf-sosuffix.tmp && mv conf-sosuffix.tmp conf-sosuffix
+
 conf-systype:\
 mk-systype
 	./mk-systype > conf-systype.tmp && mv conf-systype.tmp conf-systype
+
+# ctxt/bindir.c.mff
+ctxt/bindir.c: mk-ctxt conf-bindir
+	rm -f ctxt/bindir.c
+	./mk-ctxt ctxt_bindir < conf-bindir > ctxt/bindir.c
+
+ctxt/bindir.o:\
+cc-compile ctxt/bindir.c
+	./cc-compile ctxt/bindir.c
+
+ctxt/ctxt.a:\
+cc-slib ctxt/ctxt.sld ctxt/bindir.o ctxt/fakeroot.o ctxt/repos.o ctxt/version.o
+	./cc-slib ctxt/ctxt ctxt/bindir.o ctxt/fakeroot.o ctxt/repos.o ctxt/version.o
+
+# ctxt/fakeroot.c.mff
+ctxt/fakeroot.c: mk-ctxt conf-fakeroot
+	rm -f ctxt/fakeroot.c
+	./mk-ctxt ctxt_fakeroot < conf-fakeroot > ctxt/fakeroot.c
+
+ctxt/fakeroot.o:\
+cc-compile ctxt/fakeroot.c
+	./cc-compile ctxt/fakeroot.c
+
+# ctxt/repos.c.mff
+ctxt/repos.c: mk-ctxt conf-repos
+	rm -f ctxt/repos.c
+	./mk-ctxt ctxt_repos < conf-repos > ctxt/repos.c
+
+ctxt/repos.o:\
+cc-compile ctxt/repos.c
+	./cc-compile ctxt/repos.c
+
+# ctxt/version.c.mff
+ctxt/version.c: mk-ctxt VERSION
+	rm -f ctxt/version.c
+	./mk-ctxt ctxt_version < VERSION > ctxt/version.c
+
+ctxt/version.o:\
+cc-compile ctxt/version.c
+	./cc-compile ctxt/version.c
+
+deinstaller:\
+cc-link deinstaller.ld deinstaller.o insthier.o install.a ctxt/ctxt.a
+	./cc-link deinstaller deinstaller.o insthier.o install.a ctxt/ctxt.a
+
+deinstaller.o:\
+cc-compile deinstaller.c install.h ctxt.h
+	./cc-compile deinstaller.c
 
 depchklist:\
 cc-link depchklist.ld depchklist.o
@@ -1575,9 +1637,59 @@ cc-compile depchklist.c _sd_byteorder.h _sd_chflags.h _sd_direntry.h \
 _sd_dlopen.h _sd_dup2.h _sd_fcntl.h _sd_float32.h _sd_float64.h _sd_fork.h \
 _sd_inline.h _sd_int16.h _sd_int32.h _sd_int64.h _sd_io-notice.h _sd_longlong.h \
 _sd_math.h _sd_mmap.h _sd_posix_rt.h _sd_ptr_uint.h _sd_select.h _sd_sendfile.h \
-_sd_sig_action.h _sd_sig_pmask.h _sd_streams.h _sd_sysinfo.h _sd_uint16.h \
-_sd_uint32.h _sd_uint64.h
+_sd_sig_action.h _sd_sig_pmask.h _sd_sockets.h _sd_streams.h _sd_sysinfo.h \
+_sd_uint16.h _sd_uint32.h _sd_uint64.h
 	./cc-compile depchklist.c
+
+install-core.o:\
+cc-compile install-core.c install.h
+	./cc-compile install-core.c
+
+install-error.o:\
+cc-compile install-error.c install.h
+	./cc-compile install-error.c
+
+install-posix.o:\
+cc-compile install-posix.c install.h
+	./cc-compile install-posix.c
+
+install-win32.o:\
+cc-compile install-win32.c install.h
+	./cc-compile install-win32.c
+
+install.a:\
+cc-slib install.sld install-core.o install-posix.o install-win32.o \
+install-error.o
+	./cc-slib install install-core.o install-posix.o install-win32.o \
+	install-error.o
+
+install.h:\
+install_os.h
+
+installer:\
+cc-link installer.ld installer.o insthier.o install.a ctxt/ctxt.a
+	./cc-link installer installer.o insthier.o install.a ctxt/ctxt.a
+
+installer.o:\
+cc-compile installer.c ctxt.h install.h
+	./cc-compile installer.c
+
+instchk:\
+cc-link instchk.ld instchk.o insthier.o install.a ctxt/ctxt.a
+	./cc-link instchk instchk.o insthier.o install.a ctxt/ctxt.a
+
+instchk.o:\
+cc-compile instchk.c ctxt.h install.h
+	./cc-compile instchk.c
+
+# insthier.h.mff
+insthier.h: conf-repos conf-bindir
+	./make-insthier-h > insthier.h.tmp
+	mv insthier.h.tmp insthier.h
+
+insthier.o:\
+cc-compile insthier.c insthier.h install.h
+	./cc-compile insthier.c
 
 mk-cctype:\
 conf-cc conf-systype
@@ -1592,15 +1704,22 @@ conf-ld conf-systype conf-cctype
 mk-mk-ctxt:\
 conf-cc conf-ld
 
+mk-sosuffix:\
+conf-systype
+
 mk-systype:\
 conf-cc conf-ld
 
 clean-all: sysdeps_clean local_clean obj_clean ext_clean
 clean: obj_clean
 obj_clean:
-	rm -f depchklist depchklist.o
+	rm -f ctxt/bindir.c ctxt/bindir.o ctxt/ctxt.a ctxt/fakeroot.c ctxt/fakeroot.o \
+	ctxt/repos.c ctxt/repos.o ctxt/version.c ctxt/version.o deinstaller \
+	deinstaller.o depchklist depchklist.o install-core.o install-error.o \
+	install-posix.o install-win32.o install.a installer installer.o instchk \
+	instchk.o insthier.h insthier.o
 ext_clean:
-	rm -f conf-cctype conf-ldtype conf-systype mk-ctxt
+	rm -f conf-cctype conf-ldtype conf-sosuffix conf-systype mk-ctxt
 
 regen:
 	cpj-genmk > Makefile.tmp && mv Makefile.tmp Makefile
