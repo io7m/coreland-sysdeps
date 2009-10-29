@@ -2,7 +2,7 @@
 
 fatal()
 {
-  echo "sd-defines: fatal: $1" 1>&2
+  echo "sysdeps-defines: fatal: $1" 1>&2
   exit 1
 }
 
