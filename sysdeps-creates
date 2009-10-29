@@ -1,0 +1,23 @@
+#!/bin/sh
+
+fatal()
+{
+  echo "sysdeps-creates: fatal: $1" 1>&2
+  exit 1
+}
+
+cd SYSDEPS           || fatal "could not change directory to SYSDEPS"
+MODULES=`ls modules` || fatal "could not list modules"
+
+for module in ${MODULES}
+do
+  if [ -f "modules/${module}/creates" ]
+  then
+    CREATES=`cat modules/${module}/creates` ||
+      fatal "could not read modules/${module}/creates"
+    for file in ${CREATES}
+    do
+      echo "${file}"
+    done
+  fi
+done
