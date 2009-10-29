@@ -1,4 +1,3 @@
-
 #!/bin/sh
 
 PROGRAM_NAME="sysdeps-remove"
