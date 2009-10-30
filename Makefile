@@ -3,10 +3,10 @@
 default: all
 
 all:\
-local ctxt/bindir.o ctxt/ctxt.a ctxt/fakeroot.o ctxt/repos.o ctxt/version.o \
-deinstaller deinstaller.o depchklist depchklist.o install-core.o \
-install-error.o install-posix.o install-win32.o install.a installer installer.o \
-instchk instchk.o insthier.o
+local _opengl_obj.o ctxt/bindir.o ctxt/ctxt.a ctxt/fakeroot.o ctxt/repos.o \
+ctxt/version.o deinstaller deinstaller.o depchklist depchklist.o install-core.o \
+install-posix.o install-win32.o install.a installer installer.o instchk \
+instchk.o insthier.o
 
 # Mkf-deinstall
 deinstall: deinstaller conf-sosuffix
@@ -1555,6 +1555,10 @@ vector-libs-S_clean \
 # SYSDEPS end
 #----------------------------------------------------------------------
 
+_opengl_obj.o:\
+cc-compile _opengl_obj.c
+	./cc-compile _opengl_obj.c
+
 cc-compile:\
 conf-cc conf-cctype conf-systype conf-cflags
 
@@ -1645,10 +1649,6 @@ install-core.o:\
 cc-compile install-core.c install.h
 	./cc-compile install-core.c
 
-install-error.o:\
-cc-compile install-error.c install.h
-	./cc-compile install-error.c
-
 install-posix.o:\
 cc-compile install-posix.c install.h
 	./cc-compile install-posix.c
@@ -1658,10 +1658,8 @@ cc-compile install-win32.c install.h
 	./cc-compile install-win32.c
 
 install.a:\
-cc-slib install.sld install-core.o install-posix.o install-win32.o \
-install-error.o
-	./cc-slib install install-core.o install-posix.o install-win32.o \
-	install-error.o
+cc-slib install.sld install-core.o install-posix.o install-win32.o
+	./cc-slib install install-core.o install-posix.o install-win32.o
 
 install.h:\
 install_os.h
@@ -1713,9 +1711,9 @@ conf-cc conf-ld
 clean-all: sysdeps_clean local_clean obj_clean ext_clean
 clean: obj_clean
 obj_clean:
-	rm -f ctxt/bindir.c ctxt/bindir.o ctxt/ctxt.a ctxt/fakeroot.c ctxt/fakeroot.o \
-	ctxt/repos.c ctxt/repos.o ctxt/version.c ctxt/version.o deinstaller \
-	deinstaller.o depchklist depchklist.o install-core.o install-error.o \
+	rm -f _opengl_obj.o ctxt/bindir.c ctxt/bindir.o ctxt/ctxt.a ctxt/fakeroot.c \
+	ctxt/fakeroot.o ctxt/repos.c ctxt/repos.o ctxt/version.c ctxt/version.o \
+	deinstaller deinstaller.o depchklist depchklist.o install-core.o \
 	install-posix.o install-win32.o install.a installer installer.o instchk \
 	instchk.o insthier.h insthier.o
 ext_clean:
