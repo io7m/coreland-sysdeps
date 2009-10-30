@@ -26,12 +26,20 @@ do
   fi
 done
 
-${SYSDEP_UTIL_ECHO} '/* automatically generated - do not edit */' >> "${csrc_out}"
-${SYSDEP_UTIL_ECHO} 'static const char *opengl_obj[] = {' >> "${csrc_out}"
+${SYSDEP_UTIL_CAT} >> "${csrc_out}" <<EOF
+/* Automatically generated - do not edit */
+
+const char *sd_opengl_objects[] = {
+EOF
+
 for f in ${FOUND}
 do
   ${SYSDEP_UTIL_ECHO} \"${f}\", >> "${csrc_out}"
 done
-${SYSDEP_UTIL_ECHO} '};' >> "${csrc_out}"
+
+${SYSDEP_UTIL_CAT} >> "${csrc_out}" <<EOF
+  0,
+};
+EOF
 
 ${SYSDEP_UTIL_ECHO} "opengl-obj: ${FOUND}" >> "${sysd_out}"
