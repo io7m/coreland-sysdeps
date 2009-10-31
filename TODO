@@ -1,5 +1,9 @@
 http://predef.sourceforge.net/index.php
 
+sysdeps-add:
+
+Correctly copy 'os_ext' and subdirectories in modules!
+
 ------------------------------------------------------------------------
 
 sysdeps-run target in sd-genmk for cross compilation convenience.
