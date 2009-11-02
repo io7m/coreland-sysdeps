@@ -10,11 +10,6 @@ sysdeps-run target in sd-genmk for cross compilation convenience.
 
 ------------------------------------------------------------------------
 
-Move sd-genmk and sd-creates (at least) out of SYSDEPS and place them
-in sysdeps-* namespace.
-
-------------------------------------------------------------------------
-
 sysdeps-genchk for generating test programs:
 
   check.dat
