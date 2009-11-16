@@ -1,0 +1,18 @@
+#!/bin/sh
+
+. "${SYSDEP_SUBS_FILE}" || exit 1
+
+flags_out="$1"
+sysd_out="$2"
+
+OCAML_ROOT=`ocamlc -where` || SYSDEP_FATAL "could not execute ocamlc"
+OCAML_FLAGS="-I${OCAML_ROOT}"
+
+OUTPUT_FLAGS="-DSD_HAVE_OCAML=1 ${OCAML_FLAGS}"
+
+${SYSDEP_UTIL_ECHO} "${OUTPUT_FLAGS}" > "${flags_out}" ||
+  SYSDEP_FATAL "could not write $1"
+${SYSDEP_UTIL_ECHO} "ocaml-flags: ${OCAML_FLAGS}" > "${sysd_out}" ||
+  SYSDEP_FATAL "could not write $2"
+
+${SYSDEP_UTIL_EXIT} 0

@@ -3,8 +3,8 @@
 default: all
 
 all:\
-local _opengl_obj.o ctxt/bindir.o ctxt/ctxt.a ctxt/fakeroot.o ctxt/repos.o \
-ctxt/version.o deinstaller deinstaller.o depchklist depchklist.o install-core.o \
+local ctxt/bindir.o ctxt/ctxt.a ctxt/fakeroot.o ctxt/repos.o ctxt/version.o \
+deinstaller deinstaller.o depchklist depchklist.o install-core.o \
 install-posix.o install-win32.o install.a installer installer.o instchk \
 instchk.o insthier.o
 
@@ -467,6 +467,9 @@ libs-netlib:
 libs-netlib-S:
 	@echo SYSDEPS netlib-libs-S run create libs-netlib-S 
 	@(cd SYSDEPS && ./sd-run modules/netlib-libs-S)
+flags-ocaml:
+	@echo SYSDEPS ocaml-flags run create flags-ocaml 
+	@(cd SYSDEPS && ./sd-run modules/ocaml-flags)
 flags-openal:
 	@echo SYSDEPS openal-flags run create flags-openal 
 	@(cd SYSDEPS && ./sd-run modules/openal-flags)
@@ -1035,6 +1038,9 @@ netlib-libs_clean:
 netlib-libs-S_clean:
 	@echo SYSDEPS netlib-libs-S clean libs-netlib-S 
 	@(cd SYSDEPS && ./sd-clean modules/netlib-libs-S)
+ocaml-flags_clean:
+	@echo SYSDEPS ocaml-flags clean flags-ocaml 
+	@(cd SYSDEPS && ./sd-clean modules/ocaml-flags)
 openal-flags_clean:
 	@echo SYSDEPS openal-flags clean flags-openal 
 	@(cd SYSDEPS && ./sd-clean modules/openal-flags)
@@ -1440,6 +1446,7 @@ msg-ada-libs-S_clean \
 netlib-flags_clean \
 netlib-libs_clean \
 netlib-libs-S_clean \
+ocaml-flags_clean \
 openal-flags_clean \
 openal-libs_clean \
 opengl-ada-flags_clean \
@@ -1554,10 +1561,6 @@ vector-libs-S_clean \
 
 # SYSDEPS end
 #----------------------------------------------------------------------
-
-_opengl_obj.o:\
-cc-compile _opengl_obj.c
-	./cc-compile _opengl_obj.c
 
 cc-compile:\
 conf-cc conf-cctype conf-systype conf-cflags
@@ -1711,11 +1714,11 @@ conf-cc conf-ld
 clean-all: sysdeps_clean local_clean obj_clean ext_clean
 clean: obj_clean
 obj_clean:
-	rm -f _opengl_obj.o ctxt/bindir.c ctxt/bindir.o ctxt/ctxt.a ctxt/fakeroot.c \
-	ctxt/fakeroot.o ctxt/repos.c ctxt/repos.o ctxt/version.c ctxt/version.o \
-	deinstaller deinstaller.o depchklist depchklist.o install-core.o \
-	install-posix.o install-win32.o install.a installer installer.o instchk \
-	instchk.o insthier.h insthier.o
+	rm -f ctxt/bindir.c ctxt/bindir.o ctxt/ctxt.a ctxt/fakeroot.c ctxt/fakeroot.o \
+	ctxt/repos.c ctxt/repos.o ctxt/version.c ctxt/version.o deinstaller \
+	deinstaller.o depchklist depchklist.o install-core.o install-posix.o \
+	install-win32.o install.a installer installer.o instchk instchk.o insthier.h \
+	insthier.o
 ext_clean:
 	rm -f conf-cctype conf-ldtype conf-sosuffix conf-systype mk-ctxt
 
