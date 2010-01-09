@@ -154,3 +154,4 @@
 20091030 code: updated to installer 2.3.0
 20091030 code: updated opengl-obj to 2.0.
 20091116 code: added ocaml-flags.
+20100109 code: updated openal-libs (better searching, correct variables, etc).
