@@ -155,3 +155,4 @@
 20091030 code: updated opengl-obj to 2.0.
 20091116 code: added ocaml-flags.
 20100109 code: updated openal-libs (better searching, correct variables, etc).
+20100111 code: re-updated openal-libs for Darwin, Win32, etc.
