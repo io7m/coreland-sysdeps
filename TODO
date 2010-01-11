@@ -1,5 +1,9 @@
 http://predef.sourceforge.net/index.php
 
+On windows, libraries aren't necessarily prefixed with lib.
+
+Need to check for 'lib${pkg}.dll' and '${pkg}.dll'
+
 ------------------------------------------------------------------------
 
 sysdeps-run target in sd-genmk for cross compilation convenience.
