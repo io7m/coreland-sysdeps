@@ -156,3 +156,5 @@
 20091116 code: added ocaml-flags.
 20100109 code: updated openal-libs (better searching, correct variables, etc).
 20100111 code: re-updated openal-libs for Darwin, Win32, etc.
+20100111 code: correct sysdeps-add recursive copy.
+20100111 code: better flags (again) for win32 for openal-libs.
