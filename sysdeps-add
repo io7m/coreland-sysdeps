@@ -43,15 +43,13 @@ do
   then
     if [ ! -d "${MODULE_DEST}" ]
     then
-      mkdir ${MODULE_DEST} || error "could not create ${MODULE_DEST}"
+      mkdir "${MODULE_DEST}" || error "could not create ${MODULE_DEST}"
     fi
-    if [ ${FAILED_MODULE} -ne 1 ]
+    if [ ${FAILED_MODULE} -eq 0 ]
     then
-      for FILE in `ls ${MODULE_PATH}`
-      do
-        cp "${MODULE_PATH}/${FILE}" ${MODULE_DEST} ||
-          error "could not copy ${MODULE_PATH}/${FILE}"
-      done
+      # Note trailing slash.
+      cp -r "${MODULE_PATH}/" "${MODULE_DEST}" ||
+        error "could not copy ${MODULE_PATH}"
     fi
   else
     error "${MODULE} does not exist in the repository"
