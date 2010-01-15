@@ -158,3 +158,5 @@
 20100111 code: re-updated openal-libs for Darwin, Win32, etc.
 20100111 code: correct sysdeps-add recursive copy.
 20100111 code: better flags (again) for win32 for openal-libs.
+20100115 code: search in ${SYSTEMROOT}/system32, ${SYSTEMROOT}/system,
+               ${SYSTEMROOT} for libraries on win32.
